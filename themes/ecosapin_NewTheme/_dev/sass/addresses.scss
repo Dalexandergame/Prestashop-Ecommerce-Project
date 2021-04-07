@@ -1,0 +1,130 @@
+@import "compass";
+@import "theme_variables";
+
+/*******************************************************
+				Addresses Styles
+********************************************************/
+#addresses {
+	#center_column {
+		.page-heading {
+			// margin: 0 0 22px;
+		}
+		p {
+			margin: 0 0 4px;
+
+			&.p-indent {
+				margin: 0 0 20px;
+			}
+		}
+	}
+	.btn-add {
+		background-color: #a3c272;
+		@include border-radius(26px);
+		color: white;
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		border: none;
+		padding-right: 25px;
+		padding-left: 25px;
+	}
+}
+
+.address {
+	ul {
+		background-color: #fff;
+		border: none;
+		min-height: 253px;
+	}
+	li {
+		color: #6c6c6c;
+		h3 {
+			color: #6c6c6c;
+			font-weight: 400;
+			font-size: 24px;
+			border-left: 1px solid #5c8f16;
+			padding-left: 15px;
+			padding-bottom: 0;
+		}
+		span {
+			font-size: 14px;
+		}
+		a.btn {
+			color: white;
+			font-weight: 700;
+			&.btn-address-modify {
+				background-color: #5c8f16;
+				border-radius: 3px;
+			}
+			&.btn-address-delete {
+				background-color: #1d5202;
+				border-radius: 3px;
+			}
+			span {
+				font-size: 11px;
+			}
+		}
+		&.address_update {
+			margin: 14px 0 6px 0;
+			a {
+				margin: 0 4px 0 0;
+				border: none;
+				padding-right: 20px;
+				padding-left: 20px;
+			}
+		}
+	}
+}
+#addresses p.info-title,
+#address p.info-title {
+    margin-bottom: 1px !important;
+    padding: 15px 0;
+    background-color: #f6f6f6;
+    text-align: center;
+    display: block;
+    color: #6c6c6c;
+    font-size: 14px;
+    font-weight: 400;
+}
+#addresses-container {
+	padding: 20px 15px 10px;
+	background-color: #f6f6f6;	
+}
+#order-opc {
+	#addresses-container {
+		padding: 20px 15px 0px;
+		background-color: #EFF5EA;
+		margin-bottom: 10px;
+		ul.address {
+		    background-color: #fff;
+		    border: none;
+		    min-height: 253px;
+		    li.address_update a {
+		        margin: 0 4px 0 0;
+		        border: none;
+		        padding:6px 12px;
+		    }
+		    .button.button-small span {
+		        display: block;
+		         padding: 0;
+		        border: none;
+		        /* border-color: #8b8a8a; */
+		        &:hover {
+		        	background-color: transparent;
+		        }
+		    }
+		    li a.btn {
+		        background-color: #5c8f16;
+		        border-radius: 3px;
+		        i {
+		        	display: none;
+		        }
+		    }
+		}	
+	}
+	#opc_account {
+		.checkbox {
+			padding-left: 0 !important;
+		}
+	}
+}

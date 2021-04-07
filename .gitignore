@@ -121,6 +121,7 @@ themes/*/
 !themes/classic
 !themes/_core
 !themes/_libraries
+!themes/ecosapin_NewTheme
 
 # Vendors and dependencies
 

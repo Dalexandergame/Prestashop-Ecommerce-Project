@@ -1,0 +1,192 @@
+/**********************************************************
+				Authentication Styles
+**********************************************************/
+#account-creation_form .id_state,
+#account-creation_form .dni,
+#account-creation_form .postcode {
+  display: none; }
+
+#create-account_form {
+  min-height: 297px; }
+  #create-account_form p {
+    margin-bottom: 8px; }
+  #create-account_form .form-group {
+    margin: 0 0 20px 0; }
+
+#login_form {
+  min-height: 297px; }
+  #login_form .lost_text {
+    overflow: hidden;
+    padding-top: 15px; }
+  #login_form .form-group {
+    margin: 0 0 3px 0; }
+    #login_form .form-group.lost_password {
+      margin: 5px 0 15px 0;
+      float: right; }
+      #login_form .form-group.lost_password a {
+        text-decoration: underline; }
+        #login_form .form-group.lost_password a:hover {
+          text-decoration: none; }
+
+#login_form .form-control, #create-account_form .form-control {
+  max-width: 100% !important;
+  border: 1px solid #a3c272;
+  border-radius: 3px;
+  height: 40px;
+  text-indent: 30px; }
+
+#title-gender {
+  padding-top: 20px; }
+  #title-gender label {
+    color: #505050;
+    font-family: "Source Sans Pro";
+    font-size: 13px;
+    font-weight: 400; }
+  #title-gender label.title-gender {
+    margin-right: 21px; }
+
+#account-creation_form .form-group .form-control {
+  max-width: 100% !important;
+  height: 44px;
+  background-color: white;
+  border: 1px solid #a3c272;
+  border-radius: 3px;
+  text-indent: 30px; }
+
+#authentication #center_column form.std .row {
+  margin-bottom: 20px; }
+
+#date_birth label {
+  color: #505050;
+  font-family: "Source Sans Pro";
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 10px; }
+
+label[for="newsletter"],
+label[for="optin"] {
+  color: #505050;
+  font-family: "Source Sans Pro";
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 12px; }
+
+div.selector, div.selector span {
+  background-image: none;
+  height: 42px;
+  background-color: #fff;
+  line-height: 42px; }
+
+div.selector {
+  height: 43px;
+  line-height: 43px;
+  border: 1px solid #a3c272;
+  border-radius: 3px; }
+
+div.selector span {
+  background-image: url(../img/fleche-select.jpg);
+  background-position-y: 3px; }
+
+div.selector.hover span, div.selector.focus span {
+  background-position: right 0;
+  background-position-y: 3px; }
+
+#center_column form.std .row .col-xs-4 {
+  max-width: 129px !important;
+  margin-right: 1px; }
+
+#authentication #center_column form.std .row .col-xs-4 {
+  max-width: 129px !important;
+  margin-right: 13px; }
+
+@media (max-width: 480px) {
+  #authentication #center_column form.std #date_birth.row .col-date {
+    max-width: 300px !important;
+    margin-right: 0;
+    width: 100%;
+    margin: 10px;
+    float: none;
+    padding-left: 10px !important; } }
+#center_column form.std .row label.col-xs-4 {
+  margin-right: 0px;
+  padding-top: 11px;
+  color: #505050;
+  font-family: "Source Sans Pro";
+  font-size: 13px;
+  font-weight: 400; }
+
+.account_creation {
+  padding: 14px 18px 13px;
+  background: #EFF5EA;
+  margin-bottom: 40px; }
+
+#authentication p.form-group {
+  margin-top: 9px; }
+  #authentication p.form-group#address_alias {
+    margin-top: 0; }
+
+#account_adress .form-group div.selector {
+  width: 100% !important;
+  height: 44px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px; }
+  #account_adress .form-group div.selector span {
+    width: 100% !important;
+    text-indent: 22px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "Source Sans Pro";
+    color: #777; }
+
+#authentication hr {
+  margin-right: 10px;
+  margin-left: 10px; }
+
+#authentication p.inline-infos {
+  color: #505050;
+  font-family: "Source Sans Pro";
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 24px; }
+
+#authentication small.inline-infos.text-address {
+  color: #505050;
+  font-family: "Source Sans Pro";
+  font-size: 12px;
+  font-weight: 400;
+  display: block;
+  margin-top: 15px; }
+
+#authentication .textarea {
+  margin-bottom: 20px; }
+
+.oblig {
+  color: #505050;
+  font-family: "Source Sans Pro";
+  font-size: 12px;
+  font-weight: 400;
+  display: block;
+  padding-top: 57px;
+  margin-bottom: 20px !important; }
+
+.account_creation div.submit {
+  padding-right: 12px;
+  margin-bottom: 20px !important; }
+
+#authentication .form-group div.selector span {
+  width: 100% !important;
+  text-indent: 22px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Source Sans Pro";
+  color: #777; }
+
+.label-other {
+  color: #505050;
+  font-family: "Source Sans Pro";
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 37px; }
+
+.span-other {
+  padding-left: 0; }

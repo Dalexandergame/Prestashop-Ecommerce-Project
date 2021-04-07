@@ -1,0 +1,6 @@
+﻿Danke für Ihre Bestellung bei {shop_name},
+
+Ihre Bestellung wird geliefert {date_delivery}
+Créneau horaire sélectionné pour la livraison : {delivery_slot}
+
+{shop_url}

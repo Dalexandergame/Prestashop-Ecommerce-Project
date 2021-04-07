@@ -1,0 +1,69 @@
+/**************************************************************
+					CMS Comment ca marche Styles
+***************************************************************/
+#comment {
+  font-family: "Source Sans Pro"; }
+  #comment .container {
+    position: relative;
+    padding-bottom: 500px; }
+    @media (max-width: 480px) {
+      #comment .container {
+        padding-bottom: inherit; } }
+    @media (max-width: 768px) {
+      #comment .container {
+        padding-bottom: inherit; } }
+  #comment .well {
+    background-color: #dfe9d0;
+    border: none;
+    margin-bottom: 30px;
+    border-radius: 0; }
+    #comment .well .num {
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      background-color: #e2ba00;
+      text-align: center;
+      line-height: 1.5;
+      display: block;
+      color: #222;
+      font-size: 31px;
+      font-weight: 600; }
+      @media (max-width: 480px) {
+        #comment .well .num {
+          margin: 0 auto; } }
+      @media (max-width: 768px) {
+        #comment .well .num {
+          margin: 0 auto; } }
+    @media (max-width: 480px) {
+      #comment .well .col-md-2 {
+        text-align: center;
+        margin-top: 15px; } }
+    @media (max-width: 768px) {
+      #comment .well .col-md-2 {
+        text-align: center;
+        margin-top: 15px; } }
+    #comment .well p {
+      color: #4d7910;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 0;
+      padding: 3% 0;
+      width: 80%;
+      line-height: 1.2 !important; }
+      @media (max-width: 480px) {
+        #comment .well p {
+          width: 100%;
+          line-height: 1.4 !important; } }
+      @media (max-width: 768px) {
+        #comment .well p {
+          width: 100%;
+          line-height: 1.4 !important; } }
+    #comment .well .bd {
+      border-bottom: 2px solid #bbd5b1;
+      margin-bottom: 25px;
+      padding-bottom: 30px; }
+  #comment .com-sap {
+    position: absolute;
+    bottom: 0px;
+    right: -230px;
+    display: block; }
