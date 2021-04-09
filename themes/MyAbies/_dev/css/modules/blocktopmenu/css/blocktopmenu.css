@@ -1,0 +1,43 @@
+#block_top_menu {
+  position: absolute;
+  right: 0;
+  width: auto;
+  padding: 0;
+  top: 30px; }
+  @media (max-width: 992px) {
+    #block_top_menu {
+      position: absolute;
+      right: 0;
+      width: 100%;
+      padding: 0;
+      top: 120px; } }
+  @media (max-width: 480px) {
+    #block_top_menu {
+      background: #F6F6F6; } }
+  @media (max-width: 768px) {
+    #block_top_menu {
+      background: #F6F6F6; } }
+  @media (max-width: 992px) {
+    #block_top_menu {
+      background: #F6F6F6; } }
+
+@media (max-width: 480px) {
+  #header #block_top_menu {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    padding: 0;
+    top: 124px; } }
+
+@media (max-width: 992px) {
+  #header.header-fixed #header_logo {
+    display: none; } }
+
+@media (max-width: 992px) {
+  #header #header_logo img {
+    position: relative;
+    top: -20px; } }
+@media (max-width: 768px) {
+  #header #header_logo img {
+    position: relative;
+    top: 0px; } }
