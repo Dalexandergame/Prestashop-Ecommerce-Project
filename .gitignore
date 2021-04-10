@@ -122,7 +122,7 @@ themes/*/
 !themes/_core
 !themes/_libraries
 !themes/ecosapin_NewTheme
-
+!themes/MyAbies
 # Vendors and dependencies
 
 bower_components/
@@ -144,8 +144,6 @@ themes/default-bootstrap/mails/*
 themes/default-bootstrap/modules/*/mails/*
 !themes/default-bootstrap/modules/*/mails/en
 !themes/ecosapin_NewTheme
-!themes/MyAbies
-
 # MISC
 
 *sitemap.xml
