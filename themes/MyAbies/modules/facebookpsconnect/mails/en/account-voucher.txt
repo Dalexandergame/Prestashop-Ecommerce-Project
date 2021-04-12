@@ -1,0 +1,172 @@
+
+	
+		
+		
+		Message from {shop_name}
+		
+
+			@media only screen and (max-width: 300px){ 
+				body {
+					width:218px !important;
+					margin:auto !important;
+				}
+				.table {width:195px !important;margin:auto !important;}
+				.logo, .titleblock, .linkbelow, .box, .footer, .space_footer{width:auto !important;display: block !important;}		
+				span.title{font-size:20px !important;line-height: 23px !important}
+				span.subtitle{font-size: 14px !important;line-height: 18px !important;padding-top:10px !important;display:block !important;}		
+				td.box p{font-size: 12px !important;font-weight: bold !important;}
+				.table-recap table, .table-recap thead, .table-recap tbody, .table-recap th, .table-recap td, .table-recap tr { 
+					display: block !important; 
+				}
+				.table-recap{width: 200px!important;}
+				.table-recap tr td, .conf_body td{text-align:center !important;}	
+				.address{display: block !important;margin-bottom: 10px !important;}
+				.space_address{display: none !important;}	
+			}
+	@media only screen and (min-width: 301px) and (max-width: 500px) { 
+				body {width:308px!important;margin:auto!important;}
+				.table {width:285px!important;margin:auto!important;}	
+				.logo, .titleblock, .linkbelow, .box, .footer, .space_footer{width:auto!important;display: block!important;}	
+				.table-recap table, .table-recap thead, .table-recap tbody, .table-recap th, .table-recap td, .table-recap tr { 
+					display: block !important; 
+				}
+				.table-recap{width: 293px !important;}
+				.table-recap tr td, .conf_body td{text-align:center !important;}
+				
+			}
+	@media only screen and (min-width: 501px) and (max-width: 768px) {
+				body {width:478px!important;margin:auto!important;}
+				.table {width:450px!important;margin:auto!important;}	
+				.logo, .titleblock, .linkbelow, .box, .footer, .space_footer{width:auto!important;display: block!important;}			
+			}
+	@media only screen and (max-device-width: 480px) { 
+				body {width:308px!important;margin:auto!important;}
+				.table {width:285px;margin:auto!important;}	
+				.logo, .titleblock, .linkbelow, .box, .footer, .space_footer{width:auto!important;display: block!important;}
+				
+				.table-recap{width: 285px!important;}
+				.table-recap tr td, .conf_body td{text-align:center!important;}	
+				.address{display: block !important;margin-bottom: 10px !important;}
+				.space_address{display: none !important;}	
+			}
+
+
+	
+	
+		
+			
+				&nbsp;
+				
+					
+						
+							
+								
+									
+								
+							
+						
+
+
+	
+		
+			Hi {firstname} {lastname},
+			Thank you for creating a customer account at {shop_name}.
+		
+	
+
+
+	&nbsp;
+
+
+	
+		
+			
+				&nbsp;
+				
+					
+						
+							Your {shop_name} login details						
+						
+							Here are your login details:
+							E-mail address: {email}
+							Password: {passwd}
+						
+					
+				
+				&nbsp;
+			
+		
+	
+
+
+	&nbsp;
+
+
+	
+		
+			
+				&nbsp;
+				
+					
+						
+							Discount code						
+						
+							You just won a discount {voucherInfoText} on your next purchase.
+							Here is your voucher code: {voucherCode}. This voucher is valid until  {validityShare}.
+						
+					
+				
+				&nbsp;
+			
+		
+	
+
+
+	&nbsp;
+
+
+	
+		
+			
+				&nbsp;
+				
+					
+						Important Security Tips:
+						
+							Always keep your account details safe.
+							Never disclose your login details to anyone.
+							Change your password regularly.
+							Should you suspect someone is using your account illegally, please notify us immediately.
+						
+					
+				
+				&nbsp;
+			
+		
+	
+
+
+	&nbsp;
+
+
+	
+		
+			You can now place orders on our shop: {shop_name}
+		
+	
+
+
+						
+							&nbsp;
+						
+						
+							
+								{shop_name} powered by PrestaShop&trade;
+							
+						
+					
+				
+				&nbsp;
+			
+		
+	

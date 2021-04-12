@@ -1,0 +1,205 @@
+/********************************************************
+			One-Page Checkout Styles
+********************************************************/
+#order-opc {
+  line-height: 20px; }
+  #order-opc .label-other {
+    color: #505050;
+    font-family: "Source Sans Pro";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 37px;
+    margin-bottom: 0; }
+    #order-opc .label-other:first-child {
+      font-size: 13px; }
+  #order-opc .span-other {
+    padding-left: 0;
+    padding-right: 0; }
+  #order-opc .box {
+    padding-bottom: 20px; }
+  #order-opc .cart_navigation {
+    margin-bottom: 53px; }
+  #order-opc .page-heading.step-num {
+    position: relative;
+    overflow: visible;
+    text-align: center;
+    text-transform: none;
+    color: #5c8f16;
+    font-size: 30px; }
+    #order-opc .page-heading.step-num:after {
+      content: "";
+      width: 100%;
+      height: 1px;
+      background: #5c8f16;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%); }
+    #order-opc .page-heading.step-num b {
+      font-weight: 600;
+      padding: 10px 24px 0;
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      background-color: #fff; }
+    #order-opc .page-heading.step-num span {
+      font-family: "Source Sans Pro";
+      font-size: 30px;
+      font-weight: 600;
+      /* Text style for "01 /" */
+      color: #c4c4c4;
+      text-transform: uppercase; }
+  #order-opc .form-group {
+    margin-bottom: 2px; }
+    #order-opc .form-group .form-control {
+      max-width: 271px; }
+  #order-opc .lost_password {
+    display: inline-block;
+    text-decoration: underline;
+    margin: 5px 0 14px; }
+    #order-opc .lost_password:hover {
+      text-decoration: none; }
+  #order-opc .title_block {
+    font-weight: bold;
+    color: #6c6c6c;
+    padding: 3px 0 6px; }
+  #order-opc .opc-button {
+    padding: 11px 0 0 0; }
+  #order-opc ul.bullet {
+    line-height: 22px;
+    margin-bottom: 5px; }
+  #order-opc .date-select {
+    padding-bottom: 10px; }
+  #order-opc .opc-add-save {
+    margin-top: 20px; }
+  #order-opc #message {
+    margin-bottom: 15px;
+    background-color: white;
+    border: 2px solid #a3c272; }
+  #order-opc #opc_payment_methods {
+    margin-bottom: 30px;
+    background-color: #eff5ea;
+    padding: 40px 15px; }
+    #order-opc #opc_payment_methods p.warning,
+    .order_carrier_content p.warning{
+      color: #ff0000;
+      font-family: "Source Sans Pro";
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 0; }
+  #order-opc #opc_account {
+    margin-bottom: 30px; }
+  #order-opc .address_delivery.select {
+    margin-bottom: 15px; }
+  #order-opc #address_invoice_form.form-group {
+    margin-bottom: 30px; }
+  #order-opc hr {
+    margin-right: 10px;
+    margin-left: 10px; }
+  #order-opc .checkbox-wrap {
+    border-top: 1px solid #d8ded3;
+    border-bottom: 1px solid #d8ded3; }
+    #order-opc .checkbox-wrap .checkbox {
+      margin-top: 30px;
+      margin-bottom: 15px; }
+    #order-opc .checkbox-wrap .checkbox + .checkbox {
+      margin-bottom: 30px;
+      margin-top: 0px; }
+
+#new_account_form .id_state,
+#new_account_form .dni,
+#new_account_form .postcode {
+  display: none; }
+
+div.selector {
+  height: 43px;
+  line-height: 43px;
+  border: 1px solid #a3c272;
+  border-radius: 3px; }
+
+div.selector, div.selector span {
+  background-image: none;
+  height: 42px;
+  background-color: #fff;
+  line-height: 42px; }
+
+div.selector span {
+  background-image: url(../img/fleche-select.jpg);
+  background-position-y: 2px !important; }
+
+div.selector.hover span, div.selector.focus span {
+  background-position: right 0;
+  background-position-y: 2px; }
+
+label[for="newsletter"], label[for="optin"], label[for="invoice_address"], label[for="cgv"], label[for="addressesAreEquals"] {
+  color: #505050;
+  font-family: "Source Sans Pro";
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 12px; }
+  label[for="newsletter"] + a, label[for="optin"] + a, label[for="invoice_address"] + a, label[for="cgv"] + a, label[for="addressesAreEquals"] + a {
+    color: #4b7413;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: underline; }
+
+#new_account_form .form-group div.selector {
+  width: 100% !important;
+  height: 44px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px; }
+
+#new_account_form .form-group div.selector span {
+  width: 100% !important;
+  text-indent: 22px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Source Sans Pro";
+  color: #777; }
+
+#order-opc p.inline-infos {
+  color: #505050;
+  font-family: "Source Sans Pro";
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 24px; }
+
+#order-opc .oblig {
+  color: #505050 !important;
+  font-family: "Source Sans Pro";
+  font-size: 12px;
+  font-weight: 400;
+  display: block;
+  padding-top: 0;
+  margin-bottom: 20px !important; }
+
+.order_carrier_content.box {
+  padding: 14px 18px 13px;
+  background: #EFF5EA;
+  margin-bottom: 40px;
+  border: none; }
+
+.delivery_options_address {
+  padding-top: 30px; }
+
+.delivery_option_radio .radio {
+  top: 5px; }
+
+.delivery_option_desc {
+  color: #c7c7c7;
+  font-size: 14px;
+  line-height: 13px !important;
+  padding: 15px 0 !important; }
+  .delivery_option_desc strong {
+    font-weight: 500;
+    color: #272638;
+    font-size: 18px;
+    display: block; }
+
+.delivery_option_price {
+  text-transform: uppercase;
+  color: #272638;
+  font-size: 20px; }
+  .delivery_option_price .text-wrap {
+    border-left: 1px solid #5c8f16;
+    padding-left: 16px; }
