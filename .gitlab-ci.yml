@@ -30,6 +30,5 @@ Deploy:
   only:
     - master
   script:
-    - apt-get update -qq && apt-get install -y -qq sshpass
     - sshpass -V
-    - sshpass -p $REMOTE_PASS rsync -rp --delete-after -arvz --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
+    - sshpass -p $REMOTE_PASS rsync --progress -avz -e ssh --delete-after --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
