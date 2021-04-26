@@ -11,21 +11,23 @@ default:
     - deploy
   before_script:
     - ssh-keyscan -t rsa $REMOTE_SERVER >> ~/.ssh/known_hosts
-    - mv $PARAMETER_FILE app/config/parameters.php
 
 Compile:
   stage: build
   only:
     - master
   script:
+    - mv $PARAMETER_FILE app/config/parameters.php
     - composer install
   artifacts:
     paths:
-      - vendor/**
+      - app/config/parameters.php
+      - modules
+      - vendor
 
 Deploy:
   stage: deploy
   only:
     - master
   script:
-    - sshpass -p $REMOTE_PASS rsync -rp --delete-after -arvz --delete --quiet --exclude=.git* --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
+    - sshpass -p $REMOTE_PASS rsync -rp --delete-after -arvz --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
