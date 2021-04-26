@@ -28,6 +28,4 @@ Deploy:
   only:
     - master
   script:
-    - ssh-keygen -R $REMOTE_SERVER
-    - cat ~/.ssh/known_hosts
-    - rsync -rp --delete-after -arvz --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
+    - rsync -e "ssh -o StrictHostKeyChecking=no" -rp --delete-after -arvz --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
