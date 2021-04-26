@@ -153,7 +153,6 @@ themes/default-bootstrap/modules/*/mails/*
 /app/Resources/geoip/GeoLite2-City.mmdb
 /app/Resources/translations/*
 !/app/Resources/translations/default
-/app/config/parameters.yml
 /app/config/parameters.php
 /build/
 /phpunit.xml

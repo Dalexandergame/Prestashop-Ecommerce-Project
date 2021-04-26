@@ -1,0 +1,25 @@
+<?php return [
+    'parameters' =>
+        [
+            'database_host' => '127.0.0.1',
+            'database_port' => '3306',
+            'database_name' => 'ecosapin_2021',
+            'database_user' => 'root',
+            'database_password' => '',
+            'database_prefix' => 'ps_',
+            'database_engine' => 'InnoDB',
+            'mailer_transport' => 'smtp',
+            'mailer_host' => '127.0.0.1',
+            'mailer_user' => NULL,
+            'mailer_password' => NULL,
+            'secret' => 'egkqhAZPJ7zOLnnHXz7JqzgbNxAhGuQjyoOEzkJ2ktDZBfCKIf5gpke8V8MqCbxm',
+            'ps_caching' => 'CacheMemcache',
+            'ps_cache_enable' => false,
+            'ps_creation_date' => '2021-04-01',
+            'locale' => 'en-US',
+            'use_debug_toolbar' => true,
+            'cookie_key' => 'FHwVJaYeSEU0VWEYNY0mzb3Lqyx6MXweIxRnctqZ3TQxcebUHWiW5AdkkcgrhGAH',
+            'cookie_iv' => '5wB1uFWOTOAFG75775VzLQNSZ0J7LKnT',
+            'new_cookie_key' => 'def0000065b4dbfa39f3fe12af6a9d477f2c3f22e7ebe92c825850df68ef861b713ef57abd649389d6670b04b482aa74ea9a92dc5e7951d6c9d62c04815f4b53e778d512',
+        ],
+];
