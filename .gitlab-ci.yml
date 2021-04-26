@@ -1,0 +1,28 @@
+# Ecosapin pipeline description
+
+image: composer:2.0
+
+stages:
+  - build
+  - deploy
+
+default:
+  before_script:
+    - mv $PARAMETER_FILE app/config/parameters.php
+
+Compile:
+  stage: build
+  only:
+    - master
+  script:
+    - composer install
+  artifacts:
+    paths:
+      - vendor/**
+
+Deploy:
+  stage: deploy
+  only:
+    - master
+  script:
+    - sshpass -p $REMOTE_PASS rsync -rp --delete-after -arvz --delete --quiet --exclude=.git* --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
