@@ -10,6 +10,7 @@ default:
   tags:
     - deploy
   before_script:
+    - ssh-keyscan -t rsa $REMOTE_SERVER >> ~/.ssh/known_hosts
     - mv $PARAMETER_FILE app/config/parameters.php
 
 Compile:
