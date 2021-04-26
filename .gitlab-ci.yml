@@ -22,7 +22,7 @@ Compile:
   artifacts:
     paths:
       - app/config/parameters.php
-      - modules
+#      - modules
 #      - vendor
 
 Deploy:
@@ -30,5 +30,4 @@ Deploy:
   only:
     - master
   script:
-    - sshpass -V
-    - sshpass -p $REMOTE_PASS rsync --progress -avz -e ssh --delete-after --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
+    - rsync -rp --delete-after -arvz --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
