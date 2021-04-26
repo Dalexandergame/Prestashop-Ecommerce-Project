@@ -9,8 +9,6 @@ stages:
 default:
   tags:
     - deploy
-  before_script:
-    - ssh-keyscan -t rsa $REMOTE_SERVER >> ~/.ssh/known_hosts
 
 Compile:
   stage: build
@@ -30,4 +28,5 @@ Deploy:
   only:
     - master
   script:
+    - ssh-keyscan -t rsa $REMOTE_SERVER >> ~/.ssh/known_hosts
     - rsync -rp --delete-after -arvz --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
