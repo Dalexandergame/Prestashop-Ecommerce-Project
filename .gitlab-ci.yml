@@ -16,12 +16,12 @@ Compile:
     - master
   script:
     - mv $PARAMETER_FILE app/config/parameters.php
-#    - composer install
+    - composer install
   artifacts:
     paths:
       - app/config/parameters.php
-#      - modules
-#      - vendor
+      - modules
+      - vendor
 
 Deploy:
   stage: deploy
