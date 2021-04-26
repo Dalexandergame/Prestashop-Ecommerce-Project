@@ -28,4 +28,4 @@ Deploy:
   only:
     - master
   script:
-    - rsync -e "ssh -o StrictHostKeyChecking=no" -rp --delete-after -arvz --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
+    - sshpass -vp $REMOTE_PASS rsync -e "ssh -o StrictHostKeyChecking=no" -rp --delete-after -arvz --delete --exclude=.git --exclude=.gitlab-ci.yml . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
