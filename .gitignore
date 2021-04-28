@@ -116,6 +116,8 @@ app/config/config.php
 
 modules/*
 !modules/planningdeliverybycarrier
+!modules/tunnelvente
+!modules/.gitkeep
 override/*
 themes/*/
 !themes/classic
