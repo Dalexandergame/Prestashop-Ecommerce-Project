@@ -117,6 +117,7 @@ app/config/config.php
 modules/*
 !modules/tunnelvente
 !modules/.gitkeep
+!modules/suivicommandes
 override/*
 themes/*/
 !themes/classic
