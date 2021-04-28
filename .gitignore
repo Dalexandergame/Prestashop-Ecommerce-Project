@@ -115,6 +115,8 @@ app/config/config.php
 # Themes, modules and overrides
 
 modules/*
+!modules/tunnelvente
+!modules/.gitkeep
 override/*
 themes/*/
 !themes/classic
