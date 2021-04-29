@@ -118,6 +118,7 @@ modules/*
 !modules/planningdeliverybycarrier
 !modules/tunnelvente
 !modules/.gitkeep
+!modules/suivicommandes
 override/*
 themes/*/
 !themes/classic
