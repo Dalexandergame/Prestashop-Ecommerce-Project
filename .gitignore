@@ -115,6 +115,7 @@ app/config/config.php
 # Themes, modules and overrides
 
 modules/*
+!modules/planningdeliverybycarrier
 !modules/tunnelvente
 !modules/.gitkeep
 override/*
