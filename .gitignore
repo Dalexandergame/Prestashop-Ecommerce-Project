@@ -119,6 +119,7 @@ modules/*
 !modules/tunnelvente
 !modules/.gitkeep
 !modules/suivicommandes
+!modules/customersearch
 override/*
 themes/*/
 !themes/classic
