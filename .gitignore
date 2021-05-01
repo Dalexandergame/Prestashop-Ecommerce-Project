@@ -116,6 +116,7 @@ app/config/config.php
 
 modules/*
 !modules/.gitkeep
+!modules/advancedstock
 !modules/emarketing
 !modules/followup
 !modules/gamification
