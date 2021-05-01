@@ -123,10 +123,10 @@ modules/*
 !modules/ps_buybuttonlite
 !modules/ps_emailalerts
 !modules/ps_eventbus
+!modules/ps_mbo
 !modules/ps_metrics
 !modules/psaddonsconnect
 !modules/psgdpr
-!modules/mbo
 !modules/referralprogram
 
 # Custom modules
