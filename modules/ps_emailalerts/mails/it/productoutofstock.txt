@@ -1,0 +1,15 @@
+{shop_url}
+
+Salve,
+
+Sono quasi esaurite le scorte di riserva di {product}.
+
+Al momento ci sono meno di {last_qty} articoli in magazzino.
+
+Rimanenza: {qty}
+
+Rifornisci le tue scorte, vai alla sezione Catalogo > Magazzino del tuo back office per gestire le scorte.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,29 @@
+{shop_url}
+
+Salve,
+
+Hai ricevuto una nuova richiesta di restituzione per {shop_name}.
+
+Dettagli Reso
+
+Ordine: {order_name} Effettuato il {date}
+
+Cliente: {firstname} {lastname}, ({email})
+
+Riferimento	Prodotto	Quantità   {items}
+
+Indirizzo di consegna
+
+{delivery_block_html}
+
+Indirizzo di fatturazione
+
+{invoice_block_html}
+
+Messaggio del cliente:
+
+{message}
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

@@ -1,0 +1,14 @@
+{shop_url}
+
+Salve {firstname} {lastname},
+
+Programma di Sponsorizzazione
+
+Siamo lieti di informarti che è disponibile un buono sconto a tuo nome per aver presentato un tuo amico.
+Codice del buono: {voucher_num}, per un importo di {voucher_num}
+
+Sarà sufficiente che al momento di pagare per il prossimo ordine, tu inserisca questo codice.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)

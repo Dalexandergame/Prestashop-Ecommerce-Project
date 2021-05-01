@@ -112,21 +112,37 @@ themes/*/config/settings_*.json
 app/config/parameters.old.yml
 app/config/config.php
 
-# Themes, modules and overrides
+# modules
 
 modules/*
+!modules/.gitkeep
+!modules/emarketing
+!modules/followup
+!modules/gamification
+!modules/ps_accounts
+!modules/ps_buybuttonlite
+!modules/ps_emailalerts
+!modules/ps_eventbus
+!modules/ps_metrics
+!modules/psaddonsconnect
+!modules/psgdpr
+!modules/mbo
+!modules/referralprogram
+
+# Custom modules
 !modules/planningdeliverybycarrier
 !modules/tunnelvente
-!modules/.gitkeep
 !modules/suivicommandes
 !modules/customersearch
-override/*
+
+# Themes
 themes/*/
 !themes/classic
 !themes/_core
 !themes/_libraries
 !themes/ecosapin_NewTheme
 !themes/MyAbies
+
 # Vendors and dependencies
 
 bower_components/

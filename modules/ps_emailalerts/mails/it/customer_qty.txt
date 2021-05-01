@@ -1,0 +1,13 @@
+{shop_url}
+
+Salve,
+
+{product} è ora disponibile.
+
+Buone nuove, questo prodotto è tornato disponibile per l'ordine!
+
+Clicca sul seguente link per visitare la pagina del prodotto e ordinarlo: [{product}]({product_link})
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail&utm_campaign=footer_1-7)
