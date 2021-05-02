@@ -2746,6 +2746,10 @@ class AdminControllerCore extends Controller
      */
     protected function l($string, $class = null, $addslashes = false, $htmlentities = true)
     {
+        if (null === $this->translator) {
+            $this->translator = Context::getContext()->getTranslator();
+        }
+
         $translated = $this->translator->trans($string);
         if ($translated !== $string) {
             return $translated;
