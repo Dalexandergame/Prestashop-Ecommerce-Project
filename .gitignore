@@ -135,6 +135,7 @@ modules/*
 !modules/tunnelvente
 !modules/suivicommandes
 !modules/customersearch
+!modules/ecosapinorders
 
 # Themes
 themes/*/
