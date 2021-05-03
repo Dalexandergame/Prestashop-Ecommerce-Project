@@ -136,6 +136,7 @@ modules/*
 !modules/suivicommandes
 !modules/customersearch
 !modules/gszonevente
+!modules/ecosapinorders
 
 # Themes
 themes/*/
