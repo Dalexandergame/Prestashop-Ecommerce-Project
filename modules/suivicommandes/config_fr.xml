@@ -2,7 +2,7 @@
 <module>
     <name>suivicommandes</name>
     <displayName><![CDATA[Module suivi des commandes]]></displayName>
-    <version><![CDATA[1.0]]></version>
+    <version><![CDATA[2.0]]></version>
     <description><![CDATA[]]></description>
     <author><![CDATA[Pulse Digital]]></author>
     <tab><![CDATA[]]></tab>
