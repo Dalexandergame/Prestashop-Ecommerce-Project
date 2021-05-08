@@ -1,10 +1,4 @@
-{* Display lists*}
-{$lists|@var_dump}
-{foreach from=$lists key=arrayIndex item=trecord}
-   {$arrayIndex}: {$trecord}
-   {$trecord|@print_r}
-   <br>
-{/foreach}
+
 {if $lists}
     <link rel="stylesheet" href="/modules/suivicommandes/css/gmap.css"/>
     <script type="text/javascript" src="//maps.google.com/maps/api/js?key={$gkey}"></script>
