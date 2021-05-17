@@ -635,7 +635,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
                 $assign = array(
                     "warehouses"    => $this->setSelectWarehouses(),
                     "dateLivraison" => $this->dateLivraison,
-                   // "blocks"        => $this->getBlocks(),
+                    "blocks"        => $this->getBlocks(),
                     "token"         => $this->token,
                     "wh"            => "(" . implode(",", $this->warehouse_selected) . ")",
                     "lists"         => $list,
@@ -1301,6 +1301,10 @@ order by `name` asc
         return NULL;
     }
 
+    /**
+     * AdminSuiviCommandesController constructor.
+     * @throws PrestaShopException
+    */
     public function getOSMRequest($idw = NULL, $order = "")
     {
         if (!$idw) {
@@ -1309,7 +1313,8 @@ order by `name` asc
         } else {
             $where = "o.id_warehouse = " . $idw;
         }
-
+        
+        //todo after configuring the SAM module
         $sql = "SELECT o.id_suivi_orders,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, o.id_carrier, o.id_carrier_retour) as id_carrier,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, ca.name, car.name) AS carrier_name,
@@ -1329,9 +1334,13 @@ order by `name` asc
         return $res;
     }
 
+    /**
+     * AdminSuiviCommandesController constructor.
+     * @throws PrestaShopException
+    */
     public function getWarehouseAddressStart($idw)
     {
-
+        //todo after configuring the SAM module
         $sql = "SELECT CONCAT(a.address1,' ',a.postcode,' ',a.city) as addresswh
                 FROM " . _DB_PREFIX_ . "warehouse as w
                 JOIN " . _DB_PREFIX_ . "address as a ON w.id_address = a.id_address
@@ -1341,6 +1350,10 @@ order by `name` asc
         return $res;
     }
 
+    /**
+     * AdminSuiviCommandesController constructor.
+     * @throws PrestaShopException
+    */
     public function ordonnerOSM()
     {
 
@@ -1378,7 +1391,7 @@ order by `name` asc
                 }
                 // tour=open donc on met le point de départ comme arrivée aussi
                 $listPoints .= $latlngStartPoint["lat"] . ',' . $latlngStartPoint["long"];
-
+                
                 if ($i >= 3) {
                     $i++;
                     $url = "http://maps.open-street.fr/api/tsp/?pts=" . $listPoints . "&nb=" . $i . "&mode=driving&unit=m&tour=open&key=" . $this->osmkey;
@@ -1442,6 +1455,10 @@ order by `name` asc
         return false;
     }
 
+    /**
+     * AdminSuiviCommandesController constructor.
+     * @throws PrestaShopException
+    */    
     public function getMap()
     {
         if ($this->isRetour) {
