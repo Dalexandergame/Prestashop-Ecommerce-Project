@@ -35,7 +35,7 @@ class Gszonevente extends Module {
         $this->name = 'gszonevente';
         $this->tab = 'administration';
         $this->version = '1.0.0';
-        $this->author = 'Pulsweb';
+        $this->author = 'Pulseweb';
         $this->need_instance = 0;
 
         /**
@@ -59,13 +59,14 @@ class Gszonevente extends Module {
         Configuration::updateValue('GSZONEVENTE_LIVE_MODE', false);
         include(dirname(__FILE__) . '/sql/install.php');
         return parent::install() &&
-                $this->registerHook('header') &&
-                $this->registerHook('backOfficeHeader');
+            $this->registerHook('header') &&
+            $this->registerHook('backOfficeHeader')&&
+            $this->installTab();
     }
 
     public function uninstall() {
         Configuration::deleteByName('GSZONEVENTE_LIVE_MODE');
-
+        $this->uninstallTab();
         return parent::uninstall();
     }
 
@@ -102,7 +103,7 @@ class Gszonevente extends Module {
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'submitGszoneventeModule';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false)
-                . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
+            . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
 
         $helper->tpl_vars = array(
@@ -204,4 +205,44 @@ class Gszonevente extends Module {
         $this->context->controller->addCSS($this->_path . 'views/css/front.css');
     }
 
+    private function installTab()
+    {
+        $tab = new Tab();
+        $tab->class_name = 'AdminRegion';
+        $tab->module = $this->name;
+        $tab->id_parent = 66;
+        $tab->icon = 'settings_applications';
+        $languages = Language::getLanguages();
+        foreach ($languages as $lang) {
+            $tab->name[$lang['id_lang']] = $this->l('Admin Region');
+        }
+        try {
+            $tab->save();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * @return bool
+     * @throws PrestaShopDatabaseException
+     * @throws PrestaShopException
+     */
+    private function uninstallTab()
+    {
+        $idTab = (int)Tab::getIdFromClassName('AdminRegion');
+        if ($idTab) {
+            $tab = new Tab($idTab);
+            try {
+                $tab->delete();
+            } catch (Exception $e) {
+                echo $e->getMessage();
+                return false;
+            }
+        }
+        return true;
+    }
 }
