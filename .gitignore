@@ -137,6 +137,7 @@ modules/*
 !modules/customersearch
 !modules/gszonevente
 !modules/ecosapinorders
+!modules/ecosapinpartners
 
 # Themes
 themes/*/
