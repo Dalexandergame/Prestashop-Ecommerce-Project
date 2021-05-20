@@ -12,6 +12,9 @@ meta:
       to: ~
 
   available_layouts:
+    layout-content-only:
+      name: Content Only
+      description: Content only, ideal for distraction-free pages such as cms pages.
     layout-full-width:
       name: Full Width
       description: No side columns, ideal for distraction-free pages such as product pages.
@@ -129,7 +132,7 @@ global_settings:
       scope: [stores]
 
 theme_settings:
-  default_layout: layout-full-width
+  default_layout: layout-content-only
   layouts:
     category: layout-left-column
     best-sales: layout-left-column

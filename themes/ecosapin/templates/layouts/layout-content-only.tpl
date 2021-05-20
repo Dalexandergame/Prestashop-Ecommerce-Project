@@ -22,20 +22,79 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  *}
-{extends file='layouts/layout-both-columns.tpl'}
+<!doctype html>
+<html lang="{$language.iso_code}">
 
-{block name='header'}{/block}
-{block name='left_column'}{/block}
-{block name='right_column'}{/block}
-
-{block name='content_wrapper'}
-  <div id="content-wrapper" class="content-only">
-    {hook h="displayContentWrapperTop"}
-    {block name='content'}
-      <p>Hello world! This is HTML5 Boilerplate.</p>
+<head>
+    {block name='head'}
+        {include file='_partials/head.tpl'}
     {/block}
-    {hook h="displayContentWrapperBottom"}
-  </div>
+</head>
+
+<body id="{$page.page_name}" class="{$page.body_classes|classnames}">
+
+{block name='hook_after_body_opening_tag'}
+    {hook h='displayAfterBodyOpeningTag'}
+{/block}
+<div id="page">
+    <div class="bg-home">
+        <div class="header-container">
+            <header id="header">
+                {block name='header'}
+                    {include file='_partials/header.tpl'}
+                {/block}
+            </header>
+        </div>
+        <div class="columns-container">
+            <div id="columns" class="container">
+                {block name='breadcrumb'}
+                    {include file='_partials/breadcrumb.tpl'}
+                {/block}
+                <div id="slider_row" class="row">
+                    <div id="top_column" class="center_column col-xs-12 col-sm-12">{hook h="displayTopColumn"}</div>
+                </div>
+                <div class="row">
+                    {if isset($left_column_size) && !empty($left_column_size)}
+                        <div id="left_column" class="column col-xs-12 col-sm-{$left_column_size|intval}">{$HOOK_LEFT_COLUMN}</div>
+                    {/if}
+                    {if isset($left_column_size) && isset($right_column_size)}{assign var='cols' value=(12 - $left_column_size - $right_column_size)}{else}{assign var='cols' value=12}{/if}
+                    <div id="center_column" class="center_column col-xs-12 col-sm-{$cols|intval}">
+                        {block name='content_wrapper'}
+                            {hook h="displayContentWrapperTop"}
+                            {block name='content'}
+                                <p>Hello world! This is HTML5 Boilerplate.</p>
+                            {/block}
+                            {hook h="displayContentWrapperBottom"}
+                        {/block}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{block name='product_activation'}
+    {include file='catalog/_partials/product-activation.tpl'}
 {/block}
 
-{block name='footer'}{/block}
+{block name='notifications'}
+    {include file='_partials/notifications.tpl'}
+{/block}
+
+<footer id="footer">
+    {block name="footer"}
+        {include file="_partials/footer.tpl"}
+    {/block}
+</footer>
+
+{block name='javascript_bottom'}
+    {include file="_partials/javascript.tpl" javascript=$javascript.bottom}
+{/block}
+
+{block name='hook_before_body_closing_tag'}
+    {hook h='displayBeforeBodyClosingTag'}
+{/block}
+</body>
+
+</html>
+

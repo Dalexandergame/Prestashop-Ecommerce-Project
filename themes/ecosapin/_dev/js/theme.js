@@ -35,6 +35,9 @@ import './listing';
 import './product';
 import './cart';
 
+import './hoverIntent';
+import './superfish';
+
 import prestashop from 'prestashop';
 import EventEmitter from 'events';
 import DropDown from './components/drop-down';
