@@ -1,0 +1,31 @@
+<?php
+/**
+ * Advanced Pack 5
+ *
+ * @author    Presta-Module.com <support@presta-module.com> - http://www.presta-module.com
+ * @copyright Presta-Module 2017 - http://www.presta-module.com
+ * @license   Commercial
+ *
+ *           ____     __  __
+ *          |  _ \   |  \/  |
+ *          | |_) |  | |\/| |
+ *          |  __/   | |  | |
+ *          |_|      |_|  |_|
+ */
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
+class MailAlertsOverride extends MailAlerts
+{
+    public function hookActionUpdateQuantity($params)
+    {
+        // We do not have to care about pack email alerts
+        if (isset($params['id_product']) && class_exists('AdvancedPack') && AdvancedPack::isValidPack((int)$params['id_product'])) {
+            return;
+        }
+
+        // Run native process
+        parent::hookActionUpdateQuantity($params);
+    }
+}

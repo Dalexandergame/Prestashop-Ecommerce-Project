@@ -1,0 +1,24 @@
+ul li.ap5-current-product {
+	font-weight: bold;
+}
+
+div#ap5-pack-list div.ap5-pack-content {
+	margin-top: 10px;
+}
+
+div#ap5-pack-row-new > a {
+	white-space: normal;
+}
+
+div.ps-15 div#ap5-pack-list>div {
+	border: 1px solid #ccced7;
+	-webkit-border-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	border-radius: 5px;
+	border-top-right-radius: 5px;
+	box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), 0 0 0 3px #ebedf4 inset;
+	padding: 20px;
+	margin: 10px;
+}

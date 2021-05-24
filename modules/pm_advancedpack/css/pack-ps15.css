@@ -1,0 +1,294 @@
+/* Inheritance from PS 1.6 */
+@font-face {
+	font-family: "AP5-FontAwesome";
+	src: url("../fonts/fontawesome-webfont.eot?v=4.1.0");
+	src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.1.0") format("embedded-opentype"),url("../fonts/fontawesome-webfont.woff?v=4.1.0") format("woff"),url("../fonts/fontawesome-webfont.ttf?v=4.1.0") format("truetype"),url("../fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+.text-center {
+	text-align: center;
+}
+.ap5-pack-product hr {
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	height: 0;
+	margin-top: 18px;
+	margin-bottom: 18px;
+	border: 0;
+	border-top: 1px solid #eeeeee;
+}
+.alert {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-weight: bold;
+	padding: 15px;
+	margin-bottom: 18px;
+	border: 1px solid transparent;
+	border-radius: 0px;
+}
+.alert > p,
+.alert > ul {
+	margin-bottom: 0;
+}
+.alert > p + p {
+	margin-top: 5px;
+}
+.alert-warning {
+	background-color: #fe9126;
+	border-color: #e4752b;
+	color: white;
+}
+.alert-warning hr {
+	border-top-color: #da681c;
+}
+.alert-danger {
+	background-color: #f3515c;
+	border-color: #d4323d;
+	color: white;
+}
+.alert ul, .alert ol {
+	padding-left: 15px;
+	margin-left: 27px;
+}
+.alert ul li, .alert ol li {
+	list-style-type: decimal;
+	font-weight: normal;
+}
+.alert.alert-danger {
+	text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+}
+.alert.alert-danger:before {
+	font-family: "AP5-FontAwesome";
+	content: "\f057";
+	font-size: 20px;
+	vertical-align: -2px;
+	padding-right: 7px;
+	float: left;
+}
+/* /Inheritance from PS 1.6 */
+
+
+
+/* Pack content */
+#ap5-product-list {
+	width: 100%;
+	margin-left: 0;
+}
+
+/* Product block */
+.ap5-pack-product {
+	float: left;
+	margin: 0;
+	-moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
+	-webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
+	box-sizing: border-box;
+}
+
+.ap5-on-product-page #ap5-product-list {
+	border: 1px solid #383838;
+}
+
+.ap5-on-product-page .ap5-pack-product {
+	float: inherit;
+	padding: 10px;
+	border-bottom: 1px #cccccc dashed;
+}
+
+.ap5-on-product-page .ap5-pack-product-content {
+	padding: 0;
+	border: 0;
+}
+
+.ap5-on-product-page .ap5-pack-product-title {
+	font-weight: bold;
+	font-size: 13px;
+	padding-bottom: 10px;
+}
+
+.ap5-on-product-page .ap5-pack-product-content .ap5-pack-product-infos {
+	margin-bottom:5px;
+	padding-bottom: 5px;
+	border-bottom: 1px dotted #ccc;
+}
+
+.ap5-on-product-page .ap5-pack-product-content .ap5-attributes {
+	padding: 0;
+}
+
+.ap5-on-product-page .ap5-pack-product-content .label {
+	font-weight: bold;
+}
+
+.ap5-on-product-page .ap5-pack-product-content .pull-left {
+	float: left;
+}
+
+.ap5-on-product-page .ap5-pack-product-content .pull-right {
+	float: right;
+}
+
+.ap5-on-product-page .ap5-pack-product-content .attribute_label {
+	display: block !important;
+	padding: 0;
+	margin: 0 0 10px 0;
+	font-weight: bold;
+}
+
+.ap5-on-product-page .ap5-pack-product-content .ap5-attribute-list {
+	display: block !important;
+	padding-right: 0 !important;
+}
+
+.ap5-on-product-page .ap5-pack-product-content .ap5-attribute-list li {
+	float: left;
+	clear: none !important;
+	margin-right: 10px;
+}
+
+.ap5-pack-product-slideshow.owl-carousel div.ap5-pack-product-thumbnail {
+	text-align: center;
+}
+.ap5-pack-product-image {
+	text-align: center;
+}
+.ap5-pack-product-image img.img-responsive {
+	max-width: 100%;
+	height: auto;
+}
+.ap5-pack-product .ap5-pack-product-original-price-value {
+	text-decoration: line-through !important;
+	display: inline-block !important;
+}
+.ap5-pack-product .ap5-pack-product-original-price {
+	display: inline-block;
+}
+.ap5-product-pack-row-has-errors div.alert,
+.ap5-product-pack-row-has-fatal-errors div.alert {
+	bottom: 29%;
+}
+
+/* Buy Block */
+.ap5-right {
+	float: right;
+	margin: 0;
+	padding: 15px;
+	box-sizing: border-box;
+}
+.ap5-right #buy_block {
+	margin: 0;
+	padding: 15px;
+	border: 1px #000 solid;
+	border-radius: 2px;
+	background: #f6f6f6;
+	box-sizing: border-box;
+}
+.ap5-right #buy_block p#old_price,
+.ap5-right #buy_block p#reduction_percent,
+.ap5-right #buy_block p#reduction_amount {
+	margin: 10px;
+	padding-bottom: 10px;
+}
+
+#ap5-product-list.colWidth33 .ap5-pack-product,
+#ap5-product-list.colWidth33 .ap5-right {
+	width: 33%;
+}
+#ap5-product-list.colWidth25 .ap5-pack-product,
+#ap5-product-list.colWidth25 .ap5-right {
+	width: 25%;
+}
+#ap5-product-list.colWidth50 .ap5-pack-product,
+#ap5-product-list.colWidth50 .ap5-right {
+	width: 50%;
+}
+
+/* /Buy Block */
+
+/* Plus Icon */
+.ap5-pack-product .ap5-pack-product-icon-plus:before {
+	top: 150px;
+	left: -25px;
+	font-family: "AP5-FontAwesome";
+}
+/* Remove Icon */
+.ap5-pack-product:hover .ap5-pack-product-icon-remove:after {
+	top: -7px;
+	right: -9px;
+	font-family: "AP5-FontAwesome";
+}
+#product .ap5-pack-product .ap5-pack-product-icon-remove:after {
+	font-family: "AP5-FontAwesome";
+}
+
+/* Check Icon */
+.ap5-is-excluded-product .ap5-pack-product-icon-check:after {
+	top: -7px;
+	right: -9px;
+	font-family: "AP5-FontAwesome";
+}
+#product .ap5-is-excluded-product .ap5-pack-product-icon-check::after {
+	font-family: "AP5-FontAwesome";
+}
+
+/* Buy Block */
+#ap5-buy-container p.ap5-pack-unavailable,
+#ap5-buy-container p.ap5-combination-unavailable {
+	margin: 10px;
+}
+
+/* Column-specific styles */
+.column .ap5-buy-block {
+	margin-left: 0;
+}
+/* /Column-specific styles */
+
+/* Override product.css styles */
+.column #ap5-buy-block-container .content_prices {
+	border: none;
+	margin: 0;
+	text-align: inherit;
+}
+.column #ap5-buy-block-container .ap5-buy-block {
+	padding-bottom: 0;
+}
+.ap5-pack-product #reduction_percent, .ap5-pack-product #reduction_amount {
+	float: none;
+	display: inline-block;
+	margin-left: 0;
+}
+.ap5-pack-product #attributes .attribute_list {
+	display: table-cell;
+}
+.ap5-pack-product #attributes .attribute_list #color_to_pick_list {
+	width: inherit;
+}
+#more_info_sheets {
+	min-height: 200px;
+}
+.column #ap5-buy-block-container label, #ap5-buy-container label {
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 700;
+	text-align: right;
+}
+p.ap5-availability-statut {
+	min-width: 0 !important;
+	padding-bottom: 0 !important;
+}
+#pb-left-column form#buy_block {
+	display: none;
+}
+#pb-left-column .product_attributes, #pb-left-column .content_prices {
+	display: none;
+}
+.ap5-on-product-page .customizableProductsFile, .ap5-on-product-page .customizableProductsText {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 1px solid #d6d4d4;
+}
+.ap5-on-product-page .customization_block p.required {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+/* /Override product.css styles */
