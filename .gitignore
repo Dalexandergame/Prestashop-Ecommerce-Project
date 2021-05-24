@@ -119,6 +119,7 @@ modules/*
 !modules/tunnelvente
 !modules/.gitkeep
 !modules/suivicommandes
+!modules/ecosapinpartners
 override/*
 themes/*/
 !themes/classic
