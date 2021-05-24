@@ -18,11 +18,11 @@ class EcosapinOrders extends Module
     public function install()
     {
         parent::install();
-        if (!$this->installTab('AdminOrders', 'AdminEcosapinNoDeliveryDateOrders', 'Commandes sans date livraison'))
+        if (!$this->installTab(9, 'AdminEcosapinNoDeliveryDateOrders', 'Commandes sans date livraison'))
             return false;
-        if (!$this->installTab('AdminOrders', 'AdminEcosapinNoRetourDateOrders', 'Commandes sans retour'))
+        if (!$this->installTab(9, 'AdminEcosapinNoRetourDateOrders', 'Commandes sans retour'))
             return false;
-        if (!$this->installTab('AdminOrders', 'AdminEcosapinNoWarehouseOrders', 'Commandes sans entrepôt'))
+        if (!$this->installTab(9, 'AdminEcosapinNoWarehouseOrders', 'Commandes sans entrepôt'))
             return false;
 
         return true;
@@ -44,7 +44,7 @@ class EcosapinOrders extends Module
     {
         // Create new admin tab
         $tab            = new Tab();
-        $tab->id_parent = (int) Tab::getIdFromClassName($parent);
+        $tab->id_parent = $parent;
         $tab->name      = array();
         foreach (Language::getLanguages(true) as $lang)
             $tab->name[$lang['id_lang']] = $name;

@@ -1,6 +1,14 @@
 <?php
 
 class AdminEcosapinNoWarehouseOrdersController extends ModuleAdminController{
+    protected function l($string, $class = null, $addslashes = false, $htmlentities = true)
+    {
+        if ( _PS_VERSION_ >= '1.7') {
+            return Context::getContext()->getTranslator()->trans($string);
+        } else {
+            return parent::l($string, $class, $addslashes, $htmlentities);
+        }
+    }
 
 
     public function __construct()
@@ -76,10 +84,10 @@ class AdminEcosapinNoWarehouseOrdersController extends ModuleAdminController{
         parent::__construct();
     }
 
-    public function displayAfficherLink($token, $id){
+    /*public function displayAfficherLink($token, $id){
         $token= Tools::getAdminTokenLite('AdminOrders');
         $link = _PS_BASE_URL_.__PS_BASE_URI__."commandes/index.php?controller=AdminOrders&id_order=$id&vieworder&token=$token";
         return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> détails</a>";
     }
-
+*/
 }
