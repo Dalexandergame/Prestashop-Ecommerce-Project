@@ -1,6 +1,0 @@
-﻿Merci de votre commande sur {shop_name},
-
-Votre commande sera livrée le {date_delivery}
-{date_retour}
-
-{shop_url}
