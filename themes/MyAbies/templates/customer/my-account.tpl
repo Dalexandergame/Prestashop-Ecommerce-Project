@@ -1,64 +1,111 @@
-{*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*}
+{**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to https://devdocs.prestashop.com/ for more information.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ *}
+{extends file='customer/page.tpl'}
 
-{capture name=path}{l s='My account'}{/capture}
+{block name='page_title'}
+  {l s='Your account' d='Shop.Theme.Customeraccount'}
+{/block}
 
-<h1 class="page-heading">{l s='My account'}</h1>
-{if isset($account_created)}
-	<p class="alert alert-success">
-		{l s='Your account has been created.'}
-	</p>
-{/if}
-<p class="info-account">{l s='Welcome to your account. Here you can manage all of your personal information and orders.'}</p>
-<div class="row addresses-lists">
-	<div class="col-xs-12 col-sm-6 col-lg-12">
-		<ul class="myaccount-link-list">
-            {if $has_customer_an_address}
-            <li><a href="{$link->getPageLink('address', true)|escape:'html':'UTF-8'}" title="{l s='Add my first address'}"><i class="icon-building"></i><span>{l s='Add my first address'}</span></a></li>
-            {/if}
-            <li class="col-md-4"><a href="{$link->getPageLink('history', true)|escape:'html':'UTF-8'}" title="{l s='Orders'}"><i class="icon-list-ol"></i><span>{l s='Order history and details'}</span></a></li>
-            {if $returnAllowed}
-                <li style="display:none"><a href="{$link->getPageLink('order-follow', true)|escape:'html':'UTF-8'}" title="{l s='Merchandise returns'}"><i class="icon-refresh"></i><span>{l s='My merchandise returns'}</span></a></li>
-            {/if}
-            <li style="display:none"><a href="{$link->getPageLink('order-slip', true)|escape:'html':'UTF-8'}" title="{l s='Credit slips'}"><i class="icon-file-o"></i><span>{l s='My credit slips'}</span></a></li>
-            <li class="col-md-4"><a href="{$link->getPageLink('addresses', true)|escape:'html':'UTF-8'}" title="{l s='Addresses'}"><i class="icon-map-marker"></i><span>{l s='My addresses'}</span></a></li>
-            <li class="col-md-4"><a href="{$link->getPageLink('identity', true)|escape:'html':'UTF-8'}" title="{l s='Information'}"><i class="icon-user"></i><span>{l s='My personal information'}</span></a></li>
-        </ul>
-	</div>
-{if $voucherAllowed || isset($HOOK_CUSTOMER_ACCOUNT) && $HOOK_CUSTOMER_ACCOUNT !=''}
-	<div class="col-xs-12 col-sm-6 col-lg-4" style="display:none">
-        <ul class="myaccount-link-list">
-            {if $voucherAllowed}
-                <li><a href="{$link->getPageLink('discount', true)|escape:'html':'UTF-8'}" title="{l s='Vouchers'}"><i class="icon-barcode"></i><span>{l s='My vouchers'}</span></a></li>
-            {/if}
-            {$HOOK_CUSTOMER_ACCOUNT}
-        </ul>
+{block name='page_content'}
+  <div class="row">
+    <div class="links">
+
+      <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="identity-link" href="{$urls.pages.identity}">
+        <span class="link-item">
+          <i class="material-icons">&#xE853;</i>
+          {l s='Information' d='Shop.Theme.Customeraccount'}
+        </span>
+      </a>
+
+      {if $customer.addresses|count}
+        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="addresses-link" href="{$urls.pages.addresses}">
+          <span class="link-item">
+            <i class="material-icons">&#xE56A;</i>
+            {l s='Addresses' d='Shop.Theme.Customeraccount'}
+          </span>
+        </a>
+      {else}
+        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="address-link" href="{$urls.pages.address}">
+          <span class="link-item">
+            <i class="material-icons">&#xE567;</i>
+            {l s='Add first address' d='Shop.Theme.Customeraccount'}
+          </span>
+        </a>
+      {/if}
+
+      {if !$configuration.is_catalog}
+        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="history-link" href="{$urls.pages.history}">
+          <span class="link-item">
+            <i class="material-icons">&#xE916;</i>
+            {l s='Order history and details' d='Shop.Theme.Customeraccount'}
+          </span>
+        </a>
+      {/if}
+
+      {if !$configuration.is_catalog}
+        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="order-slips-link" href="{$urls.pages.order_slip}">
+          <span class="link-item">
+            <i class="material-icons">&#xE8B0;</i>
+            {l s='Credit slips' d='Shop.Theme.Customeraccount'}
+          </span>
+        </a>
+      {/if}
+
+      {if $configuration.voucher_enabled && !$configuration.is_catalog}
+        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="discounts-link" href="{$urls.pages.discount}">
+          <span class="link-item">
+            <i class="material-icons">&#xE54E;</i>
+            {l s='Vouchers' d='Shop.Theme.Customeraccount'}
+          </span>
+        </a>
+      {/if}
+
+      {if $configuration.return_enabled && !$configuration.is_catalog}
+        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="returns-link" href="{$urls.pages.order_follow}">
+          <span class="link-item">
+            <i class="material-icons">&#xE860;</i>
+            {l s='Merchandise returns' d='Shop.Theme.Customeraccount'}
+          </span>
+        </a>
+      {/if}
+
+      {block name='display_customer_account'}
+        {hook h='displayCustomerAccount'}
+      {/block}
+
     </div>
-{/if}
-</div>
-<ul class="footer_links clearfix">
-    <li><a class="btn btn-default" href="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}"
-           title="{l s='Home'}"><span><!-- <i class="icon-chevron-left"></i> --> {l s='Home'}</span></a></li>
-</ul>
+  </div>
+{/block}
+
+
+{block name='page_footer'}
+  {block name='my_account_links'}
+    <div class="text-sm-center">
+      <a href="{$logout_url}" >
+        {l s='Sign out' d='Shop.Theme.Actions'}
+      </a>
+    </div>
+  {/block}
+{/block}

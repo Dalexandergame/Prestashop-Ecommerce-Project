@@ -1,9 +1,0 @@
-#header .banner a {
-  display: block;
-  max-width: 1170px;
-  max-height: 65px; }
-
-#header .banner a img {
-  display: block;
-  max-height: 65px;
-  max-width: auto; }

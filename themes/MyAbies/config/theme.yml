@@ -1,17 +1,20 @@
-name: ecosapin_NewTheme
-display_name: Ecosapin NewTheme
+name: myabies
+display_name: Myabies
 version: 1.0.0
 author:
-  name: "Ecosapin Team"
-  email: "e.alex@pulse.digital"
-  url: ""
+  name: "Pulse.digital Maroc"
+  email: "support@pulse.digital"
+  url: "http://ma.pulse.digital"
 
 meta:
   compatibility:
-    from: 1.7.0.0
-    to: ~
+      from: 1.7.0.0
+      to: ~
 
   available_layouts:
+    layout-content-only:
+      name: Content Only
+      description: Content only, ideal for distraction-free pages such as cms pages.
     layout-full-width:
       name: Full Width
       description: No side columns, ideal for distraction-free pages such as product pages.
@@ -25,7 +28,79 @@ meta:
       name: Two Columns, small right column
       description: Two columns with a small right column
 
+assets:
+  # If you're using this theme as child and you want to load
+  # the parent theme assets, uncomment this line.
+#  use_parent_assets: true
+
+  # The following lines are showing how to load assets in your page
+  # Uncomment and change value to start loading css or js files
+#  css:
+#    all:
+#      - id: custom-lib-style
+#        path: assets/css/custom-lib.css
+#    product:
+#      - id: product-style
+#        path: assets/css/product.css
+#        media: all
+#        priority: 200
+#  js:
+#    cart:
+#      - id: cat-extra-lib
+#        path: assets/js/cart-lib.js
+
+
 global_settings:
+  configuration:
+    PS_IMAGE_QUALITY: png
+  modules:
+   to_enable:
+     - ps_linklist
+  hooks:
+    modules_to_hook:
+      displayAfterBodyOpeningTag:
+        - blockreassurance
+      displayNavFullWidth:
+        - blockreassurance
+      displayNav1:
+        - ps_contactinfo
+      displayNav2:
+        - ps_languageselector
+        - ps_currencyselector
+        - ps_customersignin
+        - ps_shoppingcart
+      displayTop:
+        - ps_mainmenu
+        - ps_searchbar
+      displayHome:
+        - ps_imageslider
+        - ps_featuredproducts
+        - ps_banner
+        - ps_customtext
+      displayFooterBefore:
+        - blockreassurance
+        - ps_emailsubscription
+        - ps_socialfollow
+      displayFooter:
+        - ps_linklist
+        - ps_customeraccountlinks
+        - ps_contactinfo
+      displayFooterAfter:
+        - blockreassurance
+      displayLeftColumn:
+        - ps_categorytree
+        - ps_facetedsearch
+      displaySearch:
+        - ps_searchbar
+      displayProductAdditionalInfo:
+        - ps_sharebuttons
+      displayReassurance:
+        - blockreassurance
+      displayOrderConfirmation2:
+        - ps_featuredproducts
+      displayCrossSellingShoppingCart:
+        - ps_featuredproducts
+
   image_types:
     cart_default:
       width: 125
@@ -57,7 +132,7 @@ global_settings:
       scope: [stores]
 
 theme_settings:
-  default_layout: layout-full-width
+  default_layout: layout-content-only
   layouts:
     category: layout-left-column
     best-sales: layout-left-column

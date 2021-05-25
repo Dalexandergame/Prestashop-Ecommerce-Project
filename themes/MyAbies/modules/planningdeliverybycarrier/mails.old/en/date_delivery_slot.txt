@@ -1,6 +1,0 @@
-﻿Thank you for shopping with {shop_name},
-
-Your order will be delivered on {date_delivery}
-Time slot selected for delivery : {delivery_slot}
-
-{shop_url}

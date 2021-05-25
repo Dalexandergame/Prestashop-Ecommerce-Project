@@ -1,127 +1,119 @@
-{*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*}
-{capture name=path}
-	<a href="{$link->getPageLink('my-account', true)|escape:'html':'UTF-8'}">
-		{l s='My account'}
-	</a>
-	<span class="navigation-pipe">{$navigationPipe}</span>
-	<span class="navigation_page">{l s='Order history'}</span>
-{/capture}
-{include file="$tpl_dir./errors.tpl"}
-<h1 class="page-heading bottom-indent">{l s='Order history'}</h1>
-<p class="info-title">{l s='Here are the orders you\'ve placed since your account was created.'}</p>
-{if $slowValidation}
-	<p class="alert alert-warning">{l s='If you have just placed an order, it may take a few minutes for it to be validated. Please refresh this page if your order is missing.'}</p>
-{/if}
-<div class="block-center" id="block-history">
-	{if $orders && count($orders)}
-		<table id="order-list" class="table footab">
-			<thead>
-				<tr>
-					<th class="first_item" data-sort-ignore="true">{l s='Order reference'}</th>
-					<th data-sort-ignore="true" class="item">{l s='Date'}</th>
-					<th data-sort-ignore="true" data-hide="phone" class="item">{l s='Total price'}</th>
-					<th data-sort-ignore="true" data-hide="phone,tablet" class="item">{l s='Payment'}</th>
-					<th data-sort-ignore="true" class="item">{l s='Status'}</th>
-					<th data-sort-ignore="true" data-hide="phone,tablet" class="item">{l s='Invoice'}</th>
-					<th data-sort-ignore="true" data-hide="phone,tablet" class="last_item">&nbsp;</th>
-				</tr>
-			</thead>
-			<tbody>
-				{foreach from=$orders item=order name=myLoop}
-					<tr class="{if $smarty.foreach.myLoop.first}first_item{elseif $smarty.foreach.myLoop.last}last_item{else}item{/if} {if $smarty.foreach.myLoop.index % 2}alternate_item{/if}">
-						<td class="history_link bold">
-							{if isset($order.invoice) && $order.invoice && isset($order.virtual) && $order.virtual}
-								<img class="icon" src="{$img_dir}icon/download_product.gif"	alt="{l s='Products to download'}" title="{l s='Products to download'}" />
-							{/if}
-							{*<a class="color-myaccount" href="javascript:showOrder(1, {$order.id_order|intval}, '{$link->getPageLink('order-detail', true)|escape:'html':'UTF-8'}');">
-															{Order::getUniqReferenceOf($order.id_order)}
-														</a>*}
-														<span class="color-myaccount">{Order::getUniqReferenceOf($order.id_order)}</span>
-						</td>
-						<td data-value="{$order.date_add|regex_replace:"/[\-\:\ ]/":""}" class="history_date bold">
-							{dateFormat date=$order.date_add full=0}
-						</td>
-						<td class="history_price" data-value="{$order.total_paid}">
-							<span class="price">
-								{displayPrice price=$order.total_paid currency=$order.id_currency no_utf8=false convert=false}
-							</span>
-						</td>
-						<td class="history_method">{$order.payment|escape:'html':'UTF-8'}</td>
-						<td{if isset($order.order_state)} data-value="{$order.id_order_state}"{/if} class="history_state">
-							{if isset($order.order_state)}
-								<span class="label{if isset($order.order_state_color) && Tools::getBrightness($order.order_state_color) > 128} dark{/if}"{if isset($order.order_state_color) && $order.order_state_color} style="background-color:{$order.order_state_color|escape:'html':'UTF-8'}; border-color:{$order.order_state_color|escape:'html':'UTF-8'};"{/if}>
-									{$order.order_state|escape:'html':'UTF-8'}
-								</span>
-							{/if}
-						</td>
-						<td class="history_invoice">
-							{if (isset($order.invoice) && $order.invoice && isset($order.invoice_number) && $order.invoice_number) && isset($invoiceAllowed) && $invoiceAllowed == true}
-								<a class="link-button" href="{$link->getPageLink('pdf-invoice', true, NULL, "id_order={$order.id_order}")|escape:'html':'UTF-8'}" title="{l s='Invoice'}" target="_blank">
-									<i class="icon-file-text"></i>{l s='PDF'}
-								</a>
-							{else}
-								-
-							{/if}
-						</td>
-						<td class="history_detail">
-							<a class="btn btn-default link-detail" href="javascript:showOrder(1, {$order.id_order|intval}, '{$link->getPageLink('order-detail', true)|escape:'html':'UTF-8'}');">
-								<span>
-									{l s='Details'}<!-- <i class="icon-chevron-right right"></i> -->
-								</span>
-							</a>
-							{if isset($opc) && $opc}
-								<a class="link-button btn btn-default link-command" href="{$link->getPageLink('order-opc', true, NULL, "submitReorder&id_order={$order.id_order|intval}")|escape:'html':'UTF-8'}" title="{l s='Reorder'}">
-							{else}
-								<a class="link-button link-command" href="{$link->getPageLink('order', true, NULL, "submitReorder&id_order={$order.id_order|intval}")|escape:'html':'UTF-8'}" title="{l s='Reorder'}">
-							{/if}
-								{if isset($reorderingAllowed) && $reorderingAllowed}
-									<!-- <i class="icon-refresh"></i> -->{l s='Reorder'}
-								{/if}
-							</a>
-						</td>
-					</tr>
-				{/foreach}
-			</tbody>
-		</table>
-		<div id="block-order-detail" class="unvisible">&nbsp;</div>
-	{else}
-		<p class="alert alert-warning">{l s='You have not placed any orders.'}</p>
-	{/if}
-</div>
-<ul class="footer_links clearfix">
-	<li>
-		<a class="btn btn-default link-back" href="{$link->getPageLink('my-account', true)|escape:'html':'UTF-8'}">
-			<span>
-				<i class="icon-angle-left"></i> {l s='Back to Your Account'}
-			</span>
-		</a>
-	</li>
-	<li class="pull-right">
-        <a class="btn btn-default link-home" href="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}">
-			<span><!-- <i class="icon-chevron-left"></i> --> {l s='Home'}</span>
-		</a>
-	</li>
-</ul>
+{**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to https://devdocs.prestashop.com/ for more information.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ *}
+{extends file='customer/page.tpl'}
+
+{block name='page_title'}
+  {l s='Order history' d='Shop.Theme.Customeraccount'}
+{/block}
+
+{block name='page_content'}
+  <h6>{l s='Here are the orders you\'ve placed since your account was created.' d='Shop.Theme.Customeraccount'}</h6>
+
+  {if $orders}
+    <table class="table table-striped table-bordered table-labeled hidden-sm-down">
+      <thead class="thead-default">
+        <tr>
+          <th>{l s='Order reference' d='Shop.Theme.Checkout'}</th>
+          <th>{l s='Date' d='Shop.Theme.Checkout'}</th>
+          <th>{l s='Total price' d='Shop.Theme.Checkout'}</th>
+          <th class="hidden-md-down">{l s='Payment' d='Shop.Theme.Checkout'}</th>
+          <th class="hidden-md-down">{l s='Status' d='Shop.Theme.Checkout'}</th>
+          <th>{l s='Invoice' d='Shop.Theme.Checkout'}</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {foreach from=$orders item=order}
+          <tr>
+            <th scope="row">{$order.details.reference}</th>
+            <td>{$order.details.order_date}</td>
+            <td class="text-xs-right">{$order.totals.total.value}</td>
+            <td class="hidden-md-down">{$order.details.payment}</td>
+            <td>
+              <span
+                class="label label-pill {$order.history.current.contrast}"
+                style="background-color:{$order.history.current.color}"
+              >
+                {$order.history.current.ostate_name}
+              </span>
+            </td>
+            <td class="text-sm-center hidden-md-down">
+              {if $order.details.invoice_url}
+                <a href="{$order.details.invoice_url}"><i class="material-icons">&#xE415;</i></a>
+              {else}
+                -
+              {/if}
+            </td>
+            <td class="text-sm-center order-actions">
+              <a href="{$order.details.details_url}" data-link-action="view-order-details">
+                {l s='Details' d='Shop.Theme.Customeraccount'}
+              </a>
+              {if $order.details.reorder_url}
+                <a href="{$order.details.reorder_url}">{l s='Reorder' d='Shop.Theme.Actions'}</a>
+              {/if}
+            </td>
+          </tr>
+        {/foreach}
+      </tbody>
+    </table>
+
+    <div class="orders hidden-md-up">
+      {foreach from=$orders item=order}
+        <div class="order">
+          <div class="row">
+            <div class="col-xs-10">
+              <a href="{$order.details.details_url}"><h3>{$order.details.reference}</h3></a>
+              <div class="date">{$order.details.order_date}</div>
+              <div class="total">{$order.totals.total.value}</div>
+              <div class="status">
+                <span
+                  class="label label-pill {$order.history.current.contrast}"
+                  style="background-color:{$order.history.current.color}"
+                >
+                  {$order.history.current.ostate_name}
+                </span>
+              </div>
+            </div>
+            <div class="col-xs-2 text-xs-right">
+                <div>
+                  <a href="{$order.details.details_url}" data-link-action="view-order-details" title="{l s='Details' d='Shop.Theme.Customeraccount'}">
+                    <i class="material-icons">&#xE8B6;</i>
+                  </a>
+                </div>
+                {if $order.details.reorder_url}
+                  <div>
+                    <a href="{$order.details.reorder_url}" title="{l s='Reorder' d='Shop.Theme.Actions'}">
+                      <i class="material-icons">&#xE863;</i>
+                    </a>
+                  </div>
+                {/if}
+            </div>
+          </div>
+        </div>
+      {/foreach}
+    </div>
+
+  {/if}
+{/block}

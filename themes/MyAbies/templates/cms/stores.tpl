@@ -1,151 +1,88 @@
-{*
-* 2007-2015 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2015 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*}
+{**
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License 3.0 (AFL-3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/AFL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to https://devdocs.prestashop.com/ for more information.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
+ *}
+{extends file='page.tpl'}
 
-{capture name=path}{l s='Our stores'}{/capture}
+{block name='page_title'}
+  {l s='Our stores' d='Shop.Theme.Global'}
+{/block}
 
-<h1 class="page-heading">
-	{l s='Our stores'}
-</h1>
+{block name='page_content_container'}
+  <section id="content" class="page-content page-stores">
 
-{if $simplifiedStoresDiplay}
-	{if $stores|@count}
-		<p class="store-title">
-			<strong class="dark">
-				{l s='Here you can find our store locations. Please feel free to contact us:'}
-			</strong>
-		</p>
-	    <table class="table table-bordered">
-	    	<thead>
-            	<tr>
-                	<th class="logo">{l s='Logo'}</th>
-                    <th class="name">{l s='Store name'}</th>
-                    <th class="address">{l s='Store address'}</th>
-                    <th class="store-hours">{l s='Working hours'}</th>
-                </tr>
-            </thead>
-			{foreach $stores as $store}
-				<tr class="store-small">
-					<td class="logo">
-						{if $store.has_picture}
-							<div class="store-image">
-								<img src="{$img_store_dir}{$store.id_store}-medium_default.jpg" alt="{$store.name|escape:'html':'UTF-8'}" width="{$mediumSize.width}" height="{$mediumSize.height}"/>
-							</div>
-						{/if}
-					</td>
-					<td class="name">
-						{$store.name|escape:'html':'UTF-8'}
-					</td>
-		            <td class="address">
-		            {assign value=$store.id_store var="id_store"}
-		            {foreach from=$addresses_formated.$id_store.ordered name=adr_loop item=pattern}
-	                    {assign var=addressKey value=" "|explode:$pattern}
-	                    {foreach from=$addressKey item=key name="word_loop"}
-	                        <span {if isset($addresses_style[$key])} class="{$addresses_style[$key]}"{/if}>
-	                            {$addresses_formated.$id_store.formated[$key|replace:',':'']|escape:'html':'UTF-8'}
-	                        </span>
-	                    {/foreach}
-	                {/foreach}
-	                	<br/>
-						{if $store.phone}<br/>{l s='Phone:'} {$store.phone|escape:'html':'UTF-8'}{/if}
-						{if $store.fax}<br/>{l s='Fax:'} {$store.fax|escape:'html':'UTF-8'}{/if}
-						{if $store.email}<br/>{l s='Email:'} {$store.email|escape:'html':'UTF-8'}{/if}
-						{if $store.note}<br/><br/>{$store.note|escape:'html':'UTF-8'|nl2br}{/if}
-					</td>
-		            <td class="store-hours">
-						{if isset($store.working_hours)}{$store.working_hours}{/if}
-		            </td>
-				</tr>
-			{/foreach}
-	    </table>
-	{/if}
-{else}
-	<div id="map"></div>
-	<p class="store-title">
-		<strong class="dark">
-			{l s='Enter a location (e.g. zip/postal code, address, city or country) in order to find the nearest stores.'}
-		</strong>
-	</p>
-    <div class="store-content">
-        <div class="address-input">
-            <label for="addressInput">{l s='Your location:'}</label>
-            <input class="form-control grey" type="text" name="location" id="addressInput" value="{l s='Address, zip / postal code, city, state or country'}" />
+    {foreach $stores as $store}
+      <article id="store-{$store.id}" class="store-item card">
+        <div class="store-item-container clearfix">
+          <div class="col-md-3 store-picture hidden-sm-down">
+            <img src="{$store.image.bySize.stores_default.url}" alt="{$store.image.legend}" title="{$store.image.legend}">
+          </div>
+          <div class="col-md-5 col-sm-7 col-xs-12 store-description">
+            <p class="h3 card-title">{$store.name}</p>
+            <address>{$store.address.formatted nofilter}</address>
+            {if $store.note || $store.phone || $store.fax || $store.email}
+              <a data-toggle="collapse" href="#about-{$store.id}" aria-expanded="false" aria-controls="about-{$store.id}"><strong>{l s='About and Contact' d='Shop.Theme.Global'}</strong><i class="material-icons">&#xE409;</i></a>
+            {/if}
+          </div>
+          <div class="col-md-4 col-sm-5 col-xs-12 divide-left">
+            <table>
+              {foreach $store.business_hours as $day}
+              <tr>
+                <th>{$day.day|truncate:4:'.'}</th>
+                <td>
+                  <ul>
+                  {foreach $day.hours as $h}
+                    <li>{$h}</li>
+                  {/foreach}
+                  </ul>
+                </td>
+              </tr>
+              {/foreach}
+            </table>
+          </div>
         </div>
-        <div class="radius-input">
-            <label for="radiusSelect">{l s='Radius:'}</label>
-            <select name="radius" id="radiusSelect" class="form-control">
-                <option value="15">15</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
-            <img src="{$img_ps_dir}loader.gif" class="middle" alt="" id="stores_loader" />
-        </div>
-        <div>
-            <button name="search_locations" class="button btn btn-default button-small">
-            	<span>
-            		{l s='Search'}<i class="icon-chevron-right right"></i>
-            	</span>
-            </button>
-        </div>
-    </div>
-    <div class="store-content-select selector3">
-    	<select id="locationSelect" class="form-control">
-    		<option>-</option>
-    	</select>
-    </div>
+        <footer id="about-{$store.id}" class="collapse">
+          <div class="store-item-footer divide-top">
+            {if $store.note}
+              <div class="card-block">
+                <p class="text-justify">{$store.note}</p>
+              </div>
+            {/if}
+            <ul class="card-block">
+              {if $store.phone}
+                <li><i class="material-icons">&#xE0B0;</i>{$store.phone}</li>
+              {/if}
+              {if $store.fax}
+                <li><i class="material-icons">&#xE8AD;</i>{$store.fax}</li>
+              {/if}
+              {if $store.email}
+                <li><i class="material-icons">&#xE0BE;</i>{$store.email}</li>
+              {/if}
+            </ul>
+          </div>
+        </footer>
+      </article>
+    {/foreach}
 
-	<table id="stores-table" class="table table-bordered">
-    	<thead>
-			<tr>
-                <th class="num">#</th>
-                <th>{l s='Store'}</th>
-                <th>{l s='Address'}</th>
-                <th>{l s='Distance'}</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-	</table>
-{strip}
-{addJsDef map=''}
-{addJsDef markers=array()}
-{addJsDef infoWindow=''}
-{addJsDef locationSelect=''}
-{addJsDef defaultLat=$defaultLat}
-{addJsDef defaultLong=$defaultLong}
-{addJsDef hasStoreIcon=$hasStoreIcon}
-{addJsDef distance_unit=$distance_unit}
-{addJsDef img_store_dir=$img_store_dir}
-{addJsDef img_ps_dir=$img_ps_dir}
-{addJsDef searchUrl=$searchUrl}
-{addJsDef logo_store=$logo_store}
-{addJsDefL name=translation_1}{l s='No stores were found. Please try selecting a wider radius.' js=1}{/addJsDefL}
-{addJsDefL name=translation_2}{l s='store found -- see details:' js=1}{/addJsDefL}
-{addJsDefL name=translation_3}{l s='stores found -- view all results:' js=1}{/addJsDefL}
-{addJsDefL name=translation_4}{l s='Phone:' js=1}{/addJsDefL}
-{addJsDefL name=translation_5}{l s='Get directions' js=1}{/addJsDefL}
-{addJsDefL name=translation_6}{l s='Not found' js=1}{/addJsDefL}
-{/strip}
-{/if}
+  </section>
+{/block}
