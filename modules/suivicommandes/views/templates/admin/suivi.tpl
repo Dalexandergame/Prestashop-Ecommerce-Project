@@ -1,16 +1,16 @@
-{*
-<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
+
+{*<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
       rel="stylesheet"/>
-<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-*}
+      
+      *}
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 
 {if isset($alert)}
     <div class="alert alert-danger">{$alert}</div>
 {/if}
 
 <h2>{l s='Page suivi de commandes' mod='suivicommandes'}</h2>
-
 <form id="form" method="post" action="index.php?controller=AdminSuiviCommandes&token={$token}" class="form-inline">
     <div class="form-group">
         {l s='Date de livraison' mod='suivicommandes'} :
@@ -25,6 +25,7 @@
             {/foreach}
         </select>
     </div>
+
     <input type="submit" class="btn btn-info" name="submitImport" value="{l s='OK' mod='suivicommandes'}"/>
 
     {if !$restricted}
@@ -37,9 +38,9 @@
 
     <br><br>
 
-    <div id="blockc" class="row">
-     {*  {include file='./blockc.tpl' blocks=$blocks} *}
-    </div>
+   {* <div id="blockc" class="row">
+      {include file='./blockc.tpl' blocks=$blocks} 
+    </div>*}
 
     <br><br>
     {if isset($lists)}

@@ -1,7 +1,4 @@
 {if $lists}
-    
-
-
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
 <link rel="stylesheet" href="{$base_dir|escape:'htmlall'}modules/suivicommandes/css/leaflet-routing-machine.css" />
 <link rel="stylesheet" href="{$base_dir|escape:'htmlall'}modules/suivicommandes/css/index.css" />

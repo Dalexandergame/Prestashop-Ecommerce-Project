@@ -30,6 +30,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
         $this->context->cookie->__set('warehouse_selected', implode(",", $this->warehouse_selected));
     }
 
+    
     protected function l($string, $class = null, $addslashes = false, $htmlentities = true)
     {
         if ( _PS_VERSION_ >= '1.7') {
@@ -40,7 +41,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
     }
 
     /**
-     * AdminEmarketingController constructor.
+     * AdminSuiviCommandesController constructor.
      * @throws PrestaShopException
     */
     public function __construct()
@@ -93,9 +94,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
         $this->context = Context::getContext();
 
-        parent::__construct();
-
-
         if (!$this->osmkey || empty($this->osmkey)) {
             $this->alertmsg .= "Veuillez configurer la clé de l'API OSM! <br> ";
         }
@@ -115,7 +113,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
             $this->setParams($this->context->cookie->datepickerDatelivraison, explode(",", $this->context->cookie->warehouse_selected));
         }
 
-
         //TODO how isRetour is defined needs to be changed
         //check if delivery or retour
         $date1          = date_create($this->dateLivraison);
@@ -133,7 +130,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
             } else if (Tools::isSubmit('submitMaj')) $this->majCommandes();
             else if (Tools::isSubmit('ordonnerOSM')) $this->ordonnerOSM();
         }
-
 
         if ($this->ajax && $this->isXmlHttpRequest() && Tools::getIsset('status')) {
             if (Tools::getIsset('status' . $this->table)) {
@@ -181,6 +177,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
             . ' LEFT JOIN ' . _DB_PREFIX_ . 'carrier car ON (car.id_carrier = a.id_carrier_retour)'
             . ' LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (a.id_order = o.id_order) '
             . ' LEFT JOIN ' . _DB_PREFIX_ . 'address adr ON (adr.id_address = o.id_address_delivery) ';
+        //Comment
         $this->_where = 'AND (datediff(a.date_delivery,"' . $this->dateLivraison . '")=0 OR datediff(a.date_retour,"' . $this->dateLivraison . '")=0) AND ';
         if ($this->warehouse_selected[0] == $this->id_carrier_post . '_p') {
             $this->_where .= ' a.id_carrier = ' . $this->id_carrier_post;
@@ -279,7 +276,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
         $this->fields_list = array_merge($position_field, $fields_list);
 
-
+        parent::__construct();
     }
 
 
@@ -600,7 +597,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
             $this->display_footer = false;
             $this->lite_display   = false;
 
-            $tpl = $smarty->createTemplate(dirname(__FILE__) . '/views/templates/admin/gmap_multiple_routes.tpl');
+            $tpl = $smarty->createTemplate(_PS_MODULE_DIR_ . '\suivicommandes\views\templates\admin\gmap_multiple_routes.tpl');
 
             $this->setParams(Tools::getValue("date", NULL), Tools::getValue("wh", NULL));
             $list = $this->getMap();
@@ -626,18 +623,19 @@ class AdminSuiviCommandesController extends ModuleAdminController
                     return false;
                // $this->getList($this->context->language->id, null, null, 0, false, false);
 
-                $helper                          = new HelperList();
+                $helper = new HelperList();
                 $helper->force_show_bulk_actions = true;
 
                 $this->setHelperDisplay($helper);
-                $helper->simple_header = true;
+                //false to display header
+                $helper->simple_header = false;
 
                 $list = $helper->generateList($this->_list, $this->fields_list);
-
+        
                 $assign = array(
                     "warehouses"    => $this->setSelectWarehouses(),
                     "dateLivraison" => $this->dateLivraison,
-                    //"blocks"        => $this->getBlocks(),
+                    "blocks"        => $this->getBlocks(),
                     "token"         => $this->token,
                     "wh"            => "(" . implode(",", $this->warehouse_selected) . ")",
                     "lists"         => $list,
@@ -659,7 +657,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
             }
 
             $smarty = $this->context->smarty;
-            $tpl    = $smarty->createTemplate( _PS_MODULE_DIR_ . '\suivicommandes\views\templates\admin\suivi.tpl');
+            $tpl    = $smarty->createTemplate(_PS_MODULE_DIR_ . '\suivicommandes\views\templates\admin\suivi.tpl');
 
             $tpl->assign($assign);
         }
@@ -699,6 +697,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
     public function getWarehouseIds()
     {
         $res        = array();
+    //    $warehouses = Store::getStores($this->context->language->id);
         $warehouses = WarehouseCore::getWarehouses();
         foreach ($warehouses as $warehouse) {
             array_push($res, $warehouse['id_warehouse']);
@@ -709,8 +708,8 @@ class AdminSuiviCommandesController extends ModuleAdminController
     public function setSelectWarehouses()
     {
         $res        = array();
+    //    $warehouses = Store::getStores($this->context->language->id);
         $warehouses = WarehouseCore::getWarehouses();
-
         $res[] = array(
             'id'       => 0,
             'name'     => ' - All Warehouses- ',
@@ -779,7 +778,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
     public function importCommandesPoste()
     {
-
         $where = " datediff(pd.date_delivery,'" . $this->dateLivraison . "')=0 ";
 
         $id_lang = 2; //FR
@@ -812,7 +810,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
     public function translateCommandsTo($id_lang)
     {
-
         $sql1 = "SELECT id_suivi_orders,id_order
                    FROM " . _DB_PREFIX_ . "suivi_orders
                    WHERE to_translate=1";
@@ -849,17 +846,13 @@ class AdminSuiviCommandesController extends ModuleAdminController
                     ((isset($translated_attributes[0]['att1']) && $translated_attributes[0]['att1'] != null) ? ' - ' . $translated_attributes[0]['att1'] : '') .
                     ((isset($translated_attributes[0]['att2']) && $translated_attributes[0]['att2'] != null) ? ' : ' . $translated_attributes[0]['att2'] : '') . ' X' . $att["product_quantity"] . ',';
 
-
             }
 
             Db::getInstance()->execute('UPDATE ' . _DB_PREFIX_ . 'suivi_orders
                                 SET commande = "' . (string) pSQL(trim($commande, ",")) . '",to_translate = 0 
                                 WHERE id_suivi_orders=' . (int) $res["id_suivi_orders"]
-            )
-            ;
-
+            );
         }
-
 
     }
 
@@ -929,7 +922,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
         } else {
             $where .= "AND d.id_warehouse IN " . $w;
         }
-
 
         //Import suivi_orders
         $sql1 = "UPDATE " . _DB_PREFIX_ . "suivi_orders so
@@ -1309,6 +1301,10 @@ order by `name` asc
         return NULL;
     }
 
+    /**
+     * AdminSuiviCommandesController constructor.
+     * @throws PrestaShopException
+    */
     public function getOSMRequest($idw = NULL, $order = "")
     {
         if (!$idw) {
@@ -1317,7 +1313,8 @@ order by `name` asc
         } else {
             $where = "o.id_warehouse = " . $idw;
         }
-
+        
+        //todo after configuring the SAM module
         $sql = "SELECT o.id_suivi_orders,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, o.id_carrier, o.id_carrier_retour) as id_carrier,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, ca.name, car.name) AS carrier_name,
@@ -1337,9 +1334,13 @@ order by `name` asc
         return $res;
     }
 
+    /**
+     * AdminSuiviCommandesController constructor.
+     * @throws PrestaShopException
+    */
     public function getWarehouseAddressStart($idw)
     {
-
+        //todo after configuring the SAM module
         $sql = "SELECT CONCAT(a.address1,' ',a.postcode,' ',a.city) as addresswh
                 FROM " . _DB_PREFIX_ . "warehouse as w
                 JOIN " . _DB_PREFIX_ . "address as a ON w.id_address = a.id_address
@@ -1349,6 +1350,10 @@ order by `name` asc
         return $res;
     }
 
+    /**
+     * AdminSuiviCommandesController constructor.
+     * @throws PrestaShopException
+    */
     public function ordonnerOSM()
     {
 
@@ -1386,7 +1391,7 @@ order by `name` asc
                 }
                 // tour=open donc on met le point de départ comme arrivée aussi
                 $listPoints .= $latlngStartPoint["lat"] . ',' . $latlngStartPoint["long"];
-
+                
                 if ($i >= 3) {
                     $i++;
                     $url = "http://maps.open-street.fr/api/tsp/?pts=" . $listPoints . "&nb=" . $i . "&mode=driving&unit=m&tour=open&key=" . $this->osmkey;
@@ -1450,6 +1455,10 @@ order by `name` asc
         return false;
     }
 
+    /**
+     * AdminSuiviCommandesController constructor.
+     * @throws PrestaShopException
+    */    
     public function getMap()
     {
         if ($this->isRetour) {
@@ -1498,7 +1507,6 @@ order by `name` asc
         return $result;
 
     }
-
 
     public function optimiser($text)
     {
@@ -1633,7 +1641,7 @@ order by `name` asc
             $obj->setNewCarrierRetour($id_carrier);
         }
         $smarty = $this->context->smarty;
-        $tpl    = $smarty->createTemplate(dirname(__FILE__) . '/views/templates/admin/blockc.tpl');
+        $tpl    = $smarty->createTemplate(_PS_MODULE_DIR_ . '\suivicommandes\views\templates\admin\blockc.tpl');
 
         $tpl->assign(array(
                          "blocks"        => $this->getBlocks(),

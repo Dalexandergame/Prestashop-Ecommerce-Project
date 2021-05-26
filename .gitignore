@@ -72,32 +72,32 @@
 *.hot-update.json
 
 
-/admin-dev/autoupgrade/*
-!/admin-dev/autoupgrade/index.php
-!/admin-dev/autoupgrade/backup/index.php
+/administration/autoupgrade/*
+!/administration/autoupgrade/index.php
+!/administration/autoupgrade/backup/index.php
 
-/admin-dev/backups/*
-!/admin-dev/backups/.htaccess
+/administration/backups/*
+!/administration/backups/.htaccess
 
-/admin-dev/import/*
-!/admin-dev/import/.htaccess
-!/admin-dev/import/index.php
+/administration/import/*
+!/administration/import/.htaccess
+!/administration/import/index.php
 
-/admin-dev/export/*
-!/admin-dev/export/.htaccess
-!/admin-dev/export/index.php
+/administration/export/*
+!/administration/export/.htaccess
+!/administration/export/index.php
 
 # Downloaded RTL files
-/admin-dev/themes/default/css/bundle/default_rtl.css
-/admin-dev/themes/default/css/bundle/shared_rtl.css
-/admin-dev/themes/default/css/font_rtl.css
-/admin-dev/themes/default/css/overrides_rtl.css
-/admin-dev/themes/default/css/vendor/font-awesome/font-awesome_rtl.css
-/admin-dev/themes/default/css/vendor/nv.d3_rtl.css
-/admin-dev/themes/default/css/vendor/titatoggle-min_rtl.css
-/admin-dev/themes/default/public/theme_rtl.css
-/admin-dev/themes/new-theme/css/module/drop_rtl.css
-/admin-dev/themes/new-theme/css/right-sidebar_rtl.css
+/administration/themes/default/css/bundle/default_rtl.css
+/administration/themes/default/css/bundle/shared_rtl.css
+/administration/themes/default/css/font_rtl.css
+/administration/themes/default/css/overrides_rtl.css
+/administration/themes/default/css/vendor/font-awesome/font-awesome_rtl.css
+/administration/themes/default/css/vendor/nv.d3_rtl.css
+/administration/themes/default/css/vendor/titatoggle-min_rtl.css
+/administration/themes/default/public/theme_rtl.css
+/administration/themes/new-theme/css/module/drop_rtl.css
+/administration/themes/new-theme/css/right-sidebar_rtl.css
 
 themes/*/cache/*
 
@@ -112,21 +112,43 @@ themes/*/config/settings_*.json
 app/config/parameters.old.yml
 app/config/config.php
 
-# Themes, modules and overrides
+# modules
 
 modules/*
+!modules/.gitkeep
+!modules/advancedstock
+!modules/emarketing
+!modules/followup
+!modules/gamification
+!modules/ps_accounts
+!modules/ps_buybuttonlite
+!modules/ps_emailalerts
+!modules/ps_eventbus
+!modules/ps_mbo
+!modules/ps_metrics
+!modules/psaddonsconnect
+!modules/psgdpr
+!modules/referralprogram
+
+# Custom modules
 !modules/planningdeliverybycarrier
 !modules/tunnelvente
-!modules/.gitkeep
 !modules/suivicommandes
+!modules/customersearch
+!modules/gszonevente
+!modules/ecosapinorders
 !modules/ecosapinpartners
-override/*
+!modules/editorial
+
+# Themes
 themes/*/
 !themes/classic
 !themes/_core
 !themes/_libraries
+!themes/ecosapin
 !themes/ecosapin_NewTheme
-!themes/MyAbies
+!themes/myabies
+
 # Vendors and dependencies
 
 bower_components/

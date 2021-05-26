@@ -51,7 +51,7 @@ class HelperCore
     /**
      * @var Smarty_Internal_Template base template object
      */
-    protected $tpl;
+    public $tpl;
 
     /**
      * @var string base template name
