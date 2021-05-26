@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>pm_advancedpack</name>
+	<displayName><![CDATA[Advanced Pack]]></displayName>
+	<version><![CDATA[5.1.4]]></version>
+	<description><![CDATA[Add a product bundling strategy into your store, sell more !]]></description>
+	<author><![CDATA[Presta-Module]]></author>
+	<tab><![CDATA[pricing_promotion]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

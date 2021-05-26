@@ -1,0 +1,91 @@
+/* Inheritance from PS 1.6 */
+@font-face {
+	font-family: "AP5-FontAwesome";
+	src: url("../fonts/fontawesome-webfont.eot?v=4.1.0");
+	src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.1.0") format("embedded-opentype"),url("../fonts/fontawesome-webfont.woff?v=4.1.0") format("woff"),url("../fonts/fontawesome-webfont.ttf?v=4.1.0") format("truetype"),url("../fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+.text-center {
+	text-align: center;
+}
+.ap5-pack-product hr {
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	height: 0;
+	margin-top: 18px;
+	margin-bottom: 18px;
+	border: 0;
+	border-top: 1px solid #eeeeee;
+}
+/* /Inheritance from PS 1.6 */
+
+/* Product block */
+.ap5-pack-product {
+	margin: 0;
+	-moz-box-sizing:    border-box;   /* Firefox 1, probably can drop this */
+	-webkit-box-sizing: border-box;   /* Safari 3-4, also probably droppable */
+	box-sizing: border-box;
+}
+.ap5-pack-product-image {
+	text-align: center;
+}
+.ap5-pack-product-image img.img-responsive {
+	max-width: 100%;
+	height: auto;
+}
+.ap5-pack-product .ap5-pack-product-original-price-value, .ap5-price-container .ap5-old-price-display {
+	text-decoration: line-through !important;
+	display: inline-block !important;
+}
+.ap5-pack-product .ap5-pack-product-original-price {
+	display: inline-block;
+}
+
+
+/* Override product.css styles */
+.ap5-pack-product #reduction_percent, .ap5-pack-product #reduction_amount, .ap5-price-container #reduction_percent, .ap5-price-container #reduction_amount {
+	float: none;
+	display: inline-block;
+	margin-left: 0;
+}
+/* /Override product.css styles */
+
+/* Override product-footer.css */
+.ap5-pack-product .ap5-pack-product-icon-plus:before {
+	font-family: "AP5-FontAwesome";
+}
+
+#ap5-product-footer-pack-list {
+	padding: 0;
+}
+.ap5-price-container p span {
+	font-size: 0.9em;
+}
+.ap5-product-footer-pack-name {
+	line-height: 23px;
+	margin-bottom: 10px;
+}
+.ap5-product-footer-pack-name * {
+	font-weight: normal;
+}
+
+
+.ap5-price-container .our_price_display {
+	font-size: 20px;
+}
+.ap5-price-container #reduction_percent,
+.ap5-price-container #reduction_amount,
+.ap5-price-container #old_price {
+	font-size: 14px;
+	line-height: inherit;
+}
+
+
+.ap5-pack-product-original-price, .ap5-pack-product-original-price-value {
+	display: inline-block !important;
+}
+.ap5-price-container #old_price, .ap5-price-container .ap5-old-price-display {
+	display: inline !important;
+}
+/* /Override product-footer.css */
