@@ -1,4 +1,4 @@
-<form action="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/taille" id="form_type" method="post">
+<form action="http://ecosapin/module/tunnelvente/taille" id="form_type" method="post">
     <h4>{l s="Choisissez le type de sapin" mod='tunnelvente'}</h4>
     <ul>
         {foreach from=$types item=type}
@@ -33,7 +33,7 @@
 
 <script type="text/javascript">
 
-    var baseurl_tunnelvente = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/type";
+    var baseurl_tunnelvente = "http://ecosapin/module/tunnelvente/type";
     var partner_name = "{$partner['name']}";
     var partner_img = "{$partner['img']}";
     // var partner_description = "{$partner['description']}";
@@ -55,7 +55,7 @@
 
     $('.container_type .nom_transporteur').html(partner_name);
     $('.container_type .description_transporteur').html(partner_description);
-    $('.container_type .transporteur img').attr('src',"{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}modules/ecosapinpartners/uploads/"+partner_img );
+    $('.container_type .transporteur img').attr('src',"http://ecosapin/modules/ecosapinpartners/uploads/"+partner_img );
 
 </script>
 {literal}

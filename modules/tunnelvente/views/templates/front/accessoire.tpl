@@ -14,9 +14,9 @@
     $(function($){   
         var goto = null;
         {if $autresapin == 1 }
-            goto = '{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/type';
+            goto = 'http://ecosapin/module/tunnelvente/type';
         {else}
-            goto = '{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}fr/stock-pack/93-my-little-ecosapin.html';
+            goto = 'http://ecosapin/fr/stock-pack/93-my-little-ecosapin.html';
             window.location = goto;
         {/if}
         console.log(goto);
@@ -44,7 +44,7 @@
     </script> 
 {else}
 
-<form action="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/commande" id="form_accessoire" method="post">
+<form action="http://ecosapin/module/tunnelvente/commande" id="form_accessoire" method="post">
     <h4>{l s="Choisissez vos accessoires" mod='tunnelvente'}</h4>      
    <ul>
    {foreach from=$products item=product}
@@ -85,8 +85,8 @@
     
     
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/taille";
-    var baseurl_tunnelvente_product = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/product";
+    var baseurl_tunnelvente = "http://ecosapin/module/tunnelvente/taille";
+    var baseurl_tunnelvente_product = "http://ecosapin/module/tunnelvente/product";
     $(function($){
         $('form#form_accessoire').submit(function(event){
             event.preventDefault();

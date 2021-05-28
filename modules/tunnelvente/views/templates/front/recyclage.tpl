@@ -1,4 +1,4 @@
-<form action="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/boule" id="form_recyclage"
+<form action="http://ecosapin/module/tunnelvente/boule" id="form_recyclage"
       method="post">
     <h4>{l s="Choisissez le type de recyclage" mod='tunnelvente'}</h4>
     <ul>
@@ -8,7 +8,7 @@
             <label for="recyclage_{$product.id}">{$product.description_short}</label>
             {if !empty($image_recyclage)}
                 <img style="display: none;"
-                     src="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}modules/tunnelvente/images/recyclage/{$image_recyclage}"/>
+                     src="http://ecosapin/modules/tunnelvente/images/recyclage/{$image_recyclage}"/>
             {/if}
         </li>
         <li data-id="0">
@@ -39,9 +39,9 @@
 
 <script type="text/javascript">
     {*var baseurl_tunnelvente = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/taille?back=2";*}
-    var baseurl_tunnelvente = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/{if $isSapinSwiss}pied{else}taille{/if}?back=1";
-    var partnerImg = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}modules/ecosapinpartners/uploads/{$resume.transporteur_img}";
-    var link = "{$link->getPageLink($order_process, true)|escape:'html':'UTF-8'}";
+    var baseurl_tunnelvente = "http://ecosapin/module/tunnelvente/{if $isSapinSwiss}pied{else}taille{/if}?back=1";
+    var partnerImg = "http://ecosapin/modules/ecosapinpartners/uploads/{$resume.transporteur_img}";
+   {* var link = "{$link->getPageLink($order_process, true)|escape:'html':'UTF-8'}";*}
 
     $(".container_recyclage").removeClass('hidden');
     $(".container_recyclage #transporteur").html('{$resume.transporteur}');

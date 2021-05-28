@@ -7,7 +7,7 @@ require_once dirname(__FILE__).'/Front.php';
 require_once dirname(__FILE__).'/../../../planningdeliverybycarrier/PlanningDeliveryByCarrierException.php';
 require_once dirname(__FILE__).'/../../../planningdeliverybycarrier/PlanningRetourByCarrierException.php';
 
-class tunnelventetypeModuleFrontController extends front {
+class TunnelVenteTypeModuleFrontController extends Front {
 
     protected static $TEMPLATE = "type.tpl";
 
@@ -24,12 +24,12 @@ class tunnelventetypeModuleFrontController extends front {
                 $this->context->cookie->__set('npa', $npa);
                 $this->addValueTunnelVent('npa', $npa);
 
-                $dateDispo = PlanningDeliveryByCarrierException::getDateDisponibleByNPA();
-                $dateDispoR = PlanningRetourByCarrierException::getDateDisponibleByNPA();
+             //   $dateDispo = PlanningDeliveryByCarrierException::getDateDisponibleByNPA();
+             //   $dateDispoR = PlanningRetourByCarrierException::getDateDisponibleByNPA();
 
-                if(!count($dateDispo) || !count($dateDispoR)){
-                    $this->errors[] = Tools::displayError('Tous nos jours de livraison de ce district sont complets pour cette année. Rendez-vous en 2018!');
-                }
+              //  if(!count($dateDispo) || !count($dateDispoR)){
+             //       $this->errors[] = Tools::displayError('Tous nos jours de livraison de ce district sont complets pour cette année. Rendez-vous en 2018!');
+             //   }
 
 
                 $return = array(
@@ -138,7 +138,7 @@ class tunnelventetypeModuleFrontController extends front {
             "isTunnelEnabled" => Configuration::get('TUNNELVENTE_ENABLED')
         ));
 
-        $this->setTemplate('index.tpl');
+        $this->setTemplate('module:tunnelvente/views/templates/front/index.tpl');
     }
 
     private function getHtml($npa) {
@@ -181,14 +181,14 @@ class tunnelventetypeModuleFrontController extends front {
             }
         }
 
-        $get_partner_sql = "select part.partner_id, part.name , part.img, part.description 
+        $get_partner_sql = "select part.partner_id, part.name , part.img, part.description
                             from ps_partners part
                             join ps_warehouse_carrier wc on wc.id_warehouse = part.warehouse_id
                             join ps_gszonevente_region r on r.id_carrier = wc.id_carrier
                             join ps_gszonevente_npa npa on npa.id_gszonevente_region = r.id_gszonevente_region
                             where npa.`name` = $npa";
         $partner         = Db::getInstance()->getRow($get_partner_sql);
-        if(!$partner){
+            if(!$partner){
             $partner['name'] = 'Poste';
             // $partner['description'] = $this->module->l('Votre sapin sera livré par Poste');
             $partner['description'] = 'Votre sapin sera livré par Poste';
@@ -204,7 +204,6 @@ class tunnelventetypeModuleFrontController extends front {
             $partner['description'] = Db::getInstance()->getValue($get_partner_lang_sql);
 
         }
-
 
         $smarty->assign(array(
             "types" => $this->getTypeDisponible($npa),
