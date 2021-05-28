@@ -9,8 +9,6 @@ class AdminEcosapinNoWarehouseOrdersController extends ModuleAdminController{
             return parent::l($string, $class, $addslashes, $htmlentities);
         }
     }
-
-
     public function __construct()
     {
         $this->bootstrap = true;
@@ -87,7 +85,7 @@ class AdminEcosapinNoWarehouseOrdersController extends ModuleAdminController{
     /*public function displayAfficherLink($token, $id){
         $token= Tools::getAdminTokenLite('AdminOrders');
         $link = _PS_BASE_URL_.__PS_BASE_URI__."commandes/index.php?controller=AdminOrders&id_order=$id&vieworder&token=$token";
-        return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> détails</a>";
-    }
-*/
+        return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> détails</a>";*/
+    
+
 }

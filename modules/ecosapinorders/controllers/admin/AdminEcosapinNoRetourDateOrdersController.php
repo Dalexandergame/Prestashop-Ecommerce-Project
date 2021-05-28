@@ -2,6 +2,7 @@
 
 class AdminEcosapinNoRetourDateOrdersController extends ModuleAdminController
 {
+
     protected function l($string, $class = null, $addslashes = false, $htmlentities = true)
     {
         if ( _PS_VERSION_ >= '1.7') {
@@ -39,7 +40,7 @@ class AdminEcosapinNoRetourDateOrdersController extends ModuleAdminController
         $this->_where = ' = 0 OR YEAR(pdc.date_retour) = 0 OR pdc.date_retour = "--"';
 
         $this->_join           = '
-		LEFT JOIN `' . _DB_PREFIX_ . 'planning_delivery_carrier` pdc ON (pdc.`id_order` = a.`id_order`)
+        LEFT JOIN `' . _DB_PREFIX_ . 'planning_delivery_carrier` pdc ON (pdc.`id_order` = a.`id_order`)
 		LEFT JOIN `' . _DB_PREFIX_ . 'customer` c ON (c.`id_customer` = a.`id_customer`)
 		LEFT JOIN `' . _DB_PREFIX_ . 'address` address ON address.id_address = a.id_address_delivery
 		LEFT JOIN `' . _DB_PREFIX_ . 'country` country ON address.id_country = country.id_country
@@ -52,18 +53,18 @@ class AdminEcosapinNoRetourDateOrdersController extends ModuleAdminController
         $this->_use_found_rows = true;
 
         $this->fields_list = array(
-            'id_order'            => array(
-                'title' => $this->l('ID'),
+            'id_order'=> array(
+                'title' => $this->l('ID Orders'),
                 'align' => 'text-center',
                 'class' => 'fixed-width-xs'
             ),
-            'retour_date'         => array(
+            'retour_date'=> array(
                 'title' => $this->l('Retour Date')
             ),
-            'reference'           => array(
+            'reference'=> array(
                 'title' => $this->l('Reference')
             ),
-            'customer'            => array(
+            'customer'=> array(
                 'title'        => $this->l('Customer'),
                 'havingFilter' => true,
             ),
@@ -74,7 +75,7 @@ class AdminEcosapinNoRetourDateOrdersController extends ModuleAdminController
                 'currency'      => true,
                 'badge_success' => true
             ),
-            'date_add'            => array(
+            'date_add'=> array(
                 'title'      => $this->l('Date'),
                 'align'      => 'text-right',
                 'type'       => 'datetime',
