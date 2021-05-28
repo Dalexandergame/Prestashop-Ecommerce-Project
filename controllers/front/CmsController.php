@@ -186,6 +186,7 @@ class CmsControllerCore extends FrontController
         if ($this->assignCase == 2) {
             $page['body_classes']['cms-id-' . $this->cms_category->id] = true;
         } else {
+            $page['body_classes']['cms-page-' . $this->cms->link_rewrite ] = true;
             $page['body_classes']['cms-id-' . $this->cms->id] = true;
             if (!$this->cms->indexation) {
                 $page['meta']['robots'] = 'noindex';
