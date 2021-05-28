@@ -75,6 +75,53 @@
           {hook h='displayTop'}
           <div class="clearfix"></div>
         </div>
+          <div class="container col-md-12 titles">
+              <div class="titles-header home">
+                  <div class="title-header"><img src="{$urls.img_url}drapeau_suisse.png" alt="pecto-suisse"/></div>
+                  <p class="text-header">{l s='Mon sapin local'},<br>{l s='livré chez moi.'}
+                  </p>
+                  <div class="btn-header">
+                      <a href="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelventeabies/type" class="btn-sapin-header">
+                          {l s='Acheter mon sapin'}
+                      </a>
+                  </div>
+              </div>
+              <div class="titles-header contact" style="display: none">
+                  <h2 class="title-header">{l s='Contact'} </h2>
+                  <p class="text-header">{l s='Pour toute question, notre équipe se fera un plaisir de vous répondre dans les meilleurs délais.'}
+                  </p>
+              </div>
+              <div class="titles-header profil" style="display: none">
+                  <h2 class="title-header">{l s='Les producteurs'} </h2>
+                  <p class="text-header">{l s='Découvrez les producteurs qui travaillent avec my abies'}
+                  </p>
+              </div>
+              <div class="titles-header sapins" style="display: none">
+                  <h2 class="title-header">{l s='Les sapins'} </h2>
+                  <p class="text-header">{l s='Découvrez tous les sapins proposés sur my abies'}
+                  </p>
+              </div>
+              <div class="titles-header profil-details1" style="display: none">
+                  <h2 class="title-header">{l s='Agriculteur'} </h2>
+                  <p class="text-header">{l s='Famille Castella'}
+                  </p>
+              </div>
+              <div class="titles-header profil-details2" style="display: none">
+                  <h2 class="title-header">{l s='Agriculteur'} </h2>
+                  <p class="text-header">{l s='Adrian Kuhn'}
+                  </p>
+              </div>
+              <div class="titles-header profil-details3" style="display: none">
+                  <h2 class="title-header">{l s='Agriculteur'} </h2>
+                  <p class="text-header">{l s='Nicolas Dolder'}
+                  </p>
+              </div>
+              <div class="titles-header profil-details4" style="display: none">
+                  <h2 class="title-header">{l s='Agriculteur'} </h2>
+                  <p class="text-header">{l s='Famille Gäumann'}
+                  </p>
+              </div>
+          </div>        
       </div>
       <div id="mobile_top_menu_wrapper" class="row hidden-md-up" style="display:none;">
         <div class="js-top-menu mobile" id="_mobile_top_menu"></div>

@@ -30,18 +30,35 @@
   </div>
 </div>
 <div class="footer-container">
-  <div class="container">
-    <div class="row">
+  <div id="footer" class="container">
+    {* <div class="row">
       {block name='hook_footer'}
         {hook h='displayFooter'}
       {/block}
-    </div>
+    </div> *}
+    <div class="row">
+      <div class="col-md-2">
+        <img src="{$urls.img_url}Logo-Footer.png" class="logo-myabies">
+          <div class="footer-adresse">
+            <span class="footer-info">info@myabies.ch<br> </span>
+            <div class="block-social">
+              <a href="https://www.facebook.com/My-Abies-115089373697038" target="_blank"><img class="logo-social" src="{$urls.img_url}facebook.png" alt="facebook"></a>
+              <a href="https://www.instagram.com/my_abies/" target="_blank"><img class="logo-social" src="{$urls.img_url}instagram.png" alt="instagram"></a>
+            </div>
+          </div>
+      </div>    
+      <div class="col-md-10">
+        {block name='hook_footer'}
+          {hook h='displayFooter'}
+        {/block}
+      </div>
+    </div>    
     <div class="row">
       {block name='hook_footer_after'}
         {hook h='displayFooterAfter'}
       {/block}
     </div>
-    <div class="row">
+    {* <div class="row">
       <div class="col-md-12">
         <p class="text-sm-center">
           {block name='copyright_link'}
@@ -51,6 +68,7 @@
           {/block}
         </p>
       </div>
-    </div>
+    </div> *}
   </div>
+  <div class="bar"></div>  
 </div>

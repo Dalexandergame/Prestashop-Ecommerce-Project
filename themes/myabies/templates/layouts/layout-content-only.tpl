@@ -37,13 +37,15 @@
     {hook h='displayAfterBodyOpeningTag'}
 {/block}
 <div id="page">
-    <div class="bg-home">
-        <div class="header-container">
-            <header id="header">
-                {block name='header'}
-                    {include file='_partials/header.tpl'}
-                {/block}
-            </header>
+    <div class="background-body">
+        <div class="header-container img-header">
+            <div class="opacity-header">
+                <header id="header">
+                    {block name='header'}
+                        {include file='_partials/header.tpl'}
+                    {/block}
+                </header>
+            </div>
         </div>
         <div class="columns-container">
             <div id="columns" class="container">
