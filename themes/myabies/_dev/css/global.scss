@@ -8679,19 +8679,19 @@ span.exclusive {
 }
 
 
-.cms-26 .form-control {
+.cms-page-les-sapins .form-control {
     background: inherit;
 }
 
-.cms-26 form.contact-form-box {
+.cms-page-les-sapins form.contact-form-box {
     padding: 0px 15px;
 }
 
-.cms-26 button#submitMessage {
+.cms-page-les-sapins button#submitMessage {
     margin: 15px;
 }
 
-.cms-26 textarea#message {
+.cms-page-les-sapins textarea#message {
     text-indent: 0px;
     font: normal normal normal 18px/35px Source Serif Pro;
     letter-spacing: 0px;
@@ -15611,20 +15611,20 @@ body#order-opc {
     /*background-attachment: fixed;*/
 }
 
-.cms-24 .img-header, .cms-25 .img-header {
+.cms-page-les-producteurs .img-header, .cms-25 .img-header {
     background: url(../img/10.png) no-repeat;
     background-size: 100% 100%;
     height: 592px;
     background-attachment: fixed;
 }
 
-.cms-24 .opacity-header, .cms-25 .opacity-header, .cms-28 .opacity-header, .cms-29 .opacity-header, .cms-30 .opacity-header {
+.cms-page-les-producteurs .opacity-header, .cms-25 .opacity-header, .cms-28 .opacity-header, .cms-29 .opacity-header, .cms-30 .opacity-header {
     width: 100%;
     height: 592px;
     background: rgba(0, 0, 0, 0.3);
 }
 
-.cms-26 .img-header {
+.cms-page-les-sapins .img-header {
     background: url(../img/bande-3-min.jpg) no-repeat;
     background-size: 100% 100%;
     height: 592px;
@@ -15632,7 +15632,7 @@ body#order-opc {
 }
 
 
-.cms-26 #columns {
+.cms-page-les-sapins #columns {
     position: relative;
     padding-bottom: 0em;
     padding-top: 7.375em;
@@ -15677,11 +15677,11 @@ body#order-opc {
     display: none;
 }
 
-.cms-24 .titles-header.profil {
+.cms-page-les-producteurs .titles-header.profil {
     display: block !important;
 }
 
-.cms-26 .titles-header.sapins {
+.cms-page-les-sapins .titles-header.sapins {
     display: block !important;
 }
 
@@ -16159,7 +16159,7 @@ h2.title-desc {
 
 /*profil*/
 
-.cms-24 #columns {
+.cms-page-les-producteurs #columns {
     position: relative;
     padding-bottom: 0px;
     padding-top: 7.375em;
@@ -17464,7 +17464,7 @@ table {
 }
 
 @media (max-width: 1024px) {
-    .cms-24 #center_column {
+    .cms-page-les-producteurs #center_column {
         padding: 0px;
     }
     #index .img-header , #contact .img-header {
@@ -17481,7 +17481,7 @@ table {
         font: normal normal normal 46px/56px Source Serif Pro;
         width: 75%
     }
-    .cms-26 textarea#message {
+    .cms-page-les-sapins textarea#message {
         text-indent: 0px;
         font: normal normal normal 14px/22px Source Serif Pro;
         letter-spacing: 0px;
@@ -17641,7 +17641,7 @@ table {
     .bg-color-carte{
         display: none;
     }
-    .cms-26 .img-header {
+    .cms-page-les-sapins .img-header {
         background: url(../img/bande-3-min2.jpg) no-repeat;
         background-size: cover;
         height: 592px;
@@ -17656,7 +17656,7 @@ table {
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
-    .cms-24 .img-header , .cms-25 .img-header, .cms-28 .img-header, .cms-29 .img-header, .cms-30 .img-header {
+    .cms-page-les-producteurs .img-header , .cms-25 .img-header, .cms-28 .img-header, .cms-29 .img-header, .cms-30 .img-header {
         background: url(../img/10-3.jpg) no-repeat;
         background-size: 100% 100%;
         height: 592px;
@@ -17969,7 +17969,7 @@ table {
     }
 
     /*cms*/
-    .cms-24 .row.equal {
+    .cms-page-les-producteurs .row.equal {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -17979,7 +17979,7 @@ table {
         flex-wrap: nowrap;
         overflow-x: auto;
     }
-    .cms-24 .col-md-3.d-flex.pb-3 {
+    .cms-page-les-producteurs .col-md-3.d-flex.pb-3 {
         width: 50%;
         flex-shrink: 0;
     }
@@ -18371,12 +18371,12 @@ table {
         text-align: center;
     }
 
-    .cms-26 .img-header {
+    .cms-page-les-sapins .img-header {
         background: url(../img/bande-3-min3.jpg) no-repeat;
         background-size: cover;
         height: 592px;
     }
-    .cms-24 .img-header , .cms-25 .img-header, .cms-28 .img-header, .cms-29 .img-header, .cms-30 .img-header {
+    .cms-page-les-producteurs .img-header , .cms-25 .img-header, .cms-28 .img-header, .cms-29 .img-header, .cms-30 .img-header {
         background: url(../img/10-2.jpg) no-repeat;
         background-size: 100% 100%;
         height: 592px;
@@ -18407,7 +18407,7 @@ table {
      .col-md-12.table-repo{
          display: block;
      }
-    .cms-24 .col-md-3.d-flex.pb-3 {
+    .cms-page-les-producteurs .col-md-3.d-flex.pb-3 {
         width: 100%;
     }
 
@@ -19432,7 +19432,7 @@ table {
     .card-title {
         font: normal normal bold 10px/27px Montserrat;
     }
-    .cms-24 #columns {
+    .cms-page-les-producteurs #columns {
         position: relative;
         padding-top: 37px;
     }
@@ -19461,7 +19461,7 @@ table {
     .card .card-footer {
         padding: .75rem 0.4rem;
     }
-    .cms-26 #columns {
+    .cms-page-les-sapins #columns {
         position: relative;
         padding-bottom: 0em;
         padding-top: 0em;
@@ -19817,7 +19817,7 @@ table {
         color: #505050;
         width: auto;
     }
-    .cms-26 textarea#message {
+    .cms-page-les-sapins textarea#message {
         text-indent: 0px;
         font: normal normal normal 12px/35px Source Serif Pro;
         letter-spacing: 0px;
@@ -19873,3 +19873,5 @@ table {
     }
 
 }
+/**/
+  

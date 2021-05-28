@@ -574,15 +574,15 @@ body {
     width: 100px;
     height: 130px;
     content: "";
-   // background: url(images/picto-sap-potp.png) no-repeat left top;
+    background: url(images/picto-sap-potp.png) no-repeat left top;
 }
 
 .col-md-12:first-child .picto-sap:before {
-  //  background: url(images/picto-sap-pot.png) no-repeat left top;
+    background: url(images/picto-sap-pot.png) no-repeat left top;
 }
 
 .col-md-12:last-child .picto-sap:before {
-  //  background: url(images/picto-sap-pied.png) no-repeat left top;
+    background: url(images/picto-sap-pied.png) no-repeat left top;
 }
 
 #map-partners .container > h2,
@@ -1020,7 +1020,7 @@ img.slide-multi {
 
     .text-md-center.mr-40.block-btn {
         display: flex;
-        width: 80%;
+        width: 85%;
         margin: 0px auto;
         padding: 40px;
     }
@@ -1117,7 +1117,7 @@ img.slide-multi {
 
         .text-md-center.mr-40.block-btn {
             display: block;
-            width: 85%;
+            width: 80%;
             margin: 0px auto;
             padding: 40px 20px;
         }
