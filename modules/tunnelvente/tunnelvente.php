@@ -24,11 +24,10 @@
  *  International Registered Trademark & Property of PrestaShop SA
  */
 
-if (!defined('_PS_VERSION_')) {
+if (!defined('_PS_VERSION_'))
     exit;
-}
 
-//require_once dirname(__FILE__) . "/controllers/front/Front.php";
+require_once dirname(__FILE__) . "/controllers/front/Front.php";
 
 //require_once dirname(__FILE__) ."/classes/Functions.php";
 
@@ -56,7 +55,7 @@ class TunnelVente extends Module
         $this->displayName = $this->l('Tunnel de vente');
         $this->description = $this->l('Module Tunnel de vente ');
         $module            = $this;
-     /*   $controllers       = [
+        $controllers       = array(
             1 => 'type',
             2 => 'taille',
             3 => 'sapin',
@@ -65,10 +64,9 @@ class TunnelVente extends Module
             6 => 'pot',
             7 => 'autres',
             8 => 'accessoire',
-        ];
-    */
+        );
         //etape 1
-    /*    $step1 = new Step($module->l('Configuration du sapin'));
+        $step1 = new Step($module->l('Configuration du sapin'));
         $step1->addStepDetail(new StepDetail($module->l('NPA'), '#'));
         $step1->addStepDetail(new StepDetail($module->l('Choisissez le type'), "{$controllers[1]}"));
         $step1->addStepDetail(new StepDetail($module->l('Petit ou grand'), "{$controllers[2]}"));
@@ -90,7 +88,7 @@ class TunnelVente extends Module
               ->addStep($step3)
         ;
 
-        Front::$steps = $steps;*/
+        Front::$steps = $steps;
     }
 
 
@@ -101,10 +99,6 @@ class TunnelVente extends Module
     public function install()
     {
 //		Configuration::updateValue('TUNNELVENTE_LIVE_MODE', false);
-
-        if (Shop::isFeatureActive()) {
-            Shop::setContext(Shop::CONTEXT_SHOP);
-        }
 
         return parent::install() &&
             $this->registerHook('header') &&
@@ -132,9 +126,9 @@ class TunnelVente extends Module
         if (((bool) Tools::isSubmit('submitTunnelventeModule')) == true)
             $this->postProcess();
 
-     //   $this->context->smarty->assign('module_dir', $this->_path);
+        $this->context->smarty->assign('module_dir', $this->_path);
 
-     //   $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/configure.tpl');
+        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/configure.tpl');
 
         return /*$output.*/ $this->renderForm();
     }
@@ -154,9 +148,8 @@ class TunnelVente extends Module
 
         $helper->identifier    = $this->identifier;
         $helper->submit_action = 'submitTunnelventeModule';
-        $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
-     //   $helper->currentIndex  = $this->context->link->getAdminLink('AdminModules', false)
-       //     . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
+        $helper->currentIndex  = $this->context->link->getAdminLink('AdminModules', false)
+            . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
         $helper->token         = Tools::getAdminTokenLite('AdminModules');
 
         $helper->tpl_vars = array(
@@ -165,7 +158,7 @@ class TunnelVente extends Module
             'id_language'  => $this->context->language->id,
         );
 
-        return $helper->generateForm([$this->getConfigForm()]);
+        return $helper->generateForm(array($this->getConfigForm()));
     }
 
     /**
@@ -173,158 +166,158 @@ class TunnelVente extends Module
      */
     protected function getConfigForm()
     {
-        return [
-            'form' => [
-                'legend' => [
+        return array(
+            'form' => array(
+                'legend' => array(
                     'title' => $this->l('Settings'),
-                   // 'icon'  => 'icon-cogs',
-                ],
-                'input'  => [
-                    [
+                    'icon'  => 'icon-cogs',
+                ),
+                'input'  => array(
+                    array(
                         'type'    => 'switch',
                         'label'   => $this->l('Tunnel activer'),
                         'name'    => 'TUNNELVENTE_ENABLED',
                         'is_bool' => true,
                         'desc'    => $this->l('Activer le tunnel de vente'),
-                        'values'  => [
-                            [
+                        'values'  => array(
+                            array(
                                 'id'    => 'active_on',
                                 'value' => true,
                                 'label' => $this->l('Enabled')
-                            ],
-                            [
+                            ),
+                            array(
                                 'id'    => 'active_off',
                                 'value' => false,
                                 'label' => $this->l('Disabled')
-                            ]
-                        ],
-                    ],
-                    [
+                            )
+                        ),
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de produit de retour Ecosapin gratuit ex: 37'),
                         'name'   => 'TUNNELVENTE_ID_PRODUCT_RECYCLAGE_ECOSAPIN_GRATUIT',
                         'label'  => $this->l('Id produit de retour Ecosapin gratuit'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de produit de retour Sapin Suisse payant ex: 67'),
                         'name'   => 'TUNNELVENTE_ID_PRODUCT_RECYCLAGE_SAPIN_SUISSE_PAYANT',
                         'label'  => $this->l('Id produit de retour Sapin Suisse payant'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de produit de retour Sapin Suisse gratuit ex: 68'),
                         'name'   => 'TUNNELVENTE_ID_PRODUCT_RECYCLAGE_SAPIN_SUISSE_GRATUIT',
                         'label'  => $this->l('Id produit de retour Sapin Suisse gratuit'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de produit des boules ex: 52'),
                         'name'   => 'TUNNELVENTE_ID_PRODUCT_BOULE',
                         'label'  => $this->l('Id produit des boules'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de produit des pots ex: 53'),
                         'name'   => 'TUNNELVENTE_ID_PRODUCT_POT',
                         'label'  => $this->l('Id produit des pots'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de produit des pieds ex: 53'),
                         'name'   => 'TUNNELVENTE_ID_PRODUCT_PIED',
                         'label'  => $this->l('Id produit des pieds'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de produit de MyLittel ecosapin ex: 50'),
                         'name'   => 'TUNNELVENTE_ID_PRODUCT_MYLITTELECOSAPIN',
                         'label'  => $this->l('Id produit de MyLittel ecosapin '),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id d\'entropot par defaut ex: 1'),
                         'name'   => 'TUNNELVENTE_DEFAULT_ENTROPOT_STOCK_DISPO',
                         'label'  => $this->l('Entropot par defaut quand il y a pas de stock dispo pour le NPA'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de transporteur de post: 7'),
                         'name'   => 'TUNNELVENTE_ID_CARRIER_POST',
                         'label'  => $this->l('Id de transporteur de post'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de catégorie accessoire ex: 12'),
                         'name'   => 'TUNNELVENTE_ID_CATEGORIE_ACCESSOIRE',
                         'label'  => $this->l('Id de catégorie accessoire'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id de Frais de virement ex: 51'),
                         'name'   => 'TUNNELVENTE_ID_FRAI_VIREMENT',
                         'label'  => $this->l('Id de Frais de virement'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id catégorie Little Ecosapin ex: 9'),
                         'name'   => 'TUNNELVENTE_ID_LITTLE_ECOSAPIN',
                         'label'  => $this->l('Id catégorie Little Ecosapin'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id catégorie Ecosapin ex: 2'),
                         'name'   => 'TUNNELVENTE_ID_ECOSAPIN',
                         'label'  => $this->l('Id catégorie Ecosapin'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id catégorie Sapin Suisse ex: 13'),
                         'name'   => 'TUNNELVENTE_ID_SAPIN_SUISSE',
                         'label'  => $this->l('Id catégorie Sapin Suisse'),
-                    ],
-                    [
+                    ),
+                    array(
                         'col'    => 3,
                         'type'   => 'text',
                         'prefix' => '<i class="icon icon-envelope"></i>',
                         'desc'   => $this->l('Id attribut Petit Sapin Suisse 90/110 cm coupé avec pied ex: 21'),
                         'name'   => 'TUNNELVENTE_ID_ATTRIBUTE_PETIT_SAPIN_SUISSE',
                         'label'  => $this->l('Id attribut Petit Sapin Suisse 90/110 cm coupé avec pied'),
-                    ],
-                ],
-                'submit' => [
+                    ),
+                ),
+                'submit' => array(
                     'title' => $this->l('Save'),
-                ],
-            ],
-        ];
+                ),
+            ),
+        );
     }
 
     /**
@@ -359,9 +352,8 @@ class TunnelVente extends Module
     {
         $form_values = $this->getConfigFormValues();
 
-        foreach (array_keys($form_values) as $key) {
+        foreach (array_keys($form_values) as $key)
             Configuration::updateValue($key, Tools::getValue($key));
-        }
     }
 
     /**
@@ -378,65 +370,67 @@ class TunnelVente extends Module
     /**
      * Add the CSS & JavaScript files you want to be added on the FO.
      */
-    /*  public function hookHeader()
-      {
-          $this->context->controller->addJS($this->_path . '/views/js/front.js');
-          $this->context->controller->addJS(_THEME_JS_DIR_ . 'jqtransformplugin/jquery.jqtransform.js');
-          $this->context->controller->addCSS($this->_path . '/views/css/front.css');
-          $this->context->controller->addCSS(_THEME_JS_DIR_ . 'jqtransformplugin/jqtransform.css');
-          $this->context->controller->addJS(_THEME_JS_DIR_ . 'product.js');
-      }
+    public function hookHeader()
+    {
+        $this->context->controller->addJS($this->_path . 'views/js/front.js');
+     //   $this->context->controller->addJS(_THEME_JS_DIR_ . 'jquery.jqtransform.js');
+        $this->context->controller->registerJavascript('tunnelvente-js',_PS_JS_DIR_ . 'jquery/jquery-1.11.0.min.js',['position' =>  'head', 'priority' => 50]);
+        $this->context->controller->registerStylesheet('tunnelvente-front-style',$this->_path . 'views/css/front.css',['media'=>'all', 'priority' => 500]);
+        $this->context->controller->registerStylesheet('tunnelvente-global-style',$this->_path . 'views/css/global.css',['media' => 'all', 'priority' => 20]);
+        $this->context->controller->addCSS(_THEME_CSS_DIR_ . 'jqtransformplugin/jqtransform.css');
+        $this->context->controller->addJS(_THEME_JS_DIR_ . 'product.js');
+    }
 
-      function getIdProductSapins($cat)
-      {
+    function getIdProductSapins($cat)
+    {
 
-          $sql    = "SELECT id_product FROM " . _DB_PREFIX_ . "product
-                         WHERE id_category_default IN (" . implode(",", $cat) . ")";
-          $result = Db::getInstance()->executeS($sql);
+        $sql    = "SELECT id_product FROM " . _DB_PREFIX_ . "product
+                       WHERE id_category_default IN (" . implode(",", $cat) . ")";
+        $result = Db::getInstance()->executeS($sql);
 
-          $idP = array();
-          foreach ($result as $res) {
-              $idP[] = $res["id_product"];
-          }
-          return $idP;
-      }
+        $idP = array();
+        foreach ($result as $res) {
+            $idP[] = $res["id_product"];
+        }
+        return $idP;
+    }
 
-      public function hookDisplayHome($params)
-      {
-          $steps = Front::getSteps();
+    public function hookDisplayHome($params)
+    {
+        $steps = Front::getSteps();
 
-          //activer NPA
-          $steps->getStepByPosition(1)->setActive(true)
-                ->getStepDetailByPosition(1)->setActive(true)
-          ;
+        //activer NPA
+        $steps->getStepByPosition(1)->setActive(true)
+              ->getStepDetailByPosition(1)->setActive(true)
+        ;
 
-          $productMyLitte    = new Product((int) Configuration::get('TUNNELVENTE_ID_PRODUCT_MYLITTELECOSAPIN'), false, $this->context->language->id);
-          $cart              = $this->context->cart;
-          $hasSapin          = false;
-          $id_product_sapins = $this->getIdProductSapins(array(Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')));
-          $npa               = '';
-          if ($cart && $products = $cart->getProducts()) {
-              $npa = $cart->npa;
-              foreach ($products as $product) {
-                  if (in_array($product['id_product'], $id_product_sapins)) {
-                      $hasSapin = true;
-                      break;
-                  }
-              }
-          }
-          $this->context->smarty->assign(array(
-                                             'steps'                 => $steps,
-                                             'prod_mylittelecosapin' => $productMyLitte,
-                                             "npa"                   => $npa,
-                                             "hasSapin"              => $hasSapin,
-                                         )
-          );
+        $productMyLitte    = new Product((int) Configuration::get('TUNNELVENTE_ID_PRODUCT_MYLITTELECOSAPIN'), false, $this->context->language->id);
+        $cart              = $this->context->cart;
+        $hasSapin          = false;
+        $id_product_sapins = $this->getIdProductSapins(array(Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')));
+        $npa               = '';
+        if ($cart && $products = $cart->getProducts()) {
+            $npa = $cart->npa;
+            foreach ($products as $product) {
+                if (in_array($product['id_product'], $id_product_sapins)) {
+                    $hasSapin = true;
+                    break;
+                }
+            }
+        }
+        $this->context->smarty->assign(array(
+                                           'steps'                 => $steps,
+                                           'prod_mylittelecosapin' => $productMyLitte,
+                                           "npa"                   => $npa,
+                                           "hasSapin"              => $hasSapin,
+                                       )
+        );
 
-          return $this->display(__FILE__, '/views/templates/front/home.tpl');
-      }
+        return $this->display(__FILE__, '/views/templates/front/home.tpl');
+    }
 
-      public function hookDisplayFooterProduct($params)
-      {
-          return $this->hookDisplayHome($params);
-      }*/
+    public function hookDisplayFooterProduct($params)
+    {
+        return $this->hookDisplayHome($params);
+    }
 }

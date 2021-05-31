@@ -15,10 +15,11 @@ class Front extends ModuleFrontControllerCore
     const TUNNELVENT = "TUNNELVENT";
 
     public static $steps;
-    protected     $stockGlobal;
-    protected     $id_product_sapins;
-    private       $id_attributeRemoved;
-    private       $id_types;
+
+    private $id_attributeRemoved;
+
+    private   $id_types;
+    protected $id_product_sapins;
 
     function getIdProductSapins($cat)
     {
@@ -37,10 +38,9 @@ class Front extends ModuleFrontControllerCore
     public function __construct()
     {
         parent::__construct();
-
         $this->id_types          = array(Configuration::get('TUNNELVENTE_ID_LITTLE_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE'));
         $this->id_product_sapins = $this->getIdProductSapins(array(Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')));
-        $this->stockGlobal       = new AdminStockGlobalView(false);
+
     }
 
     /**
@@ -225,6 +225,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
     protected function getTailleDisponible($npa, $type)
     {
         $warehouse   = Db::getInstance()->getValue(SqlRequete::getSqlEntrepotByNPA($npa));
+        $stockGlobal = new AdminStockGlobalView(false);
 
         if (!$warehouse) $warehouse = 1;
 
@@ -232,47 +233,45 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
         $result      = array();
 
         foreach ($queryResult as $value) {
+            if ($value['id'] == 20) $quantity = $stockGlobal->getQteAvendre(54, 1402, [$warehouse], true);
+            if ($value['id'] == 12) $quantity = $stockGlobal->getQteAvendre(54, 1394, [$warehouse], true);
+            if ($value['id'] == 14) $quantity = $stockGlobal->getQteAvendre(54, 1396, [$warehouse], true);
+            if ($value['id'] == 17) $quantity = $stockGlobal->getQteAvendre(65, 1550, [$warehouse], true);
+            if ($value['id'] == 70) $quantity = $stockGlobal->getQteAvendre(65, 1551, [$warehouse], true);
+            if ($value['id'] == 71) $quantity = $stockGlobal->getQteAvendre(65, 1552, [$warehouse], true);
+            if ($value['id'] == 880) $quantity = $stockGlobal->getQteAvendre(3, 7264, [$warehouse], true);
+
+
             if (!in_array($value['id'], $this->id_attributeRemoved)) {
-                $product  = [];
+                foreach ($this->getProductByAttId($value["id"], $type) as $cat) {
+                    // the following code is for filtering only allowed products to the tunnel
+                    if ($value["id"] == 20 && $cat['id_product'] != 54 ) continue;
+                    if ($value["id"] == 12 && $cat['id_product'] != 54) continue;
+                    if ($value["id"] == 14 && $cat['id_product'] != 54) continue;
+                    if ($value["id"] == 17 && $cat['id_product'] != 65) continue;
+                    if ($value["id"] == 70 && $cat['id_product'] != 65) continue;
+                    if ($value["id"] == 71 && $cat['id_product'] != 65) continue;
+                    if ($value["id"] == 880 && $cat['id_product'] != 3) continue;
 
-                switch ($value['id']) {
-                    case 12:
-                        $product = $this->getProductByProductAttId(54, 1394, $type);
-                        break;
-                    case 14:
-                        $product = $this->getProductByProductAttId(54, 1396, $type);
-                        break;
-                    case 17:
-                        $product = $this->getProductByProductAttId(65, 1550, $type);
-                        break;
-                    case 20:
-                        $product = $this->getProductByProductAttId(54, 1402, $type);
-                        break;
-                    case 70:
-                        $product = $this->getProductByProductAttId(65, 1551, $type);
-                        break;
-                    case 71:
-                        $product = $this->getProductByProductAttId(65, 1552, $type);
-                        break;
-                    case 880:
-                        $product = $this->getProductByProductAttId(3, 7264, $type);
-                        break;
-                    case 2113:
-                        $product = $this->getProductByProductAttId(65, 9337, $type);
-                        break;
-                }
+                    // get right images
+                    if ($value["id"] == 20 && $cat['id_product'] == 54) $image = 'en-pot1.jpg';
+                    if ($value["id"] == 12 && $cat['id_product'] == 54) $image = 'en-pot2.jpg';
+                    if ($value["id"] == 14 && $cat['id_product'] == 54) $image = 'en-pot3.jpg';
+                    if ($value["id"] == 17 && $cat['id_product'] == 65) $image = 'sap_suisse_1.png';
+                    if ($value["id"] == 70 && $cat['id_product'] == 65) $image = 'sap_suisse_2.png';
+                    if ($value["id"] == 71 && $cat['id_product'] == 65) $image = 'sap_suisse_3.png';
+                    if ($value["id"] == 880 && $cat['id_product'] == 3) $image = 'en-pot3.jpg';
 
-                if (count($product)) {
-                    $product  = $product[0];
-                    $name     = explode("cm", $product["name"]);
-                    $quantity = $this->stockGlobal->getQteAvendre($product["id_product"], $product["id_product_attribute"], [$warehouse], true);
+                    $name     = explode("cm", $cat["name"]);
+                    $image    = isset($image)? $image: '';
+                    $quantity = isset($quantity)? $quantity: 0;
                     $result[] = array(
-                        'id'       => $product["id_attribute"],
-                        'price'    => number_format(round($product["price"] + ($product["price"] * 0.025), 2), 2),
-                        'name'     => (count($name) == 2? $name[0] . " cm": $value["name"]),
-                        'type'     => (count($name) == 2? $name[1]: ""),
+                        'id'       => $cat["id_attribute"],
+                        'price'    => number_format(round($cat["price"] + ($cat["price"] * 0.025), 2), 2),
+                        'name'     => (count($name) == 2 ? $name[0] . " cm" : $value["name"]),
+                        'type'     => (count($name) == 2 ? $name[1] : ""),
                         "enpot"    => in_array($value['id'], SqlRequete::$idAttrTailleSapinEnPot),
-                        'image'    => $this->getImageByAttribute($product["id_attribute"]),
+                        'image'    => $image,
                         'quantity' => $quantity,
                     );
                 }
@@ -280,44 +279,6 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
         }
 
         return array_unique($result, SORT_REGULAR);
-    }
-
-    /**
-     * @param $idAttribute
-     * @return string
-     */
-    public function getImageByAttribute($idAttribute)
-    {
-        switch ($idAttribute) {
-            case 12:
-                return 'en-pot2.jpg';
-            case 14:
-            case 880:
-                return 'en-pot3.jpg';
-            case 17:
-            case 2113:
-                return 'sap_suisse_1.png';
-            case 20:
-                return 'en-pot1.jpg';
-            case 70:
-                return 'sap_suisse_2.png';
-            case 71:
-                return 'sap_suisse_3.png';
-        }
-    }
-
-    public function getProductByProductAttId($idProduct, $idProductAttribute, $type)
-    {
-        $id_lang = $this->context->language->id;
-        $sql     = "SELECT p.id_product,p.id_category_default,pattr.id_product_attribute,attrl.id_attribute,attrl.name,stk.quantity, pattr.price 
-                FROM ps_product_attribute_combination atc
-                JOIN `ps_product_attribute` pattr ON pattr.`id_product_attribute` = atc.`id_product_attribute`
-                JOIN `ps_stock_available` stk ON stk.`id_product_attribute` = pattr.`id_product_attribute`
-                JOIN `ps_product` p ON p.id_product = pattr.id_product
-                JOIN ps_attribute_lang attrl ON attrl.id_attribute = atc.id_attribute
-                WHERE p.id_product = $idProduct AND pattr.id_product_attribute = $idProductAttribute AND p.id_category_default = $type AND id_lang = $id_lang AND p.active = 1";
-
-        return Db::getInstance()->executeS($sql);
     }
 
     public function getSapinDisponible($id_attribute = 0, $npa = 0, $type = 0)

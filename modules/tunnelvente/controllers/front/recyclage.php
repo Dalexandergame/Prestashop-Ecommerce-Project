@@ -6,7 +6,7 @@ if (!defined('_PS_VERSION_'))
 require_once dirname(__FILE__) . "/Front.php";
 require_once dirname(__FILE__) . "/boule.php";
 
-class tunnelventerecyclageModuleFrontController extends tunnelventebouleModuleFrontController
+class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFrontController
 {
 
     protected static $TEMPLATE = "recyclage.tpl";
@@ -174,6 +174,7 @@ class tunnelventerecyclageModuleFrontController extends tunnelventebouleModuleFr
             $partner['name'] = 'Poste';
             $partner['img']  = 'post.png';
         }
+
 
         $lang = $this->context->language->id;
 

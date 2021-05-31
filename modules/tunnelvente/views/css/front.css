@@ -38,6 +38,148 @@
     visibility: hidden !important;
 }
 
+
+#steps .row {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    margin: 0 !important;
+}
+
+@media (max-width: 480px) {
+    #steps .row {
+        display: inherit;
+    }
+}
+
+@media (max-width: 768px) {
+    #steps .row {
+        display: inherit;
+    }
+}
+
+#steps .row .col-md-4 {
+    flex: 1;
+}
+
+#steps .step-ul {
+    /*background: #edf4e4;*/
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 15px;
+}
+
+#steps .step-ul div {
+    overflow: hidden;
+}
+
+#steps .step-ul div .title {
+    height: 53px;
+    /*background: #c83838 url(../img/step-off.png) no-repeat 90% center;*/
+    color: #7d8979;
+    margin-bottom: 1px;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 9px 10px 0 10px;
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    #steps .step-ul div .title {
+        padding-left: 20px;
+    }
+}
+
+/*#steps .step-ul div.inactive .title {
+        background: #c83838 url(../img/step-off.png) no-repeat 90% center; }*/
+#steps .step-ul div.completed .bloc-cont,
+#steps .step-ul div.active .bloc-cont {
+    border: 1px solid #ffffff;
+    color: #7d8979;
+    /*background: #5c8f15 url(../img/step-off.png) no-repeat 90% center;*/
+}
+
+#steps .step-ul div.active .title,
+#steps .step-ul div.completed .bloc-cont {
+    color: #ffffff;
+    /*background: #5c8f15 url(../img/step-on.png) no-repeat 90% center;*/
+}
+
+#steps .step-ul ul {
+    margin: 0;
+    padding-top: 14px;
+    padding-bottom: 0;
+    padding-right: 30px;
+    width: 48%;
+    float: right;
+    text-align: right;
+}
+
+#steps .step-ul ul.hidden {
+    display: block !important;
+    visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+    #steps .step-ul ul {
+        margin-left: 30px;
+    }
+}
+
+#steps .step-ul ul li {
+    padding-left: 0;
+    margin: 0 0 0 7px;
+    height: 21px;
+    line-height: 21px;
+    color: #cee3b4;
+    text-transform: uppercase;
+    text-indent: -9999px;
+    width: 21px;
+    /*float:left;*/
+    display: inline-block;
+    background: url(../img/li-off-inactif.png) no-repeat 0 0;
+}
+
+#steps .step-ul div.active ul li,
+#steps .step-ul div.completed ul li {
+    background: url(../img/li-off-actif.png) no-repeat 0 0;
+}
+
+#steps .step-ul div.active ul li.active,
+#steps .step-ul div.completed ul li.active {
+    background: url(../img/li-on.png) no-repeat 0 0;
+    color: #5d8f3e;
+}
+
+#steps .step-ul ul li.isOk {
+    background: url(../img/li-on.png) no-repeat 0 0 !important;
+}
+
+#steps .step-desc {
+    padding: 0 13px;
+}
+
+#resp_content {
+    border: 1px solid #666666;
+    border-radius: 10px;
+    padding: 9px 15px 100px;
+    position: relative;
+    height: 70vh;
+}
+
+.container_images {
+    background: #666666;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    height: 70vh;
+    overflow-y: scroll
+}
+
 .container_taille_pot {
     text-align: center;
     padding: 0px;

@@ -5,7 +5,7 @@ if (!defined('_PS_VERSION_'))
 
 require_once dirname(__FILE__) . "/Front.php";
 
-class tunnelventeaccesoireModuleFrontController extends Front
+class TunnelVenteAccesoireModuleFrontController extends Front
 {
 
     protected static $TEMPLATE = "accessoire.tpl";

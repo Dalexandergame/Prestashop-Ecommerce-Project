@@ -5,11 +5,11 @@ if (!defined('_PS_VERSION_'))
 
 require_once dirname(__FILE__) . "/Front.php";
 
-class tunnelventebouleModuleFrontController extends Front
+class TunnelVenteBouleModuleFrontController extends Front
 {
 
     protected static $TEMPLATE = "boule.tpl";
-    protected        $id_product_boule;
+    protected $id_product_boule;
 
     public function __construct()
     {
@@ -21,7 +21,7 @@ class tunnelventebouleModuleFrontController extends Front
     {
         $this->page_name = 'taillespain';
         parent::init();
-        $this->display_column_left  = false;
+        $this->display_column_left = false;
         $this->display_column_right = false;
 
         if ($this->ajax && $this->isXmlHttpRequest()) {
@@ -37,7 +37,7 @@ class tunnelventebouleModuleFrontController extends Front
                 if ((int) Tools::getValue('mobile') == 1) {
                     $id_product_attribute = $this->getValueTunnelVent('id_product_sapin');
                     if ($id_product_attribute > 0) {
-                        $sql        = 'SELECT id_product FROM ' . _DB_PREFIX_ . 'product_attribute WHERE id_product_attribute = ' . $id_product_attribute;
+                        $sql = 'SELECT id_product FROM ' . _DB_PREFIX_ . 'product_attribute WHERE id_product_attribute = ' . $id_product_attribute;
                         $id_product = (int) Db::getInstance()->getValue($sql);
                         if ($id_product > 0) {
                             $t = $this->addProductInCart(1, $id_product, $id_product_attribute);
@@ -119,6 +119,7 @@ class tunnelventebouleModuleFrontController extends Front
     {
         $product = new Product($this->id_product_boule, null, $this->context->language->id);
         $smarty  = $this->context->smarty;
+
         $smarty->assign(array(
                             "petit_sapin_suisse" => ($this->getValueTunnelVent("id_attribute_taille") == Configuration::get('TUNNELVENTE_ID_ATTRIBUTE_PETIT_SAPIN_SUISSE')),
                             "result"             => $this->getListAttributeProductBoule(),
@@ -126,6 +127,7 @@ class tunnelventebouleModuleFrontController extends Front
                             "id_product_boule"   => ($this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/) ? $this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/ : 0,
                         )
         );
+
         $html = stripslashes($smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE));
         return $html;
     }
@@ -135,18 +137,18 @@ class tunnelventebouleModuleFrontController extends Front
 
         $id_lang = $this->context->language->id;
 
-        $sql      = SqlRequete::getSqlProductAttributBoule($this->id_product_boule, $this->getValueTunnelVent('npa'), $id_lang);
-        $result   = Db::getInstance()->executeS($sql);
+        $sql = SqlRequete::getSqlProductAttributBoule($this->id_product_boule, $this->getValueTunnelVent('npa'), $id_lang);
+        $result = Db::getInstance()->executeS($sql);
         $products = array();
-
         foreach ($result as $row) {
-            $item_real_quantity = $this->stockGlobal->getQteAvendre(
+            $manager = StockManagerFactory::getManager();
+            $item_real_quantity = $manager->getProductRealQuantities(
                 $row['id_product'],
                 $row['id_product_attribute'],
-                $row['id_warehouse'] == '' ? null : array($row['id_warehouse'])
+                ($row['id_warehouse'] == '' ? null : array($row['id_warehouse'])),
+                true
             );
-            $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
-
+            $row['price_ttc'] = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
             if ($item_real_quantity > 0)
                 $products[] = $row;
         }

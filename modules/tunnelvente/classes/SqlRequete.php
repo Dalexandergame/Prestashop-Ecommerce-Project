@@ -2,7 +2,10 @@
 
 class SqlRequete
 {
-    public static $idAttrTailleSapin      = array(12, 14, 17, 20, 70, 71, 880, 2113);
+
+    // public static $idAttrTailleSapin = array(12,13,14,15,16,17,18,19,20,21,70,71,21);//array(12,14,17,20,70,71);
+    // updated list
+    public static $idAttrTailleSapin      = array(12, 14, 17, 20, 70, 71, 880);
     public static $idAttrTailleSapinEnPot = array(12, 14, 20, 880);
 
     /**
@@ -81,11 +84,9 @@ class SqlRequete
         $sql = "SELECT pa.`id_product_attribute`,pa.price,attl.name,pa.id_product,att.color,i.`id_image`,pl.link_rewrite, il.`legend`, att.id_attribute, st.id_warehouse 
                     FROM " . _DB_PREFIX_ . "product_attribute pa 
                     JOIN " . _DB_PREFIX_ . "product_attribute_combination pac ON pac.id_product_attribute = pa.id_product_attribute
-                    LEFT JOIN " . _DB_PREFIX_ . "product_attribute_shop pas ON ( pas.id_product_attribute = pa.id_product_attribute AND pas.`id_shop` = " . Context::getContext()->shop->id . " )
                     JOIN " . _DB_PREFIX_ . "attribute att ON att.id_attribute = pac.`id_attribute`
                     JOIN " . _DB_PREFIX_ . "attribute_lang attl ON att.id_attribute = attl.`id_attribute`
-                    JOIN " . _DB_PREFIX_ . "attribute_shop atts ON ( att.id_attribute = atts.`id_attribute` AND atts.`id_shop` = " . Context::getContext()->shop->id . " )
-                    JOIN " . _DB_PREFIX_ . "product_lang pl ON ( pl.id_product = pa.id_product  AND pl.`id_lang` = " . (int) ($id_lang) . " AND pl.`id_shop` = " . Context::getContext()->shop->id . " )    
+                    JOIN " . _DB_PREFIX_ . "product_lang pl ON ( pl.id_product = pa.id_product  AND pl.`id_lang` = " . (int) ($id_lang) . " )    
                     LEFT JOIN `" . _DB_PREFIX_ . "product_attribute_image` pai ON (pai.`id_product_attribute` = pa.id_product_attribute )
                     LEFT JOIN `" . _DB_PREFIX_ . "image` i ON (i.`id_image` = pai.id_image )
                     LEFT JOIN `" . _DB_PREFIX_ . "image_lang` il ON (i.`id_image` = il.`id_image` AND il.`id_lang` = " . (int) ($id_lang) . ")
