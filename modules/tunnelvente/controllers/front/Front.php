@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . "/../../classes/SqlRequete.php";
 require_once dirname(__FILE__) . '/../../classes/StepDetail.php';
 require_once dirname(__FILE__) . '/../../classes/Step.php';
 require_once dirname(__FILE__) . '/../../classes/Steps.php';
-require_once dirname(__FILE__) . '/../../../suivicommandes/controllers/admin/AdminStockGlobalView.php';
+require_once dirname(__FILE__) . '/../../../suivicommandes/controllers/admin/AdminStockGlobalViewController.php';
 
 //require_once dirname(__FILE__) . '/../../classes/Functions.php';
 
