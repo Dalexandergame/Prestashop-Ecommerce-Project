@@ -28,4 +28,4 @@ Deploy:
   only:
     - master
   script:
-    - sshpass -p $REMOTE_PASS rsync -e "ssh -o StrictHostKeyChecking=no" -rp --delete-after -arz --delete --exclude=.git* --exclude=.docker --exclude=.htaccess --exclude=img/* --exclude=uploads/* . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
+    - sshpass -p $REMOTE_PASS rsync -e "ssh -o StrictHostKeyChecking=no" -rp --delete-after -arz --delete --exclude=.git* --exclude=.docker --exclude=.htaccess --exclude=img/* --exclude=upload/* --exclude=download/* . $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH
