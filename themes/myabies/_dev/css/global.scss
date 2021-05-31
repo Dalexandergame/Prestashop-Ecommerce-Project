@@ -3311,7 +3311,7 @@ button.envoyer-commande-tunnel.for-mobile {
 
 @media (max-width: 767px) {
 
-    .cms-page-producteur1 .row.equal, .cms-page-producteur2 .row.equal, .cms-page-producteur3 .row.equal, .cms-page-producteur4 .row.equal {
+    .cms-id-23 .row.equal, .cms-id-24 .row.equal, .cms-id-25 .row.equal, .cms-id-26 .row.equal {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -8679,19 +8679,19 @@ span.exclusive {
 }
 
 
-.cms-page-les-sapins .form-control {
+.cms-id-22 .form-control {
     background: inherit;
 }
 
-.cms-page-les-sapins form.contact-form-box {
+.cms-id-22 form.contact-form-box {
     padding: 0px 15px;
 }
 
-.cms-page-les-sapins button#submitMessage {
+.cms-id-22 button#submitMessage {
     margin: 15px;
 }
 
-.cms-page-les-sapins textarea#message {
+.cms-id-22 textarea#message {
     text-indent: 0px;
     font: normal normal normal 18px/35px Source Serif Pro;
     letter-spacing: 0px;
@@ -10175,7 +10175,7 @@ div.star a:hover {
     background-color: #193128;
 }
 
-#authentication #header, #order-opc #header, .cms-page-question-frequente #header, #my-account #header, #module-swissbilling-error #header,
+#authentication #header, #order-opc #header, .cms-id-21 #header, #my-account #header, #module-swissbilling-error #header,
 #identity #header, #addresses #header, #address #header,
 .cms-27 #header, .cms-10 #header, #history #header ,#module-swissbilling-payment #header{
     background: #193128;
@@ -15611,20 +15611,20 @@ body#order-opc {
     /*background-attachment: fixed;*/
 }
 
-.cms-page-les-producteurs .img-header, .cms-page-producteur1 .img-header {
+.cms-id-20 .img-header, .cms-id-23 .img-header {
     background: url(../img/10.png) no-repeat;
     background-size: 100% 100%;
     height: 592px;
     background-attachment: fixed;
 }
 
-.cms-page-les-producteurs .opacity-header, .cms-page-producteur1 .opacity-header, .cms-page-producteur2 .opacity-header, .cms-page-producteur3 .opacity-header, .cms-page-producteur4 .opacity-header {
+.cms-id-20 .opacity-header, .cms-id-23 .opacity-header, .cms-id-24 .opacity-header, .cms-id-25 .opacity-header, .cms-id-26 .opacity-header {
     width: 100%;
     height: 592px;
     background: rgba(0, 0, 0, 0.3);
 }
 
-.cms-page-les-sapins .img-header {
+.cms-id-22 .img-header {
     background: url(../img/bande-3-min.jpg) no-repeat;
     background-size: 100% 100%;
     height: 592px;
@@ -15632,7 +15632,7 @@ body#order-opc {
 }
 
 
-.cms-page-les-sapins #columns {
+.cms-id-22 #columns {
     position: relative;
     padding-bottom: 0em;
     padding-top: 7.375em;
@@ -15656,7 +15656,7 @@ body#order-opc {
     position: relative;
 }
 
-.cms-page-producteur1 .img-header, .cms-page-producteur2 .img-header, .cms-page-producteur3 .img-header, .cms-page-producteur4 .img-header {
+.cms-id-23 .img-header, .cms-id-24 .img-header, .cms-id-25 .img-header, .cms-id-26 .img-header {
     background: url(../img/10.png) no-repeat;
     background-size: 100% 100%;
     height: 592px;
@@ -15677,15 +15677,15 @@ body#order-opc {
     display: none;
 }
 
-.cms-page-les-producteurs .titles-header.profil {
+.cms-id-20 .titles-header.profil {
     display: block !important;
 }
 
-.cms-page-les-sapins .titles-header.sapins {
+.cms-id-22 .titles-header.sapins {
     display: block !important;
 }
 
-.cms-page-producteur1 .titles-header.profil-details1, .cms-page-producteur2 .titles-header.profil-details2, .cms-page-producteur3 .titles-header.profil-details3, .cms-page-producteur4 .titles-header.profil-details4 {
+.cms-id-23 .titles-header.profil-details1, .cms-id-24 .titles-header.profil-details2, .cms-id-25 .titles-header.profil-details3, .cms-id-26 .titles-header.profil-details4 {
     display: block !important;
 }
 
@@ -16159,7 +16159,7 @@ h2.title-desc {
 
 /*profil*/
 
-.cms-page-les-producteurs #columns {
+.cms-id-20 #columns {
     position: relative;
     padding-bottom: 0px;
     padding-top: 7.375em;
@@ -17464,7 +17464,7 @@ table {
 }
 
 @media (max-width: 1024px) {
-    .cms-page-les-producteurs #center_column {
+    .cms-id-20 #center_column {
         padding: 0px;
     }
     #index .img-header , #contact .img-header {
@@ -17481,7 +17481,7 @@ table {
         font: normal normal normal 46px/56px Source Serif Pro;
         width: 75%
     }
-    .cms-page-les-sapins textarea#message {
+    .cms-id-22 textarea#message {
         text-indent: 0px;
         font: normal normal normal 14px/22px Source Serif Pro;
         letter-spacing: 0px;
@@ -17641,7 +17641,7 @@ table {
     .bg-color-carte{
         display: none;
     }
-    .cms-page-les-sapins .img-header {
+    .cms-id-22 .img-header {
         background: url(../img/bande-3-min2.jpg) no-repeat;
         background-size: cover;
         height: 592px;
@@ -17656,7 +17656,7 @@ table {
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
-    .cms-page-les-producteurs .img-header , .cms-page-producteur1 .img-header, .cms-page-producteur2 .img-header, .cms-page-producteur3 .img-header, .cms-page-producteur4 .img-header {
+    .cms-id-20 .img-header , .cms-id-23 .img-header, .cms-id-24 .img-header, .cms-id-25 .img-header, .cms-id-26 .img-header {
         background: url(../img/10-3.jpg) no-repeat;
         background-size: 100% 100%;
         height: 592px;
@@ -17969,7 +17969,7 @@ table {
     }
 
     /*cms*/
-    .cms-page-les-producteurs .row.equal {
+    .cms-id-20 .row.equal {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -17979,7 +17979,7 @@ table {
         flex-wrap: nowrap;
         overflow-x: auto;
     }
-    .cms-page-les-producteurs .col-md-3.d-flex.pb-3 {
+    .cms-id-20 .col-md-3.d-flex.pb-3 {
         width: 50%;
         flex-shrink: 0;
     }
@@ -18371,12 +18371,12 @@ table {
         text-align: center;
     }
 
-    .cms-page-les-sapins .img-header {
+    .cms-id-22 .img-header {
         background: url(../img/bande-3-min3.jpg) no-repeat;
         background-size: cover;
         height: 592px;
     }
-    .cms-page-les-producteurs .img-header , .cms-page-producteur1 .img-header, .cms-page-producteur2 .img-header, .cms-page-producteur3 .img-header, .cms-page-producteur4 .img-header {
+    .cms-id-20 .img-header , .cms-id-23 .img-header, .cms-id-24 .img-header, .cms-id-25 .img-header, .cms-id-26 .img-header {
         background: url(../img/10-2.jpg) no-repeat;
         background-size: 100% 100%;
         height: 592px;
@@ -18407,7 +18407,7 @@ table {
      .col-md-12.table-repo{
          display: block;
      }
-    .cms-page-les-producteurs .col-md-3.d-flex.pb-3 {
+    .cms-id-20 .col-md-3.d-flex.pb-3 {
         width: 100%;
     }
 
@@ -18977,7 +18977,7 @@ table {
         width: 90%;
         margin: 0 auto;
     }
-    .cms-page-producteur1 #columns , .cms-page-producteur2 #columns ,.cms-page-producteur3 #columns,.cms-page-producteur4 #columns{
+    .cms-id-23 #columns , .cms-id-24 #columns ,.cms-id-25 #columns,.cms-id-26 #columns{
         max-width: 100%;
         padding-left: 0px;
         padding-right: 0px;
@@ -19128,7 +19128,7 @@ table {
         margin-top: 22px!important;
         margin-left: 10px;
     }
-    .cms-page-producteur1 .row.equal , .cms-page-producteur2 .row.equal,.cms-page-producteur3 .row.equal , .cms-page-producteur4 .row.equal{
+    .cms-id-23 .row.equal , .cms-id-24 .row.equal,.cms-id-25 .row.equal , .cms-id-26 .row.equal{
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -19432,7 +19432,7 @@ table {
     .card-title {
         font: normal normal bold 10px/27px Montserrat;
     }
-    .cms-page-les-producteurs #columns {
+    .cms-id-20 #columns {
         position: relative;
         padding-top: 37px;
     }
@@ -19461,7 +19461,7 @@ table {
     .card .card-footer {
         padding: .75rem 0.4rem;
     }
-    .cms-page-les-sapins #columns {
+    .cms-id-22 #columns {
         position: relative;
         padding-bottom: 0em;
         padding-top: 0em;
@@ -19817,7 +19817,7 @@ table {
         color: #505050;
         width: auto;
     }
-    .cms-page-les-sapins textarea#message {
+    .cms-id-22 textarea#message {
         text-indent: 0px;
         font: normal normal normal 12px/35px Source Serif Pro;
         letter-spacing: 0px;
