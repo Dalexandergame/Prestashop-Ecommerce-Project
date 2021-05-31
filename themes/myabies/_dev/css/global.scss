@@ -3311,7 +3311,7 @@ button.envoyer-commande-tunnel.for-mobile {
 
 @media (max-width: 767px) {
 
-    .cms-25 .row.equal, .cms-28 .row.equal, .cms-29 .row.equal, .cms-30 .row.equal {
+    .cms-page-producteur1 .row.equal, .cms-page-producteur2 .row.equal, .cms-page-producteur3 .row.equal, .cms-page-producteur4 .row.equal {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -10175,7 +10175,7 @@ div.star a:hover {
     background-color: #193128;
 }
 
-#authentication #header, #order-opc #header, .cms-23 #header, #my-account #header, #module-swissbilling-error #header,
+#authentication #header, #order-opc #header, .cms-page-question-frequente #header, #my-account #header, #module-swissbilling-error #header,
 #identity #header, #addresses #header, #address #header,
 .cms-27 #header, .cms-10 #header, #history #header ,#module-swissbilling-payment #header{
     background: #193128;
@@ -15611,14 +15611,14 @@ body#order-opc {
     /*background-attachment: fixed;*/
 }
 
-.cms-page-les-producteurs .img-header, .cms-25 .img-header {
+.cms-page-les-producteurs .img-header, .cms-page-producteur1 .img-header {
     background: url(../img/10.png) no-repeat;
     background-size: 100% 100%;
     height: 592px;
     background-attachment: fixed;
 }
 
-.cms-page-les-producteurs .opacity-header, .cms-25 .opacity-header, .cms-28 .opacity-header, .cms-29 .opacity-header, .cms-30 .opacity-header {
+.cms-page-les-producteurs .opacity-header, .cms-page-producteur1 .opacity-header, .cms-page-producteur2 .opacity-header, .cms-page-producteur3 .opacity-header, .cms-page-producteur4 .opacity-header {
     width: 100%;
     height: 592px;
     background: rgba(0, 0, 0, 0.3);
@@ -15656,7 +15656,7 @@ body#order-opc {
     position: relative;
 }
 
-.cms-25 .img-header, .cms-28 .img-header, .cms-29 .img-header, .cms-30 .img-header {
+.cms-page-producteur1 .img-header, .cms-page-producteur2 .img-header, .cms-page-producteur3 .img-header, .cms-page-producteur4 .img-header {
     background: url(../img/10.png) no-repeat;
     background-size: 100% 100%;
     height: 592px;
@@ -15685,7 +15685,7 @@ body#order-opc {
     display: block !important;
 }
 
-.cms-25 .titles-header.profil-details1, .cms-28 .titles-header.profil-details2, .cms-29 .titles-header.profil-details3, .cms-30 .titles-header.profil-details4 {
+.cms-page-producteur1 .titles-header.profil-details1, .cms-page-producteur2 .titles-header.profil-details2, .cms-page-producteur3 .titles-header.profil-details3, .cms-page-producteur4 .titles-header.profil-details4 {
     display: block !important;
 }
 
@@ -17656,7 +17656,7 @@ table {
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
-    .cms-page-les-producteurs .img-header , .cms-25 .img-header, .cms-28 .img-header, .cms-29 .img-header, .cms-30 .img-header {
+    .cms-page-les-producteurs .img-header , .cms-page-producteur1 .img-header, .cms-page-producteur2 .img-header, .cms-page-producteur3 .img-header, .cms-page-producteur4 .img-header {
         background: url(../img/10-3.jpg) no-repeat;
         background-size: 100% 100%;
         height: 592px;
@@ -18376,7 +18376,7 @@ table {
         background-size: cover;
         height: 592px;
     }
-    .cms-page-les-producteurs .img-header , .cms-25 .img-header, .cms-28 .img-header, .cms-29 .img-header, .cms-30 .img-header {
+    .cms-page-les-producteurs .img-header , .cms-page-producteur1 .img-header, .cms-page-producteur2 .img-header, .cms-page-producteur3 .img-header, .cms-page-producteur4 .img-header {
         background: url(../img/10-2.jpg) no-repeat;
         background-size: 100% 100%;
         height: 592px;
@@ -18977,7 +18977,7 @@ table {
         width: 90%;
         margin: 0 auto;
     }
-    .cms-25 #columns , .cms-28 #columns ,.cms-29 #columns,.cms-30 #columns{
+    .cms-page-producteur1 #columns , .cms-page-producteur2 #columns ,.cms-page-producteur3 #columns,.cms-page-producteur4 #columns{
         max-width: 100%;
         padding-left: 0px;
         padding-right: 0px;
@@ -19128,7 +19128,7 @@ table {
         margin-top: 22px!important;
         margin-left: 10px;
     }
-    .cms-25 .row.equal , .cms-28 .row.equal,.cms-29 .row.equal , .cms-30 .row.equal{
+    .cms-page-producteur1 .row.equal , .cms-page-producteur2 .row.equal,.cms-page-producteur3 .row.equal , .cms-page-producteur4 .row.equal{
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;

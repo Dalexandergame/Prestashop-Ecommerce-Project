@@ -22,11 +22,13 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  */
+/* eslint-disable */
 import 'expose-loader?Tether!tether';
 import 'bootstrap/dist/js/bootstrap.min';
 import 'flexibility';
 import 'bootstrap-touchspin';
 import 'jquery-touchswipe';
+import './selectors';
 
 import './responsive';
 import './checkout';
@@ -34,9 +36,15 @@ import './customer';
 import './listing';
 import './product';
 import './cart';
-
-import './hoverIntent';
+import './cms';
+import './global';
 import './superfish';
+import './index';
+import './hoverIntent';
+import './components/superfish-modified';
+import './components/blocktopmenu';
+import './components/treeManagement';
+
 
 import prestashop from 'prestashop';
 import EventEmitter from 'events';
@@ -51,8 +59,10 @@ import './lib/jquery.scrollbox.min';
 
 import './components/block-cart';
 import $ from 'jquery';
+/* eslint-enable */
 
 // "inherit" EventEmitter
+// eslint-disable-next-line
 for (const i in EventEmitter.prototype) {
   prestashop[i] = EventEmitter.prototype[i];
 }
@@ -72,11 +82,11 @@ $(document).ready(() => {
   productSelect.init();
 
   $('.carousel[data-touch="true"]').swipe({
-    swipe(event, direction, distance, duration, fingerCount, fingerData) {
-      if (direction == 'left') {
+    swipe(event, direction) {
+      if (direction === 'left') {
         $(this).carousel('next');
       }
-      if (direction == 'right') {
+      if (direction === 'right') {
         $(this).carousel('prev');
       }
     },

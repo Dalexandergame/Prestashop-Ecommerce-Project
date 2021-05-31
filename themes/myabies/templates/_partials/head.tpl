@@ -56,6 +56,9 @@
 {/block}
 
 {block name='stylesheets'}
+  {literal}
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
+  {/literal}
   {include file="_partials/stylesheets.tpl" stylesheets=$stylesheets}
 {/block}
 

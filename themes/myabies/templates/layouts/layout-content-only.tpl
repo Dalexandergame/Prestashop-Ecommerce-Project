@@ -91,6 +91,9 @@
 
 {block name='javascript_bottom'}
     {include file="_partials/javascript.tpl" javascript=$javascript.bottom}
+    {literal}
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1/slick/slick.min.js"></script>
+    {/literal}
 {/block}
 
 {block name='hook_before_body_closing_tag'}
