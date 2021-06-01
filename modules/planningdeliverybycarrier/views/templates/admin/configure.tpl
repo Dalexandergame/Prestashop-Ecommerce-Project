@@ -331,8 +331,8 @@
 
 
 
-{*<div class="panel">
-	<h3><i class="icon icon-tags"></i> {l s='Documentation' mod='testmodule'}</h3>
+{*<div classes="panel">
+	<h3><i classes="icon icon-tags"></i> {l s='Documentation' mod='testmodule'}</h3>
 	<p>
 		&raquo; {l s='You can get a PDF documentation to configure this module' mod='testmodule'} :
 		<ul>
