@@ -31,11 +31,10 @@
         {block name='hook_home'}
             <div id="editorial_block_center" class="editorial_block container"><a
                         href="https://www.youtube.com/watch?v=Co6Q6u8JDxQ&amp;feature=plcp"
-                        title="Decorate your home with a beautiful living Christmas tree that will go back to nature."> </a>
-                <h1>Decorate your home with a beautiful living Christmas tree that will go back to nature.</h1>
-                <div class="rte"><p>Enjoy the company of a living, fine quality Christmas tree that&nbsp;will be delivered and picked up on the
-                        day of your choice.</p>
-                    <p>After spending the Holidays with you, your Ecosapin will go back to nature where he belongs.</p>
+                        title="Décorez votre maison avec un beau sapin qui retournera dans la nature"> </a>
+                <h1>DÉCOREZ VOTRE MAISON AVEC UN BEAU SAPIN QUI RETOURNERA DANS LA NATURE.</h1>
+                <div class="rte"><p>Profitez d'un arbre de Noël vivant de première qualité qui sent bon la forêt, livré et récupéré à domicile, aux dates de votre choix.</p>
+                    <p>Après les fêtes, votre sapin retournera en terre auprès des siens.</p>
                     <div class="image-sapins"><img src="https://ecosapin.ch/img/cms/etape-sapin_EN.png" alt="" width="679" height="301"></div>
                 </div>
             </div>
