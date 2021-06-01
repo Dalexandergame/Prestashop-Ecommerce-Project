@@ -41,7 +41,7 @@
         {hook h='displayFooterAfter'}
       {/block}
     </div>
-    <div class="row">
+    {* <div class="row">
       <div class="col-md-12">
         <p class="text-sm-center">
           {block name='copyright_link'}
@@ -51,6 +51,6 @@
           {/block}
         </p>
       </div>
-    </div>
+    </div> *}
   </div>
 </div>
