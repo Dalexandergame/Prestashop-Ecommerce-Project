@@ -78,14 +78,14 @@ $(document).ready(function(){
   // });
 
 
-	$('page-cms-les-producteurs .respo-mobile.dots').html('<span class="dot-p active" id="dot1"></span>\n' +
+	$('cms-id-20 .respo-mobile.dots').html('<span class="dot-p active" id="dot1"></span>\n' +
 		'        <span class="dot-p" id="dot2"></span>\n' +
 		'        <span class="dot-p" id="dot3"></span>\n' +
 		'        <span class="dot-p" id="dot4"></span>');
 
-	$('page-cms-les-producteurs .row.equal').on('touchend',function () {
-		var scroll_left_width = $('page-cms-les-producteurs .row.equal').scrollLeft();
-		var div_width =$('page-cms-les-producteurs .row.equal').width();
+	$('cms-id-20 .row.equal').on('touchend',function () {
+		var scroll_left_width = $('cms-id-20 .row.equal').scrollLeft();
+		var div_width =$('cms-id-20 .row.equal').width();
 		if (scroll_left_width < div_width - 10) {
 			$('#dot1').addClass('active')
 			$('#dot2').removeClass('active');
@@ -113,7 +113,7 @@ $(document).ready(function(){
 
 	$('#dot1').on('click', function (e) {
 		e.preventDefault();
-		$('page-cms-les-producteurs .row.equal').scrollLeft(0);
+		$('cms-id-20 .row.equal').scrollLeft(0);
 		$('#dot1').addClass('active')
 		$('#dot2').removeClass('active');
 		$('#dot3').removeClass('active');
@@ -121,7 +121,7 @@ $(document).ready(function(){
 	});
 	$('#dot2').on('click', function (e) {
 		e.preventDefault();
-		$('page-cms-les-producteurs .row.equal').scrollLeft($('page-cms-les-producteurs .row.equal').width());
+		$('cms-id-20 .row.equal').scrollLeft($('cms-id-20 .row.equal').width());
 		$('#dot2').addClass('active')
 		$('#dot1').removeClass('active');
 		$('#dot3').removeClass('active');
@@ -129,7 +129,7 @@ $(document).ready(function(){
 	});
 	$('#dot3').on('click', function (e) {
 		e.preventDefault();
-		$('page-cms-les-producteurs .row.equal').scrollLeft($('page-cms-les-producteurs .row.equal').width()*2);
+		$('cms-id-20 .row.equal').scrollLeft($('cms-id-20 .row.equal').width()*2);
 		$('#dot3').addClass('active')
 		$('#dot2').removeClass('active');
 		$('#dot1').removeClass('active');
@@ -137,7 +137,7 @@ $(document).ready(function(){
 	});
 	$('#dot4').on('click', function (e) {
 		e.preventDefault();
-		$('page-cms-les-producteurs .row.equal').scrollLeft($('page-cms-les-producteurs .row.equal').width()*3);
+		$('cms-id-20 .row.equal').scrollLeft($('cms-id-20 .row.equal').width()*3);
 		$('#dot4').addClass('active')
 		$('#dot2').removeClass('active');
 		$('#dot1').removeClass('active');
