@@ -340,7 +340,8 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
 	 */
 	public function displayAdresseClient($echo)
 	{
-            
+
+        a.*,
              
 		return "<strong>Client: </strong>".$echo['ad_customer'] . '. <br/> ' .$echo['address1'] . ' ' . $echo['address2'] . ' ' . $echo['postcode'] . ' ' . $echo['city'].(!empty($echo['iso_code'])? ' ('.$echo['iso_code'].')':''). ( (!empty($echo['company'] ))? '<br> <strong>Société : </strong>'.$echo['company']:'' );
 	}
@@ -357,7 +358,6 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
 		// Liste des dates de la semaine..
 		$this->_weekList = Db::getInstance()->ExecuteS(
 			'SELECT SQL_CALC_FOUND_ROWS
-				a.*,
 				a.id_order AS id_pdf,
 				CONCAT(LEFT(c.`firstname`, 1), \'. \', c.`lastname`) AS `customer`,
 				osl.`name` AS `osname`, os.`color` AS `oscolor`,
