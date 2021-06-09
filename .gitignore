@@ -133,6 +133,7 @@ modules/*
 # Custom modules
 !modules/planningdeliverybycarrier
 !modules/tunnelvente
+!modules/tunnelventeabies
 !modules/suivicommandes
 !modules/customersearch
 !modules/gszonevente

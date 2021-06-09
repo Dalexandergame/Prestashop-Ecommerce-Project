@@ -81,7 +81,7 @@
                   <p class="text-header">{l s='Mon sapin local'},<br>{l s='livré chez moi.'}
                   </p>
                   <div class="btn-header">
-                      <a href="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelventeabies/type" class="btn-sapin-header">
+                      <a href="{$urls.base_url}module/tunnelventeabies/type" class="btn-sapin-header">
                           {l s='Acheter mon sapin'}
                       </a>
                   </div>
