@@ -27,7 +27,7 @@
 if (!defined('_PS_VERSION_'))
     exit;
 
-//require_once dirname(__FILE__) . "/controllers/front/FrontAbies.php";
+require_once dirname(__FILE__) . "/controllers/front/FrontAbies.php";
 
 //require_once dirname(__FILE__) ."/classes/Functions.php";
 
