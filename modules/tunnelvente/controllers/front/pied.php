@@ -83,12 +83,13 @@ class TunnelVentePiedModuleFrontController extends Front
         ];
 
         $smarty->assign(
-            array(
+            [
                 "result"                   => $this->getListAttributeProductPied(),
                 "product"                  => $product,
                 "id_product_pied"          => ($this->getValueTunnelVent('id_product_pied')) ? $this->getValueTunnelVent('id_product_pied') : null,
                 "default_product_attribut" => $default_product_attribut,
-            )
+                "base_url" => _PS_BASE_URL_
+            ]
         );
 
         return $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);

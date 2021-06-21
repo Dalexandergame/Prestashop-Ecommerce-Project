@@ -1,4 +1,4 @@
-<form action="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/{if $isSapinSwiss}pied{else}recyclage{/if}"
+<form action="{$base_url}/module/tunnelvente/{if $isSapinSwiss}pied{else}recyclage{/if}"
       id="form_sapin" method="post" style="display: none">
     <ul>
         {foreach from=$result item=sapin}
@@ -28,7 +28,7 @@
     </div>
     <div class="msg_info">
         <a title="Contactez-nous" target="_blank"
-           href="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}fr/contactez-nous">
+           href="{$base_url}/fr/contactez-nous">
             <h4>{l s="Demande spéciale, contactez nous ici" mod='tunnelvente'}</h4></a>
     </div>
     <div class="btns_next_prev">
@@ -39,7 +39,7 @@
 </form>
 
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelvente/taille?back=2";
+    var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/taille?back=2";
 </script>
 {literal}
     <script type="text/javascript">

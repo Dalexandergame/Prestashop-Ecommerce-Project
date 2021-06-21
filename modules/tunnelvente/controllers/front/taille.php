@@ -119,7 +119,8 @@ class TunnelVenteTailleModuleFrontController extends TunnelVenteLittleModuleFron
                 "tailles"             => $this->getTailleDisponible($npa, $type),
                 "id_attribute_taille" => $this->getValueTunnelVent("id_attribute_taille") ? $this->getValueTunnelVent("id_attribute_taille") : '_',
                 "isSapinSwiss"        => $typetpl == "sapinsuisse",
-                "typetpl"             => $typetpl
+                "typetpl"             => $typetpl,
+                "base_url" => _PS_BASE_URL_
             )
         );
 

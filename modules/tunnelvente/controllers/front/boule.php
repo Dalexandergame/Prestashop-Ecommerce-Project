@@ -120,12 +120,14 @@ class TunnelVenteBouleModuleFrontController extends Front
         $product = new Product($this->id_product_boule, null, $this->context->language->id);
         $smarty  = $this->context->smarty;
 
-        $smarty->assign(array(
-                            "petit_sapin_suisse" => ($this->getValueTunnelVent("id_attribute_taille") == Configuration::get('TUNNELVENTE_ID_ATTRIBUTE_PETIT_SAPIN_SUISSE')),
-                            "result"             => $this->getListAttributeProductBoule(),
-                            "product"            => $product,
-                            "id_product_boule"   => ($this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/) ? $this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/ : 0,
-                        )
+        $smarty->assign(
+            [
+                "petit_sapin_suisse" => ($this->getValueTunnelVent("id_attribute_taille") == Configuration::get('TUNNELVENTE_ID_ATTRIBUTE_PETIT_SAPIN_SUISSE')),
+                "result"             => $this->getListAttributeProductBoule(),
+                "product"            => $product,
+                "id_product_boule"   => ($this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/) ? $this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/ : 0,
+                "base_url" => _PS_BASE_URL_
+            ]
         );
 
         $html = stripslashes($smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE));

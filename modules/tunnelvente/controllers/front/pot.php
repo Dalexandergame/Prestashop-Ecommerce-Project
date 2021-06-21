@@ -52,6 +52,7 @@ class TunnelVentePotModuleFrontController extends Front {
             "product" => $product,
             "last_id_product_pot_checked" => ($this->getValueTunnelVent('id_product_pot')/*$this->context->cookie->id_product_pot*/)?$this->getValueTunnelVent('id_product_pot')/*$this->context->cookie->id_product_pot*/:null,
             "skip_pot" => !in_array((int) $this->getValueTunnelVent('id_attribute_taille'), SqlRequete::$idAttrTailleSapinEnPot),
+            "base_url" => _PS_BASE_URL_
         ));
 
         $html = $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);

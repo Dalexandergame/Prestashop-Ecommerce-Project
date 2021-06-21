@@ -1,10 +1,10 @@
-<form action="http://ecosapin/module/tunnelvente/{if $isSapinSwiss}pied{else}recyclage{/if}"
+<form action="{$base_url}/module/tunnelvente/{if $isSapinSwiss}pied{else}recyclage{/if}"
       id="form_taille" method="post">
     <h4>{l s="Choose fir size" mod='tunnelvente'}</h4>
     <ul>
         {foreach from=$tailles item=taille}
             <li data-id="{$taille.id}" {if $taille.quantity < 1} class="disabled" {/if}
-                data-src="http://ecosapin/modules/tunnelvente/images/tailles/{$taille.name|replace:" ":"_"|replace:"/":"x"}{if !$taille.enpot}-coupe{/if}.png">
+                data-src="{$base_url}/modules/tunnelvente/images/tailles/{$taille.name|replace:" ":"_"|replace:"/":"x"}{if !$taille.enpot}-coupe{/if}.png">
                 <input id="taille_{$taille.id}" type="radio" name="taille" value="{$taille.id}"
                         {if $taille.id == $id_attribute_taille } checked {/if}
                         {if $taille.quantity < 1} disabled {/if}
@@ -43,7 +43,7 @@
                     });
                 </script>
                 <a title="Contactez-nous" target="_blank"
-                   href="http://ecosapin/fr/contactez-nous">
+                   href="{$base_url}/fr/contactez-nous">
                     <h4>{l s="Even bigger, contact us" mod='tunnelvente'}</h4></a>
             {/if}
         </div>
@@ -60,8 +60,8 @@
 </form>
 
 <script type="text/javascript">
-    var baseurl_tunnelvente = "http://ecosapin/module/tunnelvente/type";
-    var baseurl = "http://ecosapin/img/cms/tunnel_tailles/";
+    var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/type";
+    var baseurl = "{$base_url}/img/cms/tunnel_tailles/";
 
     {if count($tailles) }
     $('.container_taille_pot img').removeClass("hidden");
