@@ -5,7 +5,7 @@
 .ap5-pack-product .ap5-pack-product-icon-plus:before {color:#000000!important;}
 .ap5-pack-product:hover .ap5-pack-product-icon-remove:after {color:#000000!important;}
 .ap5-is-excluded-product .ap5-pack-product-icon-check:after {color:#000000!important;}
-.ap5-product-footer-pack-name a span.ap5-view-pack-button {color:#ffffff!important;background:#4ea870!important;background: -webkit-gradient(linear, 0 0, 0 bottom, from(#4ea870), to(#4ea870))!important;background: -webkit-linear-gradient(#4ea870, #4ea870)!important;background: -moz-linear-gradient(#4ea870, #4ea870)!important;background: -ms-linear-gradient(#4ea870, #4ea870)!important;background: -o-linear-gradient(#4ea870, #4ea870)!important;background: linear-gradient(#4ea870, #4ea870)!important;-pie-background: linear-gradient(#4ea870, #4ea870)!important;}
-.ap5-product-footer-pack-name a span.ap5-buy-pack-button {color:#ffffff!important;background:#009ad0!important;background: -webkit-gradient(linear, 0 0, 0 bottom, from(#009ad0), to(#009ad0))!important;background: -webkit-linear-gradient(#009ad0, #009ad0)!important;background: -moz-linear-gradient(#009ad0, #009ad0)!important;background: -ms-linear-gradient(#009ad0, #009ad0)!important;background: -o-linear-gradient(#009ad0, #009ad0)!important;background: linear-gradient(#009ad0, #009ad0)!important;-pie-background: linear-gradient(#009ad0, #009ad0)!important;}
+.ap5-product-footer-pack-name a span.ap5-view-pack-button {color:#ffffff!important;background:#4ea870!important;}
+.ap5-product-footer-pack-name a span.ap5-buy-pack-button {color:#ffffff!important;background:#009ad0!important;}
 
 /* AP5 - Advanced Styles Content */

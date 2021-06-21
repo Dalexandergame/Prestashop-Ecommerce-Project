@@ -18,6 +18,15 @@ if (!defined('_PS_VERSION_')) {
 }
 class AdminPacksController extends AdminController
 {
+    protected function l($string, $class = null, $addslashes = false, $htmlentities = true)
+    {
+        if ( _PS_VERSION_ >= '1.7') {
+            return Context::getContext()->getTranslator()->trans($string);
+        } else {
+            return parent::l($string, $class, $addslashes, $htmlentities);
+        }
+    }
+
     protected $moduleInstance;
     public function __construct()
     {
@@ -121,10 +130,10 @@ class AdminPacksController extends AdminController
         $this->_join .= ' LEFT JOIN `'._DB_PREFIX_.'image_shop` image_shop ON (image_shop.`id_image` = i.`id_image` AND image_shop.`cover` = 1 AND image_shop.`id_shop` = '.$id_shop.') ';
         $this->_group = ' GROUP BY a.`id_product` ';
     }
-    public function l($string, $class = 'AdminPacksController', $addslashes = false, $htmlentities = true)
-    {
-        return $this->moduleInstance->l($string, $class, $addslashes, $htmlentities);
-    }
+    // public function l($string, $class = 'AdminPacksController', $addslashes = false, $htmlentities = true)
+    // {
+    //     return $this->moduleInstance->l($string, $class, $addslashes, $htmlentities);
+    // }
     public function initPageHeaderToolbar()
     {
         if (empty($this->display)) {
