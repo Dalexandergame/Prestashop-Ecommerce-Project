@@ -59,10 +59,14 @@ class TunnelVenteLittleModuleFrontController extends Front {
 
     private function getHtmlAccessoir($autresapin) {
         $smarty = $this->context->smarty;
-        $smarty->assign(array(
-            "autresapin" => $autresapin,
-            'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
-        ));
+        $smarty->assign(
+            [
+                "autresapin" => $autresapin,
+                'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
+                "base_url" => _PS_BASE_URL_
+            ]
+        );
+
         $html = $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);
         return $html;
     }

@@ -112,10 +112,11 @@ class TunnelVenteAccesoireModuleFrontController extends Front
         $smarty = $this->context->smarty;
 
         $smarty->assign(
-            array(
+            [
                 "autresapin"    => $autresapin,
                 'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
-            )
+                "base_url" => _PS_BASE_URL_
+            ]
         );
 
         return $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);

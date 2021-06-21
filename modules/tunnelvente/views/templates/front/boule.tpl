@@ -1,4 +1,4 @@
-<form action="http://ecosapin/module/tunnelvente/pot" id="form_boule" method="post">
+<form action="{$base_url}/module/tunnelvente/pot" id="form_boule" method="post">
     <h4>{l s="Choisissez le type de décoration" mod='tunnelvente'}</h4>
     <div class="left-step1">
         <div class="list_boule">
@@ -18,7 +18,7 @@
                 {l s="Aucune décoration disponible"  mod='tunnelvente'}
             </span>
                 <img class="eco_img" style="display: none;"
-                     src="http://ecosapin/module/tunnelvente/views/img/bg-default-white.png"/>
+                     src="{$base_url}/module/tunnelvente/views/img/bg-default-white.png"/>
             {/foreach}
         </div>
         {if count($result)}
@@ -27,7 +27,7 @@
                     <input type="radio" data-price="0" name="boule" value="0" id="boule_0"/>
                     <label for="boule_0">{l s="Non merci j'ai mes propres boule" mod='tunnelvente'}</label>
                     <img class="eco_img" style="display: none;"
-                         src="http://ecosapin/module/tunnelvente/views/img/bg-default-white.png"/>
+                         src="{$base_url}/module/tunnelvente/views/img/bg-default-white.png"/>
                 </li>
             </ul>
         {/if}
@@ -51,7 +51,7 @@
 </form>
 
 <script type="text/javascript">
-    var baseurl_tunnelvente = "http://ecosapin/module/tunnelvente/recyclage?back=1";
+    var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/recyclage?back=1";
 </script>
 
 {literal}

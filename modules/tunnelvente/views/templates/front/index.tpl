@@ -1,7 +1,7 @@
 {extends file='page.tpl'}
 {block name='page_content'}
     <div id="steps">
-        <a href="#" class="fermerTunnel"></a>
+        <a href="{$urls.base_url}" class="fermerTunnel"></a>
         {include file="module:tunnelvente/views/stepblock/blocksteps.tpl" steps=$steps }
     </div>
     {literal}

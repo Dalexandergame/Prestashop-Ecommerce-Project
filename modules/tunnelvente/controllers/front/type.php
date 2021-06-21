@@ -159,6 +159,7 @@ class TunnelVenteTypeModuleFrontController extends Front {
         $smarty->assign(array(
             "npa" => ($npa) ? $npa : '',
             "hasSapin" => $hasSapin,
+            "base_url" => _PS_BASE_URL_
         ));
         $html = $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/npa.tpl")
         //."<br>$sql<br>"
@@ -210,7 +211,8 @@ class TunnelVenteTypeModuleFrontController extends Front {
             "npa" => $npa,
             "hasSapin" => $hasSapin,
             "id_type" => $this->getValueTunnelVent('type'),
-            "partner" => $partner
+            "partner" => $partner,
+            "base_url" => _PS_BASE_URL_
         ));
 
         $html = $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/".self::$TEMPLATE);

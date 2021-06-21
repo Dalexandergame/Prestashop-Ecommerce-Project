@@ -95,12 +95,12 @@ class TunnelVenteSapinModuleFrontController extends Front
     {
         $smarty = $this->context->smarty;
 
-        $smarty->assign(array(
+        $smarty->assign([
                             "result"           => $this->getSapinDisponible($id_attribute_taille, $npa, $this->getValueTunnelVent("type")),
-                            "id_product_sapin" => $this->getValueTunnelVent("id_product_sapin") ?
-                                $this->getValueTunnelVent("id_product_sapin") : null,
+                            "id_product_sapin" => $this->getValueTunnelVent("id_product_sapin") ? $this->getValueTunnelVent("id_product_sapin") : null,
                             "isSapinSwiss"     => $this->getValueTunnelVent('type') == 13,
-                        )
+                            "base_url" => _PS_BASE_URL_
+                        ]
         );
 
         return $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);

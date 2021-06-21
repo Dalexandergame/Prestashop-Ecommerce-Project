@@ -52,9 +52,10 @@ class TunnelVenteAutresapinModuleFrontController extends Front
         }
 
         $smarty->assign(
-            array(
-                'little' => $little
-            )
+            [
+                'little' => $little,
+                "base_url" => _PS_BASE_URL_
+            ]
         );
 
         return $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);
