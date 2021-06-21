@@ -119,7 +119,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
                 $product['qty_vendu'] = $this->getQteVendu($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
                 $product['qty_livre'] = $this->getQteLivre($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
 
-                $qty_stock               = $this->stock_manager->getProductInitialQuantities($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
+                $qty_stock               = $this->stock_manager->getProductPhysicalQuantities($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
                 $product['qty_a_vendre'] = $qty_stock - $product['qty_vendu'];
                 $product['qty_a_livrer'] = $product['qty_vendu'] - $product['qty_livre'];
                 $product['qty_stock']    = $product['qty_a_vendre'] + $product['qty_a_livrer'];
@@ -189,7 +189,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
                 $product['qty_vendu'] = $this->getQteVendu($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
                 $product['qty_livre'] = $this->getQteLivre($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
 
-                $qty_stock               = $this->stock_manager->getProductInitialQuantities($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
+                $qty_stock               = $this->stock_manager->getProductPhysicalQuantities($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
                 $product['qty_a_vendre'] = $qty_stock - $product['qty_vendu'];
                 $product['qty_a_livrer'] = $product['qty_vendu'] - $product['qty_livre'];
                 $product['qty_stock']    = $product['qty_a_vendre'] + $product['qty_a_livrer'];
@@ -210,7 +210,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
                 $product['qty_vendu'] = $this->getQteVendu($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
                 $product['qty_livre'] = $this->getQteLivre($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
 
-                $qty_stock               = $this->stock_manager->getProductInitialQuantities($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
+                $qty_stock               = $this->stock_manager->getProductPhysicalQuantities($product['id_product'], $product['id_product_attribute'], $warehouse['id_warehouse']);
                 $product['qty_a_vendre'] = $qty_stock - $product['qty_vendu'];
                 $product['qty_a_livrer'] = $product['qty_vendu'] - $product['qty_livre'];
                 $product['qty_stock']    = $product['qty_a_vendre'] + $product['qty_a_livrer'];
@@ -281,7 +281,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
     public function getQteAvendre($idProduct, $idProductAttribute, $warehouse, $dummy = null)
     {
         $idWarehouse = $warehouse[0];
-        $qty_stock   = $this->stock_manager->getProductInitialQuantities($idProduct, $idProductAttribute, $idWarehouse);
+        $qty_stock   = $this->stock_manager->getProductPhysicalQuantities($idProduct, $idProductAttribute, $idWarehouse);
         $qty_vendu   = $this->getQteVendu($idProduct, $idProductAttribute, $idWarehouse);
         return $qty_stock - $qty_vendu;
     }
