@@ -211,7 +211,6 @@ class Gszonevente extends Module {
         $tab->class_name = 'AdminRegion';
         $tab->module = $this->name;
         $tab->id_parent = 66;
-        $tab->icon = 'settings_applications';
         $languages = Language::getLanguages();
         foreach ($languages as $lang) {
             $tab->name[$lang['id_lang']] = $this->l('Admin Region');
