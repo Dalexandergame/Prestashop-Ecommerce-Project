@@ -18,7 +18,14 @@ class AdminPlanningDeliveryByCarrierMyLittelController extends ModuleAdminContro
     /** @var integer Default number of results in list per page */
     protected $_default_pagination = 300;
 
-
+    protected function l($string, $class = null, $addslashes = false, $htmlentities = true)
+    {
+        if ( _PS_VERSION_ >= '1.7') {
+            return Context::getContext()->getTranslator()->trans($string);
+        } else {
+            return parent::l($string, $class, $addslashes, $htmlentities);
+        }
+    }
     public function __construct()
     {
         $this->table     = 'order';
@@ -533,12 +540,12 @@ class AdminPlanningDeliveryByCarrierMyLittelController extends ModuleAdminContro
         return $list;
     }
 
-    public function l($string, $class = 'AdminTab', $addslashes = false, $htmlentities = true)
-    {
-        $class             = 'AdminPlanningDeliveryByCarrierController';
-        $planning_delivery = New PlanningDeliveryByCarrier();
-        return $planning_delivery->l($string, $class, $addslashes, $htmlentities);
-    }
+    // public function l($string, $class = 'AdminTab', $addslashes = false, $htmlentities = true)
+    // {
+    //     $class             = 'AdminPlanningDeliveryByCarrierController';
+    //     $planning_delivery = New PlanningDeliveryByCarrier();
+    //     return $planning_delivery->l($string, $class, $addslashes, $htmlentities);
+    // }
 
     public function initToolbar()
     {

@@ -1,0 +1,6 @@
+[17-Dec-2015 09:48:24 Europe/Zurich] PHP Notice:  Undefined offset: 1 in /home/ecosapin/public_html/2015/modules/planningdeliverybycarrier/planningdeliverybycarrier.php on line 1412
+[17-Dec-2015 09:48:24 Europe/Zurich] PHP Notice:  Undefined offset: 2 in /home/ecosapin/public_html/2015/modules/planningdeliverybycarrier/planningdeliverybycarrier.php on line 1418
+[17-Dec-2015 09:48:27 Europe/Zurich] PHP Notice:  Undefined offset: 1 in /home/ecosapin/public_html/2015/modules/planningdeliverybycarrier/planningdeliverybycarrier.php on line 1412
+[17-Dec-2015 09:48:27 Europe/Zurich] PHP Notice:  Undefined offset: 2 in /home/ecosapin/public_html/2015/modules/planningdeliverybycarrier/planningdeliverybycarrier.php on line 1418
+[22-Oct-2016 17:54:01 Europe/Zurich] PHP Fatal error:  Uncaught Duplicate entry '16409-0' for key 'id_cart'<br /><br /><pre>INSERT INTO `ps_planning_delivery_carrier` (`id_cart`, `id_order`, `id_planning_delivery_carrier_slot`, `date_delivery`, `date_retour`, `date_add`, `date_upd`) VALUES ('16409', '0', '0', '2016-12-09', '2017-01-09', '2016-10-22 17:54:01', '2016-10-22 17:54:01')</pre>
+  thrown in /home/ecosapin/public_html/2016/classes/db/Db.php on line 646
