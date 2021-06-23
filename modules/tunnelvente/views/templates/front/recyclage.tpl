@@ -24,7 +24,7 @@
     <div class="description">
 
         <div class="description_{$product.id}" style="display: none">
-            {$product.description}
+            {$product.description nofilter}
         </div>
         <div class="description_0" style="display: none">
             {l s="Texte Je m'occupe de le recycler moi même" mod='tunnelvente'}

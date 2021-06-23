@@ -90,7 +90,7 @@
     $(function($){
         $('form#form_accessoire').submit(function(event){
             event.preventDefault();
-            var commandeUrl = "{$link->getPageLink($order_process, true)|escape:'html':'UTF-8'}";
+            var commandeUrl = "{$base_url}/fr/commande";{*"{$link->getPageLink($order_process, true)|escape:'html':'UTF-8'}";*}
             document.location.href = commandeUrl;
         });
     });

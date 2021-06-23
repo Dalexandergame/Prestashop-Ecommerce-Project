@@ -84,19 +84,20 @@ class TunnelVenteAccesoireModuleFrontController extends Front
             }
 
             $this->context->smarty->assign(
-                array(
+                [
                     "products" => $products,
-                )
+                ]
             );
 
-            $return = array(
+            $return = [
                 'hasError' => !empty($this->errors),
                 'errors'   => $this->errors,
                 'html'     => $this->getHtmlAccessoir($autresapin),
                 'numStep'  => 8,
                 'sup'      => $this->getValuesTunnelVent(),
-            );
-            die(Tools::jsonEncode($return));
+            ];
+
+            die(json_encode($return));
         }
     }
 
@@ -115,7 +116,7 @@ class TunnelVenteAccesoireModuleFrontController extends Front
             [
                 "autresapin"    => $autresapin,
                 'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
-                "base_url" => _PS_BASE_URL_
+                "base_url"      => _PS_BASE_URL_
             ]
         );
 
