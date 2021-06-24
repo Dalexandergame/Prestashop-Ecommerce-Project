@@ -27,7 +27,9 @@ class TunnelVentePiedModuleFrontController extends Front
     public function init()
     {
         $this->page_name = 'type de pied';
+
         parent::init();
+
         $this->display_column_left  = false;
         $this->display_column_right = false;
 
@@ -36,6 +38,7 @@ class TunnelVentePiedModuleFrontController extends Front
 
             if (Tools::isSubmit("taille")) {
                 $taille = Tools::getValue("taille");
+
                 if (!is_numeric($taille)) {
                     $this->errors[] = Tools::displayError('erreur : choisi la taille de sapin !');
                 } else {
@@ -57,26 +60,27 @@ class TunnelVentePiedModuleFrontController extends Front
             }
 
             $this->context->smarty->assign(
-                array(
+                [
                     "back" => $back
-                )
+                ]
             );
         }
 
-        $return = array(
+        $return = [
             'errors'   => $this->errors,
             'hasError' => !empty($this->errors),
             'html'     => $this->getHtmlPied(),
             'numStep'  => 4,
-        );
+        ];
 
-        die(Tools::jsonEncode($return));
+        die(json_encode($return));
     }
 
     protected function getHtmlPied()
     {
-        $smarty                   = $this->context->smarty;
-        $product                  = new Product($this->id_product_pied, null, $this->context->language->id);
+        $smarty  = $this->context->smarty;
+        $product = new Product($this->id_product_pied, null, $this->context->language->id);
+
         $default_product_attribut = [
             "id_product_attribute" => 0,
             "price_ttc"            => 0,
@@ -88,7 +92,7 @@ class TunnelVentePiedModuleFrontController extends Front
                 "product"                  => $product,
                 "id_product_pied"          => ($this->getValueTunnelVent('id_product_pied')) ? $this->getValueTunnelVent('id_product_pied') : null,
                 "default_product_attribut" => $default_product_attribut,
-                "base_url" => _PS_BASE_URL_
+                "base_url"                 => _PS_BASE_URL_
             ]
         );
 
@@ -100,7 +104,7 @@ class TunnelVentePiedModuleFrontController extends Front
         $id_lang  = $this->context->language->id;
         $sql      = SqlRequete::getSqlProductAttributPied($this->id_product_pied, $this->getValueTunnelVent('npa'), $id_lang);
         $result   = Db::getInstance()->executeS($sql);
-        $products = array();
+        $products = [];
 
         foreach ($result as $row) {
             $manager            = StockManagerFactory::getManager();
@@ -110,6 +114,7 @@ class TunnelVentePiedModuleFrontController extends Front
                 ($row['id_warehouse'] == '' ? null : array($row['id_warehouse'])),
                 true
             );
+
             $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
             if ($item_real_quantity > 0)
                 $products[] = $row;

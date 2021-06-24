@@ -20,8 +20,10 @@ class TunnelVenteBouleModuleFrontController extends Front
     public function init()
     {
         $this->page_name = 'taillespain';
+
         parent::init();
-        $this->display_column_left = false;
+
+        $this->display_column_left  = false;
         $this->display_column_right = false;
 
         if ($this->ajax && $this->isXmlHttpRequest()) {
@@ -36,9 +38,11 @@ class TunnelVenteBouleModuleFrontController extends Front
 
                 if ((int) Tools::getValue('mobile') == 1) {
                     $id_product_attribute = $this->getValueTunnelVent('id_product_sapin');
+
                     if ($id_product_attribute > 0) {
                         $sql = 'SELECT id_product FROM ' . _DB_PREFIX_ . 'product_attribute WHERE id_product_attribute = ' . $id_product_attribute;
                         $id_product = (int) Db::getInstance()->getValue($sql);
+
                         if ($id_product > 0) {
                             $t = $this->addProductInCart(1, $id_product, $id_product_attribute);
                             if (!$t) {
@@ -49,6 +53,7 @@ class TunnelVenteBouleModuleFrontController extends Front
                             $this->errors[] = Tools::displayError("erreur : d'ajout de produit " . $id_product);
                         }
                     }
+
                     $id_product_recyclage = (int) $this->getValueTunnelVent('id_product_recyclage');
                     if ($id_product_recyclage > 0 &&
                         ($id_product_recyclage == (int) Configuration::get('TUNNELVENTE_ID_PRODUCT_RECYCLAGE_ECOSAPIN_GRATUIT') ||
@@ -57,13 +62,16 @@ class TunnelVenteBouleModuleFrontController extends Front
                     ) {
                         $this->addProductInCart(1, $id_product_recyclage);
                     }
+
                     $npa = $this->getValueTunnelVent('npa');
 
                     //* save NPA in cart*/
                     if (!$this->context->cart->id)
                         $this->TestCart();
+
                     $cart = $this->context->cart;
                     $sql  = "UPDATE " . _DB_PREFIX_ . "cart  SET npa = '{$npa}' WHERE id_cart = {$cart->id}";
+
                     Db::getInstance()->execute($sql);
                     //* END */
 
@@ -72,13 +80,14 @@ class TunnelVenteBouleModuleFrontController extends Front
                     $this->removeValueTunnelVent('id_product_pot');
                     $this->removeValueTunnelVent('id_product_recyclage');
 
-                    $return = array(
+                    $return = [
                         'hasError' => !empty($this->errors),
                         'errors'   => $this->errors,
                         'html'     => "for mobile",
                         'numStep'  => 5,
-                    );
-                    die(Tools::jsonEncode($return));
+                    ];
+
+                    die(json_encode($return));
                 }
             } else if (Tools::isSubmit("back")) {
 
@@ -89,13 +98,14 @@ class TunnelVenteBouleModuleFrontController extends Front
 
         $isSapinSwiss = $this->getValueTunnelVent('type') == 13;
 
-        $return = array(
+        $return = [
             'hasError' => !empty($this->errors),
             'errors'   => $this->errors,
             'html'     => $this->getHtmlBoules(),
             'numStep'  => $isSapinSwiss ? 6 : 5,
-        );
-        die(Tools::jsonEncode($return));
+        ];
+
+        die(json_encode($return));
     }
 
     protected function addProductInCart($quantity, $id_product, $id_product_attribute = null)
@@ -106,10 +116,13 @@ class TunnelVenteBouleModuleFrontController extends Front
                 $guest                             = new Guest(Context::getContext()->cookie->id_guest);
                 $this->context->cart->mobile_theme = $guest->mobile_theme;
             }
+
             $this->context->cart->add();
+
             if ($this->context->cart->id)
                 $this->context->cookie->id_cart = (int) $this->context->cart->id;
         }
+
         $cart = $this->context->cart;
         /* @var $cart Cart */
         return $cart->updateQty($quantity, $id_product, $id_product_attribute);
@@ -130,18 +143,18 @@ class TunnelVenteBouleModuleFrontController extends Front
             ]
         );
 
-        $html = stripslashes($smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE));
-        return $html;
+        return stripslashes($smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE));
+
     }
 
     private function getListAttributeProductBoule()
     {
-
         $id_lang = $this->context->language->id;
 
-        $sql = SqlRequete::getSqlProductAttributBoule($this->id_product_boule, $this->getValueTunnelVent('npa'), $id_lang);
-        $result = Db::getInstance()->executeS($sql);
-        $products = array();
+        $sql      = SqlRequete::getSqlProductAttributBoule($this->id_product_boule, $this->getValueTunnelVent('npa'), $id_lang);
+        $result   = Db::getInstance()->executeS($sql);
+        $products = [];
+
         foreach ($result as $row) {
             $manager = StockManagerFactory::getManager();
             $item_real_quantity = $manager->getProductRealQuantities(
@@ -150,6 +163,7 @@ class TunnelVenteBouleModuleFrontController extends Front
                 ($row['id_warehouse'] == '' ? null : array($row['id_warehouse'])),
                 true
             );
+
             $row['price_ttc'] = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
             if ($item_real_quantity > 0)
                 $products[] = $row;

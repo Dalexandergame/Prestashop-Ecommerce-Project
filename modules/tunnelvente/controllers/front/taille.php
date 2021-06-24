@@ -14,7 +14,7 @@ class TunnelVenteTailleModuleFrontController extends TunnelVenteLittleModuleFron
     public function init()
     {
         $this->page_name = 'taillespain';
-        front::init();
+        Front::init();
         $this->display_column_left  = false;
         $this->display_column_right = false;
 
@@ -33,13 +33,14 @@ class TunnelVenteTailleModuleFrontController extends TunnelVenteLittleModuleFron
                 $type = $this->getValueTunnelVent("type");
             }
 
-            $return = array(
+            $return = [
                 'hasError' => !empty($this->errors),
                 'errors'   => $this->errors,
                 'html'     => $this->getHtmlTaille($type),
                 'numStep'  => 3,
-            );
-            die(Tools::jsonEncode($return));
+            ];
+
+            die(json_encode($return));
         }
     }
 
@@ -90,12 +91,12 @@ class TunnelVenteTailleModuleFrontController extends TunnelVenteLittleModuleFron
         }
 
         $this->context->smarty->assign(
-            array(
+            [
                 'steps'               => $steps,
                 'errors'              => $this->errors,
                 "result"              => $taileSapin,
                 "id_attribute_taille" => $taille,
-            )
+            ]
         );
 
         $this->setTemplate('index.tpl');
@@ -104,10 +105,10 @@ class TunnelVenteTailleModuleFrontController extends TunnelVenteLittleModuleFron
 
     private function getHtmlTaille($type)
     {
-        $npa    = $this->getValueTunnelVent("npa");
-        $smarty = $this->context->smarty;
-
+        $npa     = $this->getValueTunnelVent("npa");
+        $smarty  = $this->context->smarty;
         $typetpl = "ecosapin";
+
         if ($type == Configuration::get('TUNNELVENTE_ID_ECOSAPIN')) {
             $typetpl = "ecosapin";
         } else if ($type == Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')) {
@@ -115,13 +116,13 @@ class TunnelVenteTailleModuleFrontController extends TunnelVenteLittleModuleFron
         }
 
         $smarty->assign(
-            array(
+            [
                 "tailles"             => $this->getTailleDisponible($npa, $type),
                 "id_attribute_taille" => $this->getValueTunnelVent("id_attribute_taille") ? $this->getValueTunnelVent("id_attribute_taille") : '_',
                 "isSapinSwiss"        => $typetpl == "sapinsuisse",
                 "typetpl"             => $typetpl,
-                "base_url" => _PS_BASE_URL_
-            )
+                "base_url"            => _PS_BASE_URL_
+            ]
         );
 
         return $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);

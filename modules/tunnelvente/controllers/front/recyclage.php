@@ -50,7 +50,7 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
     public function init()
     {
         $this->page_name = 'taillespain';
-        front::init();
+        Front::init();
 
         $this->display_column_left  = false;
         $this->display_column_right = false;
@@ -78,6 +78,7 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
                 } else {
                     $this->addValueTunnelVent('id_product_pied', $pied);
                 }
+
             } else if (Tools::isSubmit("back")) {
                 $last_id_recyclage_checked = $this->getValueTunnelVent("id_product_recyclage");
             } else {
@@ -90,21 +91,23 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
 
             $isSapinSwiss = $this->getValueTunnelVent('type') == 13;
 
-            $return = array(
+            $return = [
                 'html'          => $this->getHtml($last_id_recyclage_checked),
                 'hasError'      => !empty($this->errors),
                 'errors'        => $this->errors,
                 'numStep'       => $isSapinSwiss ? 5 : 4,
                 'supp'          => $this->getValuesTunnelVent(),
                 'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
-            );
-            die(Tools::jsonEncode($return));
+            ];
+
+            die(json_encode($return));
         }
     }
 
     public function initContent()
     {
         parent::initContent();
+
         $steps                     = $this->getSteps();
         $sapin                     = null;
         $last_id_recyclage_checked = $this->id_product_recyclage;
@@ -113,6 +116,7 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
         if ($isSapinSwiss) {
             if (Tools::isSubmit('pied')) {
                 $pied = Tools::getValue("pied");
+
                 if (!is_numeric($pied) && $pied <= 0) {
                     $this->errors[] = Tools::displayError("erreur : Choisissez un type de pied !");
                 } else {
@@ -138,13 +142,13 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
         }
 
         $this->context->smarty->assign(
-            array(
+            [
                 'steps'                     => $steps,
                 'errors'                    => $this->errors,
                 "result"                    => $this->getProductRecyclage(),
                 'last_id_recyclage_checked' => $last_id_recyclage_checked,
                 'order_process'             => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
-            )
+            ]
         );
 
         $this->setTemplate('index.tpl');
@@ -167,6 +171,7 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
                             join ps_gszonevente_region r on r.id_carrier = wc.id_carrier
                             join ps_gszonevente_npa npa on npa.id_gszonevente_region = r.id_gszonevente_region
                             where npa.`name` = $npa";
+
         $product_info         = Db::getInstance()->getRow($get_product_info_sql);
         $partner              = Db::getInstance()->getRow($get_partner_sql);
 
@@ -174,7 +179,6 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
             $partner['name'] = 'Poste';
             $partner['img']  = 'post.png';
         }
-
 
         $lang = $this->context->language->id;
 
@@ -189,6 +193,7 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
         $get_type_sql = "SELECT cl.name FROM ps_category_lang cl
         join ps_product p on cl.id_category = p.id_category_default
         where id_product = '" . $product_info['id_product'] . "' and cl.id_lang = $lang";
+
         $type         = Db::getInstance()->getValue($get_type_sql);
 
         $resume = [
@@ -200,32 +205,31 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
         ];
 
         $smarty->assign(
-            array(
+            [
                 "product"                   => $this->getProductRecyclage(),
                 "isSapinSwiss"              => $this->getValueTunnelVent('type') == 13,
                 'last_id_recyclage_checked' => $last_id_recyclage_checked,
                 'order_process'             => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
                 'image_recyclage'           => $image,
                 'resume'                    => $resume,
-                "base_url" => _PS_BASE_URL_
-            )
+                "base_url"                  => _PS_BASE_URL_
+            ]
         );
 
-        $html = stripslashes($smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE));
+        return stripslashes($smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE));
 
-        return $html;
     }
 
     private function getProductRecyclage()
     {
         $product = new Product($this->id_product_recyclage, false, $this->context->language->id);
 
-        return array(
+        return [
             "id"                => $product->id,
             "description_short" => $product->description_short,
             "description"       => $product->description,
             "price"             => $product->getPrice(),
-        );
+        ];
     }
 
 }

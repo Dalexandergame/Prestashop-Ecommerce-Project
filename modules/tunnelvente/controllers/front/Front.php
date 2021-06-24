@@ -225,7 +225,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
     protected function getTailleDisponible($npa, $type)
     {
         $warehouse   = Db::getInstance()->getValue(SqlRequete::getSqlEntrepotByNPA($npa));
-        $stockGlobal = new AdminStockGlobalView(false);
+        $stockGlobal = new AdminStockGlobalViewController(false);
 
         if (!$warehouse) $warehouse = 1;
 

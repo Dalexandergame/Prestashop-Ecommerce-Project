@@ -7,7 +7,7 @@
                 <input type="radio" name="pied" id="pied_{$pied.id_product_attribute}" class="radio_pied"
                        data-price="{$pied.price_ttc}" data-idattribut="{$pied.id_attribute}"
                        value="{$pied.id_product_attribute}"
-                       data-image="{$link->getImageLink($pied.link_rewrite, $pied.id_product|cat:'-'|cat:$pied.id_image, 'large_default')|escape:'html':'UTF-8'}"
+                       data-image="{$base_url}/{$pied.id_image}-large_default/pot.jpg"
                 />
                 <label for="pied_{$pied.id_product_attribute}">{$pied.name}</label>
             </li>
@@ -30,7 +30,7 @@
     {if strlen($product->description)}
         <div class="description">
             <div>
-                {$product->description}
+                {$product->description nofilter}
             </div>
         </div>
     {/if}
