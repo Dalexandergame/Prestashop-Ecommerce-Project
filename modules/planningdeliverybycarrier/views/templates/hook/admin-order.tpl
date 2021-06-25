@@ -27,7 +27,7 @@
 </style>
 <div class="panel">
 	<fieldset>
-		<legend><img src="../img/admin/delivery.gif" /> {l s='Delivery Day' mod='planningdeliverybycarrier'}</legend>
+		<legend><img src="https://ecosapin.pulse.digital/ch/img/admin/delivery.gif" /> {l s='Delivery Day' mod='planningdeliverybycarrier'}</legend>
 		<div id="refresh_tab_planningdelivery">
 			<table id="tab_planningdelivery" class="table" width="100%" cellspacing="0" cellpadding="0">
 				<thead>

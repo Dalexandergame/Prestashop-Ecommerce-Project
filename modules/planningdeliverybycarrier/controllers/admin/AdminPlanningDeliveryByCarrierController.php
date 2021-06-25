@@ -397,6 +397,7 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
     public static function getHomeWeekList()
     {
         $id_carrier = (int) Configuration::get('TUNNELVENTE_ID_CARRIER_POST');
+        $id_carrier = 22;
         $carrier_selected = (int) Tools::getValue("carrier_selected", NULL);
         $date_depart =  "IF(ca.`id_carrier` = $id_carrier,IF( dayofweek(pd.date_delivery - INTERVAL 2 DAY) in (1,7) ,DATE(pd.date_delivery - INTERVAL 4 DAY) , DATE(pd.date_delivery - INTERVAL 2 DAY)) ,DATE(pd.date_delivery))";
         // Liste des dates de la semaine..
@@ -483,7 +484,7 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
 
         if (!($this->fields_list && is_array($this->fields_list)))
             return false;
-        $this->getList($this->context->language->id);
+        //$this->getList($this->context->language->id);
 
         // Empty list is ok
         if (!is_array($this->_list))

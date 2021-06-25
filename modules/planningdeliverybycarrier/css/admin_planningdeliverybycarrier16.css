@@ -1,0 +1,31 @@
+.clear{clear:both}
+#weeklist_tab{border:1px solid #DFD5C3;font-size:11px;background:#FFF}
+#weeklist_tab tr.rowcolor{background-color:#ECF6FB}
+#weeklist_tab tr.rowcoloralt{background-color:#FFF}
+#weeklist_tab li{display:block;float:left;width:300px;padding:5px}
+.weeklist_h3{border:1px solid #DFD5C3;}
+.weeklist_td_slot{display:block;float:left;width: 200px;padding:5px; font-size:1.1em}
+.weeklist_osname{color:#996633}
+.listing-date{padding:4px;font-weight:bold;background:#F4F8FB;border-top:1px solid #E6E6E6;border-bottom:1px solid #00AFF0}
+.livraison-listing{float:left;width:50%;color:#fff}
+.livraison-listing p{color:#fff;margin:5px 5px}
+.livraison-listing a{display:block;position:absolute;height:100%;width:100%;top:0;left:0}
+.livraison-listing ul{position:relative;padding:5px 10px;border-radius:3px 3px 3px 3px;margin:5px;list-style-type:none}
+.livraison-listing span{border-radius:3px 3px 3px 3px;font-size:11px;padding: 2px 5px;border:1px solid #fff;text-transform: uppercase;margin-bottom:4px;color:#fff}
+.livraison-listing img{position:absolute;right:10px;top:10px}
+.livraison-listing-planning{float:left;width:25%;color:#fff}
+.livraison-listing-planning p{color:#fff;margin:5px 5px}
+.livraison-listing-planning a{display:block;position:absolute;height:100%;width:100%;top:0;left:0}
+.livraison-listing-planning ul{position:relative;padding:5px 10px;border-radius:3px 3px 3px 3px;margin:5px;list-style-type:none}
+.livraison-listing-planning span{border-radius:3px 3px 3px 3px;font-size:11px;padding: 2px 5px;border:1px solid #fff;text-transform: uppercase;margin-bottom:4px;color:#fff}
+.livraison-listing-planning img{position:absolute;right:10px;top:10px}
+.adminplanningdeliverybycarrier .color_field{border-radius:0.25em;color:#FFFFFF;display:inline;line-height:1;padding:0.2em 0.6em 0.3em;text-align:center;vertical-align:baseline;white-space:nowrap;}
+#table_info_large{margin-bottom:10px}
+#table_info_large h5{background-color: #00AFF0;
+    color: #FFFFFF !important;
+	font-family:"Open Sans", Helvetica, Arial, sans-serif !important;
+    font-size: 1.2em !important;
+    margin: 0 0 3px !important;
+    padding: 3px 8px !important;text-transform:inherit !important;height:32px;line-height:29px}
+#id_planning_delivery_slot{width:200px}
+.confirm{padding:10px;background:#8BC954;color:#FFF;margin-bottom:20px}
