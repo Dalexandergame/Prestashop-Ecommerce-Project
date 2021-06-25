@@ -139,7 +139,7 @@ class TunnelVenteBouleModuleFrontController extends Front
                 "result"             => $this->getListAttributeProductBoule(),
                 "product"            => $product,
                 "id_product_boule"   => ($this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/) ? $this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/ : 0,
-                "base_url" => _PS_BASE_URL_
+                "base_url"           => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 

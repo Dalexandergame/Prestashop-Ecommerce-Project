@@ -22,7 +22,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
     private $date_activity_end;
 
 
-    public function __construct()
+    public function __construct($callParentConstructor = true)
     {
         $this->stock_manager = StockManagerFactory::getManager();
         $this->bootstrap     = true;
@@ -36,7 +36,8 @@ class AdminStockGlobalViewController extends ModuleAdminController
         $this->date_activity_start = $month > 6 ? "$year-07-01 00:00:00" : (intval($year) - 1) . "-07-01 00:00:00";
         $this->date_activity_end   = $month >= 6 ? (intval($year) + 1) . "-06-30 00:00:00" : "$year-06-30 00:00:00";
 
-        parent::__construct();
+        if ($callParentConstructor)
+            parent::__construct();
     }
 
     public function getProducts()

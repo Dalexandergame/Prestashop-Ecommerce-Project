@@ -194,7 +194,7 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
         join ps_product p on cl.id_category = p.id_category_default
         where id_product = '" . $product_info['id_product'] . "' and cl.id_lang = $lang";
 
-        $type         = Db::getInstance()->getValue($get_type_sql);
+        $type = Db::getInstance()->getValue($get_type_sql);
 
         $resume = [
             "transporteur"     => $partner['name'],
@@ -212,7 +212,7 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
                 'order_process'             => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
                 'image_recyclage'           => $image,
                 'resume'                    => $resume,
-                "base_url"                  => _PS_BASE_URL_
+                "base_url"                  => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 

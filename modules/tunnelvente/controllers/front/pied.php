@@ -92,7 +92,7 @@ class TunnelVentePiedModuleFrontController extends Front
                 "product"                  => $product,
                 "id_product_pied"          => ($this->getValueTunnelVent('id_product_pied')) ? $this->getValueTunnelVent('id_product_pied') : null,
                 "default_product_attribut" => $default_product_attribut,
-                "base_url"                 => _PS_BASE_URL_
+                "base_url"                 => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 

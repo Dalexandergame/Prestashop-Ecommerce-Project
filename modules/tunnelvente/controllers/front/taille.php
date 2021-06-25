@@ -14,7 +14,9 @@ class TunnelVenteTailleModuleFrontController extends TunnelVenteLittleModuleFron
     public function init()
     {
         $this->page_name = 'taillespain';
+
         Front::init();
+
         $this->display_column_left  = false;
         $this->display_column_right = false;
 
@@ -121,7 +123,7 @@ class TunnelVenteTailleModuleFrontController extends TunnelVenteLittleModuleFron
                 "id_attribute_taille" => $this->getValueTunnelVent("id_attribute_taille") ? $this->getValueTunnelVent("id_attribute_taille") : '_',
                 "isSapinSwiss"        => $typetpl == "sapinsuisse",
                 "typetpl"             => $typetpl,
-                "base_url"            => _PS_BASE_URL_
+                "base_url"            => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 

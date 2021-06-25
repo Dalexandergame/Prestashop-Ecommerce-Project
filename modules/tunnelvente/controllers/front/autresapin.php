@@ -33,13 +33,14 @@ class TunnelVenteAutresapinModuleFrontController extends Front
             }
         }
 
-        $return = array(
+        $return = [
             'hasError' => !empty($this->errors),
             'errors'   => $this->errors,
             'html'     => $this->getHtmlAutreSapin(),
             'numStep'  => 7,
-        );
-        die(Tools::jsonEncode($return));
+        ];
+
+        die(json_encode($return));
     }
 
     private function getHtmlAutreSapin()
@@ -53,13 +54,12 @@ class TunnelVenteAutresapinModuleFrontController extends Front
 
         $smarty->assign(
             [
-                'little' => $little,
-                "base_url" => _PS_BASE_URL_
+                'little'   => $little,
+                "base_url" => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 
         return $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);
     }
-
 
 }
