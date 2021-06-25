@@ -190,9 +190,9 @@ class TunnelVenteTypeModuleFrontController extends Front {
 
         $smarty->assign(
             [
-                "npa" => ($npa) ? $npa : '',
+                "npa"      => ($npa) ? $npa : '',
                 "hasSapin" => $hasSapin,
-                "base_url" => _PS_BASE_URL_
+                "base_url" => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 
@@ -245,18 +245,16 @@ class TunnelVenteTypeModuleFrontController extends Front {
 
         $smarty->assign(
             [
-                "types" => $this->getTypeDisponible($npa),
-                "npa" => $npa,
+                "types"    => $this->getTypeDisponible($npa),
+                "npa"      => $npa,
                 "hasSapin" => $hasSapin,
-                "id_type" => $this->getValueTunnelVent('type'),
-                "partner" => $partner,
-                "base_url" => _PS_BASE_URL_
+                "id_type"  => $this->getValueTunnelVent('type'),
+                "partner"  => $partner,
+                "base_url" => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 
         return $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/".self::$TEMPLATE);
     }
-
-
 
 }

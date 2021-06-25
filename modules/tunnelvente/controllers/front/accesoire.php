@@ -23,12 +23,12 @@ class TunnelVenteAccesoireModuleFrontController extends Front
             $npa                  = $this->getValueTunnelVent('npa');
             $autresapin           = (int) Tools::getValue("autresapin");
             $id_product_recyclage = (int) $this->getValueTunnelVent('id_product_recyclage');
-            $vals                 = array(
+            $vals                 = [
                 $this->getValueTunnelVent('id_product_sapin'),
                 $this->getValueTunnelVent('id_product_boule'),
                 $this->getValueTunnelVent('id_product_pot'),
                 $this->getValueTunnelVent('id_product_pied'),
-            );
+            ];
 
             foreach ($vals as $id_product_attribute) {
                 if ($id_product_attribute > 0) {
@@ -116,7 +116,7 @@ class TunnelVenteAccesoireModuleFrontController extends Front
             [
                 "autresapin"    => $autresapin,
                 'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
-                "base_url"      => _PS_BASE_URL_
+                "base_url"      => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 

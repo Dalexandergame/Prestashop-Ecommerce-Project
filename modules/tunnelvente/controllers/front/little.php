@@ -11,9 +11,12 @@ class TunnelVenteLittleModuleFrontController extends Front {
 
     public function init() {
         $this->page_name = 'little';
+
         parent::init();
-        $this->display_column_left = false;
+
+        $this->display_column_left  = false;
         $this->display_column_right = false;
+
         if ($this->ajax && $this->isXmlHttpRequest()) {
             
             if ($this->getValueTunnelVent("type") == Configuration::get('TUNNELVENTE_ID_LITTLE_ECOSAPIN')) {
@@ -23,21 +26,25 @@ class TunnelVenteLittleModuleFrontController extends Front {
                 $products = self::getProducts($this->context->language->id, 0, 0, "id_product", 'ASC',$npa, $id_category_little);                
                 
                 $smarty = $this->context->smarty;
-                $smarty->assign(array(
-                    "products" => $products,                    
-                ));
+                $smarty->assign(
+                    [
+                        "products" => $products,
+                    ]
+                );
                 
             }else{
                 $this->errors[] = Tools::displayError("erreur : Cochez Little ecosapin dans la liste des types !");
-            }        
-            $return = array(
+            }
+
+            $return = [
                 'hasError' => !empty($this->errors),
-                'errors' => $this->errors,
-                'html' => $this->getHtmlAccessoir(Configuration::get('TUNNELVENTE_ID_PRODUCT_MYLITTELECOSAPIN')),
-                'numStep' => 9,
-                'sup' => $this->getValuesTunnelVent(),
-            );
-            die(Tools::jsonEncode($return));
+                'errors'   => $this->errors,
+                'html'     => $this->getHtmlAccessoir(Configuration::get('TUNNELVENTE_ID_PRODUCT_MYLITTELECOSAPIN')),
+                'numStep'  => 9,
+                'sup'      => $this->getValuesTunnelVent(),
+            ];
+
+            die(json_encode($return));
         }
     }
 
@@ -61,14 +68,14 @@ class TunnelVenteLittleModuleFrontController extends Front {
         $smarty = $this->context->smarty;
         $smarty->assign(
             [
-                "autresapin" => $autresapin,
+                "autresapin"    => $autresapin,
                 'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
-                "base_url" => _PS_BASE_URL_
+                "base_url"      => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 
-        $html = $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);
-        return $html;
+        return $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);
+
     }
 
     protected function TestCart() {
@@ -78,6 +85,7 @@ class TunnelVenteLittleModuleFrontController extends Front {
                 $guest = new Guest(Context::getContext()->cookie->id_guest);
                 $this->context->cart->mobile_theme = $guest->mobile_theme;
             }
+
             $this->context->cart->add();
             if ($this->context->cart->id)
                 $this->context->cookie->id_cart = (int) $this->context->cart->id;
@@ -94,34 +102,31 @@ class TunnelVenteLittleModuleFrontController extends Front {
 	* @param string $order_way Way for ordering (ASC or DESC)
 	* @return array Products details
 	*/
-       protected static function getProducts($id_lang, $start, $limit, $order_by, $order_way,$npa, $id_category = false,
-		$only_active = false, Context $context = null)
+    protected static function getProducts($id_lang, $start, $limit, $order_by, $order_way,$npa, $id_category = false, $only_active = false, Context $context = null)
 	{
-                if (!$context) { $context = Context::getContext(); }
+        if (!$context) { $context = Context::getContext(); }
 
 		$front = true;
 		if (!in_array($context->controller->controller_type, array('front', 'modulefront')))
-                { $front = false; }
+		    { $front = false; }
 
-                
-                $sql = '(SELECT DISTINCT p.id_product,pl.name,pl.description
-				FROM `'._DB_PREFIX_.'product` p
-				'.Shop::addSqlAssociation('product', 'p').'
-				LEFT JOIN `'._DB_PREFIX_.'product_lang` pl ON (p.`id_product` = pl.`id_product` '.Shop::addSqlRestrictionOnLang('pl').')
-				LEFT JOIN `'._DB_PREFIX_.'manufacturer` m ON (m.`id_manufacturer` = p.`id_manufacturer`)
-				LEFT JOIN `'._DB_PREFIX_.'supplier` s ON (s.`id_supplier` = p.`id_supplier`)'.
-				'                               
-				WHERE pl.`id_lang` = '.(int)$id_lang.
-					($front ? ' AND product_shop.`visibility` IN ("both", "catalog")' : '').
-					($only_active ? ' AND product_shop.`active` = 1' : '').'
-                                    AND p.id_product = '.(int)Configuration::get('TUNNELVENTE_ID_PRODUCT_MYLITTELECOSAPIN').'
-                        )
-                          ';
-                
+            $sql = '(SELECT DISTINCT p.id_product,pl.name,pl.description
+            FROM `'._DB_PREFIX_.'product` p
+            '.Shop::addSqlAssociation('product', 'p').'
+            LEFT JOIN `'._DB_PREFIX_.'product_lang` pl ON (p.`id_product` = pl.`id_product` '.Shop::addSqlRestrictionOnLang('pl').')
+            LEFT JOIN `'._DB_PREFIX_.'manufacturer` m ON (m.`id_manufacturer` = p.`id_manufacturer`)
+            LEFT JOIN `'._DB_PREFIX_.'supplier` s ON (s.`id_supplier` = p.`id_supplier`)'.
+            '                               
+            WHERE pl.`id_lang` = '.(int)$id_lang.
+                ($front ? ' AND product_shop.`visibility` IN ("both", "catalog")' : '').
+                ($only_active ? ' AND product_shop.`active` = 1' : '').'
+                                AND p.id_product = '.(int)Configuration::get('TUNNELVENTE_ID_PRODUCT_MYLITTELECOSAPIN').'
+                    )
+                      ';
+
 		$rq = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
 		
 		return ($rq);
 	}
-
 
 }
