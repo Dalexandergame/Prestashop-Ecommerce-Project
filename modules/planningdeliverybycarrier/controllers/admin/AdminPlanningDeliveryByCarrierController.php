@@ -483,7 +483,7 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
 
         if (!($this->fields_list && is_array($this->fields_list)))
             return false;
-        $this->getList($this->context->language->id);
+        //$this->getList($this->context->language->id);
 
         // Empty list is ok
         if (!is_array($this->_list))

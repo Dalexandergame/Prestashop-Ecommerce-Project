@@ -8,6 +8,7 @@ require_once(dirname(__FILE__) . '/classes/PlanningDeliverySlotByCarrier.php');
 require_once(dirname(__FILE__) . '/classes/PlanningDeliveryByCarrierException.php');
 require_once(dirname(__FILE__) . '/classes/PlanningRetourByCarrierException.php');
 require_once(dirname(__FILE__) . '/controllers/admin/AdminPlanningDeliveryByCarrierController.php');
+require_once(dirname(__FILE__) . '/controllers/admin/AdminPlanningDeliveryByCarrierController.php');
 
 class PlanningDeliveryByCarrier extends Module
 {
@@ -66,6 +67,9 @@ class PlanningDeliveryByCarrier extends Module
         if (!parent::install()
             || !$this->registerHook('header')
             || !$this->registerHook('extraCarrier')
+            || !$this->addTabPlanningDeliveryByCarrier()
+            || !$this->addTabPlanningRetourByCarrier()
+            || !$this->addTabPlanningDeliveryByCarrierMyLittel()
             || !$this->registerHook('processCarrier')
             || !$this->registerHook('orderProcessCarrier')
             || !$this->registerHook('newOrder')
@@ -336,7 +340,7 @@ class PlanningDeliveryByCarrier extends Module
     {
         if (Configuration::get('PLANNING_DELIVERY_HOMEBACKOFFICE')) {
             $weekListGroupByDay    = array();
-            $adminPlanningdelivery = new AdminPlanningDeliveryByCarrier();
+            $adminPlanningdelivery = new AdminPlanningDeliveryByCarrierController();
             $adminPlanningdelivery->getWeekList();
             if (count($adminPlanningdelivery->_weekList)) {
                 foreach ($adminPlanningdelivery->_weekList as $delivery) $weekListGroupByDay[Tools::ucfirst($this->dateFR_S($delivery['date_delivery']))][$delivery['pdsname']][] = $delivery;
@@ -357,7 +361,7 @@ class PlanningDeliveryByCarrier extends Module
     {
         if (Configuration::get('PLANNING_DELIVERY_HOMEBACKOFFICE')) {
             $weekListGroupByDay = array();
-            $_weekList          = AdminPlanningDeliveryByCarrier::getHomeWeekList();
+            $_weekList          = AdminPlanningDeliveryByCarrierController::getHomeWeekList();
             if (count($_weekList)) {
                 foreach ($_weekList as $delivery) $weekListGroupByDay[Tools::ucfirst($this->dateFR_S($delivery['date_delivery']))][$delivery['pdsname']][] = $delivery;
                 $this->smarty->assign(array(
@@ -2282,5 +2286,47 @@ class PlanningDeliveryByCarrier extends Module
         $this->l('Thank you to select a time slot for your delivery.');
         $this->l('Time\'s slot');
         $this->l('No slot is available for the dates selected.');
+    }
+
+    public function addTabPlanningDeliveryByCarrier()
+    {
+        $tab = new Tab();
+        $tab->class_name = 'AdminPlanningDeliveryByCarrier';
+        $tab->module = 'planningdeliverybycarrier';
+        $tab->id_parent = 60;
+        $langs = Language::getLanguages();
+        foreach ($langs as $l)
+        {
+            $tab->name[$l['id_lang']] = 'Planning de livraisons';
+        }
+        return $tab->add();
+    }
+
+    public function addTabPlanningRetourByCarrier()
+    {
+        $tab = new Tab();
+        $tab->class_name = 'AdminPlanningRetourByCarrier';
+        $tab->module = 'planningdeliverybycarrier';
+        $tab->id_parent = 60;
+        $langs = Language::getLanguages();
+        foreach ($langs as $l)
+        {
+            $tab->name[$l['id_lang']] = 'Planning de retour';
+        }
+        return $tab->add();
+    }
+
+    public function addTabPlanningDeliveryByCarrierMyLittel()
+    {
+        $tab = new Tab();
+        $tab->class_name = 'AdminPlanningDeliveryByCarrierMyLittel';
+        $tab->module = 'planningdeliverybycarrier';
+        $tab->id_parent = 60;
+        $langs = Language::getLanguages();
+        foreach ($langs as $l)
+        {
+            $tab->name[$l['id_lang']] = 'Planning de livraisons de MyLittle';
+        }
+        return $tab->add();
     }
 }

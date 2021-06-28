@@ -1,0 +1,24 @@
+#day_slots{padding-bottom:10px;color: #505050;}
+#day_slots label, #day_slots_retour label{color: #505050;display:inline-block;padding-bottom:10px;}
+#no_slots{margin-left: 0.7em;font-size:12px;outline:none;padding:3px;border:solid 1px #6E7935;font-family:Arial, Helvetica, sans-serif;font-weight:bold;background-color: red;color: #FFF}
+#lab_delivery_slot{display:none}
+#ui-datepicker-div{z-index:99999}
+#submitDateDelivery{float:right; margin-top: 9px;}
+#deliverydate_confirmed{padding-left: 0px;
+    color: green;
+    font-size: 11px;
+    display: block;
+    padding-top: 20px;}
+#day_slots input, #day_slots_retour input {
+	max-width: 100% !important;
+    height: 44px;
+    background-color: white;
+    border: 1px solid #a3c272;
+    border-radius: 3px;
+    text-indent: 30px;
+    font-size: 13px;
+        color: #9c9b9b;
+}
+.hook_extracarrier #choose_delivery_date{
+    display: block !important;
+}

@@ -1,0 +1,5 @@
+﻿Danke für Ihre Bestellung bei {shop_name},
+
+Ihre Bestellung wird geliefert {date_delivery}
+
+{shop_url}
