@@ -123,7 +123,7 @@ class Front extends ModuleFrontControllerCore
             $region = array('id_carrier' => $id_carrier_post);// transporteur Post Si npa n'existe pas
         }
         if (isset($region['id_carrier']) && (int) $region['id_carrier'] == $id_carrier_post) {
-            $this->id_attributeRemoved = array(70, 71); // taille 220/250 et 270/300
+            $this->id_attributeRemoved = array(34, 36); // taille 220/250 et 270/300
         }
         if ($npa) {
             $sqlEntrepotByNPA = SqlRequete::getSqlEntrepotByNPA($npa);
@@ -233,34 +233,34 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
         $result      = array();
 
         foreach ($queryResult as $value) {
-            if ($value['id'] == 20) $quantity = $stockGlobal->getQteAvendre(54, 1402, [$warehouse], true);
-            if ($value['id'] == 12) $quantity = $stockGlobal->getQteAvendre(54, 1394, [$warehouse], true);
-            if ($value['id'] == 14) $quantity = $stockGlobal->getQteAvendre(54, 1396, [$warehouse], true);
-            if ($value['id'] == 17) $quantity = $stockGlobal->getQteAvendre(65, 1550, [$warehouse], true);
-            if ($value['id'] == 70) $quantity = $stockGlobal->getQteAvendre(65, 1551, [$warehouse], true);
-            if ($value['id'] == 71) $quantity = $stockGlobal->getQteAvendre(65, 1552, [$warehouse], true);
-            if ($value['id'] == 880) $quantity = $stockGlobal->getQteAvendre(3, 7264, [$warehouse], true);
+            if ($value['id'] == 26) $quantity = $stockGlobal->getQteAvendre(34, 72, [$warehouse], true);
+            if ($value['id'] == 29) $quantity = $stockGlobal->getQteAvendre(34, 64, [$warehouse], true);
+            if ($value['id'] == 31) $quantity = $stockGlobal->getQteAvendre(34, 66, [$warehouse], true);
+            if ($value['id'] == 33) $quantity = $stockGlobal->getQteAvendre(43, 80, [$warehouse], true);
+            if ($value['id'] == 34) $quantity = $stockGlobal->getQteAvendre(43, 81, [$warehouse], true);
+            if ($value['id'] == 36) $quantity = $stockGlobal->getQteAvendre(43, 82, [$warehouse], true);
+            if ($value['id'] == 41) $quantity = $stockGlobal->getQteAvendre(28, 47, [$warehouse], true);
 
 
             if (!in_array($value['id'], $this->id_attributeRemoved)) {
                 foreach ($this->getProductByAttId($value["id"], $type) as $cat) {
                     // the following code is for filtering only allowed products to the tunnel
-                    if ($value["id"] == 20 && $cat['id_product'] != 54 ) continue;
-                    if ($value["id"] == 12 && $cat['id_product'] != 54) continue;
-                    if ($value["id"] == 14 && $cat['id_product'] != 54) continue;
-                    if ($value["id"] == 17 && $cat['id_product'] != 65) continue;
-                    if ($value["id"] == 70 && $cat['id_product'] != 65) continue;
-                    if ($value["id"] == 71 && $cat['id_product'] != 65) continue;
-                    if ($value["id"] == 880 && $cat['id_product'] != 3) continue;
+                    if ($value["id"] == 26 && $cat['id_product'] != 34) continue;
+                    if ($value["id"] == 29 && $cat['id_product'] != 34) continue;
+                    if ($value["id"] == 31 && $cat['id_product'] != 34) continue;
+                    if ($value["id"] == 33 && $cat['id_product'] != 43) continue;
+                    if ($value["id"] == 34 && $cat['id_product'] != 43) continue;
+                    if ($value["id"] == 36 && $cat['id_product'] != 43) continue;
+                    if ($value["id"] == 41 && $cat['id_product'] != 28) continue;
 
                     // get right images
-                    if ($value["id"] == 20 && $cat['id_product'] == 54) $image = 'en-pot1.jpg';
-                    if ($value["id"] == 12 && $cat['id_product'] == 54) $image = 'en-pot2.jpg';
-                    if ($value["id"] == 14 && $cat['id_product'] == 54) $image = 'en-pot3.jpg';
-                    if ($value["id"] == 17 && $cat['id_product'] == 65) $image = 'sap_suisse_1.png';
-                    if ($value["id"] == 70 && $cat['id_product'] == 65) $image = 'sap_suisse_2.png';
-                    if ($value["id"] == 71 && $cat['id_product'] == 65) $image = 'sap_suisse_3.png';
-                    if ($value["id"] == 880 && $cat['id_product'] == 3) $image = 'en-pot3.jpg';
+                    if ($value["id"] == 26 && $cat['id_product'] == 34) $image = 'en-pot1.jpg';
+                    if ($value["id"] == 29 && $cat['id_product'] == 34) $image = 'en-pot2.jpg';
+                    if ($value["id"] == 31 && $cat['id_product'] == 34) $image = 'en-pot3.jpg';
+                    if ($value["id"] == 33 && $cat['id_product'] == 43) $image = 'sap_suisse_1.png';
+                    if ($value["id"] == 34 && $cat['id_product'] == 43) $image = 'sap_suisse_2.png';
+                    if ($value["id"] == 36 && $cat['id_product'] == 43) $image = 'sap_suisse_3.png';
+                    if ($value["id"] == 41 && $cat['id_product'] == 28) $image = 'en-pot3.jpg';
 
                     $name     = explode("cm", $cat["name"]);
                     $image    = isset($image)? $image: '';

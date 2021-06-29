@@ -5,7 +5,7 @@
         <li data-id="{$product.id}">
             <input type="radio" name="recyclage" data-price="{$product.price}" value="{$product.id}"
                    id="recyclage_{$product.id}" {if isset($last_id_recyclage_checked) and $product.id == $last_id_recyclage_checked} checked="checked" {/if}/>
-            <label for="recyclage_{$product.id}">{$product.description_short}</label>
+            <label for="recyclage_{$product.id}">{$product.description_short nofilter}</label>
             {if !empty($image_recyclage)}
                 <img style="display: none;"
                      src="{$base_url}/modules/tunnelvente/images/recyclage/{$image_recyclage}"/>
