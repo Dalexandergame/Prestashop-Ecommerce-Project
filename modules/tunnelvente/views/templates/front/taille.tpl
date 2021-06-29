@@ -61,7 +61,7 @@
 
 <script type="text/javascript">
     var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/type";
-    var baseurl = "{$base_url}/img/cms/tunnel_tailles/";
+    var baseurl = "{$base_url}/modules/tunnelvente/images/tunnel_tailles/";
 
     {if count($tailles) }
     $('.container_taille_pot img').removeClass("hidden");

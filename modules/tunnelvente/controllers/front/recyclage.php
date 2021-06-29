@@ -212,7 +212,8 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
                 'order_process'             => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
                 'image_recyclage'           => $image,
                 'resume'                    => $resume,
-                "base_url"                  => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
+                "base_url"                  => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_,
+                "link"                      => new Link()
             ]
         );
 

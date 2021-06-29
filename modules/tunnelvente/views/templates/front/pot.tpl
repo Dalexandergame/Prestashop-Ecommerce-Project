@@ -37,7 +37,7 @@
                 <input type="radio" name="pot" class="radio_pot" value="{$pot.id_product_attribute}" title="{$pot.name}"
                        {if isset($last_id_product_pot_checked) and $pot.id_product_attribute == $last_id_product_pot_checked} checked="" {/if}
                         data-price="{$pot.price_ttc}" data-bg="{$pot.color}"
-                       data-image="{$base_url}/{$pot.id_image}-large_default/pot.jpg"
+                       data-image="{$link->getImageLink($pot.link_rewrite, $pot.id_product|cat:'-'|cat:$pot.id_image, 'large_default')|escape:'html':'UTF-8'}"
                 />
             </span>
                 {foreachelse}
