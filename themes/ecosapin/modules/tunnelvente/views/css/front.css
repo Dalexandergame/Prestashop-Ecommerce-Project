@@ -40,6 +40,14 @@
     visibility: hidden !important;
 }
 
+.card {
+    border: none;
+}
+
+.card-block {
+    padding: 0px;
+}
+
 .container_taille_pot {
     text-align: center;
     padding: 0px;

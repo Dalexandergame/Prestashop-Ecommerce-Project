@@ -9,7 +9,8 @@
                 <label for="sapin_{$sapin.id_product_attribute}">{$sapin.name}</label>
                 {if !empty($sapin.id_image)}
                     <img style="display: none;"
-                         src="{$base_url}/{$sapin.id_image}-large_default/pot.jpg""/>
+                         src="{$link->getImageLink($sapin.link_rewrite, $sapin.id_product|cat:'-'|cat:$sapin.id_image, 'large_default')|escape:'html':'UTF-8'}"
+                    />
                 {/if}
             </li>
         {/foreach}
