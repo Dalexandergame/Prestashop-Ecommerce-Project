@@ -129,6 +129,7 @@ modules/*
 !modules/psaddonsconnect
 !modules/psgdpr
 !modules/referralprogram
+!modules/mailchimppro
 
 # Custom modules
 !modules/planningdeliverybycarrier
