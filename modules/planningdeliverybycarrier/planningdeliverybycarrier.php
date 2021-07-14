@@ -1344,9 +1344,9 @@ class PlanningDeliveryByCarrier extends Module
         $this->_html .= '
 		<a id="planningdelivery_exceptions" name="planningdelivery_exceptions"></a>
 		<form action="' . $_SERVER['REQUEST_URI'] . '" method="post" name="exception_form">
-		<fieldset><legend><img src="' . $this->_path . 'img/prefs.gif" alt="" title="" />' . $this->l('Exceptions') . '&nbsp;<a href="javascript:{}" onclick="$.scrollTo(\'#planningdelivery_top\', 1200);"><img src="' . _PS_ADMIN_IMG_ . 'up.gif" alt="" /></a></legend>
+		<fieldset><legend><img src="' . $this->_path . 'img/prefs.gif" alt="" title="" />' . $this->l('Date de livraison') . '&nbsp;<a href="javascript:{}" onclick="$.scrollTo(\'#planningdelivery_top\', 1200);"><img src="' . _PS_ADMIN_IMG_ . 'up.gif" alt="" /></a></legend>
 			<p>' . $this->l('Add as many exceptions as necessary.') . '</p><br />
-			<label>' . $this->l('Exception') . '</label>
+			<label>' . $this->l('Date de livraison') . '</label>
 			<div class="margin-form">
 				<label class="t" for="date_from"> ' . $this->l('Date from') . '</label>
 				<br>
@@ -1597,7 +1597,7 @@ class PlanningDeliveryByCarrier extends Module
 		<form action="' . $_SERVER['REQUEST_URI'] . '" method="post" name="retour_exception_form">
 		<fieldset><legend><img src="' . $this->_path . 'img/prefs.gif" alt="" title="" />' . $this->l('Retours') . '&nbsp;<a href="javascript:{}" onclick="$.scrollTo(\'#planningdelivery_top\', 1200);"><img src="' . _PS_ADMIN_IMG_ . 'up.gif" alt="" /></a></legend>
 			<p>' . $this->l('Add as many exceptions as necessary.') . '</p><br />
-			<label>' . $this->l('Exception') . '</label>
+			<label>' . $this->l('Date de livraison') . '</label>
 			<div class="margin-form">
 				<label class="t" for="date_from_r"> ' . $this->l('Date from') . '</label>
 				<br>
@@ -1841,7 +1841,7 @@ class PlanningDeliveryByCarrier extends Module
         if (!$this->id_carrier > 0) {
             $this->_html .= '
 			<p>
-				<a href="javascript:{}" onclick="$.scrollTo(\'#planningdelivery_exceptions\', 1200);"><img src="' . _PS_ADMIN_IMG_ . 'down.gif" alt="" />&nbsp;' . $this->l('Go to set exceptions') . '</a>
+				<a href="javascript:{}" onclick="$.scrollTo(\'#planningdelivery_exceptions\', 1200);"><img src="' . _PS_ADMIN_IMG_ . 'down.gif" alt="" />&nbsp;' . $this->l('Date de livraison & Retour') . '</a>
 				&nbsp;
 				<a href="javascript:{}" onclick="$.scrollTo(\'#planningdelivery_information\', 1200);"><img src="' . _PS_ADMIN_IMG_ . 'down.gif" alt="" />&nbsp;' . $this->l('Go to see informations') . '</a>
 			</p><br/>';
