@@ -75,6 +75,11 @@ class TunnelVenteProductModuleFrontController extends Front {
             'token' => Tools::getToken(),
             'js_def' => Media::getJsDef(),
             'display_discount_price' => Configuration::get('PS_DISPLAY_DISCOUNT_PRICE'),
+            'PS_CATALOG_MODE' => Configuration::get('PS_CATALOG_MODE'),
+            'PS_STOCK_MANAGEMENT' => Configuration::get('PS_STOCK_MANAGEMENT'),
+            'currency' => $this->context->currency,
+            'tools' => new Tools(),
+            'link' => new Link()
         ));
 
         $html = $this->context->smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/" . self::$TEMPLATE);

@@ -182,7 +182,7 @@ $(function(){
 
 function includeDatePicker(path)
 {
-	$("#choose_delivery_date").slideUp('slow');
+	$("#choose_delivery_date");
 	var id_carrier_checked = getIdCarrierChecked();
 	$.ajax({
 		type : "GET",

@@ -66,7 +66,7 @@ class PlanningDeliveryByCarrier extends Module
 
         if (!parent::install()
             || !$this->registerHook('header')
-            || !$this->registerHook('extraCarrier')
+            || !$this->registerHook('displayAfterCarrier')
             || !$this->addTabPlanningDeliveryByCarrier()
             || !$this->addTabPlanningRetourByCarrier()
             || !$this->addTabPlanningDeliveryByCarrierMyLittel()
@@ -332,7 +332,9 @@ class PlanningDeliveryByCarrier extends Module
 
     public function hookHeader($params)
     {
-        $this->smarty->assign('path_pd', __PS_BASE_URI__ . 'modules/planningdeliverybycarrier/');
+        $this->context->controller->registerJavascript('ui-core-js', _PS_JS_DIR_ . 'jquery/ui/jquery.ui.core.min.js', ['position' => 'bottom', 'priority' => 80]);
+        $this->context->controller->registerJavascript('date-picker', _PS_JS_DIR_ . 'jquery/ui/jquery.ui.datepicker.min.js', ['position' => 'bottom', 'priority' => 100]);
+        $this->smarty->assign('path_pd', __PS_BASE_URI__);
         return $this->display(__FILE__, 'header.tpl');
     }
 
@@ -598,7 +600,7 @@ class PlanningDeliveryByCarrier extends Module
         return _PS_VERSION_;
     }
 
-    public function hookExtraCarrier($params)
+    public function hookDisplayAfterCarrier($params)
     {
 
         $errors = array();
@@ -668,6 +670,7 @@ class PlanningDeliveryByCarrier extends Module
         $this->smarty->assign('id_cart', (int) $this->context->cookie->id_cart);
         $this->smarty->assign('ps_version', (int) (sprintf('%0-6s', str_replace('.', '', (string) (_PS_VERSION_)))));
         $this->smarty->assign('path', __PS_BASE_URI__ . 'modules/planningdeliverybycarrier/');
+        $this->smarty->assign('base_dir', __PS_BASE_URI__);
         $this->smarty->assign('id_carrier_post', (int) Configuration::get('TUNNELVENTE_ID_CARRIER_POST'));
         return $this->display(__FILE__, 'order-carrier.tpl');
     }
@@ -1989,7 +1992,7 @@ class PlanningDeliveryByCarrier extends Module
                 }
                 $product_list = $cart->getProducts();
                 foreach ($product_list as $product) {
-                    if ($product["id_product"] == 93) {
+                    if ($product["id_product"] == 53) {
                         $post_id = Configuration::get('TUNNELVENTE_ID_CARRIER_POST');
                         $arr     = [];
                         $arr1    = explode(', ', $unavalaibleDates);
@@ -2018,8 +2021,8 @@ class PlanningDeliveryByCarrier extends Module
                 foreach ($carriers as $carrier) {
                     $id_carrier = $carrier['id_carrier'];
                     if (in_array($id_carrier, $planningCarriers)) {
-                        //$unavalaibleDates = PlanningDeliveryByCarrierException::getDatesByCarrier($id_carrier);
-                        //$unavailableDays = str_replace('7', '0', Configuration::get('PLANNING_DELIVERY_UNAV_DAYS'.$carrier['id_carrier']));
+                        $unavalaibleDates = PlanningDeliveryByCarrierException::getDatesByCarrier($id_carrier);
+                        $unavailableDays = str_replace('7', '0', Configuration::get('PLANNING_DELIVERY_UNAV_DAYS'.$carrier['id_carrier']));
                         $return .= '
                                             //TODO: get dates by id_carrier
                                             var unavalaibleDates' . $id_carrier . ' = [' . $unavalaibleDates . '];
