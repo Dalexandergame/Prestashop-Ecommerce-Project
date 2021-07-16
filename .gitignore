@@ -133,6 +133,7 @@ modules/*
 
 # Custom modules
 !modules/planningdeliverybycarrier
+!modules/swissbilling
 !modules/tunnelvente
 !modules/tunnelventeabies
 !modules/suivicommandes
