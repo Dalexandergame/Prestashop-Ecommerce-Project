@@ -32,11 +32,6 @@
     .pas-section-onboarding select {
         width: 40% !important;
     }
-
-    #content.bootstrap {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
 </style>
 <script type="text/javascript">
     PrestashopAdrollSettings = {
@@ -155,7 +150,7 @@
         },
 
         getAdrollRegisterPath: function() {
-            return '/onboarding/register?experiment=popup';
+            return '/welcome/signup/?experiment=popup';
         },
 
         openAdrollLogin: function() {
@@ -244,7 +239,7 @@
                 );
                 this.selectSection('configured').find('.go-dashboard-info a').attr(
                     'href',
-                    this.adrollBaseUri + '/dashboard?advertisable=' + this.currentAdvertisableId
+                    this.adrollBaseUri + '/prestashop/confirm'
                 );
                 this.showSection('configured');
             } else {
@@ -298,7 +293,7 @@
         w.__adroll_loaded=true;
         w.adroll=w.adroll||[];
         w.adroll.f=['setProperties','identify','track'];
-        var roundtripUrl = "//s.adroll.com/j/" + adroll_adv_id + "/roundtrip.js";
+        var roundtripUrl="https://s.adroll.com/j/" + adroll_adv_id + "/roundtrip.js";
         for(a=0;a<w.adroll.f.length;a++){
             w.adroll[w.adroll.f[a]]=w.adroll[w.adroll.f[a]]||(function(n){return function(){w.adroll.push([n,arguments])}})(w.adroll.f[a])};e=d.createElement('script');o=d.getElementsByTagName('script')[0];e.async=1;e.src=roundtripUrl;o.parentNode.insertBefore(e, o);})(window,document);
     adroll.track("pageView");

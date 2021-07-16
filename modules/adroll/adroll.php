@@ -21,7 +21,7 @@ class Adroll extends Module
     {
         $this->name = 'adroll';
         $this->tab = 'advertising_marketing';
-        $this->version = '1.4.0';
+        $this->version = '2.0.2';
         $this->author = 'AdRoll';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.5', 'max' => _PS_VERSION_);
@@ -110,45 +110,81 @@ class Adroll extends Module
         // about product, customer, etc. So we normalize those variables in the
         // adroll_* smarty variables to be consistent in the view
 
-        if ($this->context->controller instanceof ProductController) {
-            $adrollSegments = 'prestashop_viewed_product';
+        $adrollCurrentPage = null;
+        $adrollProduct = null;
+        $adrollOrder = null;
+        $adrollCurrency = null;
+        $adrollOrderCurrency = null;
+        $adrollLanguageCode = null;
+
+        if ($this->context->controller instanceof IndexControllerCore) {
+            $adrollCurrentPage = 'home_page';
+        } elseif ($this->context->controller instanceof SearchControllerCore) {
+            $adrollCurrentPage = 'search_page';
+        } elseif ($this->context->controller instanceof ProductController) {
+            $adrollCurrentPage = 'product_page';
+            $adrollProduct = $this->context->controller->getProduct();
         } elseif ($this->context->controller instanceof OrderConfirmationController) {
-            $adrollSegments = 'prestashop_order_received';
+            $adrollCurrentPage = 'conversion_page';
+            $adrollOrder = new Order($this->context->controller->id_order);
+        } elseif ($this->context->controller instanceof HistoryController) {
+            // If we are in the customer order history page and there's a new
+            // order (less than 1200 seconds old), use that order as a conversion.
+            // We do that since some Payment gateways redirects the user directly
+            // to this page instead of using the OrderConfirmationController
+            $orders = Order::getCustomerOrders($this->context->customer->id);
+            if (count($orders) > 0) {
+                $order = new Order($orders[0]['id_order']);
+                $now = new DateTime();
+                $orderDateAdd = new DateTime($order->date_add);
+                $orderDateAddInterval = $now->getTimestamp() - $orderDateAdd->getTimestamp();
+                if ($orderDateAddInterval <= 1200) {
+                    $adrollCurrentPage = 'conversion_page';
+                    $adrollOrder = $order;
+                }
+            }
         } elseif ($this->context->controller instanceof CartController) {
-            $adrollSegments = 'prestashop_viewed_cart';
+            $adrollCurrentPage = 'cart_page';
         } elseif (version_compare(_PS_VERSION_, '1.7', '>=') && $this->context->controller instanceof OrderController) {
-            $adrollSegments = 'prestashop_viewed_checkout';
+            $adrollCurrentPage = 'checkout_page';
         } elseif ($this->context->controller instanceof OrderController) {
             if ($this->context->controller->step == 0) {
-                $adrollSegments = 'prestashop_viewed_cart';
+                $adrollCurrentPage = 'cart_page';
             } else {
-                $adrollSegments = 'prestashop_viewed_checkout';
+                $adrollCurrentPage = 'checkout_page';
             }
         } elseif ($this->context->controller instanceof OrderOpcControllerCore) {
-            $adrollSegments = 'prestashop_viewed_checkout';
+            $adrollCurrentPage = 'checkout_page';
         } elseif ($this->context->controller instanceof ParentOrderController) {
-            $adrollSegments = 'prestashop_viewed_checkout';
-        } else {
-            $adrollSegments = null;
+            $adrollCurrentPage = 'checkout_page';
         }
+
+        if ($adrollOrder !== null) {
+            $adrollOrderCurrency = new Currency($adrollOrder->id_currency);
+        }
+
+        $adrollCurrency = Tools::strtolower($this->context->currency->iso_code);
+        $adrollLanguageCode = $this->context->language->language_code;
 
         $this->context->smarty->assign(
             array(
                 'adroll_advertisable_id' => $this->getConfiguration('ADROLL_ADVERTISABLE_ID'),
                 'adroll_pixel_id' => $this->getConfiguration('ADROLL_PIXEL_ID'),
                 'adroll_customer' => $this->context->customer,
-                'adroll_product' => $this->context->controller instanceof ProductController ?
-                    $this->context->controller->getProduct() :
-                    null,
+                'adroll_product' => $adrollProduct,
+                'adroll_language_code' => $adrollLanguageCode,
+                'adroll_currency' => $adrollCurrency,
                 'adroll_product_group' =>
-                    Tools::strtolower($this->context->currency->iso_code)
+                    $adrollCurrency
                     . '_' .
-                    $this->context->language->language_code,
-                'adroll_order' => $this->context->controller instanceof OrderConfirmationController ?
-                    new Order($this->context->controller->id_order) :
-                    null,
-                'adroll_currency_iso_code' => $this->context->currency->iso_code,
-                'adroll_segments' => $adrollSegments
+                    $adrollLanguageCode,
+                'adroll_order' => $adrollOrder,
+                'adroll_order_currency' => $adrollOrderCurrency,
+                'adroll_current_page' => $adrollCurrentPage,
+                // The global $cart variable is an instance of the Cart class in 1.6, and an array in 1.7. Here we make
+                // our own variable that always contains the cart object, so that we don't have to write separate logic
+                // in the template to handle objects and arrays at the same time.
+                'cart_obj' => $this->context->cart
             )
         );
         return $this->display(__FILE__, 'pixel.tpl');
@@ -257,6 +293,7 @@ class Adroll extends Module
             } else {
                 $this->updateConfiguration('ADROLL_ADVERTISABLE_ID', Tools::getValue('adroll_advertisable_id', null));
                 $this->updateConfiguration('ADROLL_PIXEL_ID', Tools::getValue('adroll_pixel_id', null));
+                Tools::redirectLink(self::ADROLL_BASE_URI . '/prestashop/confirm');
             }
         }
 

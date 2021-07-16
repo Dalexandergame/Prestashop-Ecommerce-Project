@@ -13,58 +13,87 @@
 <script data-adroll="prestashop-adroll-pixel" type="text/javascript">
     var prestashopAdrollPixelGuard = "prestashop-adroll-pixel-guard";
 {if $adroll_advertisable_id && $adroll_pixel_id }
-    adroll_adv_id = "{$adroll_advertisable_id|escape:'htmlall':'UTF-8'}";
-    adroll_pix_id = "{$adroll_pixel_id|escape:'htmlall':'UTF-8'}";
+
+    {if isset($adroll_current_page)}
+        adroll_current_page = "{$adroll_current_page|escape:'htmlall':'UTF-8'}";
+    {/if}
+
+    adroll_product_group = "{$adroll_product_group|escape:'htmlall':'UTF-8'}";
+
     {if isset($adroll_customer->email)}
         adroll_email = "{$adroll_customer->email|md5|escape:'htmlall':'UTF-8'}";
     {/if}
-    {if isset($adroll_segments)}
-        adroll_segments = "{$adroll_segments|escape:'htmlall':'UTF-8'}";
+
+    {if isset($adroll_customer->id)}
+        adroll_user_id = "{$adroll_customer->id|escape:'htmlall':'UTF-8'}";
     {/if}
 
     {if isset($adroll_product)}
-        adroll_product_id = "{$adroll_product->id|escape:'htmlall':'UTF-8'}";
+        {literal}adroll_product = {{/literal}
+
+            {literal}"price":{/literal} "{$adroll_product->getPrice(true, $smarty.const.NULL, 2)|escape:'htmlall':'UTF-8'}",
+            {literal}"product_id":{/literal} "{$adroll_product->id|escape:'htmlall':'UTF-8'}",
+            {literal}"category":{/literal} "{$adroll_product->category|escape:'htmlall':'UTF-8'}",
+            {literal}"product_group": adroll_product_group{/literal}
+
+        {literal}};{/literal}
     {/if}
-    adroll_product_group = "{$adroll_product_group|escape:'htmlall':'UTF-8'}";
 
     {if isset($adroll_order)}
         adroll_conversion_value = "{$adroll_order->total_paid|escape:'htmlall':'UTF-8'}";
-        adroll_currency = "{$adroll_currency_iso_code|escape:'htmlall':'UTF-8'}";
-    {/if}
-
-    adroll_custom_data = {
-        {if isset($adroll_order)}
-            ORDER_ID: "{$adroll_order->id|escape:'htmlall':'UTF-8'}",
+        adroll_order_id = "{$adroll_order->id|escape:'htmlall':'UTF-8'}";
+        {if isset($adroll_order_currency)}
+            adroll_order_currency = "{$adroll_order_currency->iso_code|escape:'htmlall':'UTF-8'}";
         {/if}
-        {if isset($adroll_customer->id)}
-            USER_ID: "{$adroll_customer->id|escape:'htmlall':'UTF-8'}"
-        {/if}
-    };
+        adroll_checkout_products = [
+            {foreach from=$adroll_order->getProducts() item=product name=checkout_products}
+                {literal}{"product_id":{/literal} "{$product['product_id']|escape:'htmlall':'UTF-8'}",
+                {literal}"quantity":{/literal} "{$product['product_quantity']|escape:'htmlall':'UTF-8'}",
+                {literal}"product_group": adroll_product_group,{/literal}
+                {literal}"price":{/literal} "{$product['unit_price_tax_incl']|escape:'htmlall':'UTF-8'}"{literal}}{/literal}{if not $smarty.foreach.checkout_products.last},{/if}
 
-    {if isset($adroll_order)}
-        adroll_checkout_product_ids = [
-        {foreach from=$adroll_order->getProducts() item=product}
-            {$product['product_id']|escape:'htmlall':'UTF-8'},
-        {/foreach}
+            {/foreach}
         ];
     {/if}
 
+    {if isset($cart_obj) && !empty($cart_obj->getProducts())}
+        adroll_cart_products = [
+            {foreach from=$cart_obj->getProducts() item=product name=cart_products}
+                {literal}{"product_id":{/literal} "{$product['id_product']|escape:'htmlall':'UTF-8'}",
+                {literal}"quantity":{/literal} "{$product['cart_quantity']|escape:'htmlall':'UTF-8'}",
+                {literal}"price":{/literal} "{$product['price_with_reduction']|escape:'htmlall':'UTF-8'}",
+                {literal}"product_group": adroll_product_group,{/literal}
+                {literal}"category":{/literal} "{$product['category']|escape:'htmlall':'UTF-8'}"{literal}}{/literal}{if not $smarty.foreach.cart_products.last},{/if}
+            {/foreach}
+        ];
+    {/if}
+
+    {if isset($search_string)}
+        adroll_search_string = "{$search_string|escape:'htmlall':'UTF-8'}";
+    {/if}
+
+
+    {if isset($adroll_currency)}
+        adroll_currency = "{$adroll_currency|escape:'htmlall':'UTF-8'}";
+    {/if}
+
+
+    {if isset($adroll_language_code)}
+        adroll_language_code = "{$adroll_language_code|escape:'htmlall':'UTF-8'}";
+    {/if}
+
+
+    adroll_adv_id = "{$adroll_advertisable_id|escape:'htmlall':'UTF-8'}";
+    adroll_pix_id = "{$adroll_pixel_id|escape:'htmlall':'UTF-8'}";
     {literal}
-    (function () {
-        var _onload = function(){
-            if (document.readyState && !/loaded|complete/.test(document.readyState)){setTimeout(_onload, 10);return}
-            if (!window.__adroll_loaded){__adroll_loaded=true;setTimeout(_onload, 50);return}
-            var scr = document.createElement("script");
-            var host = "//s.adroll.com";
-            scr.setAttribute('async', 'true');
-            scr.type = "text/javascript";
-            scr.src = host + "/j/roundtrip.js";
-            ((document.getElementsByTagName('head') || [null])[0] ||
-                document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
-        };
-        if (window.addEventListener) {window.addEventListener('load', _onload, false);}
-        else {window.attachEvent('onload', _onload)}
-    }());
+    adroll_version = "2.0";
+    (function(w,d,e,o,a){
+        w.__adroll_loaded=true;
+        w.adroll=w.adroll||[];
+        w.adroll.f=['setProperties','identify','track'];
+        var roundtripUrl="https://s.adroll.com/j/" + adroll_adv_id + "/roundtrip.js";
+        for(a=0;a<w.adroll.f.length;a++){
+            w.adroll[w.adroll.f[a]]=w.adroll[w.adroll.f[a]]||(function(n){return function(){w.adroll.push([n,arguments])}})(w.adroll.f[a])};e=d.createElement('script');o=d.getElementsByTagName('script')[0];e.async=1;e.src=roundtripUrl;o.parentNode.insertBefore(e, o);})(window,document);
     {/literal}
 {/if}
 </script>
