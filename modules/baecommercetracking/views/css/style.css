@@ -1,0 +1,32 @@
+.bootstrap.panel{
+	width:100%;
+	float:left;
+}
+.form_config .control-label{
+	text-align:right;
+	margin-top:4px;
+}
+.form_config .panel-footer{
+	display: block;
+    float: left;
+    width: 100%;
+    margin: 0 !important;
+	background:none !important;
+	border:0;
+}
+#content.bootstrap  .form_config  .ba_title_selection{
+	margin: 0px 0 15px !important;
+    width: 100% ;
+    float: left;
+    padding: 0;
+}
+.ba_title_selection{
+	margin: 0px 0 15px !important;
+    width: 100%;
+    float: left;
+    padding: 0;
+}
+#wrapperViewCodeAdword,#wrapperViewCodeFacebook{
+	display:none;
+}
+.bootstrap .alert.alert-danger:before{top:23px;}
