@@ -142,7 +142,8 @@ modules/*
 !modules/ecosapinpartners
 !modules/pm_‎advancedpack‎
 !modules/editorial
-
+!modules/ps_googleanalytics
+!modules/adroll
 # Themes
 themes/*/
 !themes/classic
