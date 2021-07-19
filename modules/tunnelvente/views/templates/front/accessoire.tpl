@@ -66,7 +66,7 @@
    <div class="description">
        {foreach from=$products item=product}
            <div class="description_{$product.id_product}" style="display: none">
-               {$product.description}
+               {$product.description nofilter}
            </div>
        {/foreach}
     </div>
@@ -103,7 +103,7 @@
         //previous
         $('.container_newsapin').addClass('hidden');
 
-        ajaxCart.refresh();
+        //ajaxCart.refresh();
         $('form#form_accessoire .prev').click(function(event){
              //window.location.href = baseurl_tunnelvente;
             var $me = $(this),classe= 'isactive';

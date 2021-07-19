@@ -2,10 +2,10 @@
 {if !isset($priceDisplayPrecision)}
         {assign var='priceDisplayPrecision' value=2}
 {/if}
-{if !$priceDisplay || $priceDisplay == 2}
+{if !$product->show_price || $product->show_price == 2}
         {assign var='productPrice' value=$product->getPrice(true, $smarty.const.NULL, $priceDisplayPrecision)}
         {assign var='productPriceWithoutReduction' value=$product->getPriceWithoutReduct(false, $smarty.const.NULL, $priceDisplayPrecision)}
-{elseif $priceDisplay == 1}
+{elseif $product->show_price == 1}
         {assign var='productPrice' value=$product->getPrice(false, $smarty.const.NULL, $priceDisplayPrecision)}
         {assign var='productPriceWithoutReduction' value=$product->getPriceWithoutReduct(true, $smarty.const.NULL, $priceDisplayPrecision)}
 {/if}
@@ -127,19 +127,19 @@
             <div>
                      <p id="old_price"{if (!$product->specificPrice || !$product->specificPrice.reduction) && $group_reduction == 0} class="hidden"{/if}>
                         {strip}
-                            {if $priceDisplay >= 0 && $priceDisplay <= 2}
+                            {if $product->show_price >= 0 && $product->show_price <= 2}
                                     {hook h="displayProductPriceBlock" product=$product type="old_price"}
-                                    <span id="old_price_display">{if $productPriceWithoutReduction > $productPrice}<span class="price">{convertPrice price=$productPriceWithoutReduction}</span>{/if}</span>
+                                    <span id="old_price_display">{if $productPriceWithoutReduction > $productPrice}<span class="price">{$tools->convertPrice($productPriceWithoutReduction)}</span>{/if}</span>
                             {/if}
                         {/strip}
                     </p>
                     <p class="our_price_display" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                         {strip}
                             {if $product->quantity > 0}<link itemprop="availability" href="http://schema.org/InStock"/>{/if}
-                            {if $priceDisplay >= 0 && $priceDisplay <= 2}
-                                    <span id="our_price_display" class="price" itemprop="price">{convertPrice price=$productPrice}</span>
+                            {if $product->show_price >= 0 && $product->show_price <= 2}
+                                    <span id="our_price_display" class="price" itemprop="price">{$tools->convertPrice($productPrice)}</span>
                                     {*{if $tax_enabled  && ((isset($display_tax_label) && $display_tax_label == 1) || !isset($display_tax_label))}
-                                            {if $priceDisplay == 1} {l s='tax excl.'}{else} {l s='tax incl.'}{/if}
+                                            {if $product->show_price == 1} {l s='tax excl.'}{else} {l s='tax incl.'}{/if}
                                     {/if}*}
                                     <meta itemprop="priceCurrency" content="{$currency->iso_code}" />
                                     {hook h="displayProductPriceBlock" product=$product type="price"}
@@ -157,24 +157,24 @@
                     {strip}
                             <span id="reduction_amount_display">
                             {if $product->specificPrice && $product->specificPrice.reduction_type == 'amount' && $product->specificPrice.reduction|floatval !=0}
-                                    -{convertPrice price=$productPriceWithoutReduction-$productPrice|floatval}
+                                    -{$tools->convertPrice($productPriceWithoutReduction-$productPrice|floatval}
                             {/if}
                             </span>
                     {/strip}
                     </p>*}
                    
-                    {if $priceDisplay == 2}
+                    {if $product->show_price == 2}
                             <br />
                             <span id="pretaxe_price">{strip}
-                                    <span id="pretaxe_price_display">{convertPrice price=$product->getPrice(false, $smarty.const.NULL)}</span> {l s='tax excl.'}
+                                    <span id="pretaxe_price_display">{$tools->convertPrice($product->getPrice(false, $smarty.const.NULL))}</span> {l s='tax excl.'}
                             {/strip}</span>
                     {/if}
             </div> <!-- end prices -->
             {if $packItems|@count && $productPrice < $product->getNoPackPrice()}
-                    <p class="pack_price">{l s='Instead of'} <span style="text-decoration: line-through;">{convertPrice price=$product->getNoPackPrice()}</span></p>
+                    <p class="pack_price">{l s='Instead of'} <span style="text-decoration: line-through;">{$tools->convertPrice($product->getNoPackPrice())}</span></p>
             {/if}
             {if $product->ecotax != 0}
-                    <p class="price-ecotax">{l s='Including'} <span id="ecotax_price_display">{if $priceDisplay == 2}{$ecotax_tax_exc|convertAndFormatPrice}{else}{$ecotax_tax_inc|convertAndFormatPrice}{/if}</span> {l s='for ecotax'}
+                    <p class="price-ecotax">{l s='Including'} <span id="ecotax_price_display">{if $product->show_price == 2}{$product->convertAndFormatPrice($ecotax_tax_exc)}{else}{$product->convertAndFormatPrice($ecotax_tax_inc)}{/if}</span> {l s='for ecotax'}
                             {if $product->specificPrice && $product->specificPrice.reduction}
                             <br />{l s='(not impacted by the discount)'}
                             {/if}
@@ -182,7 +182,7 @@
             {/if}
             {if !empty($product->unity) && $product->unit_price_ratio > 0.000000}
                     {math equation="pprice / punit_price"  pprice=$productPrice  punit_price=$product->unit_price_ratio assign=unit_price}
-                    <p class="unit-price"><span id="unit_price_display">{convertPrice price=$unit_price}</span> {l s='per'} {$product->unity|escape:'html':'UTF-8'}</p>
+                    <p class="unit-price"><span id="unit_price_display">{$tools->convertPrice($unit_price)}</span> {l s='per'} {$product->unity|escape:'html':'UTF-8'}</p>
                     {hook h="displayProductPriceBlock" product=$product type="unit_price"}
             {/if}
     {/if} {*close if for show price*}
@@ -295,7 +295,7 @@
     });
 </script>
 {/if}
-
+{*
 {strip}
 {if isset($smarty.get.ad) && $smarty.get.ad}
 	{addJsDefL name=ad}{$base_dir|cat:$smarty.get.ad|escape:'html':'UTF-8'}{/addJsDefL}
@@ -378,7 +378,8 @@
 {else}
 	{addJsDef specific_price=0}
 {/if}
-{addJsDef specific_currency=($product->specificPrice && $product->specificPrice.id_currency)|boolval} {* TODO: remove if always false *}
+{addJsDef specific_currency=($product->specificPrice && $product->specificPrice.id_currency)|boolval}*} {* TODO: remove if always false *}
+{*
 {addJsDef stock_management=$PS_STOCK_MANAGEMENT|intval}
 {addJsDef taxRate=$tax_rate|floatval}
 {addJsDefL name=doesntExist}{l s='This combination does not exist for this product. Please select another combination.' js=1}{/addJsDefL}
@@ -388,5 +389,5 @@
 {addJsDefL name=uploading_in_progress}{l s='Uploading in progress, please be patient.' js=1}{/addJsDefL}
 {addJsDefL name='product_fileDefaultHtml'}{l s='No file selected' js=1}{/addJsDefL}
 {addJsDefL name='product_fileButtonHtml'}{l s='Choose File' js=1}{/addJsDefL}
-{/strip}
+{/strip} *}
 

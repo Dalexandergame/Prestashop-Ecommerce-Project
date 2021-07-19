@@ -13578,50 +13578,56 @@ body#order-opc {
 }
 
 .list_boule .boule.checked, .list_boule .boule.checked:hover {
-    background-repeat: no-repeat;
     background: #ffffff url(../img/check-checked.png) no-repeat 97% center;
     color: #358444 !important;
 }
 
-.list_boule .boule_1377:hover {
+.list_boule .boule_51:hover {
     color: #a4b2b2;
     background-color: #eef3f3;
     background-image: url(../img/check-chic.png);
 }
 
-.list_boule .boule_1378:hover {
+.list_boule .boule_51.checked {
+    color: #a4b2b2;
+    background-color: #eef3f3;
+    background-image: url(../img/check-checked-chic.png);
+    background-repeat: no-repeat;
+}
+
+.list_boule .boule_52:hover {
     color: #cbbd4b;
     background-color: #fcf9e2;
     background-image: url(../img/check-lodge.png);
 }
 
-.list_boule .boule_1378.checked {
+.list_boule .boule_52.checked {
     color: #cbbd4b;
     background-color: #fcf9e2;
     background-image: url(../img/check-checked-lodge.png);
     background-repeat: no-repeat;
 }
 
-.list_boule .boule_1379:hover {
+.list_boule .boule_53:hover {
     color: #d76293;
     background-color: #f9ebf1;
     background-image: url(../img/check-romance.png);
 }
 
-.list_boule .boule_1379.checked {
+.list_boule .boule_53.checked {
     color: #d76293;
     background-color: #f9ebf1;
     background-image: url(../img/check-checked-romance.png);
     background-repeat: no-repeat;
 }
 
-.list_boule .boule_1380:hover {
+.list_boule .boule_54:hover {
     color: #599ea9;
     background-color: #d9edf0;
     background-image: url(../img/check-light.png);
 }
 
-.list_boule .boule_1380.checked {
+.list_boule .boule_54.checked {
     color: #599ea9;
     background-color: #d9edf0;
     background-image: url(../img/check-checked-light.png);
