@@ -1,0 +1,11 @@
+[26-Oct-2016 10:03:43 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 33
+[26-Oct-2016 10:05:58 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 33
+[26-Oct-2016 10:06:23 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 32
+[26-Oct-2016 10:25:56 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 32
+[26-Oct-2016 10:26:19 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 32
+[26-Oct-2016 10:26:24 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 32
+[26-Oct-2016 10:27:47 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 32
+[26-Oct-2016 10:29:14 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 32
+[26-Oct-2016 10:29:30 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 32
+[26-Oct-2016 10:32:19 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 62
+[26-Oct-2016 10:32:44 Europe/Zurich] PHP Fatal error:  Using $this when not in object context in /home/ecosapin/public_html/2016/modules/swissbilling/validation.php on line 62
