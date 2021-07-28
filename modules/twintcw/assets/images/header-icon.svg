@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="22px" viewBox="0 0 24 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>header-icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-7-Copy-4" transform="translate(-18.000000, -82.000000)" fill="#757575">
+            <g id="header-aktuell" transform="translate(0.000000, 81.000000)">
+                <g id="app-header" transform="translate(0.000000, 0.265625)">
+                    <g id="icon-arrow-back" transform="translate(18.750000, 0.890625)">
+                        <path d="M3.9263875,11.6669583 L21.9107987,11.6669583 C22.513286,11.6669583 23.0002875,11.1454583 23.0002875,10.5002917 C23.0002875,9.855125 22.513286,9.333625 21.9107987,9.333625 L3.9263875,9.333625 L11.1633375,1.99179167 C11.6129875,1.535625 11.6129875,0.798291667 11.1633375,0.342125 C10.7136875,-0.114041667 9.9868875,-0.114041667 9.5372375,0.342125 L0.3372375,9.67545833 C-0.1124125,10.131625 -0.1124125,10.8689583 0.3372375,11.325125 L9.5372375,20.6584583 C9.7614875,20.8859583 10.0558875,21.0002917 10.3502875,21.0002917 C10.6446875,21.0002917 10.9390875,20.8859583 11.1633375,20.6584583 C11.6129875,20.2022917 11.6129875,19.4649583 11.1633375,19.0087917 L3.9263875,11.6669583 Z" id="arrow-left"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

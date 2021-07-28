@@ -1,0 +1,1 @@
+<div class="twintcw-widget">{$widget nofilter}</div>
