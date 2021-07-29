@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="9px" viewBox="0 0 15 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="iOS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="web-to-app-switch-01" transform="translate(-326.000000, -451.000000)" stroke="#000000" stroke-width="2">
+            <g id="Group-3" transform="translate(0.000000, 427.000000)">
+                <polyline id="arrow" transform="translate(333.500000, 28.250000) rotate(90.000000) translate(-333.500000, -28.250000) " points="330.25 21.75 336.75 28.25 330.25 34.75"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>
