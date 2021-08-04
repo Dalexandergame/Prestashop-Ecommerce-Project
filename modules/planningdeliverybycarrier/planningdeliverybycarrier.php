@@ -70,7 +70,7 @@ class PlanningDeliveryByCarrier extends Module
             || !$this->addTabPlanningDeliveryByCarrier()
             || !$this->addTabPlanningRetourByCarrier()
             || !$this->addTabPlanningDeliveryByCarrierMyLittel()
-            || !$this->registerHook('processCarrier')
+            || !$this->registerHook('actionCarrierProcess')
             || !$this->registerHook('orderProcessCarrier')
             || !$this->registerHook('newOrder')
             || !$this->registerHook('displayPDFInvoice')
@@ -334,6 +334,7 @@ class PlanningDeliveryByCarrier extends Module
     {
         $this->context->controller->registerJavascript('ui-core-js', _PS_JS_DIR_ . 'jquery/ui/jquery.ui.core.min.js', ['position' => 'bottom', 'priority' => 80]);
         $this->context->controller->registerJavascript('date-picker', _PS_JS_DIR_ . 'jquery/ui/jquery.ui.datepicker.min.js', ['position' => 'bottom', 'priority' => 100]);
+        $this->context->controller->registerJavascript('order-opc', _THEME_JS_DIR_ . 'order-opc.js', ['position' => 'bottom', 'priority' => 50]);
         $this->smarty->assign('path_pd', __PS_BASE_URI__);
         return $this->display(__FILE__, 'header.tpl');
     }
@@ -541,7 +542,7 @@ class PlanningDeliveryByCarrier extends Module
             }
             /* Date de retour */
             $planning_delivery->test_date = $date_retour;
-            if ($this->dateRetourRequiredByCart($planning_delivery->id_cart)) {
+          //  if ($this->dateRetourRequiredByCart($planning_delivery->id_cart)) {
 //                d($planning_delivery);
                 if ($format && !empty($date_retour) && strlen($date_retour) >= 10 && $date_retour != 'undefined') {
                     $dFormat     = (1 == $format) ? 'd/m/Y' : 'm/d/Y';
@@ -554,7 +555,7 @@ class PlanningDeliveryByCarrier extends Module
                 } else {
                     $errors[] = Tools::displayError($this->l('Date de retour indéfini'));
                 }
-            }
+         //   }
 
 //            d($planning_delivery);
             //todo planning insert code
@@ -611,7 +612,7 @@ class PlanningDeliveryByCarrier extends Module
 
         $datepickerJs = $this->includeDatepicker('date_delivery', false, $format, 0);
         $datepickerJs .= $this->includeDatepickerRetour('date_retour', false, $format, 0);
-        $opc          = Configuration::get('PS_ORDER_PROCESS_TYPE');
+        $opc          = Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order';
 
         $dFormat            = (1 == $format) ? 'd/m/Y' : 'm/d/Y';
         $dateRetourRequired = $this->dateRetourRequired();
@@ -902,7 +903,7 @@ class PlanningDeliveryByCarrier extends Module
         return $return;
     }
 
-    public function hookProcessCarrier($params)
+    public function hookActionCarrierProcess($params)
     {
         $oblige = 1;
         if (1 != Configuration::get('PS_ORDER_PROCESS_TYPE')) {
@@ -910,7 +911,11 @@ class PlanningDeliveryByCarrier extends Module
             $address = new Address((int) ($params['cart']->id_address_delivery));
             $country = new Country((int) ($address->id_country));
             $format  = ('US' != $country->iso_code) ? 1 : 2;
-            $errors  = $this->requestProcessDateDelivery((int) ($cart->id), $cart->id_carrier, Tools::getValue('date_delivery'), Tools::getValue('id_planning_delivery_slot'), $format);
+            $date_retour   = Tools::getValue('date_retour');
+            $errors = [];
+            if (Tools::getValue('date_delivery') && $date_retour) {
+                $errors = $this->requestProcessDateDelivery((int)($cart->id), $cart->id_carrier, Tools::getValue('date_delivery'), Tools::getValue('id_planning_delivery_slot'), $date_retour, $format);
+            }
             if (count($errors) && $oblige == 1) {
                 $this->context->controller->step = 2;
                 $this->smarty->assign('pderrors', $errors);
