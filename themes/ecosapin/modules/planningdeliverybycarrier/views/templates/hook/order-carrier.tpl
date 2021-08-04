@@ -53,10 +53,10 @@
 		</label>		
 	</div>
         {/if}
-       {if $opc}
+    {*   {if $opc}
        <div class="col-md-12">
 		<input type="button" id="submitDateDelivery" name="submitDateDelivery" value="{l s='Save' mod='planningdeliverybycarrier'}" class="btn btn-default link-home" /></div>
-	{/if}
+	{/if}*}
         </div>
 	<div class="loading"></div>
 </div>
