@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<form action="{$urls.base_url}module/tunnelventeabies/commande" id="form_accessoire" method="post">
+<form action="{$base_url}module/tunnelventeabies/commande" id="form_accessoire" method="post">
     {if $lang_iso == 'fr' }
         <div class="col-md-12 cart-tunnel mobile-respo">
             <button type="button" class="prev">prev</button>
@@ -86,8 +86,8 @@
     
     
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{$urls.base_url}module/tunnelventeabies/taille";
-    var baseurl_tunnelvente_product = "{$urls.base_url}module/tunnelventeabies/product";
+    var baseurl_tunnelvente = "{$base_url}module/tunnelventeabies/taille";
+    var baseurl_tunnelvente_product = "{$base_url}module/tunnelventeabies/product";
     $(function($){
         $('.envoyer-commande-tunnel').on('click', function(event){
             event.preventDefault();

@@ -4,7 +4,7 @@ class SqlRequeteAbies
 {
     public static $idAttrTailleSapin      = [1723, 1724, 1725, 1726, 1727, 1728, 1729,
                                             1730, 1731, 1732, 1733, 1734];
-    public static $idAttrTailleSapinEnPot = array(12, 14, 20, 880);
+    public static $idAttrTailleSapinEnPot = [29, 31, 26, 41];
     public static $specialIdAttrTailleSapin      = [
         [1723, 1724, 1725, 1726, 1727, 1728, 1729],
         [1730, 1731],
@@ -74,7 +74,7 @@ class SqlRequeteAbies
     public static function getSqlProductAttributAndImage($id_lang)
     {
         $sql = "
-            SELECT pa.id_product_attribute, pa.id_product,pl.name,pl.description,pa.reference,pa.price,st.id_warehouse,i.`id_image`,pl.link_rewrite, il.`legend` FROM  " . _DB_PREFIX_ . "product_attribute_combination pac  
+            SELECT DISTINCT pa.id_product_attribute, pa.id_product,pl.name,pl.description,pa.reference,pa.price,st.id_warehouse,i.`id_image`,pl.link_rewrite, il.`legend` FROM  " . _DB_PREFIX_ . "product_attribute_combination pac  
             JOIN " . _DB_PREFIX_ . "stock st ON ( st.id_product_attribute = pac.id_product_attribute )
             JOIN " . _DB_PREFIX_ . "product_attribute pa ON ( pa.id_product_attribute = pac.id_product_attribute )
             JOIN " . _DB_PREFIX_ . "product_lang pl ON ( pl.id_product = pa.id_product  AND pl.`id_lang` = " . (int) ($id_lang) . " )

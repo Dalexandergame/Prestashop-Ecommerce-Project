@@ -118,6 +118,7 @@ class TunnelVenteAbiesFinaleModuleFrontController extends FrontAbies
             array(
                 "autresapin"    => $autresapin,
                 'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
+                "base_url"      => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             )
         );
 

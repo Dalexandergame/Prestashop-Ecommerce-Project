@@ -4,53 +4,53 @@
             <span>Etape 2</span>/5
         </div>
         <div class="step-name">
-            {if $lang_iso == 'fr' || $lang_iso == 'en'}
+            {if $language == 'fr' || $language == 'en'}
                 Options
-            {elseif $lang_iso == 'de'}
+            {elseif $language == 'de'}
                 Optionen
             {/if}
         </div>
     </div>
 </div>
-<form action="{$urls.base_url}module/tunnelventeabies/pied" id="form_type"
+<form action="{$base_url}module/tunnelventeabies/pied" id="form_type"
       method="post">
     <div class="btns_next_prev mobile-respo">
         <button type="button" class="prev">prev</button>
-        {if $lang_iso == 'fr' }
+        {if $language == 'fr' }
             <span class="text-prev">{l s="Précédent"}</span>
-        {elseif $lang_iso == 'en'}
+        {elseif $language == 'en'}
             <span class="text-prev">{l s="Previous"}</span>
-        {elseif $lang_iso == 'de'}
+        {elseif $language == 'de'}
             <span class="text-prev">{l s="Zurück"}</span>
         {/if}
         <button type="submit" class="next">next</button>
-        {if $lang_iso == 'fr' }
+        {if $language == 'fr' }
             <span class="next text-next">{l s="Suivant"}</span>
-        {elseif $lang_iso == 'en'}
+        {elseif $language == 'en'}
             <span class="next text-next">{l s="Next"}</span>
-        {elseif $lang_iso == 'de'}
+        {elseif $language == 'de'}
             <span class="next text-next">{l s="Weiter"}</span>
         {/if}
     </div>
     <input type="hidden" name="taille" id="inputSelectedTaille" value="{$defaultCombination.id}">
-    {if $lang_iso == 'fr' }
+    {if $language == 'fr' }
         <span class="tunnelVenteHeading font-serif-title">{l s="Choisissez votre sapin" }</span>
-    {elseif $lang_iso == 'en'}
+    {elseif $language == 'en'}
         <span class="tunnelVenteHeading font-serif-title">{l s="Select your tree" }</span>
-    {elseif $lang_iso == 'de'}
+    {elseif $language == 'de'}
         <span class="tunnelVenteHeading font-serif-title">{l s="Wählen Sie Ihren Baum" }</span>
     {/if}
     <div class="row options-step">
         <div class="col-md-3 tunnel-taille-img">
-            <img class="img-choix-prd" src="{$urls.base_url}themes/myabies/img/{$selectedTaille.image}"/>
+            <img class="img-choix-prd" src="{$base_url}themes/myabies/img/{$selectedTaille.image}"/>
         </div>
         <div class="col-md-3 choix-prd">
             <div class="tunnel-form-group for-mobile">
-                {if $lang_iso == 'fr' }
+                {if $language == 'fr' }
                     <span class="newTunnel-heading">hauteur du sapin souhaitée</span>
-                {elseif $lang_iso == 'en'}
+                {elseif $language == 'en'}
                     <span class="newTunnel-heading">Height of your tree</span>
-                {elseif $lang_iso == 'de'}
+                {elseif $language == 'de'}
                     <span class="newTunnel-heading">Baumgrösse</span>
                 {/if}
                 <div class="tunnel-select-container">
@@ -62,9 +62,9 @@
                 </div>
             </div>
             <div class="tunnel-form-group tunnel-form-group-padding for-mobile respo-mobile">
-                {if $lang_iso == 'fr' || $lang_iso == 'en'}
+                {if $language == 'fr' || $language == 'en'}
                     <span class="newTunnel-heading">Essence</span>
-                {elseif $lang_iso == 'de'}
+                {elseif $language == 'de'}
                     <span class="newTunnel-heading">Tannenart</span>
                 {/if}
                 <div class="tunnel-select-container">
@@ -76,14 +76,14 @@
                 </div>
             </div>
             <div class="tunnel-form-group tunnel-form-group-padding">
-                {if $lang_iso == 'fr' }
+                {if $language == 'fr' }
                     <span class="newTunnel-heading">Qualité</span>
-                {elseif $lang_iso == 'en'}
+                {elseif $language == 'en'}
                     <span class="newTunnel-heading">Quality</span>
-                {elseif $lang_iso == 'de'}
+                {elseif $language == 'de'}
                     <span class="newTunnel-heading">Qualität</span>
                 {/if}
-                <img src="{$img_dir}info-circle.png" class="open-pop" alt="icon-info" width="19px" height="19px"
+                <img src="{$urls.img_url}info-circle.png" class="open-pop" alt="icon-info" width="19px" height="19px"
                      style="margin-left: 10px;margin-bottom: 10px;cursor:pointer"/>
                 <div class="qualites-tunnel">
                     {foreach $choix as $single}
@@ -93,9 +93,9 @@
                 </div>
             </div>
             <div class="tunnel-form-group tunnel-form-group-padding desktop">
-                {if $lang_iso == 'fr' || $lang_iso == 'en'}
+                {if $language == 'fr' || $language == 'en'}
                     <span class="newTunnel-heading">Essence</span>
-                {elseif $lang_iso == 'de'}
+                {elseif $language == 'de'}
                     <span class="newTunnel-heading">Tannenart</span>
                 {/if}
                 <div class="tunnel-select-container">
@@ -109,14 +109,14 @@
         </div>
         <div class="col-md-3 agriculteur-block">
             <div>
-            {if $lang_iso == 'fr' }
+            {if $language == 'fr' }
                 <span class="newTunnel-heading">votre producteur</span>
-            {elseif $lang_iso == 'en'}
+            {elseif $language == 'en'}
                 <span class="newTunnel-heading">Your Producer</span>
-            {elseif $lang_iso == 'de'}
+            {elseif $language == 'de'}
                 <span class="newTunnel-heading">Ihr Produzent</span>
             {/if}
-            <img src="{$img_dir}info-circle.png" alt="icon-info" style="margin-left: 10px;margin-bottom: 10px;"/>
+            <img src="{$urls.img_url}info-circle.png" alt="icon-info" style="margin-left: 10px;margin-bottom: 10px;"/>
             </div>
             <div class="agriculteur-details">
                 <span class="nom_transporteur"></span>
@@ -126,37 +126,37 @@
         </div>
         <div class="col-md-3 tunnel-price-block">
             <ul class="list-tunnel">
-                {if $lang_iso == 'fr' }
+                {if $language == 'fr' }
                     <li class="btn-new-layout btn-new-dark-green open-pop-prix">grille des prix</li>
                     <li class="btn-new-layout btn-new-light-green"><span class="des">Dès</span> <span
-                                class="total_prix">{$selectedTaille.price} {$currency->sign}</span></li>
-                {elseif $lang_iso == 'en'}
+                                class="total_prix">{$selectedTaille.price} {$currency.sign}</span></li>
+                {elseif $language == 'en'}
                     <li class="btn-new-layout btn-new-dark-green open-pop-prix">Price list</li>
                     <li class="btn-new-layout btn-new-light-green"><span class="des">From</span> <span
-                                class="total_prix">{$selectedTaille.price} {$currency->sign}</span></li>
-                {elseif $lang_iso == 'de'}
+                                class="total_prix">{$selectedTaille.price} {$currency.sign}</span></li>
+                {elseif $language == 'de'}
                     <li class="btn-new-layout btn-new-dark-green open-pop-prix">Preisliste</li>
                     <li class="btn-new-layout btn-new-light-green"><span class="des">Ab</span> <span
-                                class="total_prix">{$selectedTaille.price} {$currency->sign}</span></li>
+                                class="total_prix">{$selectedTaille.price} {$currency.sign}</span></li>
                 {/if}
             </ul>
         </div>
     </div>
     <div class="btns_next_prev desktop">
         <button type="button" class="prev">prev</button>
-        {if $lang_iso == 'fr' }
+        {if $language == 'fr' }
             <span class="text-prev">{l s="Précédent"}</span>
-        {elseif $lang_iso == 'en'}
+        {elseif $language == 'en'}
             <span class="text-prev">{l s="Previous"}</span>
-        {elseif $lang_iso == 'de'}
+        {elseif $language == 'de'}
             <span class="text-prev">{l s="Zurück"}</span>
         {/if}
         <button type="submit" class="next">next</button>
-        {if $lang_iso == 'fr' }
+        {if $language == 'fr' }
             <span class="next text-next">{l s="Suivant"}</span>
-        {elseif $lang_iso == 'en'}
+        {elseif $language == 'en'}
             <span class="next text-next">{l s="Next"}</span>
-        {elseif $lang_iso == 'de'}
+        {elseif $language == 'de'}
             <span class="next text-next">{l s="Weiter"}</span>
         {/if}
     </div>
@@ -165,23 +165,23 @@
 <div id="popup-qualite" class="modalDialog">
     <div class="container-popup overflow-popup1">
         <div class="head-popup">
-            <img src="{$img_dir}close.png" alt="close" class="closepopup close-modal">
+            <img src="{$urls.img_url}close.png" alt="close" class="closepopup close-modal">
         </div>
         <div class="body-popup">
-            {if $lang_iso == 'fr' }
+            {if $language == 'fr' }
                 <h1 class="font-serif-title title-popup">Qualité</h1>
-            {elseif $lang_iso == 'en'}
+            {elseif $language == 'en'}
                 <h1 class="font-serif-title title-popup">Quality</h1>
-            {elseif $lang_iso == 'de'}
+            {elseif $language == 'de'}
                 <h1 class="font-serif-title title-popup">Qualität</h1>
             {/if}
 
             <div class="row equal">
                 <div class="col-md-6 d-flex">
                     <div class="choix">
-                        <img src="{$img_dir}img-qualite.png" alt="choix1" class="img-qualite">
+                        <img src="{$urls.img_url}img-qualite.png" alt="choix1" class="img-qualite">
                         <div class="info-pop">
-                            {if $lang_iso == 'fr' }
+                            {if $language == 'fr' }
                                 <div class="dec-pop">
                                     <h3 class="title-label padding-15">Qualité 1er choix</h3>
                                     <p class="font-serif-text padding-15">
@@ -193,7 +193,7 @@
                                 <span class="choix-button">
                                    1er choix </span>
                                 </div>
-                            {elseif $lang_iso == 'en'}
+                            {elseif $language == 'en'}
                                 <div class="dec-pop">
                                     <h3 class="title-label padding-15">Premium quality</h3>
                                     <p class="font-serif-text padding-15">
@@ -205,7 +205,7 @@
                                   Premium </span>
                                 </div>
 
-                            {elseif $lang_iso == 'de'}
+                            {elseif $language == 'de'}
                                 <div class="dec-pop">
                                     <h3 class="title-label padding-15">Premium Qualität</h3>
                                     <p class="font-serif-text padding-15">
@@ -222,8 +222,8 @@
                 </div>
                 <div class="col-md-6 d-flex">
                     <div class="choix">
-                        <img src="{$img_dir}img-qualite.png" alt="choix1" class="img-qualite">
-                        {if $lang_iso == 'fr' }
+                        <img src="{$urls.img_url}img-qualite.png" alt="choix1" class="img-qualite">
+                        {if $language == 'fr' }
                             <div class="info-pop">
                                 <div class="dec-pop">
                                     <h3 class="title-label padding-15">Qualité 2ème choix</h3>
@@ -235,7 +235,7 @@
                                     <span class="choix-button">2e choix</span>
                                 </div>
                             </div>
-                        {elseif $lang_iso == 'en'}
+                        {elseif $language == 'en'}
                             <div class="info-pop">
                                 <div class="dec-pop">
                                     <h3 class="title-label padding-15">2nd choice quality</h3>
@@ -247,7 +247,7 @@
                                     <span class="choix-button">2nd Choice</span>
                                 </div>
                             </div>
-                        {elseif $lang_iso == 'de'}
+                        {elseif $language == 'de'}
                             <div class="info-pop">
                                 <div class="dec-pop">
                                     <h3 class="title-label padding-15">Zweite Wahl</h3>
@@ -269,24 +269,24 @@
 <div id="popup-prix" class="modalDialog">
     <div class="container-popup overflow-popup">
         <div class="head-popup">
-            <img src="{$img_dir}close.png" alt="close" class="closepopup close-modal-p">
+            <img src="{$urls.img_url}close.png" alt="close" class="closepopup close-modal-p">
         </div>
         <div class="body-popup">
-            {if $lang_iso == 'fr' }
+            {if $language == 'fr' }
                 <h1 class="font-serif-title title-popup">Grille des prix</h1>
-            {elseif $lang_iso == 'en'}
+            {elseif $language == 'en'}
                 <h1 class="font-serif-title title-popup">Price list</h1>
-            {elseif $lang_iso == 'de'}
+            {elseif $language == 'de'}
                 <h1 class="font-serif-title title-popup">Preisliste</h1>
             {/if}
             <div class="row ">
                 <div class="col-md-12 table-dektop">
                         <table>
-                            <tr>{if $lang_iso == 'fr' }
+                            <tr>{if $language == 'fr' }
                                     <th >Tailles</th>
-                                {elseif $lang_iso == 'en'}
+                                {elseif $language == 'en'}
                                     <th >Size</th>
-                                {elseif $lang_iso == 'de'}
+                                {elseif $language == 'de'}
                                     <th >Größe</th>
                                 {/if}
                                 <td >80cm-100cm</td>
@@ -297,9 +297,9 @@
                                 <td >200cm-250cm</td>
                                 <td >250cm-300cm</td>
                             </tr>
-                            <tr>{if $lang_iso == 'fr' }
+                            <tr>{if $language == 'fr' }
                                     <th >1er choix</th>
-                                {elseif $lang_iso == 'en' || $lang_iso == 'de'}
+                                {elseif $language == 'en' || $language == 'de'}
                                     <th >Premium</th>
                                 {/if}
                                 <td >69 CHF</td>
@@ -311,11 +311,11 @@
                                 <td >229 CHF</td>
 
                             </tr>
-                            <tr>{if $lang_iso == 'fr' }
+                            <tr>{if $language == 'fr' }
                                     <th >2eme choix</th>
-                                {elseif $lang_iso == 'en'}
+                                {elseif $language == 'en'}
                                     <th >2nd Choice</th>
-                                {elseif $lang_iso == 'de'}
+                                {elseif $language == 'de'}
                                     <th >Zweite Wahl</th>
                                 {/if}
                                 <td >55 CHF</td>
@@ -327,21 +327,21 @@
                                 <td >195 CHF</td>
                             </tr>
 
-                            {if $lang_iso == 'fr' }
+                            {if $language == 'fr' }
                                 <tr>
                                     <td colspan="8" >10 CHF de supplément pour l’ajout d’un pied au sapin</td>
                                 </tr>
                                 <tr>
                                     <td colspan="8" >30 CHF de supplément pour que MyAbis récupère et revalorise le sapin</td>
                                 </tr>
-                            {elseif $lang_iso == 'en'}
+                            {elseif $language == 'en'}
                                 <tr>
                                     <td colspan="8" >10 CHF extra to add a stander to your tree</td>
                                 </tr>
                                 <tr>
                                     <td colspan="8" >30 CHF extra for My Abies to pck-up and recycle your tree</td>
                                 </tr>
-                            {elseif $lang_iso == 'de'}
+                            {elseif $language == 'de'}
                                 <tr>
                                     <td colspan="8" >10 CHF Zuschlag für den Holzständer</td>
                                 </tr>
@@ -356,11 +356,11 @@
                 <div class="col-md-12 table-repo">
                     <table>
                         <tbody>
-                        {if $lang_iso == 'fr' }
+                        {if $language == 'fr' }
                             <tr><th>Taille</th><th>1er choix</th><th>2eme choix</th></tr>
-                        {elseif $lang_iso == 'en'}
+                        {elseif $language == 'en'}
                             <tr><th>Size</th><th>Premium</th><th>2nd Choice</th></tr>
-                        {elseif $lang_iso == 'de'}
+                        {elseif $language == 'de'}
                             <tr><th>Größe</th><th>Premium</th><th>Zweite Wahl</th></tr>
                         {/if}
                         <tr>
@@ -398,7 +398,7 @@
                             <td>229 CHF</td>
                             <td>195 CHF</td>
                         </tr>
-                        {if $lang_iso == 'fr' }
+                        {if $language == 'fr' }
                             <tr>
                                 <td colspan="3">
                                     <p class="text-popup">10 CHF de supplément pour l'ajout d'un pied au sapin</p>
@@ -409,7 +409,7 @@
                                     <p class="text-popup">30 CHF de supplément pour que MyAbies récupère et revalorise le sapin</p>
                                 </td>
                             </tr>
-                        {elseif $lang_iso == 'en'}
+                        {elseif $language == 'en'}
                             <tr>
                                 <td colspan="3">
                                     <p class="text-popup">10 CHF extra to add a stander to your tree</p>
@@ -420,7 +420,7 @@
                                     <p class="text-popup">30 CHF extra for My Abies to pck-up and recycle your tree</p>
                                 </td>
                             </tr>
-                        {elseif $lang_iso == 'de'}
+                        {elseif $language == 'de'}
                             <tr>
                                 <td colspan="3">
                                     <p class="text-popup">10 CHF Zuschlag für den Holzständer</p>
@@ -437,15 +437,15 @@
                     </table>
                 </div>
             </div>
-            {if $lang_iso == 'fr' }
+            {if $language == 'fr' }
                 <div class="footer-popup">
                     <span class="text-popup">TVA comprise à 2,5%</span>
                 </div>
-            {elseif $lang_iso == 'en'}
+            {elseif $language == 'en'}
                 <div class="footer-popup">
                     <span class="text-popup">All tax included</span>
                 </div>
-            {elseif $lang_iso == 'de'}
+            {elseif $language == 'de'}
                 <div class="footer-popup">
                     <span class="text-popup">Inkl. 2.5% MwSt</span>
                 </div>
@@ -476,9 +476,9 @@
     });
 
 
-    var baseurl_tunnelvente = "{$urls.base_url}module/tunnelventeabies/type";
-    var baseurl = "{$urls.base_url}themes/myabies/img/";
-    var lang = "{$lang_iso}";
+    var baseurl_tunnelvente = "{$base_url}module/tunnelventeabies/type";
+    var baseurl = "{$base_url}themes/myabies/img/";
+    var lang = "{$language}";
     var partner_name = "{$partner['name']}";
     var partner_img = "{$partner['img']}";
     // var partner_description = "{$partner['description']}";
@@ -501,7 +501,7 @@
 
     $('.options-step .nom_transporteur').html(partner_name);
     $('.options-step .description_transporteur').html(partner_description);
-    $('.options-step .transporteur-img').attr('src', "{$urls.base_url}modules/ecosapinpartners/uploads/" + partner_img);
+    $('.options-step .transporteur-img').attr('src', "{$base_url}modules/ecosapinpartners/uploads/" + partner_img);
 
     calPrice = $('.priceCalcContainer').data('calPrice');
     calPrice.setPriceSapin("{$defaultCombination.price}", "{$defaultCombination.name}",lang ,false);

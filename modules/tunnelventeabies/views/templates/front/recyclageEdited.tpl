@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<form action="{$urls.base_url}module/tunnelventeabies/finale" id="form_recyclage"
+<form action="{$base_url}module/tunnelventeabies/finale" id="form_recyclage"
       method="post">
     <div class="btns_next_prev mobile-respo">
         <button type="button" class="prev">prev</button>
@@ -112,7 +112,7 @@
 {literal}
     <script type="text/javascript">
         $(function ($) {
-            var recyclage_backtunnelvente = "{/literal}{$urls.base_url}{literal}module/tunnelventeabies/pied?back=1",
+            var recyclage_backtunnelvente = "{/literal}{$base_url}{literal}module/tunnelventeabies/pied?back=1",
                 recyclageId = "{/literal}{if !empty($last_id_recyclage_checked)}{$last_id_recyclage_checked}{else}0{/if}{literal}";
 
             calPrice = $('.priceCalcContainer').data('calPrice');
