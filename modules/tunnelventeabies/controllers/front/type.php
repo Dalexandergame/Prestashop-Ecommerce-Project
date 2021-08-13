@@ -4,8 +4,8 @@ if (!defined('_PS_VERSION_'))
     exit;
 
 require_once dirname(__FILE__).'/FrontAbies.php';
-require_once dirname(__FILE__).'/../../../planningdeliverybycarrier/PlanningDeliveryByCarrierException.php';
-require_once dirname(__FILE__).'/../../../planningdeliverybycarrier/PlanningRetourByCarrierException.php';
+require_once dirname(__FILE__).'/../../../planningdeliverybycarrier/classes/PlanningDeliveryByCarrierException.php';
+require_once dirname(__FILE__).'/../../../planningdeliverybycarrier/classes/PlanningRetourByCarrierException.php';
 
 class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
 
@@ -237,7 +237,9 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
             "id_attribute_taille" => $this->getValueTunnelVent("id_attribute_taille") ? $this->getValueTunnelVent("id_attribute_taille") : '_',
             "isSapinSwiss"        => false,
             "selectedTaille"       => [],
-            "typetpl"             => "ecosapin"
+            "typetpl"             => "ecosapin",
+            "base_url" => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_,
+            "language" =>  Language::getIsoById($this->context->language->id)
         ));
 
         $html = $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/".self::$TEMPLATE);

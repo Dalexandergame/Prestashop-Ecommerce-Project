@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<form action="{$urls.base_url}module/tunnelventeabies/recyclage" id="form_pied"
+<form action="{$base_url}module/tunnelventeabies/recyclage" id="form_pied"
       method="post">
     <div class="btns_next_prev mobile-respo">
         <button type="button" class="prev">prev</button>
@@ -131,7 +131,7 @@
 </form>
 
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{$urls.base_url}module/tunnelventeabies/taille?back=1";
+    var baseurl_tunnelvente = "{$base_url}module/tunnelventeabies/taille?back=1";
     {if !empty($id_product_pied)}
     var id_product_pied = "{$id_product_pied}";
     {else}

@@ -40,7 +40,7 @@ class FrontAbies extends ModuleFrontControllerCore
 
         $this->id_types = [Configuration::get('TUNNELVENTE_ID_LITTLE_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')];
         $this->id_product_sapins = $this->getIdProductSapins(array(Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')));
-        $this->stockGlobal = new AdminStockGlobalView(false);
+        $this->stockGlobal = new AdminStockGlobalViewController(false);
     }
 
     /**
@@ -123,7 +123,7 @@ class FrontAbies extends ModuleFrontControllerCore
             $region = ['id_carrier' => $id_carrier_post];// transporteur Post Si npa n'existe pas
         }
         if (isset($region['id_carrier']) && (int) $region['id_carrier'] == $id_carrier_post) {
-            $this->id_attributeRemoved = [70, 71]; // taille 220/250 et 270/300
+            $this->id_attributeRemoved = [34, 36]; // taille 220/250 et 270/300
         }
         if ($npa) {
             $sqlEntrepotByNPA = SqlRequeteAbies::getSqlEntrepotByNPA($npa);
@@ -164,7 +164,7 @@ class FrontAbies extends ModuleFrontControllerCore
             $region = ['id_carrier' => $id_carrier_post];// transporteur Post Si npa n'existe pas
         }
         if (isset($region['id_carrier']) && (int) $region['id_carrier'] == $id_carrier_post) {
-            $this->id_attributeRemoved = array(70, 71); // taille 220/250 et 270/300
+            $this->id_attributeRemoved = array(34, 36); // taille 220/250 et 270/300
         }
         if ($npa) {
             $sqlEntrepotByNPA = SqlRequeteAbies::getSqlEntrepotByNPA($npa);

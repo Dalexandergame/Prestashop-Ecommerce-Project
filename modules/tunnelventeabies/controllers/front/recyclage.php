@@ -203,7 +203,8 @@ class TunnelVenteAbiesRecyclageModuleFrontController extends TunnelVenteAbiesBou
                 'last_id_recyclage_checked' => $last_id_recyclage_checked,
                 'order_process'             => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
                 'image_recyclage'           => $image,
-                'resume'                    => $resume
+                'resume'                    => $resume,
+                "base_url"                  => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             )
         );
 

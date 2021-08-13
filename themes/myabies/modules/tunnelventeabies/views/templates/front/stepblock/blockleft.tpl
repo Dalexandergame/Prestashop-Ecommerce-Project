@@ -9,41 +9,41 @@
                         <div class="step-number">{$i}</div>
                         <div class="step-description">
                             {if $stepDetail->getTitre()=="Code postal"}
-                                {if $lang_iso == 'fr' }
+                                {if $language.iso_code == 'fr' }
                                     Code postal
-                                {elseif $lang_iso == 'en' || $cookie->id_lang == '1'}
+                                {elseif $language.iso_code == 'en' || $cookie->id_lang == '1'}
                                     Postal code
-                                {elseif $lang_iso == 'de'}
+                                {elseif $language.iso_code == 'de'}
                                     Postleitzahl
                                 {/if}
                             {elseif $stepDetail->getTitre()=="Options"}
-                                {if $lang_iso == 'fr' || $lang_iso == 'en'}
+                                {if $language.iso_code == 'fr' || $language.iso_code == 'en'}
                                     Options
-                                {elseif $lang_iso == 'de'}
+                                {elseif $language.iso_code == 'de'}
                                     Optionen
                                 {/if}
                             {elseif $stepDetail->getTitre()=="Type de pied"}
-                                {if $lang_iso == 'fr' }
+                                {if $language.iso_code == 'fr' }
                                     Type de pied
-                                {elseif $lang_iso == 'en' || $cookie->id_lang == '1'}
+                                {elseif $language.iso_code == 'en' || $cookie->id_lang == '1'}
                                     Base type
-                                {elseif $lang_iso == 'de'}
+                                {elseif $language.iso_code == 'de'}
                                     Ständerarten
                                 {/if}
                             {elseif $stepDetail->getTitre()=="Livraison et recyclage"}
-                                {if $lang_iso == 'fr' }
+                                {if $language.iso_code == 'fr' }
                                     Livraison et recyclage
-                                {elseif $lang_iso == 'en' || $cookie->id_lang == '1'}
+                                {elseif $language.iso_code == 'en' || $cookie->id_lang == '1'}
                                     Pick-up and recycling
-                                {elseif $lang_iso == 'de'}
+                                {elseif $language.iso_code == 'de'}
                                     Abholung und Recycling
                                 {/if}
                             {elseif $stepDetail->getTitre()=="Mon Panier"}
-                                {if $lang_iso == 'fr' }
+                                {if $language.iso_code == 'fr' }
                                     Mon Panier
-                                {elseif $lang_iso == 'en' || $cookie->id_lang == '1'}
+                                {elseif $language.iso_code == 'en' || $cookie->id_lang == '1'}
                                     My cart
-                                {elseif $lang_iso == 'de'}
+                                {elseif $language.iso_code == 'de'}
                                     Mein Warenkorb
                                 {/if}
                             {/if}
@@ -57,7 +57,7 @@
 
 
     </div>
-    <div class="priceCalcContainer" data-currency="{$currency->sign}"></div>
+    <div class="priceCalcContainer" data-currency="{$currency.sign}"></div>
     <script>
         $(function () {
             /*$('.step_1').addClass('active');
