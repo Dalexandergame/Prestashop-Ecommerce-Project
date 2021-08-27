@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `PREFIX_pm_advancedpack` (
   `id_pack` int(10) unsigned NOT NULL,
   `id_shop` int(10) unsigned NOT NULL,
-  `fixed_price` decimal(20,6) UNSIGNED NULL DEFAULT NULL,
+  `fixed_price` text NULL DEFAULT NULL,
   `allow_remove_product` tinyint(3) unsigned DEFAULT 0,
   PRIMARY KEY (`id_pack`, `id_shop`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -16,8 +16,9 @@ CREATE TABLE IF NOT EXISTS `PREFIX_pm_advancedpack_cart_products` (
   `id_product_attribute` int(10) unsigned NOT NULL,
   `id_order` int(10) unsigned NULL,
   `customization_infos` text DEFAULT NULL,
+  `cleaned` tinyint(3) unsigned DEFAULT 0,
   PRIMARY KEY (`id_cart`,`id_shop`,`id_pack`,`id_product_pack`,`id_product_attribute_pack`,`id_product_attribute`),
-  INDEX `order_pack` (`id_order`, `id_pack`),
+  INDEX `order_pack_2` (`id_order`, `id_pack`, `cleaned`),
   INDEX `unique_hash` (`id_order`, `unique_hash`, `id_cart`, `id_pack`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

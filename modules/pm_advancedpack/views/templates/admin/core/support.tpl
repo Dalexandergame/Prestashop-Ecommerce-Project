@@ -1,49 +1,50 @@
-<div class="pm_footer_container ui-corner-all ui-tabs ui-tabs-panel">
-    <div id="pm_support_informations" class="pm_panel_bottom">
-        {include file='./title.tpl' text={l s='Useful links' mod='pm_advancedpack'}}
+{**
+ * pm_advancedpack
+ *
+ * @author    Presta-Module.com <support@presta-module.com> - https://www.presta-module.com
+ * @copyright Presta-Module - https://www.presta-module.com
+ * @license   Commercial
+ *
+ *           ____     __  __
+ *          |  _ \   |  \/  |
+ *          | |_) |  | |\/| |
+ *          |  __/   | |  | |
+ *          |_|      |_|  |_|
+ *}
 
-        <ul class="pm_links_block">
-            <li class="pm_module_version"><strong>{l s='Module Version: ' mod='pm_advancedpack'}</strong> {$pm_module_version|escape:'htmlall':'UTF-8'}</li>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-xs-12 col-12">
+        <div id="pm_support_informations" class="panel">
+            <h2>{l s='Useful links' mod='pm_advancedpack'}</h2>
 
-        {if (isset($getting_started) && $getting_started)}
-            <li class="pm_get_started_link"><a href="javascript:;" class="pm_link">{l s='Getting started' mod='pm_advancedpack'}</a></li>
-        {/if}
+            <ul class="pm_links_block">
+                <li class="pm_module_version"><strong>{l s='Module Version: ' mod='pm_advancedpack'}</strong> {$pm_module_version|escape:'htmlall':'UTF-8'}</li>
 
-        {if isset($support_links) && $support_links|is_array && $support_links|sizeof}
-            {foreach from=$support_links item=support_link}
-                <li class="pm_useful_link"><a href="{$support_link.link|ap5_nofilter}" target="_blank" class="pm_link">{$support_link.label|escape:'htmlall':'UTF-8'}</a></li>
-            {/foreach}
-        {/if}
-        </ul>
-
-        {if isset($copyright_link) && $copyright_link|is_array && $copyright_link|sizeof}
-            <div class="pm_copy_block">
-            {if (isset($copyright_link.link) && $copyright_link.link != '')}
-                <a href="{$copyright_link.link|ap5_nofilter}"{if isset($copyright_link.target)} target="{$copyright_link.target|escape:'htmlall':'UTF-8'}"{/if}{if isset($copyright_link.style)} style="{$copyright_link.style|escape:'htmlall':'UTF-8'}"{/if}
-                >
+            {if isset($support_links) && $support_links|is_array && $support_links|sizeof}
+                {foreach from=$support_links item=support_link}
+                    <li class="pm_useful_link"><a href="{$support_link.link|escape:'htmlall':'UTF-8'}" target="_blank" class="pm_link">{$support_link.label|escape:'htmlall':'UTF-8'}</a></li>
+                {/foreach}
             {/if}
-            <img src="{$copyright_link.img|ap5_nofilter}" />
-            {if (isset($copyright_link.link) && $copyright_link.link != '')}
-                </a>
+            </ul>
+
+            {if isset($copyright_link) && $copyright_link|is_array && $copyright_link|sizeof}
+                <div class="pm_copy_block">
+                {if (isset($copyright_link.link) && $copyright_link.link != '')}
+                    <a href="{$copyright_link.link|escape:'htmlall':'UTF-8'}"{if isset($copyright_link.target)} target="{$copyright_link.target|escape:'htmlall':'UTF-8'}"{/if}{if isset($copyright_link.style)} style="{$copyright_link.style|escape:'htmlall':'UTF-8'}"{/if}
+                    >
+                {/if}
+                <img src="{$copyright_link.img|escape:'htmlall':'UTF-8'}" />
+                {if (isset($copyright_link.link) && $copyright_link.link != '')}
+                    </a>
+                {/if}
+                </div>
             {/if}
-            </div>
-        {/if}
+        </div>
     </div>
-
-    {if isset($get_started_image_list) && $get_started_image_list|is_array && $get_started_image_list|sizeof}
-        <script type="text/javascript">
-            $('.pm_get_started_link a').click(function() {
-                $.fancybox([ {$get_started_image_list|implode:','} ], {
-                    'padding'           : 0,
-                    'transitionIn'      : 'none',
-                    'transitionOut'     : 'none',
-                    'type'              : 'image',
-                    'changeFade'        : 0
-                });
-            });
-        </script>
-    {/if}
 </div>
-<div class="pm_footer_container ui-corner-all ui-tabs ui-tabs-panel">
-    {include file="./cs-addons.tpl"}
+<div class="row">
+    <div class="col-xs-12 col-12">
+        {include file="./cs-addons.tpl"}
+    </div>
 </div>

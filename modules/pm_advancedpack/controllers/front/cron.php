@@ -2,8 +2,8 @@
 /**
  * Advanced Pack 5
  *
- * @author    Presta-Module.com <support@presta-module.com> - http://www.presta-module.com
- * @copyright Presta-Module 2017 - http://www.presta-module.com
+ * @author    Presta-Module.com <support@presta-module.com> - https://www.presta-module.com
+ * @copyright Presta-Module - https://www.presta-module.com
  * @license   Commercial
  *
  *           ____     __  __
@@ -42,6 +42,9 @@ class pm_advancedpackcronModuleFrontController extends ModuleFrontController
         $time_start = microtime(true);
         $idPackList = $this->module->getPackIdToUpdate();
         foreach ($idPackList as $idPack) {
+            if (!AdvancedPack::clonePackAttributes($idPack)) {
+                throw new PrestaShopException(sprintf($this->l('Unable to generate pack attribute combinations for pack n°%d', $idPack)));
+            }
             AdvancedPack::addPackSpecificPrice((int)$idPack, 0);
         }
         $this->module->cleanPackIdToUpdate();

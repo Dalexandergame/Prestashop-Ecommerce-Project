@@ -2,8 +2,8 @@
 /**
  * Advanced Pack 5
  *
- * @author    Presta-Module.com <support@presta-module.com> - http://www.presta-module.com
- * @copyright Presta-Module 2017 - http://www.presta-module.com
+ * @author    Presta-Module.com <support@presta-module.com> - https://www.presta-module.com
+ * @copyright Presta-Module - https://www.presta-module.com
  * @license   Commercial
  *
  *           ____     __  __
@@ -18,16 +18,8 @@ if (!defined('_PS_VERSION_')) {
 }
 class AdminPacksController extends AdminController
 {
-    protected function l($string, $class = null, $addslashes = false, $htmlentities = true)
-    {
-        if ( _PS_VERSION_ >= '1.7') {
-            return Context::getContext()->getTranslator()->trans($string);
-        } else {
-            return parent::l($string, $class, $addslashes, $htmlentities);
-        }
-    }
-
     protected $moduleInstance;
+    private $adminNewPackUrl;
     public function __construct()
     {
         $this->bootstrap = true;
@@ -38,6 +30,11 @@ class AdminPacksController extends AdminController
         $this->addRowAction('delete');
         $this->context = Context::getContext();
         $this->moduleInstance = (class_exists('AdvancedPack') ? AdvancedPack::getModuleInstance() : Module::getInstanceByName('pm_advancedpack'));
+        if (version_compare(_PS_VERSION_, '1.7.0.0', '>=')) {
+            $this->adminNewPackUrl = Link::getUrlSmarty(array('entity' => 'sf', 'route' => 'admin_product_new')) . '&new_pack=1';
+        } else {
+            $this->adminNewPackUrl = $this->context->link->getAdminLink('AdminProducts') . '&addproduct&newpack';
+        }
         $this->bulk_actions = array(
             'delete' => array(
                 'text' => $this->l('Delete selected'),
@@ -130,22 +127,22 @@ class AdminPacksController extends AdminController
         $this->_join .= ' LEFT JOIN `'._DB_PREFIX_.'image_shop` image_shop ON (image_shop.`id_image` = i.`id_image` AND image_shop.`cover` = 1 AND image_shop.`id_shop` = '.$id_shop.') ';
         $this->_group = ' GROUP BY a.`id_product` ';
     }
-    // public function l($string, $class = 'AdminPacksController', $addslashes = false, $htmlentities = true)
-    // {
-    //     return $this->moduleInstance->l($string, $class, $addslashes, $htmlentities);
-    // }
+    public function l($string, $class = 'AdminPacksController', $addslashes = false, $htmlentities = true)
+    {
+        return $this->moduleInstance->l($string, $class);
+    }
     public function initPageHeaderToolbar()
     {
         if (empty($this->display)) {
             $this->page_header_toolbar_btn['new_pack'] = array(
-                'href' => $this->context->link->getAdminLink('AdminProducts') . '&addproduct&newpack',
+                'href' => $this->adminNewPackUrl,
                 'desc' => $this->l('Add a new pack', 'AdminPacksController', null, false),
                 'icon' => 'process-icon-new'
             );
             $this->page_header_toolbar_btn['configure_module'] = array(
                 'href' => $this->context->link->getAdminLink('AdminModules') . '&configure=pm_advancedpack',
                 'desc' => $this->l('Configure module', 'AdminPacksController', null, false),
-                'icon' => 'process-icon-modules-list'
+                'icon' => 'process-icon-configure-pack-module icon-puzzle-piece'
             );
         }
         parent::initPageHeaderToolbar();
@@ -155,7 +152,7 @@ class AdminPacksController extends AdminController
         parent::initToolbar();
         if (empty($this->display)) {
             $this->toolbar_btn['new'] = array(
-                'href' => $this->context->link->getAdminLink('AdminProducts') . '&addproduct&newpack',
+                'href' => $this->adminNewPackUrl,
                 'desc' => $this->l('Add a new pack', 'AdminPacksController', null, false),
                 'icon' => 'process-icon-new'
             );
@@ -176,7 +173,18 @@ class AdminPacksController extends AdminController
     public function initProcess()
     {
         if (Tools::getIsset('updateproduct') && Tools::getIsset('id_product') && (int)Tools::getValue('id_product')) {
-            Tools::redirectAdmin($this->context->link->getAdminLink('AdminProducts') . '&key_tab=ModulePm_advancedpack&updateproduct&id_product=' . (int)Tools::getValue('id_product'));
+            if (version_compare(_PS_VERSION_, '1.7.0.0', '>=')) {
+                Tools::redirectAdmin($this->context->link->getAdminLink('AdminProducts', true, array('id_product' => (int)Tools::getValue('id_product'))) . '#pm_advancedpack');
+            } else {
+                Tools::redirectAdmin($this->context->link->getAdminLink('AdminProducts') . '&key_tab=ModulePm_advancedpack&updateproduct&id_product=' . (int)Tools::getValue('id_product'));
+            }
+        }
+        if (Tools::getIsset('duplicateproduct') && Tools::getIsset('id_product') && (int)Tools::getValue('id_product')) {
+            if (version_compare(_PS_VERSION_, '1.7.0.0', '>=')) {
+                Tools::redirectAdmin($this->moduleInstance->getSfContainer()->get('router')->generate('admin_product_unit_action', array('action' => 'duplicate', 'id' => (int)Tools::getValue('id_product'))));
+            } else {
+                Tools::redirectAdmin($this->context->link->getAdminLink('AdminProducts') . '&duplicateproduct&id_product=' . (int)Tools::getValue('id_product'));
+            }
         }
         parent::initProcess();
     }
@@ -193,6 +201,10 @@ class AdminPacksController extends AdminController
     }
     public function renderList()
     {
+        $this->actions = array();
+        $this->addRowAction('edit');
+        $this->addRowAction('duplicate');
+        $this->addRowAction('delete');
         $r = '';
         if (!count($this->errors)) {
             $r .= parent::renderList();

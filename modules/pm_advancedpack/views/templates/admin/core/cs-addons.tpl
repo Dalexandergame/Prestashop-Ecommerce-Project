@@ -1,13 +1,27 @@
-<div id="pm_panel_cs_modules_bottom">
-    {include file='./title.tpl' text={l s='Check all our modules' mod='pm_advancedpack'}}
+{**
+ * pm_advancedpack
+ *
+ * @author    Presta-Module.com <support@presta-module.com> - https://www.presta-module.com
+ * @copyright Presta-Module - https://www.presta-module.com
+ * @license   Commercial
+ *
+ *           ____     __  __
+ *          |  _ \   |  \/  |
+ *          | |_) |  | |\/| |
+ *          |  __/   | |  | |
+ *          |_|      |_|  |_|
+ *}
+
+<div id="pm_panel_cs_modules_bottom" class="panel">
+    <h2>{l s='Check all our modules' mod='pm_advancedpack'}</h2>
         <div id="cs-product-container">
             <div id="cs-product-list">
                 {foreach from=$pm_addons_products key=id_module item=module_cs}
                     <div class="product-item">
                         <p class="product-name-container">
-                            <a class="product-name" target="_blank" href="{$module_cs.url|ap5_nofilter}" title="{$module_cs.displayName|escape:'htmlall':'UTF-8'}">{$module_cs.displayName|escape:'htmlall':'UTF-8'}</a>
+                            <a class="product-name" target="_blank" href="{$module_cs.url|escape:'htmlall':'UTF-8'}" title="{$module_cs.displayName|escape:'htmlall':'UTF-8'}">{$module_cs.displayName|escape:'htmlall':'UTF-8'}</a>
                         </p>
-                        <a target="_blank" class="module-image" href="{$module_cs.url|ap5_nofilter}" class="module-image
+                        <a target="_blank" class="module-image" href="{$module_cs.url|escape:'htmlall':'UTF-8'}" class="module-image
                         " title="{$module_cs.description|escape:'htmlall':'UTF-8'}"">
                             <img src="//cdn.presta-module.com/img/icons/{$id_module|intval}.png" alt="{$module_cs.displayName|escape:'htmlall':'UTF-8'}" width="110" height="110" />
                         </a>
@@ -34,5 +48,3 @@
         });
     </script>
     {/literal}
-
-{$html_at_end|ap5_nofilter}

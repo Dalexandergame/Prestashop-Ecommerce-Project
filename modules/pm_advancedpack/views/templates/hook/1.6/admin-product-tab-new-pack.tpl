@@ -33,36 +33,46 @@
 				</label>
 			</div>
 
-			<div id="ap5_price_rules_1_configuration" class="ap5-admin-hide hide">
-				<label class="control-label col-lg-4" for="ap5_global_percentage_discount">
-					<span class="label-tooltip" data-toggle="tooltip" title="{l s='Enter a fixed percentage discount for all the products of your pack' mod='pm_advancedpack'}">
-						{l s='Global percentage discount' mod='pm_advancedpack'}
-					</span>
-				</label>
-				<div class="col-lg-4">
-					<div class="input-group">
-						<input min="0" max="100" type="text" onchange="this.value = this.value.replace(/,/g, '.');" value="{$packFixedPercentage|floatval}" id="ap5_global_percentage_discount" name="ap5_global_percentage_discount" class="ap5_global_percentage_discount" maxlength="6" />
-						<span class="input-group-addon"> %</span>
-					</div>
-				</div>
+			<div id="ap5_price_rules_1_configuration" class="ap5-admin-hide hide clearfix">
+				<table class="table">
+					<tr>
+						<td>
+							<label class="control-label" for="ap5_global_percentage_discount">
+								<span class="label-tooltip" data-toggle="tooltip" title="{l s='Enter a fixed percentage discount for all the products of your pack' mod='pm_advancedpack'}">
+									{l s='Global percentage discount' mod='pm_advancedpack'}
+								</span>
+							</label>
+						</td>
+						<td class="text-left" style="width: 150px">
+							<div class="input-group">
+								<input min="0" max="100" type="text" onchange="this.value = this.value.replace(/,/g, '.');" value="{$packFixedPercentage|floatval}" id="ap5_global_percentage_discount" name="ap5_global_percentage_discount" class="ap5_global_percentage_discount form-control" maxlength="6" />
+								<span class="input-group-addon"> %</span>
+							</div>
+						</td>
+					</tr>
+				</table>
 			</div>
 
 			<div id="ap5_price_rules_3_configuration" class="ap5-admin-hide hide">
+				<table class="table">
 				{foreach from=$packIdGroupList key=idGroup item=groupName}
-				<div class="row">
-					<label class="control-label col-lg-8" for="ap5_fixed_pack_price">
-						<span class="label-tooltip" data-toggle="tooltip" title="{l s='Enter a fixed amount for your pack' mod='pm_advancedpack'}">
-							{l s='Pack price' mod='pm_advancedpack'} - {if $idGroup == 3}{l s='Default group' mod='pm_advancedpack'}{else}{$groupName|escape:'html':'UTF-8'}{/if}<em class="ap5-fixed-pack-price-without-taxes{if $idTaxRulesGroup <= 0} ap5-admin-hide hide{/if}"> {l s='(without taxes)' mod='pm_advancedpack'}</em><em class="ap5-fixed-pack-price-with-taxes{if $idTaxRulesGroup !== 0 || is_null($idTaxRulesGroup)} ap5-admin-hide hide{/if}"> {l s='(with taxes)' mod='pm_advancedpack'}</em>
-						</span>
-					</label>
-					<div class="col-lg-4">
-						<div class="input-group">
-							<input min="0" type="text" onchange="this.value = this.value.replace(/,/g, '.');" value="{if isset($packFixedPrice[$idGroup])}{$packFixedPrice[$idGroup]|floatval}{/if}" id="ap5_fixed_pack_price_{$idGroup|intval}" name="ap5_fixed_pack_price[{$idGroup|intval}]" class="ap5_fixed_pack_price" maxlength="14" />
-							<span class="input-group-addon"> {$defaultCurrency->sign|escape:'html':'UTF-8'}</span>
-						</div>
-					</div>
-				</div>
+					<tr>
+						<td>
+							<label class="control-label" for="ap5_fixed_pack_price">
+								<span class="label-tooltip" data-toggle="tooltip" title="{l s='Enter a fixed amount for your pack' mod='pm_advancedpack'}">
+									{l s='Pack price' mod='pm_advancedpack'} - {if $idGroup == $packIdGroupDefault}{l s='Default group' mod='pm_advancedpack'}{else}{$groupName|escape:'html':'UTF-8'}{/if}<em class="ap5-fixed-pack-price-without-taxes{if $idTaxRulesGroup <= 0} ap5-admin-hide hide{/if}"> {l s='(without taxes)' mod='pm_advancedpack'}</em><em class="ap5-fixed-pack-price-with-taxes{if $idTaxRulesGroup !== 0 || is_null($idTaxRulesGroup)} ap5-admin-hide hide{/if}"> {l s='(with taxes)' mod='pm_advancedpack'}</em>
+								</span>
+							</label>
+						</td>
+						<td class="text-left" style="width: 150px">
+							<div class="input-group">
+								<input min="0" type="text" onchange="this.value = this.value.replace(/,/g, '.');" value="{if isset($packFixedPrice[$idGroup])}{$packFixedPrice[$idGroup]|floatval}{/if}" id="ap5_fixed_pack_price_{$idGroup|intval}" name="ap5_fixed_pack_price[{$idGroup|intval}]" class="ap5_fixed_pack_price" maxlength="14" />
+								<span class="input-group-addon"> {$defaultCurrency->sign|escape:'html':'UTF-8'}</span>
+							</div>
+						</td>
+					</tr>
 				{/foreach}
+				</table>
 			</div>
 
 			<div id="ap5_price_rules_4_configuration" class="ap5-admin-hide hide">
@@ -109,7 +119,7 @@
 				{l s='Add a new product to this pack' mod='pm_advancedpack'}
 			</span>
 		</label>
-		<div class="col-lg-5">
+		<div class="col-lg-4">
 			<div id="ajax_choose_product">
 				<div class="input-group">
 					<input type="text" id="ap5_pack_content_input" name="ap5_pack_content_input" />
@@ -130,8 +140,16 @@
 					<th class="center">{l s='Quantity' mod='pm_advancedpack'}</th>
 					<th class="left">{l s='Price' mod='pm_advancedpack'}</th>
 					<th class="left ap5_discountCell">{l s='Discount' mod='pm_advancedpack'}</th>
-					<th class="center"><span class="label-tooltip" data-toggle="tooltip" title="{l s='If checked, your customers will only be able to buy the product from a pack' mod='pm_advancedpack'}">{l s='Exclusive?' mod='pm_advancedpack'}</span></th>
-					<th class="center ap5_useReduc-container"><span class="label-tooltip" data-toggle="tooltip" title="{l s='If you want to use product base price (without discounts), uncheck this box' mod='pm_advancedpack'}">{l s='Inherit discounts?' mod='pm_advancedpack'}</span></th>
+					<th class="center">
+						<span class="label-tooltip" data-toggle="tooltip" title="{l s='If checked, your customers will only be able to buy the product from a pack' mod='pm_advancedpack'}">{l s='Exclusive' mod='pm_advancedpack'}</span>
+						<br />
+						<input type="checkbox" id="ap5_exclusive-all"{if !empty($packCheckAllExclusive)} checked="checked"{/if} />
+					</th>
+					<th class="center ap5_useReduc-container">
+						<span class="label-tooltip" data-toggle="tooltip" title="{l s='If you want to use product base price (without discounts), uncheck this box' mod='pm_advancedpack'}">{l s='Inherit discounts' mod='pm_advancedpack'}</span>
+						<br />
+						<input type="checkbox" id="ap5_useReduc-all"{if !empty($packCheckAllUseReduc)} checked="checked"{/if} />
+					</th>
 					<th class="center">{l s='Remove' mod='pm_advancedpack'}</th>
 				</tr>
 			</thead>
@@ -156,7 +174,7 @@
 		{/if}
 	</div>
 </div>
-<div id="create-pack-invite" class="panel product-tab ps-15 ap5-admin-hide hide">
+<div id="create-pack-invite" class="panel product-tab ap5-admin-hide hide">
 	<p>{l s='If you want to create a pack, please click on the link below:' mod='pm_advancedpack'}</p>
 	<p><a class="btn btn-primary text-center" href="{$link->getAdminLink('AdminProducts')}&addproduct&newpack"><i class="icon-plus-sign"></i><br />{l s='Add a new pack' mod='pm_advancedpack'}</a></p>
 </div>

@@ -27,9 +27,10 @@
 				{if $productsPack.packObj->show_price && !isset($restricted_country_mode) && !$PS_CATALOG_MODE}
 				<div id="ap5-price-container-{$idPack|intval}" class="ap5-price-container content_prices">
 					<div class="price">
-						<p class="our_price_display">
+						<p class="our_price_display" {if $priceDisplay >= 0 && $priceDisplay <= 2}itemprop="offers" itemscope itemtype="https://schema.org/Offer"{/if}>
 							{if $priceDisplay >= 0 && $priceDisplay <= 2}
-								<span id="our_price_display">{convertPrice price=$productPrice}</span>
+								<meta itemprop="priceCurrency" content="{$currency->iso_code|escape:'html':'UTF-8'}" />
+								<span id="our_price_display" itemprop="price" content="{$productPrice}">{convertPrice price=$productPrice}</span>
 								{* {if $tax_enabled  && ((isset($display_tax_label) && $display_tax_label == 1) || !isset($display_tax_label))}
 									{if $priceDisplay == 1}{l s='tax excl.' mod='pm_advancedpack'}{else}{l s='tax incl.' mod='pm_advancedpack'}{/if}
 								{/if} *}
@@ -47,7 +48,7 @@
 									-{convertPrice price=$productPriceWithoutReduction-$productPrice|floatval}
 								{/if}
 								</span>
-							</p>	
+							</p>
 							<p id="old_price"{if (!$productsPack.packObj->specificPrice || !$productsPack.packObj->specificPrice.reduction) && $group_reduction == 1} class="hidden"{/if}>
 								{if $priceDisplay >= 0 && $priceDisplay <= 2}
 									<span class="ap5-old-price-display">{if $productPriceWithoutReduction > $productPrice}{convertPrice price=$productPriceWithoutReduction}{/if}</span>
@@ -67,7 +68,7 @@
 				{/if}
 			</div>
 
-			<div id="ap5-product-footer-pack-{$idPack|intval}" class="ap5-product-footer-pack">
+			<div id="ap5-product-footer-pack-{$idPack|intval}" class="ap5-product-footer-pack pm-ap-owl-carousel">
 			{foreach from=$productsPack.packContent item=productPack}
 				{assign var=imageIds value="`$productPack.id_product`-`$productPack.image.id_image`"}
 				{if !empty($productPack.image.legend)}
@@ -100,7 +101,7 @@
 						</div>
 						<hr class="ap5-pack-product-icon-plus" />
 
-						{if $productPack.productObj->show_price && !isset($restricted_country_mode) && !$PS_CATALOG_MODE}
+						{if $packShowProductsPrice && $productPack.productObj->show_price && !isset($restricted_country_mode) && !$PS_CATALOG_MODE}
 						<div class="ap5-pack-product-price-table-container{if $productPack.reduction_amount <= 0} ap5-no-reduction{/if}">
 							<div class="ap5-pack-product-price-table-cell">
 								<p class="ap5-pack-product-price text-center our_price_display">

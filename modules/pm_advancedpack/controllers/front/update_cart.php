@@ -2,8 +2,8 @@
 /**
  * Advanced Pack 5
  *
- * @author    Presta-Module.com <support@presta-module.com> - http://www.presta-module.com
- * @copyright Presta-Module 2017 - http://www.presta-module.com
+ * @author    Presta-Module.com <support@presta-module.com> - https://www.presta-module.com
+ * @copyright Presta-Module - https://www.presta-module.com
  * @license   Commercial
  *
  *           ____     __  __
@@ -112,5 +112,8 @@ class pm_advancedpackupdate_cartModuleFrontController extends ModuleFrontControl
     }
     public function initContent()
     {
+        if (version_compare(_PS_VERSION_, '1.7.0.0', '>=')) {
+            $this->assignGeneralPurposeVariables();
+        }
     }
 }
