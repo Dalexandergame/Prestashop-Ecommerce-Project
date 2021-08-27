@@ -12,7 +12,7 @@
 					{/if}
 					{assign var=currentProductPrice value=AdvancedPack::getPriceStaticPack($packProduct['productObj']->id, false, $idProductAttribute, 6, null, false, true, $packProduct['quantity'])}
 					{assign var=originalProductPrice value=AdvancedPack::getPriceStaticPack($packProduct['productObj']->id, false, $idProductAttribute, 6, null, false, false, $packProduct['quantity'])}
-				<tr id="ap5_packRow-{$idProductPack|escape:'html':'UTF-8'}" data-id-product-pack="{$idProductPack|escape:'html':'UTF-8'}">
+				<tr id="ap5_packRow-{$idProductPack|escape:'html':'UTF-8'}" data-id-product-pack="{$idProductPack|escape:'html':'UTF-8'}" class="{if !empty($packProduct['id_pack']) && !empty($idPackListToFix[$packProduct['id_pack']]) && !empty($idPackListToFix[$packProduct['id_pack']]['idProductList']) && in_array($packProduct['id_product'], $idPackListToFix[$packProduct['id_pack']]['idProductList'])} ap5-combination-warning{/if}">
 					<td class="center">
 						{AdvancedPackCoreClass::getThumbnailImageHTML($packProduct['id_product'], $imageCoverId.id_image)}
 					</td>
@@ -47,7 +47,12 @@
 						<br />
 						{l s='Customization:' mod='pm_advancedpack'}&nbsp;
 						{if is_array($packProduct['productCustomizationFields']) && count($packProduct['productCustomizationFields'])}
-						<input type="checkbox"{if count($packProduct['productCustomizationFieldsWhiteList'])} checked="checked"{/if} value="1" id="ap5_customizationFields-{$idProductPack|escape:'html':'UTF-8'}" name="ap5_customizationFields-{$idProductPack|escape:'html':'UTF-8'}" class="ap5_customizationFields" data-id-product-pack="{$idProductPack|escape:'html':'UTF-8'}" />
+							{if !empty($packProduct['productHasRequiredCustomizationFields'])}
+								<input type="checkbox" checked="checked" disabled="disabled" />
+								<input type="hidden" value="1" id="ap5_customizationFields-{$idProductPack|escape:'html':'UTF-8'}" name="ap5_customizationFields-{$idProductPack|escape:'html':'UTF-8'}" class="ap5_customizationFields" data-id-product-pack="{$idProductPack|escape:'html':'UTF-8'}" />
+							{else}
+								<input type="checkbox"{if count($packProduct['productCustomizationFieldsWhiteList'])} checked="checked"{/if} value="1" id="ap5_customizationFields-{$idProductPack|escape:'html':'UTF-8'}" name="ap5_customizationFields-{$idProductPack|escape:'html':'UTF-8'}" class="ap5_customizationFields" data-id-product-pack="{$idProductPack|escape:'html':'UTF-8'}" />
+							{/if}
 						{else}
 						{l s='N/A' mod='pm_advancedpack'}
 						<input type="hidden" value="0" id="ap5_customizationFields-{$idProductPack|escape:'html':'UTF-8'}" name="ap5_customizationFields-{$idProductPack|escape:'html':'UTF-8'}" />
@@ -57,7 +62,7 @@
 					<td class="center">
 						<input type="hidden" name="ap5_productList[]" value="{$idProductPack|escape:'html':'UTF-8'}" />
 						<input type="hidden" name="ap5_originalIdProduct-{$idProductPack|escape:'html':'UTF-8'}" value="{$packProduct['productObj']->id|intval}" />
-						<input type="text" required="required" value="{$packProduct['quantity']|intval}" size="2" id="ap5_quantity-{$idProductPack|escape:'html':'UTF-8'}" name="ap5_quantity-{$idProductPack|escape:'html':'UTF-8'}" min="1" class="ap5_quantity" />
+						<input type="text" required="required" value="{$packProduct['quantity']|intval}" size="2" id="ap5_quantity-{$idProductPack|escape:'html':'UTF-8'}" name="ap5_quantity-{$idProductPack|escape:'html':'UTF-8'}" min="1" class="ap5_quantity text-center" />
 					</td>
 					<td class="ap5_productPrice-container">
 						{if $originalProductPrice != $currentProductPrice}
@@ -105,8 +110,8 @@
 					</td>
 				</tr>
 				{/if}
-				{if is_array($packProduct['productCustomizationFields']) && count($packProduct['productCustomizationFields'])}
-				<tr id="ap5_customizationFieldsContainer-{$idProductPack|escape:'html':'UTF-8'}" class="nodrag nodrop ap5_customizationFieldsContainer{if !count($packProduct['productCustomizationFieldsWhiteList'])} ap5-admin-hide hidden{/if}" data-id-product-pack="{$idProductPack|escape:'html':'UTF-8'}">
+				{if !empty($packProduct['productHasRequiredCustomizationFields']) || (is_array($packProduct['productCustomizationFields']) && count($packProduct['productCustomizationFields']))}
+				<tr id="ap5_customizationFieldsContainer-{$idProductPack|escape:'html':'UTF-8'}" class="nodrag nodrop ap5_customizationFieldsContainer{if !count($packProduct['productCustomizationFieldsWhiteList']) && empty($packProduct['productHasRequiredCustomizationFields'])} ap5-admin-hide hidden{/if}" data-id-product-pack="{$idProductPack|escape:'html':'UTF-8'}">
 					<td colspan="10">
 						<table id="ap5-pack-customization-fields-table-{$idProductPack|escape:'html':'UTF-8'}" class="table configuration ap5_customizationFieldsTable">
 							<thead>

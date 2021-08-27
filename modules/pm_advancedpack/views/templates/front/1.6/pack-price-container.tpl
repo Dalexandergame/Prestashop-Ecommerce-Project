@@ -12,9 +12,9 @@
 							{if $product->show_price && !isset($restricted_country_mode) && !$PS_CATALOG_MODE}
 							<div id="ap5-price-container" class="content_prices clearfix">
 								<div class="price">
-									<p class="our_price_display">
+									<p class="our_price_display" itemprop="offers" {if $priceDisplay >= 0 && $priceDisplay <= 2}itemscope itemtype="https://schema.org/Offer"{/if}>
 										{if $priceDisplay >= 0 && $priceDisplay <= 2}
-											<span id="our_price_display" itemprop="price">{convertPrice price=$productPrice}</span>
+											<span id="our_price_display" itemprop="price" content="{$productPrice}">{convertPrice price=$productPrice}</span>
 											{* {if $tax_enabled  && ((isset($display_tax_label) && $display_tax_label == 1) || !isset($display_tax_label))}
 												{if $priceDisplay == 1}{l s='tax excl.' mod='pm_advancedpack'}{else}{l s='tax incl.' mod='pm_advancedpack'}{/if}
 											{/if} *}

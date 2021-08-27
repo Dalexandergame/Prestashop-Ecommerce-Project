@@ -20,7 +20,7 @@
 							{$productPack.productObj->name|escape:'html':'UTF-8'}
 						</a>
 
-						{if $packAllowRemoveProduct && $packShowProductsQuantityWanted}
+						{if $packAllowRemoveProduct}
 							{if !in_array($productPack.id_product_pack, $packExcludeList)}
 								<span class="ap5-pack-product-remove-label pull-right" data-id-product-pack="{$productPack.id_product_pack|intval}">[{l s='Remove' mod='pm_advancedpack'}]</span>
 							{else}
@@ -37,7 +37,7 @@
 									<label class="attribute_label" for="quantity_wanted_{$productPack.id_product_pack|intval}">{l s='Quantity:' mod='pm_advancedpack'} </label>
 									<div class="attribute_list ap5-attribute-list ap5-quantity-input-container">
 										<p id="quantity_wanted_p">
-											<input type="text" name="qty_{$productPack.id_product_pack|intval}" id="quantity_wanted_{$productPack.id_product_pack|intval}" value="{$productPack.quantity|intval}" class="ap5-quantity-wanted" data-id-product-pack="{$productPack.id_product_pack|intval}" />
+											<input type="text" name="qty_{$productPack.id_product_pack|intval}" id="quantity_wanted_{$productPack.id_product_pack|intval}" value="{$productPack.quantity|intval}" class="ap5-quantity-wanted" data-id-product-pack="{$productPack.id_product_pack|intval}" data-available-quantity="{$packAvailableQuantityList[$productPack.id_product_pack][$productPack.id_product_attribute]|intval}" />
 											<a href="#" rel="quantity_wanted_{$productPack.id_product_pack|intval}" class="btn btn-default button-minus ap5-product-quantity-down"><span><i class="icon-minus"></i></span></a>
 											<a href="#" rel="quantity_wanted_{$productPack.id_product_pack|intval}" class="btn btn-default button-plus ap5-product-quantity-up"><span><i class="icon-plus"></i></span></a>
 										</p>
@@ -49,6 +49,7 @@
 							{/if}
 						</div>
 
+						{if $packShowProductsPrice && empty($productsPackForceHideInfoList[$productPack.id_product_pack])}
 						<div class="ap5-pack-product-price pull-right">
 							<span class="label">{l s='Product price' mod='pm_advancedpack'} : </span>
 							{if $productPack.productObj->show_price}
@@ -63,6 +64,7 @@
 								{/if}
 							{/if}
 						</div>
+						{/if}
 					</div>
 
 					{if $productPack.attributes.groups|@count >= 1}
@@ -70,6 +72,12 @@
 						<div id="attributes" class="ap5-attributes" data-id-product-pack="{$productPack.id_product_pack|intval}">
 							{foreach from=$productPack.attributes.groups key=id_attribute_group item=group}
 								{if $group.attributes|@count}
+									{foreach from=$group.attributes key=id_attribute item=group_attribute}
+										{* Force the user-selected attribute to be the default one *}
+										{if isset($packCompleteAttributesList[$productPack.id_product_pack]) && in_array($id_attribute, $packCompleteAttributesList[$productPack.id_product_pack])}
+											{$group['default'] = $id_attribute}
+										{/if}
+									{/foreach}
 									<fieldset id="ap5-attribute-fieldset-{$id_attribute_group|intval}" class="attribute_fieldset ap5-attribute-fieldset">
 										<label class="attribute_label" {if $group.group_type != 'color' && $group.group_type != 'radio'}for="group_{$id_attribute_group|intval}"{/if}>{$group.name|escape:'html':'UTF-8'} :&nbsp;</label>
 										{assign var="groupName" value="group_`$productPack.id_product_pack`_$id_attribute_group"}
@@ -77,7 +85,7 @@
 											{if ($group.group_type == 'select')}
 												<select name="{$groupName}" id="group_{$id_attribute_group|intval}" class="form-control attribute_select ap5-attribute-select no-print">
 													{foreach from=$group.attributes key=id_attribute item=group_attribute}
-														{assign var=ap5_isCurrentSelectedIdAttribute value=((isset($productsPackErrors[$productPack.id_product_pack]) && isset($packCompleteAttributesList[$productPack.id_product_pack]) && in_array($id_attribute, $packCompleteAttributesList[$productPack.id_product_pack])) || !isset($productsPackErrors[$productPack.id_product_pack]) && $group.default == $id_attribute)}
+														{assign var=ap5_isCurrentSelectedIdAttribute value=((isset($productsPackErrors[$productPack.id_product_pack]) && isset($packCompleteAttributesList[$productPack.id_product_pack]) && in_array($id_attribute, $packCompleteAttributesList[$productPack.id_product_pack])) || $group.default == $id_attribute)}
 														<option value="{$id_attribute|intval}"{if $ap5_isCurrentSelectedIdAttribute} selected="selected"{/if} title="{$group_attribute|escape:'html':'UTF-8'}">{$group_attribute|escape:'html':'UTF-8'}</option>
 													{/foreach}
 												</select>

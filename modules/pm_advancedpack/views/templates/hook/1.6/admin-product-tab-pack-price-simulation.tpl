@@ -30,8 +30,8 @@
 						<tr>
 							<td><strong>{l s='Final pack price:' mod='pm_advancedpack'}</strong></td>
 							<td>&nbsp;</td>
-							<td class="text-right"><span class="badge badge-{if $packPrice <= $packClassicPrice && $packPrice > 0}success{else}danger{/if}">{convertPrice price=$packPrice}</span></td>
-							<td class="text-right"><span class="badge badge-{if $packPrice <= $packClassicPrice && $packPriceWt > 0}success{else}danger{/if}">{convertPrice price=$packPriceWt}</span></td>
+							<td class="text-right"><span class="badge badge-{if $packPrice <= $packClassicPrice && $packPrice > 0}success{else}danger{/if}">{convertPrice price=$totalFinal}</span></td>
+							<td class="text-right"><span class="badge badge-{if $packPrice <= $packClassicPrice && $packPriceWt > 0}success{else}danger{/if}">{convertPrice price=$totalFinalWt}</span></td>
 						</tr>
 					</tbody>
 				</table>

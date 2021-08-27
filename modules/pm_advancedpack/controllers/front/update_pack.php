@@ -2,8 +2,8 @@
 /**
  * Advanced Pack 5
  *
- * @author    Presta-Module.com <support@presta-module.com> - http://www.presta-module.com
- * @copyright Presta-Module 2017 - http://www.presta-module.com
+ * @author    Presta-Module.com <support@presta-module.com> - https://www.presta-module.com
+ * @copyright Presta-Module - https://www.presta-module.com
  * @license   Commercial
  *
  *           ____     __  __
@@ -19,10 +19,12 @@ if (!defined('_PS_VERSION_')) {
 class pm_advancedpackupdate_packModuleFrontController extends ModuleFrontController
 {
     protected $idPack;
+    protected $packAttributesList = array();
     protected $productPackChoice = array();
     protected $productPackExclude = array();
     protected $productPackQuantityList = array();
     protected $jsonOutput = array();
+    protected $fromQuickView = false;
     public $ajax = true;
     public $display_header = false;
     public $display_footer = false;
@@ -34,6 +36,9 @@ class pm_advancedpackupdate_packModuleFrontController extends ModuleFrontControl
         header('X-Robots-Tag: noindex, nofollow', true);
         $this->ajax = true;
         $this->idPack = (int)Tools::getValue('id_pack');
+        if (Tools::getIsset('productPackExclude')) {
+            $this->productPackExclude = array_unique(array_map('intval', (array)Tools::getValue('productPackExclude')));
+        }
         if (Tools::getIsset('productPackChoice')) {
             $tmp_productPackChoice = (array)Tools::getValue('productPackChoice');
             if (is_array($tmp_productPackChoice) && count($tmp_productPackChoice)) {
@@ -43,11 +48,18 @@ class pm_advancedpackupdate_packModuleFrontController extends ModuleFrontControl
             }
             unset($tmp_productPackChoice);
             if (!count($this->productPackChoice)) {
-                $this->errors[] = Tools::displayError($this->module->getFrontTranslation('errorInvalidPackChoice'), false);
+                $this->errors[] = $this->module->getFrontTranslation('errorInvalidPackChoice');
             }
-        }
-        if (Tools::getIsset('productPackExclude')) {
-            $this->productPackExclude = array_unique(array_map('intval', (array)Tools::getValue('productPackExclude')));
+            $this->packAttributesList = array();
+            foreach ($this->productPackChoice as $idProductPack => $attributeList) {
+                if (in_array($idProductPack, $this->productPackExclude)) {
+                    continue;
+                }
+                $idProductAttribute = AdvancedPack::combinationExists((int)$idProductPack, $attributeList);
+                if ($idProductAttribute !== false) {
+                    $this->packAttributesList[(int)$idProductPack] = (int)$idProductAttribute;
+                }
+            }
         }
         if (Tools::getIsset('productPackQuantityList')) {
             $tmp_productPackQuantityList = (array)Tools::getValue('productPackQuantityList');
@@ -60,6 +72,9 @@ class pm_advancedpackupdate_packModuleFrontController extends ModuleFrontControl
                 }
             }
         }
+        if (Tools::getValue('fromQuickView')) {
+            $this->fromQuickView = true;
+        }
     }
     public function postProcess()
     {
@@ -70,10 +85,11 @@ class pm_advancedpackupdate_packModuleFrontController extends ModuleFrontControl
     public function displayAjax()
     {
         if (!count($this->errors) && AdvancedPack::isValidPack($this->idPack)) {
-            $packAttributesList = array();
+            $this->packAttributesList = array();
             $packCompleteAttributesList = array();
             $packErrorsList = array();
             $packFatalErrorsList = array();
+            $packForceHideInfoList = array();
             foreach ($this->productPackChoice as $idProductPack => $attributeList) {
                 if (in_array($idProductPack, $this->productPackExclude)) {
                     continue;
@@ -82,11 +98,11 @@ class pm_advancedpackupdate_packModuleFrontController extends ModuleFrontControl
                 if ($idProductAttribute === false) {
                     $packErrorsList[(int)$idProductPack][] = $this->module->getFrontTranslation('errorWrongCombination');
                 } else {
-                    $packAttributesList[(int)$idProductPack] = (int)$idProductAttribute;
+                    $this->packAttributesList[(int)$idProductPack] = (int)$idProductAttribute;
                 }
                 $packCompleteAttributesList[(int)$idProductPack] = $attributeList;
             }
-            $packContent = AdvancedPack::getPackContent($this->idPack, null, false, $packAttributesList, $this->productPackQuantityList);
+            $packContent = AdvancedPack::getPackContent($this->idPack, null, false, $this->packAttributesList, $this->productPackQuantityList);
             if ($packContent !== false) {
                 foreach ($packContent as $packProduct) {
                     if (in_array((int)$packProduct['id_product_pack'], $this->productPackExclude)) {
@@ -95,29 +111,43 @@ class pm_advancedpackupdate_packModuleFrontController extends ModuleFrontControl
                     $product = new Product((int)$packProduct['id_product']);
                     if (Validate::isLoadedObject($product) && !$product->active) {
                         $packFatalErrorsList[(int)$packProduct['id_product_pack']][] = $this->module->getFrontTranslation('errorProductIsDisabled');
+                        $packForceHideInfoList[(int)$packProduct['id_product_pack']] = true;
                     } elseif (Validate::isLoadedObject($product) && !$product->checkAccess(isset(Context::getContext()->customer) ? Context::getContext()->customer->id : 0)) {
                         $packFatalErrorsList[(int)$packProduct['id_product_pack']][] = $this->module->getFrontTranslation('errorProductAccessDenied');
+                        $packForceHideInfoList[(int)$packProduct['id_product_pack']] = true;
                     } elseif (Validate::isLoadedObject($product) && !$product->available_for_order) {
                         $packFatalErrorsList[(int)$packProduct['id_product_pack']][] = $this->module->getFrontTranslation('errorProductIsNotAvailableForOrder');
                     }
                 }
             }
             if (AdvancedPack::getPackAllowRemoveProduct($this->idPack) && sizeof($packContent) >= 2 && ($packContent == false || sizeof($this->productPackExclude) >= sizeof($packContent))) {
-                $this->errors[] = Tools::displayError($this->module->getFrontTranslation('errorInvalidExclude'), false);
+                $this->errors[] = $this->module->getFrontTranslation('errorInvalidExclude');
             }
             if (!count($this->errors)) {
-                $packQuantityList = $packQuantityOriginalList = AdvancedPack::getPackAvailableQuantityList($this->idPack, $packAttributesList, $this->productPackQuantityList);
+                $packQuantityList = $packQuantityOriginalList = AdvancedPack::getPackAvailableQuantityList($this->idPack, $this->packAttributesList, $this->productPackQuantityList);
                 if (count($this->productPackQuantityList)) {
-                    $packQuantityOriginalList = AdvancedPack::getPackAvailableQuantityList($this->idPack, $packAttributesList);
+                    $packQuantityOriginalList = AdvancedPack::getPackAvailableQuantityList($this->idPack, $this->packAttributesList);
                 }
-                foreach ($packAttributesList as $idProductPack => $idProductAttribute) {
-                    if (isset($packQuantityList[(int)$idProductPack]) && array_sum($packQuantityList[(int)(int)$idProductPack]) <= 0) {
-                        if (count($this->productPackQuantityList) && isset($packQuantityOriginalList[(int)$idProductPack]) && array_sum($packQuantityOriginalList[(int)(int)$idProductPack]) <= 0) {
+                foreach ($packQuantityList as $idProductPack => $remainingQuantities) {
+                    if (count($remainingQuantities) > 1) {
+                        continue;
+                    }
+                    if (isset($packQuantityList[(int)$idProductPack]) && array_sum($packQuantityList[(int)$idProductPack]) <= 0) {
+                        if (count($this->productPackQuantityList) && isset($packQuantityOriginalList[(int)$idProductPack]) && array_sum($packQuantityOriginalList[(int)$idProductPack]) <= 0) {
                             $packFatalErrorsList[(int)$idProductPack][] = $this->module->getFrontTranslation('errorProductIsOutOfStock');
                         } else {
                             $packErrorsList[(int)$idProductPack][] = $this->module->getFrontTranslation('errorProductIsOutOfStock');
                         }
-                    } elseif (isset($packQuantityList[(int)$idProductPack][$idProductAttribute]) && $packQuantityList[(int)(int)$idProductPack][$idProductAttribute] <= 0) {
+                    }
+                }
+                foreach ($this->packAttributesList as $idProductPack => $idProductAttribute) {
+                    if (isset($packQuantityList[(int)$idProductPack]) && array_sum($packQuantityList[(int)$idProductPack]) <= 0) {
+                        if (count($this->productPackQuantityList) && isset($packQuantityOriginalList[(int)$idProductPack]) && array_sum($packQuantityOriginalList[(int)$idProductPack]) <= 0) {
+                            $packFatalErrorsList[(int)$idProductPack][] = $this->module->getFrontTranslation('errorProductIsOutOfStock');
+                        } else {
+                            $packErrorsList[(int)$idProductPack][] = $this->module->getFrontTranslation('errorProductIsOutOfStock');
+                        }
+                    } elseif (isset($packQuantityList[(int)$idProductPack][$idProductAttribute]) && $packQuantityList[(int)$idProductPack][$idProductAttribute] <= 0) {
                         $packErrorsList[(int)$idProductPack][] = $this->module->getFrontTranslation('errorProductOrCombinationIsOutOfStock');
                     }
                 }
@@ -129,20 +159,25 @@ class pm_advancedpackupdate_packModuleFrontController extends ModuleFrontControl
                         unset($packFatalErrorsList[$idProductPackExcluded]);
                     }
                 }
-                $this->jsonOutput['packAvailableQuantity'] = AdvancedPack::getPackAvailableQuantity($this->idPack, $packAttributesList, $this->productPackQuantityList, $this->productPackExclude);
-                $this->jsonOutput['packContentTable'] = $this->module->displayPackContentTable($this->idPack, $packAttributesList, $packCompleteAttributesList, $this->productPackQuantityList, $this->productPackExclude, $packErrorsList, $packFatalErrorsList);
-                $this->jsonOutput['packPriceContainer'] = $this->module->displayPackPriceContainer($this->idPack, $packAttributesList, $this->productPackQuantityList, $this->productPackExclude, $packErrorsList, $packFatalErrorsList);
+                if ($this->fromQuickView) {
+                    $this->context->smarty->assign('from_quickview', true);
+                } else {
+                    $this->context->smarty->assign('from_quickview', false);
+                }
+                $this->jsonOutput['packAvailableQuantity'] = AdvancedPack::getPackAvailableQuantity($this->idPack, $this->packAttributesList, $this->productPackQuantityList, $this->productPackExclude);
+                $this->jsonOutput['packContentTable'] = $this->module->displayPackContentTable($this->idPack, $this->packAttributesList, $packCompleteAttributesList, $this->productPackQuantityList, $this->productPackExclude, $packErrorsList, $packFatalErrorsList, $packForceHideInfoList);
+                $this->jsonOutput['packPriceContainer'] = $this->module->displayPackPriceContainer($this->idPack, $this->packAttributesList, $this->productPackQuantityList, $this->productPackExclude, $packErrorsList, $packFatalErrorsList);
                 $this->jsonOutput['HOOK_EXTRA_RIGHT'] = Hook::exec('displayRightColumnProduct');
                 $this->jsonOutput['packErrorsList'] = $packErrorsList;
                 $this->jsonOutput['packFatalErrorsList'] = $packFatalErrorsList;
                 $this->jsonOutput['packHasErrors'] = count($packErrorsList) ? true : false;
                 $this->jsonOutput['packHasFatalErrors'] = count($packFatalErrorsList) ? true : false;
-                $this->jsonOutput['packAttributesList'] = (array)Tools::jsonEncode($packAttributesList);
+                $this->jsonOutput['packAttributesList'] = (array)Tools::jsonEncode($this->packAttributesList);
                 $this->jsonOutput['productPackExclude'] = (array)$this->productPackExclude;
                 die(Tools::jsonEncode($this->jsonOutput));
             }
         } else {
-            $this->errors[] = Tools::displayError($this->module->getFrontTranslation('errorInvalidPack'), false);
+            $this->errors[] = $this->module->getFrontTranslation('errorInvalidPack');
         }
         if (count($this->errors)) {
             die(Tools::jsonEncode(array('hasError' => true, 'errors' => $this->errors)));
@@ -150,10 +185,30 @@ class pm_advancedpackupdate_packModuleFrontController extends ModuleFrontControl
     }
     public function initContent()
     {
+        if (version_compare(_PS_VERSION_, '1.7.0.0', '>=')) {
+            $this->assignGeneralPurposeVariables();
+            $this->context->smarty->assign('pmlink', Context::getContext()->link);
+        }
     }
     public function getProduct()
     {
         $packObj = new Product((int)$this->idPack, false, Context::getContext()->language->id);
         return $packObj;
+    }
+    public function isFromQuickView()
+    {
+        return $this->fromQuickView;
+    }
+    public function getPackQuantityList()
+    {
+        return $this->productPackQuantityList;
+    }
+    public function getPackExcludeList()
+    {
+        return $this->productPackExclude;
+    }
+    public function getPackAttributesList()
+    {
+        return $this->packAttributesList;
     }
 }
