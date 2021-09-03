@@ -7,7 +7,7 @@
                 <input style="display: none;" type="radio" name="boule" class="radio_boule"
                        value="{$boule.id_product_attribute}" {if isset($id_product_boule) and $boule.id_product_attribute == $id_product_boule } checked="" {/if} title="{$boule.name}"
                        data-idattribut="{$boule.id_attribute}" data-price="{$boule.price_ttc}" data-bg="{$boule.color}"
-                       data-image="{$link->getImageLink($boule.link_rewrite, $boule.id_product|cat:'-'|cat:$boule.id_image, 'large_default')|escape:'html':'UTF-8'}"
+                       data-image="//{$link->getImageLink($boule.link_rewrite, $boule.id_product|cat:'-'|cat:$boule.id_image, 'large_default')|escape:'html':'UTF-8'}"
                 />
                 {$boule.name}
             </span>
