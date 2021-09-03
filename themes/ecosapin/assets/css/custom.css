@@ -2,90 +2,44 @@
  * Custom code goes here.
  * A template should always ship with an empty custom.css
  */
-#typesapain .header-top {
-    display: none;
-}
-nav.header-nav {
-    background: #1c5201;
-    max-height: 100%;
-    height: 37px;
-}
-#typesapain #footer {
-    display: none;
-}
-#header .header-nav {
-    max-height: 50px;
-    margin-bottom: 0px;
-}
-header {
-    padding-bottom: 0px;
-}
-#index nav.header-nav {
-    background: #1a2d11;
-}
-#index #header .header-nav .user-info a span.ou-user {
-    color: #ffffff;
-}
-#header .header-nav .user-info a span.ou-user {
-    color: #8fc741;
-}
-
-#header .header-nav .user-info {
-    color: #ffffff;
-    font-weight: 600;
+ #steps .step-desc #resp_content .description>div {
+    margin-top: 0;
+    padding: 8px 27px;
+    max-height: 28vh;
+    color: #fff;
+    clear: both;
     display: block;
-    padding: 7px 9px 11px 8px;
-    cursor: pointer;
-    line-height: 18px;
-    font-size: 12px;
-    text-transform: uppercase;
+    border: 1px solid #fff;
+    border-radius: 10px;
 }
 
-#header .header-nav .material-icons {
-     line-height: initial;
+#resp_content {
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 9px 15px 100px;
+    position: relative;
+    height: 95vh;
 }
 
-#typesapain {
-    overflow: hidden;
+#steps {
+    height: 115vh;
+    margin-top: 35px;
 }
 
-#header .header-nav .language-selector {
-    margin-top: 1.5rem;
+.container_images {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    height: 95vh;
+    overflow-y: scroll;
 }
 
-#header .header-top .position-static {
-    position: fixed;
-    padding-left: 100px;
-}
-
-.footer-container li a {
-    font-size: 1.25rem;
-}
-
-.block-contact-title, .blockcms-title, .myaccount-title, .myaccount-title a {
-     font-weight: 500;
-     font-size: 23px;
-}
-#header .dropdown-menu>li>a {
-    color:#333333;
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-.dropdown .expand-more {
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-#header .header-nav .blockcart {
-    background: transparent;
-    height: 3rem;
-    padding-top: 1.2rem;
-    margin-left: .9375rem;
-    font-weight: 600;
-    font-size: 12px;
-    color: white;
-    text-transform: uppercase;
+body#checkout #header .header-nav {
+    max-height: none;
+    padding: .9375rem 0;
+    border: none;
+    margin-bottom: 0;
+    box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 20%);
+    background-color: darkgreen;
 }
