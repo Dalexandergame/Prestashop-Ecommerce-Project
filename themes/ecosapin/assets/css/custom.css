@@ -2,3 +2,90 @@
  * Custom code goes here.
  * A template should always ship with an empty custom.css
  */
+#typesapain .header-top {
+    display: none;
+}
+nav.header-nav {
+    background: #1c5201;
+    max-height: 100%;
+    height: 37px;
+}
+#typesapain #footer {
+    display: none;
+}
+#header .header-nav {
+    max-height: 50px;
+    margin-bottom: 0px;
+}
+header {
+    padding-bottom: 0px;
+}
+#index nav.header-nav {
+    background: #1a2d11;
+}
+#index #header .header-nav .user-info a span.ou-user {
+    color: #ffffff;
+}
+#header .header-nav .user-info a span.ou-user {
+    color: #8fc741;
+}
+
+#header .header-nav .user-info {
+    color: #ffffff;
+    font-weight: 600;
+    display: block;
+    padding: 7px 9px 11px 8px;
+    cursor: pointer;
+    line-height: 18px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+#header .header-nav .material-icons {
+     line-height: initial;
+}
+
+#typesapain {
+    overflow: hidden;
+}
+
+#header .header-nav .language-selector {
+    margin-top: 1.5rem;
+}
+
+#header .header-top .position-static {
+    position: fixed;
+    padding-left: 100px;
+}
+
+.footer-container li a {
+    font-size: 1.25rem;
+}
+
+.block-contact-title, .blockcms-title, .myaccount-title, .myaccount-title a {
+     font-weight: 500;
+     font-size: 23px;
+}
+#header .dropdown-menu>li>a {
+    color:#333333;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.dropdown .expand-more {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+#header .header-nav .blockcart {
+    background: transparent;
+    height: 3rem;
+    padding-top: 1.2rem;
+    margin-left: .9375rem;
+    font-weight: 600;
+    font-size: 12px;
+    color: white;
+    text-transform: uppercase;
+}
