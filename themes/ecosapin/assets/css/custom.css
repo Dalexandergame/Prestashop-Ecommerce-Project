@@ -321,3 +321,7 @@ body#checkout section.checkout-step .step-title {
 .product-line-grid-right.product-line-actions.col-md-5.col-xs-12 {
     padding-top: 30px;
 }
+
+#typesapain #resp_content {
+    overflow: auto;
+}
