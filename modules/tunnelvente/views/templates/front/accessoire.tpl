@@ -70,8 +70,8 @@
            </div>
        {/foreach}
     </div>
-    <div class="btns_next_prev">
-       <ul style="padding: 0 15px;float: right">
+    <div class="btns_next_prev" style="padding-top: 5px; position: inherit;">
+       <ul style="float: right">
             <li data-id="0" >
                 <input type="submit" name="product" value="0"  id="product_0" />
                 <label for="product_0" class="passe-commande">{l s="Passer à la commande" mod='tunnelvente'}</label>

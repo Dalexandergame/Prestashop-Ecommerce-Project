@@ -37,7 +37,8 @@
   <!--  product line body: label, discounts, price, attributes, customizations -->
   <div class="product-line-grid-body col-md-4 col-xs-8">
     <div class="product-line-info">
-      <a class="label" href="{$product.url}" data-id_customization="{$product.id_customization|intval}">{$product.name}</a>
+     {* <a class="label" href="{$product.url}" data-id_customization="{$product.id_customization|intval}">{$product.name}</a>*}
+      <a class="label" href="#" data-id_customization="{$product.id_customization|intval}">{$product.name}</a>
     </div>
 
     <div class="product-line-info product-price h5 {if $product.has_discount}has-discount{/if}">
@@ -124,7 +125,7 @@
             {if isset($product.is_gift) && $product.is_gift}
               <span class="gift-quantity">{$product.quantity}</span>
             {else}
-              <input
+              {*<input
                 class="js-cart-line-product-quantity"
                 data-down-url="{$product.down_quantity_url}"
                 data-up-url="{$product.up_quantity_url}"
@@ -133,7 +134,8 @@
                 type="number"
                 value="{$product.quantity}"
                 name="product-quantity-spin"
-              />
+              />*}
+              <div class="prod_qty">{$product.quantity}</div>
             {/if}
           </div>
           <div class="col-md-6 col-xs-2 price">
