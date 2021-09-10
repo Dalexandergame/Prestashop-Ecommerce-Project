@@ -51,6 +51,14 @@
         {block name='hook_footer'}
           {hook h='displayFooter'}
         {/block}
+        <section class="footer-block col-xs-12 col-sm-3 col-md-3" id="block_payment">
+          <h4>{l s='paiement sécurisé' mod='blockcms'}</h4>
+          <div class="block-payment">
+            <img class="logo-payment" src="{$urls.img_url}twint.png" alt="payment">
+            <img class="logo-payment" src="{$urls.img_url}klik&pay.png" alt="payment">
+            <img class="logo-payment" src="{$urls.img_url}swissbilling.png" alt="payment">
+          </div>
+        </section>
       </div>
     </div>    
     <div class="row">
