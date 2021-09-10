@@ -41,12 +41,12 @@
 }
 
 .card {
-    border: none;
+    border-radius: 10px;
 }
-
+/*
 .card-block {
     padding: 0px;
-}
+}*/
 
 .container_taille_pot {
     text-align: center;

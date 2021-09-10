@@ -35,6 +35,18 @@
       {block name='hook_footer'}
         {hook h='displayFooter'}
       {/block}
+      <div class="footer-block footer-adresse col-xs-12 col-sm-4 col-md-3">
+        Ecosapin Sàrl<br>Chemin du vieux réservoir 7<br>1116 Cottens<br>
+        <span class="telephon telfr">+41 21 539 11 16</span>
+        <span class="telephon telen">+41 22 539 11 16</span>
+        <span class="telephon telde">+41 43 505 11 16</span><br>Suisse
+
+      </div>
+      <div class="logo_paiement">
+        <img src="{$urls.img_url}icon-carte-bancaire.png" alt="logo paiement" />
+        <p>Webdesign & development by <a href="//pulse.digital/">pulse.digital</a>
+        </p>
+      </div>
     </div>
     <div class="row">
       {block name='hook_footer_after'}
