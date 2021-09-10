@@ -35,7 +35,7 @@
                 <h1>DÉCOREZ VOTRE MAISON AVEC UN BEAU SAPIN QUI RETOURNERA DANS LA NATURE.</h1>
                 <div class="rte"><p>Profitez d'un arbre de Noël vivant de première qualité qui sent bon la forêt, livré et récupéré à domicile, aux dates de votre choix.</p>
                     <p>Après les fêtes, votre sapin retournera en terre auprès des siens.</p>
-                    <div class="image-sapins"><img src="https://ecosapin.ch/img/cms/etape-sapin_EN.png" alt="" width="679" height="301"></div>
+                    <div class="image-sapins"><img src="https://ecosapin.ch/img/cms/etape-sapin_1.png" alt="" width="679" height="301"></div>
                 </div>
             </div>
             <div id="popup-pays">

@@ -92,8 +92,41 @@ body#checkout #header .header-nav .logo {
     line-height: initial;
 }
 
-#header .header-top {
-    padding-top: 1rem;
+#cms #header .logo {
+    max-width: 100%;
+    padding-top: 15px;
+}
+
+#cms #header .header-top {
+    padding-bottom: .85rem;
+}
+
+.content-cms-page h2 {
+    padding-bottom: 20px;
+    color: #5c8f16;
+    font-size: 25px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.content-cms-page {
+    max-width: 930px;
+    margin: 0 auto;
+    padding-top: 40px;
+    color: #68845d;
+}
+
+.item-partners h2 {
+    padding-bottom: 20px;
+    color: #5c8f16;
+    font-size: 25px;
+    font-weight: 600;
+    margin: 0;
+}
+
+#comment .container {
+    position: relative;
+    padding-bottom: 0px;
 }
 
 #typesapain {
@@ -110,12 +143,77 @@ body#checkout #header .header-nav .logo {
     top: 70px;*/
 }
 
+.header-fixed {
+    position: fixed;
+    background-color: #fff;
+    margin-top: -37px;
+    width: 100%;
+    padding: 0;
+}
+/*
+.menu-page {
+    position: fixed;
+    left: 0;
+    top: 69px;
+    background: #ffffff;
+    width: 100%;
+    z-index: 9;
+}*/
+
 .sf-menu>li>a {
-    margin: 0 8px;
+    font: 600 13px/22px "Source Sans Pro", sans-serif;
+    text-transform: uppercase;
+    color: #ACC2A1;
+    display: block;
+    padding: 17px 0 10px;
+    margin: 0 14px;
+    -webkit-transition: all .2s ease-in;
+    -moz-transition: all .3s ease-in;
+    -ms-transition: all .3s ease-in;
+    -o-transition: all .3s ease-in;
+    transition: all .3s ease-in;
+}
+
+#block_top_menu {
+    position: absolute;
+    left: 133px;
+    width: auto;
+    padding: 0;
+    top: 30px;
 }
 
 .footer-container li a {
-    font-size: 1.25rem;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#footer .footer-container ul li {
+    padding-bottom: 27px;
+}
+
+#footer .footer-container .h3 {
+    font: 600 14px/22px "Source Sans Pro", sans-serif;
+    color: #243f18;
+    margin: 0 0 36px 0;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+#footer .footer-container .col-md-6.wrapper {
+    padding-top: 45px;
+}
+
+.footer-container {
+    margin-top: 0;
+}
+
+#footer {
+    padding-top: 0;
+}
+
+.footer-block.footer-adresse {
+    padding-top: 45px;
+    color: #777777;
 }
 
 .block-contact-title, .blockcms-title, .myaccount-title, .myaccount-title a {
@@ -324,4 +422,33 @@ body#checkout section.checkout-step .step-title {
 
 #typesapain #resp_content {
     overflow: auto;
+}
+
+#order-items .details {
+    margin-bottom: 1rem;
+    margin-top: 7rem;
+}
+
+#order-items .qty {
+    margin-bottom: 1rem;
+    margin-top: 7rem;
+}
+
+.cart_navigation .button-exclusive {
+    border: none;
+    background: none;
+    padding: 0 30px;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 0 0 0;
+    height: 36px;
+    background-color: #a3c272;
+    color: white;
+    font-family: "Source Sans Pro";
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 36px;
+    text-transform: uppercase;
+    display: inline-block;
+    border-radius: 20px;
 }
