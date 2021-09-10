@@ -134,6 +134,7 @@ final class EmployeeFormDataHandler implements FormDataHandlerInterface
             ->setLanguageId((int) $data['language'])
             ->setActive((bool) $data['active'])
             ->setProfileId((int) $data['profile'])
+            ->setWarehouseId((int) $data['id_warehouse'])
         ;
 
         if ($this->employeeFormAccessChecker->isRestrictedAccess((int) $id)) {

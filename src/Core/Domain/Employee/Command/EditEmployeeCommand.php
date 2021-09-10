@@ -78,6 +78,11 @@ class EditEmployeeCommand
     private $profileId;
 
     /**
+     * @var int
+     */
+    private $warehouseId;
+
+    /**
      * @var array
      */
     private $shopAssociation;
@@ -244,6 +249,14 @@ class EditEmployeeCommand
     }
 
     /**
+     * @return int
+     */
+    public function getWarehouseId()
+    {
+        return $this->warehouseId;
+    }
+
+    /**
      * @param int $profileId
      *
      * @return EditEmployeeCommand
@@ -251,6 +264,18 @@ class EditEmployeeCommand
     public function setProfileId($profileId)
     {
         $this->profileId = $profileId;
+
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return EditEmployeeCommand
+     */
+    public function setWarehouseId($id)
+    {
+        $this->warehouseId = $id;
 
         return $this;
     }

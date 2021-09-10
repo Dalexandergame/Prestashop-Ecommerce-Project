@@ -134,6 +134,7 @@ final class EditEmployeeHandler extends AbstractEmployeeHandler implements EditE
             $employee->active = $command->isActive();
         }
 
+        $employee->id_warehouse = $command->getWarehouseId();
         $shopAssociation = $command->getShopAssociation();
 
         if (!$employee->isSuperAdmin() && empty($shopAssociation)) {

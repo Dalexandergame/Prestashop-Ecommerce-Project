@@ -95,6 +95,8 @@ class EmployeeCore extends ObjectModel
     public $id_last_customer_message;
     public $id_last_customer;
 
+    public $id_warehouse;
+
     /** @var string Unique token for forgot passsword feature */
     public $reset_password_token;
 
@@ -116,6 +118,7 @@ class EmployeeCore extends ObjectModel
             'last_passwd_gen' => ['type' => self::TYPE_STRING],
             'active' => ['type' => self::TYPE_BOOL, 'validate' => 'isBool'],
             'id_profile' => ['type' => self::TYPE_INT, 'validate' => 'isInt', 'required' => true],
+            'id_warehouse' => ['type' => self::TYPE_INT, 'validate' => 'isInt'],
             'bo_color' => ['type' => self::TYPE_STRING, 'validate' => 'isColor', 'size' => 32],
             'default_tab' => ['type' => self::TYPE_INT, 'validate' => 'isInt'],
             'bo_theme' => ['type' => self::TYPE_STRING, 'validate' => 'isGenericName', 'size' => 32],
