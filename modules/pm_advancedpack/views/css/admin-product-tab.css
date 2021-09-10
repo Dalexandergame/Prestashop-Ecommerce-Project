@@ -1,0 +1,15 @@
+.text-right {text-align: right;}
+.text-left {text-align: left;}
+.text-center {text-align: center;}
+
+ul li.ap5-current-product {
+	font-weight: bold;
+}
+
+div#ap5-pack-list div.ap5-pack-content {
+	margin-top: 10px;
+}
+
+div#ap5-pack-row-new > a {
+	white-space: normal;
+}

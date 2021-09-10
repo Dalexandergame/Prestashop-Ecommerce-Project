@@ -1,0 +1,206 @@
+/* Section */
+#ap5-page-product-box.page-product-box a {
+	text-decoration: none;
+}
+/* /Section */
+
+/* Pack Product List Container */
+#ap5-product-footer-pack-list {
+	/*margin-top: 10px;*/
+	padding: 0 20px;
+}
+.ap5-product-footer-pack-container {
+	border-color: #d6d4d4;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 10px;
+	margin-bottom: 20px;
+}
+/* Pack Title */
+.ap5-product-footer-pack-informations {
+	background: #fbfbfb;
+	padding: 10px 20px;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+	.ap5-product-footer-pack-name {
+		margin: 0;
+		display: inline-block;
+	}
+	.ap5-product-footer-pack-name a {
+		font-size: 18px;
+		text-transform: uppercase;
+	}
+	.ap5-product-footer-pack-name a span {
+		display: block;
+		float: left;
+	}
+	.ap5-product-footer-pack-name a span.ap5-view-pack-name {}
+	.ap5-product-footer-pack-name a span.ap5-view-pack-category {
+		margin-left: 5px;
+		font-style: italic;
+		text-transform: none;
+		font-size: 15px;
+	}
+	.ap5-product-footer-pack-name a span.ap5-view-pack-button, .ap5-product-footer-pack-name a span.ap5-buy-pack-button {
+		font-size: 11px;
+		padding: 0px 10px;
+		margin-left: 20px;
+	}
+	/* /Pack Title */
+.ap5-product-footer-pack {
+	margin: 10px 0;
+}
+/* /Pack Product List Container */
+
+/* Pack Prices */
+.ap5-price-container {
+	padding: 0;
+	margin: 0;
+	float: right;
+	text-align: right;
+	border: none;
+}
+.ap5-price-container p {
+	display: inline;
+	padding: 0 2px !important;
+	margin: 0 !important;
+	line-height: inherit !important;
+}
+.ap5-price-container p span {
+	font-size: 0.7em;
+}
+@media (max-width: 991px) {
+	.ap5-price-container {
+		float: left;
+	}
+}
+.ap5-price-container .ap5-old-price-display {
+	text-decoration: line-through !important;
+	display: inline-block !important;
+}
+/* /Pack Prices */
+
+/* Product Title */
+.ap5-pack-product-name {}
+.ap5-pack-product-name.title-left {
+	padding: 10px 80px 10px 10px;
+}
+.ap5-pack-product-name.title-center {
+	padding: 10px 10px 10px 10px;
+	text-align: center;
+}
+.ap5-pack-product-name a {
+	color: #3a3939;
+	font-size: 15px;
+}
+/* /Product Title */
+
+/* Product Quantity Ribbon */
+.ap5-pack-product-content .ribbon-wrapper {
+	width: 85px;
+	height: 88px;
+	overflow: hidden;
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	z-index: 50;
+}
+.ap5-pack-product-content .ribbon{
+	font: bold 15px Sans-Serif;
+	text-align: center;
+	text-shadow: rgba(0,0,0,0.5) 0px 1px 0px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform:    rotate(45deg);
+	-ms-transform:     rotate(45deg);
+	-o-transform:      rotate(45deg);
+	position: relative;
+	padding: 7px 0;
+	left: -5px;
+	top: 15px;
+	width: 120px;
+	-webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+	-moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+	box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+}
+.ap5-pack-product-content .ribbon:before,
+.ap5-pack-product-content .ribbon:after {
+	content: "";
+	border-top:   3px solid transparent;
+	border-left:  3px solid transparent;
+	border-right: 3px solid transparent;
+	position:absolute;
+	bottom: -3px;
+}
+.ap5-pack-product-content .ribbon:before { left: 0; }
+.ap5-pack-product-content .ribbon:after { right: 0; }
+/* /Product Quantity Ribbon */
+
+
+
+/* Product Image */
+.ap5-pack-product-image {}
+.ap5-pack-product-image a {}
+.ap5-pack-product-image a img {
+	margin-left: auto;
+	margin-right: auto;
+}
+/* /Product Image */
+
+/* Plus Icon */
+.ap5-pack-product .ap5-pack-product-icon-plus {
+	margin-bottom: 8px;
+}
+.ap5-pack-product .ap5-pack-product-icon-plus:before {
+	color: black;
+	content: "";
+	font-family: "FontAwesome";
+	font-size: 25px;
+	position: absolute;
+	top: 40%;
+	left: -11px;
+}
+.ap5-product-footer-pack .pm-ap-owl-item:first-child .ap5-pack-product-icon-plus:before {
+	content: '';
+}
+/* Plus Icon */
+
+/* Product Prices */
+.ap5-pack-product-price-table-container {
+	display: table;
+	width: 100%;
+}
+.ap5-pack-product-price-table-container.ap5-no-reduction p {
+	margin-bottom: 0;
+}
+.ap5-pack-product-price-table-container .ap5-pack-product-price-table-cell {
+	display: table-cell;
+	vertical-align: middle;
+}
+.ap5-pack-product-price-table-container .ap5-pack-product-price-table-cell .our_price_display {
+	font-size: 18px;
+}
+.ap5-pack-product-price-table-container .ap5-pack-product-price-table-cell #reduction_percent,
+.ap5-pack-product-price-table-container .ap5-pack-product-price-table-cell #reduction_amount,
+.ap5-pack-product-price-table-container .ap5-pack-product-price-table-cell #old_price {
+	font-size: 14px;
+	line-height: inherit;
+}
+.ap5-price-container #old_price, .ap5-price-container .ap5-old-price-display {
+	display: inline !important;
+}
+
+.ap5-pack-product-price-table-container .ap5-pack-product-price {
+	line-height: 20px;
+}
+.ap5-old-price-container .ap5-pack-product-original-price {
+	padding-bottom: 0 !important;
+	margin-bottom: 0 !important;
+}
+.ap5-old-price-container .ap5-pack-product-reduction-container {
+	margin-bottom: 0 !important;
+}
+p#reduction_amount.ap5-pack-product-amount-container {
+	margin-bottom: 0 !important
+}
+/* /Product Prices */
