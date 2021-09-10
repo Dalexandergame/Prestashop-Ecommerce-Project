@@ -1,0 +1,105 @@
+.text-right {text-align: right;}
+.text-left {text-align: left;}
+.text-center {text-align: center;}
+.font-bold {font-weight: bold;}
+.font-line-through {text-decoration: line-through;}
+
+.ap5-admin-hide {
+	display: none !important;
+}
+
+.ap5_quantity:invalid, .ap5_global_percentage_discount:invalid, .ap5_reductionAmount:invalid, .ap5_fixed_pack_price:invalid {
+	background: #efc8cb;
+}
+
+a#link-Images, a#link-Warehouses, a#link-Pack, a#link-VirtualProduct, a#link-Prices, a#link-Combinations, a#link-Quantities, a#link-Customization, a#link-Attachments {
+	display: none;
+}
+
+td.ap5_discountCell {
+	white-space: nowrap;
+}
+table.ap5_combinationsTable {
+	width: 100% !important;
+}
+table.ap5_combinationsTable td.ap5_discountCell input:disabled, table.ap5_combinationsTable td.ap5_discountCell select:disabled {
+	pointer-events: none;
+}
+table.ap5_combinationsTable td.ap5_discountCell.ap5_inputDisabled  {
+	cursor: not-allowed;
+}
+table.ap5_combinationsTable th.ap5_discountCell.ap5_pulse {
+	animation: pulse 0.5s 3;
+}
+#ap5-admin-pack-price-simulation table {
+	white-space: nowrap;
+}
+@keyframes pulse {
+	0% { background-color: inherit; }
+	50% { background-color: lightcoral; }
+	100% { background-color: inherit; }
+}
+
+#ap5-pack-content-table thead th {
+	vertical-align: middle;
+}
+#product-new-pack span.label-tooltip {
+    color: #3586AE;
+    background-color: #edf7fb;
+    border: none;
+    border-bottom: solid 1px #D8EDF7;
+    padding: 0 5px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: default;
+}
+#ap5-pack-content-table tr.tDnD_whileDrag td {
+	opacity: 0.5;
+	filter: blur(1px);
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+	filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='1');
+}
+td.ap5_productPrice-container {
+	white-space: nowrap;
+}
+
+input.ap5_quantity {
+	width: 40px !important;
+	display: inline !important;
+}
+
+select.ap5_reductionType, select.ap5_combinationReductionType {
+	width: 40px !important;
+	display: inline !important;
+	padding: 0px 4px !important;
+	border-left: 0 !important;
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	height: 23px;
+	margin-left: -2px;
+}
+
+input.ap5_reductionAmount, input.ap5_combinationReductionAmount {
+	width: 32px !important;
+	display: inline !important;
+	padding: 0px 4px !important;
+	border-right: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+	height: 23px;
+}
+
+#product-new-pack .twitter-typeahead .tt-suggestion {
+	color: inherit !important;
+}
+#product-new-pack .twitter-typeahead .tt-cursor {
+	background-color: #3ED2F0;
+}
+
+/* Pack products warnings */
+.ap5-combination-warning td {
+	background: #FFF3D7 !important;
+}
