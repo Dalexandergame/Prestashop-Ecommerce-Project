@@ -385,6 +385,13 @@ body#checkout section.checkout-step .step-title {
     border-radius: 10px;
 }
 
+#typesapain #content.page-content.card.card-block {
+    position: relative;
+    display: block;
+    border: 0px;
+    padding: 0;
+}
+
 #_desktop_cart .cart-products-count.inactive {
     background-color: #cbdac7;
     color: #1c5201;

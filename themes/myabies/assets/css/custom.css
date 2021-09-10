@@ -2,3 +2,98 @@
  * Custom code goes here.
  * A template should always ship with an empty custom.css
  */
+
+.sf-menu > li > a {
+    font: normal normal bold 18px/18px Montserrat;
+    letter-spacing: 0.93px;
+    color: #EAE9E7;
+    text-transform: uppercase;
+    display: block;
+    padding: 17px 0 100px;
+    margin: 0 22px;
+    -webkit-transition: all .2s ease-in;
+    -moz-transition: all .3s ease-in;
+    -ms-transition: all .3s ease-in;
+    -o-transition: all .3s ease-in;
+    transition: all .3s ease-in;
+}
+
+#block_top_menu {
+    left: 42px;
+    width: auto;
+    padding: 0;
+    top: 47px;
+}
+
+
+#typesapain #footer {
+    display: none;
+}
+
+#index .col-md-6.links {
+    margin: 113px 112px 0px 126px;
+}
+
+#index .col-md-2 {
+    margin: 120px 0px 0px 0px;
+}
+
+#header .logo {
+    max-width: 100%;
+    height: 97px;
+    margin: -34px 0px 0px 7px;
+}
+
+#index .sf-menu>li:first-child a {
+    color: #fff!important;
+}
+/*
+#header .header-nav .user-info {
+    display: block;
+    padding: 12px 9px 11px 8px;
+    cursor: pointer;
+    font: normal normal bold 13px/18px Montserrat;
+    letter-spacing: 0.46px;
+    color: #EAE9E7;
+    text-transform: uppercase;
+}
+
+#_desktop_user_info {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.dropdown .expand-more {
+    letter-spacing: 0.46px;
+    color: #EAE9E7;
+    text-transform: uppercase;
+}*/
+
+#header .header-top .col-md-2 {
+    margin: 0px;
+}
+
+#footer .footer-container .h3 {
+    margin: 0 0 36px 0;
+    cursor: pointer;
+    font: normal normal bold 18px/27px Montserrat;
+    letter-spacing: 0px;
+    color: #193128;
+    text-transform: uppercase;
+}
+
+.block-social {
+    text-align: left;
+}
+
+.footer-container {
+    margin-top: 0;
+}
+
+.font-Montserrat {
+    letter-spacing: 1px;
+}
+
+.btn-sapin-header {
+    width: 38%;
+}
