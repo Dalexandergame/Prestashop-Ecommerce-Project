@@ -335,6 +335,7 @@ class PlanningDeliveryByCarrier extends Module
         $this->context->controller->registerJavascript('ui-core-js', _PS_JS_DIR_ . 'jquery/ui/jquery.ui.core.min.js', ['position' => 'bottom', 'priority' => 80]);
         $this->context->controller->registerJavascript('date-picker', _PS_JS_DIR_ . 'jquery/ui/jquery.ui.datepicker.min.js', ['position' => 'bottom', 'priority' => 100]);
         $this->context->controller->registerJavascript('order-opc', _THEME_JS_DIR_ . 'order-opc.js', ['position' => 'bottom', 'priority' => 50]);
+        $this->context->controller->registerJavascript('bootstrap-editable', _PS_JS_DIR_ . 'bootstrap-editable.min.js', ['position' => 'bottom', 'priority' => 80]);
         $this->smarty->assign('path_pd', __PS_BASE_URI__);
         return $this->display(__FILE__, 'header.tpl');
     }
@@ -936,8 +937,8 @@ class PlanningDeliveryByCarrier extends Module
         if ('adminplanningdeliverybycarrier' == Tools::strtolower(Tools::getValue('controller')) || 'adminorders' == Tools::strtolower(Tools::getValue('controller')))
             $return .= '<script type="text/javascript" src="' . __PS_BASE_URI__ . 'modules/planningdeliverybycarrier/js/datepickerSlot.js"></script>';
         $return .= "
-<link href=\"//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css\" rel=\"stylesheet\"/>
-<script src=\"//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js\"></script>
+<link href=\"//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css\" rel=\"stylesheet\"/>
+<script src=\"//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js\"></script>
 ";
 //<link href=\"//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css\" rel=\"stylesheet\">
 

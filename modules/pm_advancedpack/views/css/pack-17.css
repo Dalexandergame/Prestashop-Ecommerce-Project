@@ -701,3 +701,142 @@
 	top: 0;
 }
 /* /Spinner */
+
+/************** pack little ****************/
+
+.ap5-pack-page .box-info-product{
+	text-align:left;
+}
+
+.ap5-pack-page .box-info-product .exclusive{
+	color:#ffffff;
+	background:none;
+	border:1px solid #ffffff;
+	border-radius:6px;
+	padding:8px 15px;
+}
+
+.ap5-pack-page .box-info-product .exclusive:hover{
+	background:#a2c374;
+	border:1px solid #a2c374;
+	color:#ffffff!important;
+}
+
+.ap5-pack-page .box-info-product .exclusive:hover span{
+	color:#ffffff!important;
+}
+
+.ap5-product-list{
+	float:none;
+	display:block;
+	margin:0 0 0 15px;
+	position:relative;
+	height:450px;
+	width:48%;
+	background:#ffffff;
+	border-radius:10px;
+}
+
+.ap5-pack-product{
+	position:absolute;
+	left:0;
+}
+
+#ap5-pack-product-5{
+	bottom:0;
+	width:100%;
+}
+
+#ap5-pack-product-6{
+	top:0;
+	width:100%;
+}
+
+#ap5-pack-product-5 .ap5-pack-product-image img{
+	width:150px;
+	height:auto;
+	display:block;
+}
+
+#ap5-pack-product-5 .ap5-pack-product-image{
+	position:absolute;
+	bottom:35px;
+	width:100%;
+}
+
+#ap5-pack-product-6 .ap5-pack-product-image{
+	position:absolute;
+	top:64px;
+	width:100%;
+}
+
+#ap5-pack-product-5 .ap5-attributes{
+	position:absolute;
+	bottom:0px;
+	width:100%;
+}
+
+#ap5-pack-product-6 .ap5-attributes{
+	position:absolute;
+	top:0px;
+	width:100%;
+}
+
+.ap5-pack-product-slideshow,
+.ap5-pack-product-price-table-container,
+.ap5-pack-product-name,
+.ap5-pack-product-icon-plus,
+.product_attributes,
+.ap5-product-list hr{
+	display:none!important;
+}
+
+.ap5-pack-product-content,
+.ap5-product-list fieldset{
+	border:none!important;
+	position:initial!important;
+}
+
+#ap5-buy-container.unvisible{
+	display:block;
+}
+
+#attributes .ap5-attribute-list {
+	display: block;
+	padding: 0;
+	text-align: center;
+	width: 100%;
+}
+
+#attributes .ap5-attribute-fieldset label,
+#ap5-pack-content-block,
+#ap5-pack-description-block{
+	display:none!important;
+}
+
+#attributes .ap5-attribute-list ul{
+	text-align: center;
+}
+
+#attributes .ap5-attribute-list ul li{
+	float:none!important;
+	display:inline-block;
+}
+
+.ap5-pack-page .primary_block > .container{
+	position:absolute;
+	right:0;
+	width:50%;
+	/*z-index:999;*/
+}
+
+.ap5-pack-page .our_price_display{
+	color:#ffffff;
+}
+
+#ap5-add-to-cart button {
+	width:auto!important;
+}
+
+.ap5-pack-page .pb-center-column{
+}
