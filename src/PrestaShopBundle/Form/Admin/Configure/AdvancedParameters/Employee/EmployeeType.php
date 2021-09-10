@@ -158,6 +158,12 @@ final class EmployeeType extends AbstractType
             ->add('language', ChoiceType::class, [
                 'choices' => $this->languagesChoices,
             ])
+            ->add('id_warehouse', ChoiceType::class, [
+                'label' => "Warehouse ref",
+                'choices' => [
+                    "COTTENS" => "1", "GENEVE" => "2", "FRIBOURG" => "3", "VALAIS" => "4", "BERN" => "5", "ZURICH" => "6", "NEUCHATEL" => "7", "BALE" => "8", "SAINT-GALL" => "9", "TESSIN" => "10", "GENEVE VELO" => "11", "ZUG" => "12"
+                ]
+            ])
         ;
 
         if (!$options['is_restricted_access']) {
