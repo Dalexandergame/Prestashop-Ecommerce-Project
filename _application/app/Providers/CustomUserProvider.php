@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Hashing;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 
@@ -16,13 +17,14 @@ class CustomUserProvider extends EloquentUserProvider {
      */
     public function validateCredentials(UserContract $user, array $credentials)
     {
+        define('COOKIE_KEY', getenv('COOKIE_KEY'));
+        define('APP_PROFILE', 5); // App User Profile in store dashboard
+
+        $hashing = new Hashing();
         $plain = $credentials['password'];
+        $hash = $user->getAuthPassword();
 
-        $key = "eOjvN4YcYv50AAIF0NNRBjWTydxhJgEJoxzI1czmoHJaPtRtNd9vxAwO";
-        $hash = md5($key.$plain);
-
-        //TODO change 5 with appropriate profile ID
-        return $hash === $user->getAuthPassword() && $user->id_profile === 5 && $user->active === 1;
+        return $user->id_profile === APP_PROFILE && $user->active === 1 && $hashing->checkHash($plain, $hash);
     }
 
 }
