@@ -4,21 +4,22 @@
 *.log
 .idea/
 .git/
-!**/index.php
+!index.php
+!fileType
 
 # Cache
-/cache/*
+/cache/
 !/cache/.htaccess
 !/cache/deprecated.txt
 !/cache/push/activity
 !/cache/push/trends
 
 # Download
-/download/*
+/download/
 !/download/.htaccess
 
 # Images
-/img/*
+/img/
 !/img/.htaccess
 !/img/404.gif
 !/img/bg_500.png
@@ -38,27 +39,26 @@
 !/img/questionmark.png
 !/img/jquery-ui
 !/img/scenes
+!/img/flags
 !/img/admin/color.png
 
 # Upload
-/upload/*
+/upload/
 !/upload/.htaccess
 
-/vendor/*
 /docs/phpdoc-sf/
 *.hot-update.js
 *.hot-update.json
 
+/administration/autoupgrade/
 
-/administration/autoupgrade/*
-
-/administration/backups/*
+/administration/backups/
 !/administration/backups/.htaccess
 
-/administration/import/*
+/administration/import/
 !/administration/import/.htaccess
 
-/administration/export/*
+/administration/export/
 !/administration/export/.htaccess
 
 # Downloaded RTL files
@@ -73,7 +73,7 @@
 /administration/themes/new-theme/css/module/drop_rtl.css
 /administration/themes/new-theme/css/right-sidebar_rtl.css
 
-themes/*/cache/*
+themes/*/cache/
 
 # Config
 
@@ -87,7 +87,7 @@ app/config/config.php
 
 # modules
 
-modules/*
+modules/
 !modules/.gitkeep
 !modules/advancedstock
 !modules/emarketing
@@ -118,6 +118,7 @@ modules/*
 !modules/editorial
 !modules/ps_googleanalytics
 !modules/adroll
+
 # Themes
 themes/*/
 !themes/classic
@@ -133,20 +134,22 @@ bower_components/
 node_modules/
 composer.phar
 php-cs-fixer
-.grunt/*
+.grunt/
 
 # Translations and emails templates
 
-translations/*
-mails/*
+/translations/
+!translations/cldr/.htaccess
+mails/
 !mails/themes/
 !mails/_partials/
-themes/default-bootstrap/lang/*
+themes/default-bootstrap/lang/
 themes/default-bootstrap/modules/*/translations/*.php
-themes/default-bootstrap/mails/*
+themes/default-bootstrap/mails/
 !themes/default-bootstrap/mails/en/
-themes/default-bootstrap/modules/*/mails/*
+themes/default-bootstrap/modules/*/mails/
 !themes/default-bootstrap/modules/*/mails/en
+
 # MISC
 
 *sitemap.xml
@@ -156,20 +159,20 @@ themes/default-bootstrap/modules/*/mails/*
 
 /bin/
 /app/Resources/geoip/GeoLite2-City.mmdb
-/app/Resources/translations/*
+/app/Resources/translations/
 !/app/Resources/translations/default
 /app/config/parameters.php
 /build/
 /phpunit.xml
-/var/*
+/var/
 !/var/cache
-/var/cache/*
+/var/cache/
 !var/cache/.gitkeep
 !/var/logs
-/var/logs/*
+/var/logs/
 !var/logs/.gitkeep
 !/var/sessions
-/var/sessions/*
+/var/sessions/
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
