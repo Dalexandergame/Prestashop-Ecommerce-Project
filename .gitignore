@@ -3,6 +3,7 @@
 /.htaccess
 *.log
 .idea/
+.git/
 
 # Cache
 /cache/*
