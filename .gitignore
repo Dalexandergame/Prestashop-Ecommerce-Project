@@ -4,32 +4,22 @@
 *.log
 .idea/
 .git/
+!index.php
 
 # Cache
 /cache/*
 !/cache/.htaccess
-!/cache/cachefs/index.php
 !/cache/deprecated.txt
-!/cache/index.php
-!/cache/purifier/index.php
 !/cache/push/activity
-!/cache/push/index.php
 !/cache/push/trends
-!/cache/sandbox/index.php
-!/cache/smarty/cache/index.php
-!/cache/smarty/compile/index.php
-!/cache/smarty/index.php
-!/cache/tcpdf/index.php
 
 # Download
 /download/*
 !/download/.htaccess
-!/download/index.php
 
 # Images
 /img/*
 !/img/.htaccess
-!/img/index.php
 !/img/404.gif
 !/img/bg_500.png
 !/img/bg_loader.png
@@ -46,22 +36,8 @@
 !/img/preston-login-wink@2x.png
 !/img/preston-login@2x.png
 !/img/questionmark.png
-!/img/genders/index.php
-!/img/admin/index.php
-!/img/c/index.php
-!/img/cms/index.php
-!/img/co/index.php
 !/img/jquery-ui
-!/img/l/index.php
-!/img/m/index.php
-!/img/os/index.php
-!/img/p/index.php
-!/img/s/index.php
 !/img/scenes
-!/img/st/index.php
-!/img/su/index.php
-!/img/t/index.php
-!/img/tmp/index.php
 !/img/admin/color.png
 
 # Upload
@@ -75,19 +51,15 @@
 
 
 /administration/autoupgrade/*
-!/administration/autoupgrade/index.php
-!/administration/autoupgrade/backup/index.php
 
 /administration/backups/*
 !/administration/backups/.htaccess
 
 /administration/import/*
 !/administration/import/.htaccess
-!/administration/import/index.php
 
 /administration/export/*
 !/administration/export/.htaccess
-!/administration/export/index.php
 
 # Downloaded RTL files
 /administration/themes/default/css/bundle/default_rtl.css
@@ -109,7 +81,6 @@ config/settings.inc.php
 config/settings.old.php
 config/xml/*
 config/themes/*
-!config/xml/themes/default.xml
 themes/*/config/settings_*.json
 app/config/parameters.old.yml
 app/config/config.php
