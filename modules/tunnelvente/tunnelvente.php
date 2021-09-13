@@ -376,6 +376,8 @@ class TunnelVente extends Module
         $this->context->controller->registerJavascript('tunnelvente-js',_PS_JS_DIR_ . 'jquery/jquery-1.11.0.min.js',['position' =>  'head', 'priority' => 50]);
         $this->context->controller->registerJavascript('tunnelvente-jqJs',_PS_JS_DIR_ . 'jquery/jquery-migrate-1.2.1.min.js',['position' =>  'head', 'priority' => 60]);
         $this->context->controller->registerJavascript('product-js',_THEME_JS_DIR_ . 'product.js',['position' =>  'bottom', 'priority' => 200]);
+        $this->context->controller->registerJavascript('global-js',_THEME_JS_DIR_ . '../../modules/tunnelvente/views/js/global.js',['position' =>  'bottom', 'priority' => 110]);
+
 
         $this->context->controller->registerJavascript("tunnelvente-jq",_PS_JS_DIR_ .'jquery/jqtransformplugin/jquery.jqtransform.js',['position' =>  'bottom', 'priority' => 150]);
         $this->context->controller->registerJavascript('front-js',$this->_path . 'views/js/front.js',['position' =>  'bottom', 'priority' => 100]);
