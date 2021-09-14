@@ -89,13 +89,17 @@
   {hook h='displayNavFullWidth'}
 
   <script type="text/javascript">
-    var img_src = "{$urls.img_url}logo-1.png";
+    var name_of_page = "{$page.page_name}";
 
     $(window).scroll(function(){
       if ($(window).scrollTop() >= 100) {
         $('.header-top img').removeAttr('src');
         $('.header-top').addClass('header-fixed');
-        $('.header-top img').attr('src', img_src);
+        $('.header-top img').attr('src', '{$urls.img_url}logo-1.png');
+      }
+      else if ( $(window).scrollTop() < 100 && name_of_page !== 'index'){
+        $('.header-top').removeClass('header-fixed');
+        $('.header-top img').attr('src', "{$urls.img_url}ecosapin-ch-logo-1631005777.jpg");
       }
       else {
         $('.header-top').removeClass('header-fixed');
