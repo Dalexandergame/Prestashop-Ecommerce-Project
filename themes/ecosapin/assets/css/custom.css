@@ -98,7 +98,7 @@ body#checkout #header .header-nav .logo {
 }
 
 #cms #header .header-top {
-    padding-bottom: .85rem;
+    padding-bottom: 1.25rem !important;
 }
 
 .content-cms-page h2 {
@@ -148,7 +148,7 @@ body#checkout #header .header-nav .logo {
     background-color: #fff;
     margin-top: -37px;
     width: 100%;
-    padding: 0;
+    padding-bottom: 0px !important;
 }
 /*
 .menu-page {
@@ -235,6 +235,14 @@ body#checkout #header .header-nav .logo {
 
 #header .header-nav .cart-preview.active {
     background: transparent;
+}
+
+#header .header-top.header-fixed #block_top_menu {
+    top: 7px;
+}
+
+#header.header-fixed #_desktop_logo {
+    top: 29px;
 }
 
 #header .header-nav .blockcart {

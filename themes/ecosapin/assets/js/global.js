@@ -110,14 +110,18 @@ $(document).ready(function(){
         });
     }
 
+    //Frequently asked questions accord-wrap
     jQuery(".accord-wrap h3").click(function(){
-        jQuery(".accord-wrap").removeClass("accord-wrap-open");
-        jQuery(this).parent(".accord-wrap").addClass("accord-wrap-open");
+           // jQuery(".accord-wrap").removeClass("accord-wrap-open");
+        jQuery(this).parent(".accord-wrap").toggleClass("accord-wrap-open");
+        if (jQuery(".accord-wrap").hasClass("accord-wrap-open")){
+            jQuery(".accord-wrap").removeClass("accord-wrap-open");
+            jQuery(this).parent(".accord-wrap").addClass("accord-wrap-open");
+        }
     })
 
     jQuery(".close-accord ").click(function(){
         jQuery(".accord-wrap").removeClass("accord-wrap-open");
-        //	jQuery(this).parent(".accord-wrap").addClass("accord-wrap-open");
     })
 
     //
@@ -441,12 +445,6 @@ function dropDown()
                 $("#header").addClass('header-fixed-t');
             } else {
                 $("#header").removeClass('header-fixed-t');
-            }
-        } else {
-            if ($(this).scrollTop() > 200) {
-                $("#header").addClass('header-fixed');
-            } else {
-                $("#header").removeClass('header-fixed');
             }
         }
 
