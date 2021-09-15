@@ -2,6 +2,10 @@
  * Custom code goes here.
  * A template should always ship with an empty custom.css
  */
+#contact #header {
+    background: url("https://www.myabies.ch/themes/myabies/img/bande-1-min.jpg");
+    background-size: cover;
+}
 
 .sf-menu > li > a {
     font: normal normal bold 18px/18px Montserrat;
@@ -30,11 +34,11 @@
     display: none;
 }
 
-#index .col-md-6.links {
+#footer .col-md-6.links {
     margin: 113px 112px 0px 126px;
 }
 
-#index .col-md-2 {
+#footer .col-md-2 {
     margin: 120px 0px 0px 0px;
 }
 
@@ -73,6 +77,10 @@
     margin: 0px;
 }
 
+#cms #_desktop_logo {
+    margin-top: 19px;
+}
+
 #footer .footer-container .h3 {
     margin: 0 0 36px 0;
     cursor: pointer;
@@ -96,4 +104,50 @@
 
 .btn-sapin-header {
     width: 38%;
+}
+
+.card {
+   box-shadow: none;
+    background-color: #eae9e7;
+    border: none;
+}
+
+.text-header {
+    width: 99%;
+}
+
+span.expand-more {
+    font: normal normal bold 13px/18px Montserrat;
+    letter-spacing: 0.46px;
+    color: #EAE9E7;
+    text-transform: uppercase;
+}
+
+#header .header-nav .user-info {
+    display: block;
+    cursor: pointer;
+    font: normal normal bold 13px/18px Montserrat;
+    letter-spacing: 0.46px;
+    text-transform: uppercase;
+}
+
+#header .header-nav .cart-preview .shopping-cart {
+    color: #eae9e7;
+}
+
+.user-info a {
+    color: #eae9e7;
+}
+
+#header .header-nav .blockcart {
+    font: normal normal bold 13px/18px Montserrat;
+    height: 3rem;
+    padding: .75rem;
+    margin-left: .9375rem;
+    color: #eae9e7;
+    text-transform: uppercase;
+}
+
+#_desktop_cart .blockcart.cart-preview.inactive {
+    background-color: transparent;
 }
