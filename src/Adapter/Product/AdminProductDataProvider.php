@@ -389,7 +389,7 @@ class AdminProductDataProvider extends AbstractAdminQueryBuilder implements Prod
 
             if ($formatCldr) {
                 $product['price'] = $localeCldr->formatPrice($product['price'], $currency->iso_code);
-                $product['price_final'] = $localeCldr->formatPrice($product['price_final'], $currency->iso_code);
+                $product['price_final'] = $localeCldr->formatPrice((float)$product['price_final'], $currency->iso_code);
             }
             $product['image'] = $this->imageManager->getThumbnailForListing($product['id_image']);
             $product['image_link'] = Context::getContext()->link->getImageLink($product['link_rewrite'], $product['id_image']);

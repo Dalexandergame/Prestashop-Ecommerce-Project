@@ -37,20 +37,26 @@ class TunnelVenteBouleModuleFrontController extends Front
                 }
 
                 if ((int) Tools::getValue('mobile') == 1) {
-                    $id_product_attribute = $this->getValueTunnelVent('id_product_sapin');
+                    $vals = [
+                        $this->getValueTunnelVent('id_product_sapin'),
+                        $this->getValueTunnelVent('id_product_pied'),
+                    ];
 
-                    if ($id_product_attribute > 0) {
-                        $sql = 'SELECT id_product FROM ' . _DB_PREFIX_ . 'product_attribute WHERE id_product_attribute = ' . $id_product_attribute;
-                        $id_product = (int) Db::getInstance()->getValue($sql);
+                    foreach ($vals as $id_product_attribute) {
+                        if ($id_product_attribute > 0) {
+                            $sql        = 'SELECT id_product FROM ' . _DB_PREFIX_ . 'product_attribute WHERE id_product_attribute = ' . $id_product_attribute;
+                            $id_product = (int) Db::getInstance()->getValue($sql);
 
-                        if ($id_product > 0) {
-                            $t = $this->addProductInCart(1, $id_product, $id_product_attribute);
-                            if (!$t) {
-                                $_product       = new Product($id_product, false, $this->context->language->id);
-                                $this->errors[] = Tools::displayError("erreur : d'ajout de produit " . $_product->name);
+                            if ($id_product > 0) {
+                                $t = $this->addProductInCart(1, $id_product, $id_product_attribute);
+
+                                if (!$t) {
+                                    $_product       = new Product($id_product, false, $this->context->language->id);
+                                    $this->errors[] = Tools::displayError("erreur : d'ajout de produit " . $_product->name);
+                                }
+                            } else {
+                                $this->errors[] = Tools::displayError("erreur : d'ajout de produit " . $id_product);
                             }
-                        } else {
-                            $this->errors[] = Tools::displayError("erreur : d'ajout de produit " . $id_product);
                         }
                     }
 
@@ -79,6 +85,7 @@ class TunnelVenteBouleModuleFrontController extends Front
                     $this->removeValueTunnelVent('id_product_boule');
                     $this->removeValueTunnelVent('id_product_pot');
                     $this->removeValueTunnelVent('id_product_recyclage');
+                    $this->removeValueTunnelVent('id_product_pied');
 
                     $return = [
                         'hasError' => !empty($this->errors),
@@ -139,8 +146,6 @@ class TunnelVenteBouleModuleFrontController extends Front
                 "result"             => $this->getListAttributeProductBoule(),
                 "product"            => $product,
                 "id_product_boule"   => ($this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/) ? $this->getValueTunnelVent('id_product_boule')/*$this->context->cookie->id_product_boule*/ : 0,
-                "base_url"           => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_,
-                "link"               => new Link()
             ]
         );
 
@@ -157,15 +162,13 @@ class TunnelVenteBouleModuleFrontController extends Front
         $products = [];
 
         foreach ($result as $row) {
-            $manager = StockManagerFactory::getManager();
-            $item_real_quantity = $manager->getProductRealQuantities(
+            $item_real_quantity = $this->stockGlobal->getQteAvendre(
                 $row['id_product'],
                 $row['id_product_attribute'],
-                ($row['id_warehouse'] == '' ? null : array($row['id_warehouse'])),
-                true
+                $row['id_warehouse'] == '' ? null : array($row['id_warehouse'])
             );
+            $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
 
-            $row['price_ttc'] = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
             if ($item_real_quantity > 0)
                 $products[] = $row;
         }

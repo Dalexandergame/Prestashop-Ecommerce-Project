@@ -78,27 +78,27 @@
           <div class="container col-md-12 titles">
               <div class="titles-header home">
                   <div class="title-header"><img src="{$urls.img_url}drapeau_suisse.png" alt="pecto-suisse"/></div>
-                  <p class="text-header">{l s='Mon sapin local'},<br>{l s='livré chez moi.'}
+                  <p class="text-header">{l s='Mon sapin local' d='Shop.Theme.Myabies'},<br>{l s='livré chez moi.' d='Shop.Theme.Myabies'}
                   </p>
                   <div class="btn-header">
                       <a href="{$urls.base_url}module/tunnelventeabies/type" class="btn-sapin-header">
-                          {l s='Acheter mon sapin'}
+                          {l s='Acheter mon sapin' d='Shop.Theme.Myabies'}
                       </a>
                   </div>
               </div>
               <div class="titles-header contact" style="display: none">
                   <h2 class="title-header">{l s='Contact'} </h2>
-                  <p class="text-header">{l s='Pour toute question, notre équipe se fera un plaisir de vous répondre dans les meilleurs délais.'}
+                  <p class="text-header">{l s='Pour toute question, notre équipe se fera un plaisir de vous répondre dans les meilleurs délais.' d='Shop.Theme.Myabies'}
                   </p>
               </div>
               <div class="titles-header profil" style="display: none">
-                  <h2 class="title-header">{l s='Les producteurs'} </h2>
-                  <p class="text-header">{l s='Découvrez les producteurs qui travaillent avec my abies'}
+                  <h2 class="title-header">{l s='Les producteurs' d='Shop.Theme.Myabies'} </h2>
+                  <p class="text-header">{l s='Découvrez les producteurs qui travaillent avec My Abies' d='Shop.Theme.Myabies'}
                   </p>
               </div>
               <div class="titles-header sapins" style="display: none">
-                  <h2 class="title-header">{l s='Les sapins'} </h2>
-                  <p class="text-header">{l s='Découvrez tous les sapins proposés sur my abies'}
+                  <h2 class="title-header">{l s='Les sapins' d='Shop.Theme.Myabies'} </h2>
+                  <p class="text-header">{l s='Découvrez tous les sapins proposés sur my abies' d='Shop.Theme.Myabies'}
                   </p>
               </div>
               <div class="titles-header profil-details1" style="display: none">

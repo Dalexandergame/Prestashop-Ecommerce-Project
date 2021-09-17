@@ -26,7 +26,9 @@
  * to avoid any conflicts with others containers.
  */
 $(function ($) {
-    $('#resp_content .tunnel-price-block').data('calPrice', {
+    var calPrice;
+
+    $('.priceCalcContainer').data('calPrice', {
         prices: [],
         currency_sign: $('#resp_content .tunnel-price-block').data('currency'),
         selectorPrice: '.list-tunnel .total_prix',

@@ -1,4 +1,4 @@
-<form action="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelventeabies/recyclage" id="form_pied"
+<form action="{$urls.base_url}module/tunnelventeabies/recyclage" id="form_pied"
       method="post">
     <h4>{l s="Choisissez le type de pied" mod='tunnelventeabies'}</h4>
     <ul>
@@ -17,7 +17,7 @@
                 <input type="radio" name="pied" id="not_pied" class="radio_pied"
                        data-price="{$default_product_attribut.price_ttc}"
                        value="{$default_product_attribut.id_product_attribute}"
-                       data-image="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}modules/tunnelvente/images/pied/default-vide.png"/>
+                       data-image="{$urls.base_url}modules/tunnelvente/images/pied/default-vide.png"/>
                 <label for="not_pied">{l s="J'ai déjà un pied pour mon sapin"  mod='tunnelventeabies'}</label>
             </li>
         {/if}
@@ -43,7 +43,7 @@
 </form>
 
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelventeabies/taille?back=1";
+    var baseurl_tunnelvente = "{$urls.base_url}module/tunnelventeabies/taille?back=1";
 </script>
 
 {literal}

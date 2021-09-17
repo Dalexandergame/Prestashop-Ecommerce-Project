@@ -21,7 +21,7 @@ class StepDetailAbies {
     }
 
     function getUrl() {
-        $bUrl = _PS_BASE_URL_ . __PS_BASE_URI__ . "module/tunnelvente/";
+        $bUrl = _PS_BASE_URL_ . __PS_BASE_URI__ . "module/tunnelventeabies/";
         return $bUrl.$this->url;
     }
 

@@ -2,10 +2,10 @@
 {if !isset($priceDisplayPrecision)}
         {assign var='priceDisplayPrecision' value=2}
 {/if}
-{if !$product->show_price || $product->show_price == 2}
+{if !$priceDisplay || $priceDisplay == 2}
         {assign var='productPrice' value=$product->getPrice(true, $smarty.const.NULL, $priceDisplayPrecision)}
         {assign var='productPriceWithoutReduction' value=$product->getPriceWithoutReduct(false, $smarty.const.NULL, $priceDisplayPrecision)}
-{elseif $product->show_price == 1}
+{elseif $priceDisplay == 1}
         {assign var='productPrice' value=$product->getPrice(false, $smarty.const.NULL, $priceDisplayPrecision)}
         {assign var='productPriceWithoutReduction' value=$product->getPriceWithoutReduct(true, $smarty.const.NULL, $priceDisplayPrecision)}
 {/if}
@@ -40,11 +40,11 @@
             {if $have_image}
                     <span id="view_full_size">
                             {if $jqZoomEnabled && $have_image && !$content_only}
-                                    <a class="jqzoom" title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" rel="gal1" href="//{$link->getImageLink($product->link_rewrite, $cover.id_image, 'thickbox_default')|escape:'html':'UTF-8'}" itemprop="url">
-                                            <img itemprop="image" src="//{$link->getImageLink($product->link_rewrite, $cover.id_image, 'large_default')|escape:'html':'UTF-8'}" title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" alt="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}"/>
+                                    <a class="jqzoom" title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" rel="gal1" href="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'thickbox_default')|escape:'html':'UTF-8'}" itemprop="url">
+                                            <img itemprop="image" src="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'large_default')|escape:'html':'UTF-8'}" title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" alt="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}"/>
                                     </a>
                             {else}
-                                    <img id="bigpic" itemprop="image" src="//{$link->getImageLink($product->link_rewrite, $cover.id_image, 'large_default')|escape:'html':'UTF-8'}" title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" alt="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" width="{$largeSize.width}" height="{$largeSize.height}"/>
+                                    <img id="bigpic" itemprop="image" src="{$link->getImageLink($product->link_rewrite, $cover.id_image, 'large_default')|escape:'html':'UTF-8'}" title="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" alt="{if !empty($cover.legend)}{$cover.legend|escape:'html':'UTF-8'}{else}{$product->name|escape:'html':'UTF-8'}{/if}" width="{$largeSize.width}" height="{$largeSize.height}"/>
                                     {if !$content_only}
                                             <span class="span_link no-print">{l s='View larger'}</span>
                                     {/if}
@@ -52,7 +52,7 @@
                     </span>
             {else}
                     <span id="view_full_size">
-                            <img itemprop="image" src="{$img_prod_dir}{$lang_iso}-default-large_default.jpg" id="bigpic" alt="" title="{$product->name|escape:'html':'UTF-8'}" width="{$largeSize.width}" height="{$largeSize.height}"/>
+                            <img itemprop="image" src="{$urls.img_prod_url}{$language.iso_code}-default-large_default.jpg" id="bigpic" alt="" title="{$product->name|escape:'html':'UTF-8'}" width="{$largeSize.width}" height="{$largeSize.height}"/>
                             {if !$content_only}
                                     <span class="span_link">
                                             {l s='View larger'}
@@ -92,8 +92,8 @@
                                                     {assign var=imageTitle value=$product->name|escape:'html':'UTF-8'}
                                             {/if}
                                             <li id="thumbnail_{$image.id_image}"{if $smarty.foreach.thumbnails.last} class="last"{/if}>
-                                                    <a{if $jqZoomEnabled && $have_image && !$content_only} href="javascript:void(0);" rel="{literal}{{/literal}gallery: 'gal1', smallimage: '//{$link->getImageLink($product->link_rewrite, $imageIds, 'large_default')|escape:'html':'UTF-8'}',largeimage: '//{$link->getImageLink($product->link_rewrite, $imageIds, 'thickbox_default')|escape:'html':'UTF-8'}'{literal}}{/literal}"{else} href="{$link->getImageLink($product->link_rewrite, $imageIds, 'thickbox_default')|escape:'html':'UTF-8'}"	data-fancybox-group="other-views" class="fancybox{if $image.id_image == $cover.id_image} shown{/if}"{/if} title="{$imageTitle}">
-                                                            <img class="img-responsive" id="thumb_{$image.id_image}" src="//{$link->getImageLink($product->link_rewrite, $imageIds, 'cart_default')|escape:'html':'UTF-8'}" alt="{$imageTitle}" title="{$imageTitle}" height="{$cartSize.height}" width="{$cartSize.width}" itemprop="image" />
+                                                    <a{if $jqZoomEnabled && $have_image && !$content_only} href="javascript:void(0);" rel="{literal}{{/literal}gallery: 'gal1', smallimage: '{$link->getImageLink($product->link_rewrite, $imageIds, 'large_default')|escape:'html':'UTF-8'}',largeimage: '{$link->getImageLink($product->link_rewrite, $imageIds, 'thickbox_default')|escape:'html':'UTF-8'}'{literal}}{/literal}"{else} href="{$link->getImageLink($product->link_rewrite, $imageIds, 'thickbox_default')|escape:'html':'UTF-8'}"	data-fancybox-group="other-views" class="fancybox{if $image.id_image == $cover.id_image} shown{/if}"{/if} title="{$imageTitle}">
+                                                            <img class="img-responsive" id="thumb_{$image.id_image}" src="{$link->getImageLink($product->link_rewrite, $imageIds, 'cart_default')|escape:'html':'UTF-8'}" alt="{$imageTitle}" title="{$imageTitle}" height="{$cartSize.height}" width="{$cartSize.width}" itemprop="image" />
                                                     </a>
                                             </li>
                                     {/foreach}
@@ -122,26 +122,26 @@
 </div>
 
 <div class="content_prices clearfix">
-    {if $product->show_price && !isset($restricted_country_mode) && !$PS_CATALOG_MODE}
+    {if $product->show_price && !isset($restricted_country_mode) && !$configuration.catalog_mode}
             <!-- prices -->
             <div>
                      <p id="old_price"{if (!$product->specificPrice || !$product->specificPrice.reduction) && $group_reduction == 0} class="hidden"{/if}>
                         {strip}
-                            {if $product->show_price >= 0 && $product->show_price <= 2}
+                            {if $priceDisplay >= 0 && $priceDisplay <= 2}
                                     {hook h="displayProductPriceBlock" product=$product type="old_price"}
-                                    <span id="old_price_display">{if $productPriceWithoutReduction > $productPrice}<span class="price">{$tools->convertPrice($productPriceWithoutReduction)}</span>{/if}</span>
+                                    <span id="old_price_display">{if $productPriceWithoutReduction > $productPrice}<span class="price">{convertPrice price=$productPriceWithoutReduction}</span>{/if}</span>
                             {/if}
                         {/strip}
                     </p>
                     <p class="our_price_display" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                         {strip}
                             {if $product->quantity > 0}<link itemprop="availability" href="http://schema.org/InStock"/>{/if}
-                            {if $product->show_price >= 0 && $product->show_price <= 2}
-                                    <span id="our_price_display" class="price" itemprop="price">{$tools->convertPrice($productPrice)}</span>
+                            {if $priceDisplay >= 0 && $priceDisplay <= 2}
+                                    <span id="our_price_display" class="price" itemprop="price">{convertPrice price=$productPrice}</span>
                                     {*{if $tax_enabled  && ((isset($display_tax_label) && $display_tax_label == 1) || !isset($display_tax_label))}
-                                            {if $product->show_price == 1} {l s='tax excl.'}{else} {l s='tax incl.'}{/if}
+                                            {if $priceDisplay == 1} {l s='tax excl.'}{else} {l s='tax incl.'}{/if}
                                     {/if}*}
-                                    <meta itemprop="priceCurrency" content="{$currency->iso_code}" />
+                                    <meta itemprop="priceCurrency" content="{$currency.iso_code}" />
                                     {hook h="displayProductPriceBlock" product=$product type="price"}
                             {/if}
                         {/strip}
@@ -157,24 +157,24 @@
                     {strip}
                             <span id="reduction_amount_display">
                             {if $product->specificPrice && $product->specificPrice.reduction_type == 'amount' && $product->specificPrice.reduction|floatval !=0}
-                                    -{$tools->convertPrice($productPriceWithoutReduction-$productPrice|floatval}
+                                    -{convertPrice price=$productPriceWithoutReduction-$productPrice|floatval}
                             {/if}
                             </span>
                     {/strip}
                     </p>*}
-                   
-                    {if $product->show_price == 2}
+
+                    {if $priceDisplay == 2}
                             <br />
                             <span id="pretaxe_price">{strip}
-                                    <span id="pretaxe_price_display">{$tools->convertPrice($product->getPrice(false, $smarty.const.NULL))}</span> {l s='tax excl.'}
+                                    <span id="pretaxe_price_display">{convertPrice price=$product->getPrice(false, $smarty.const.NULL)}</span> {l s='tax excl.'}
                             {/strip}</span>
                     {/if}
             </div> <!-- end prices -->
             {if $packItems|@count && $productPrice < $product->getNoPackPrice()}
-                    <p class="pack_price">{l s='Instead of'} <span style="text-decoration: line-through;">{$tools->convertPrice($product->getNoPackPrice())}</span></p>
+                    <p class="pack_price">{l s='Instead of'} <span style="text-decoration: line-through;">{convertPrice price=$product->getNoPackPrice()}</span></p>
             {/if}
             {if $product->ecotax != 0}
-                    <p class="price-ecotax">{l s='Including'} <span id="ecotax_price_display">{if $product->show_price == 2}{$product->convertAndFormatPrice($ecotax_tax_exc)}{else}{$product->convertAndFormatPrice($ecotax_tax_inc)}{/if}</span> {l s='for ecotax'}
+                    <p class="price-ecotax">{l s='Including'} <span id="ecotax_price_display">{if $priceDisplay == 2}{$ecotax_tax_exc|convertAndFormatPrice}{else}{$ecotax_tax_inc|convertAndFormatPrice}{/if}</span> {l s='for ecotax'}
                             {if $product->specificPrice && $product->specificPrice.reduction}
                             <br />{l s='(not impacted by the discount)'}
                             {/if}
@@ -182,7 +182,7 @@
             {/if}
             {if !empty($product->unity) && $product->unit_price_ratio > 0.000000}
                     {math equation="pprice / punit_price"  pprice=$productPrice  punit_price=$product->unit_price_ratio assign=unit_price}
-                    <p class="unit-price"><span id="unit_price_display">{$tools->convertPrice($unit_price)}</span> {l s='per'} {$product->unity|escape:'html':'UTF-8'}</p>
+                    <p class="unit-price"><span id="unit_price_display">{convertPrice price=$unit_price}</span> {l s='per'} {$product->unity|escape:'html':'UTF-8'}</p>
                     {hook h="displayProductPriceBlock" product=$product type="unit_price"}
             {/if}
     {/if} {*close if for show price*}
@@ -192,12 +192,12 @@
 
 <h3 class="name">{$product->name}</h3>
 <!-- availability or doesntExist -->
-<p id="availability_statut"{if !$PS_STOCK_MANAGEMENT || ($product->quantity <= 0 && !$product->available_later && $allow_oosp) || ($product->quantity > 0 && !$product->available_now) || !$product->available_for_order || $PS_CATALOG_MODE} style="display: none;"{/if}>
+<p id="availability_statut"{if !$configuration.stock_management || ($product->quantity <= 0 && !$product->available_later && $allow_oosp) || ($product->quantity > 0 && !$product->available_now) || !$product->available_for_order || $configuration.catalog_mode} style="display: none;"{/if}>
         {*<span id="availability_label">{l s='Availability:'}</span>*}
-        <span id="availability_value" class="label{if $product->quantity <= 0 && !$allow_oosp} label-danger{elseif $product->quantity <= 0} label-warning{else} label-success{/if}">{if $product->quantity <= 0}{if $PS_STOCK_MANAGEMENT && $allow_oosp}{$product->available_later}{else}{l s='This product is no longer in stock'}{/if}{elseif $PS_STOCK_MANAGEMENT}{$product->available_now}{/if}</span>
+        <span id="availability_value" class="label{if $product->quantity <= 0 && !$allow_oosp} label-danger{elseif $product->quantity <= 0} label-warning{else} label-success{/if}">{if $product->quantity <= 0}{if $configuration.stock_management && $allow_oosp}{$product->available_later}{else}{l s='This product is no longer in stock'}{/if}{elseif $configuration.stock_management}{$product->available_now}{/if}</span>
 </p>
 <div class="box-cart-bottom">
-        <div{if (!$allow_oosp && $product->quantity <= 0) || !$product->available_for_order || (isset($restricted_country_mode) && $restricted_country_mode) || $PS_CATALOG_MODE} class="unvisible"{/if}>
+        <div{if (!$allow_oosp && $product->quantity <= 0) || !$product->available_for_order || (isset($restricted_country_mode) && $restricted_country_mode) || $configuration.catalog_mode} class="unvisible"{/if}>
                 <p id="add_to_cart" class="buttons_bottom_block no-print">
                         <button type="submit" name="Submit" class="exclusive">
                                 <span>{if $content_only && (isset($product->customization_required) && $product->customization_required)}{l s='Customize' mod='tunnelvente'}{else}{l s='Add to cart' mod='tunnelvente'}{/if}</span>
@@ -209,8 +209,8 @@
 
 <div class="product_attributes clearfix">
         <!-- quantity wanted -->
-        {if !$PS_CATALOG_MODE}
-        <p id="quantity_wanted_p"{if (!$allow_oosp && $product->quantity <= 0) || !$product->available_for_order || $PS_CATALOG_MODE} style="display: none;"{/if}>                
+        {if !$configuration.catalog_mode}
+        <p id="quantity_wanted_p"{if (!$allow_oosp && $product->quantity <= 0) || !$product->available_for_order || $configuration.catalog_mode} style="display: none;"{/if}>                
                  <a href="#" data-field-qty="qty" class="btn btn-default button-plus product_quantity_up">
                         <span><i class="icon-plus"></i></span>
                 </a>
@@ -223,7 +223,7 @@
         </p>
         {/if}
         <!-- minimal quantity wanted -->
-        <p id="minimal_quantity_wanted_p"{if $product->minimal_quantity <= 1 || !$product->available_for_order || $PS_CATALOG_MODE} style="display: none;"{/if}>
+        <p id="minimal_quantity_wanted_p"{if $product->minimal_quantity <= 1 || !$product->available_for_order || $configuration.catalog_mode} style="display: none;"{/if}>
                 {l s='The minimum purchase order quantity for the product is'} <b id="minimal_quantity_label">{$product->minimal_quantity}</b>
         </p>
         {if isset($groups)}
@@ -250,7 +250,7 @@
                                                                                 <li{if $group.default == $id_attribute} class="selected"{/if}>
                                                                                         <a href="{$link->getProductLink($product)|escape:'html':'UTF-8'}" id="color_{$id_attribute|intval}" name="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" class="color_pick{if ($group.default == $id_attribute)} selected{/if}"{if !$img_color_exists && isset($colors.$id_attribute.value) && $colors.$id_attribute.value} style="background:{$colors.$id_attribute.value|escape:'html':'UTF-8'};"{/if} title="{$colors.$id_attribute.name|escape:'html':'UTF-8'}">
                                                                                                 {if $img_color_exists}
-                                                                                                        <img src="{$img_col_dir}{$id_attribute|intval}.jpg" alt="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" title="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" width="20" height="20" />
+                                                                                                        <img src="{$urls.img_col_url}{$id_attribute|intval}.jpg" alt="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" title="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" width="20" height="20" />
                                                                                                 {/if}
                                                                                         </a>
                                                                                 </li>
@@ -295,7 +295,7 @@
     });
 </script>
 {/if}
-{*
+
 {strip}
 {if isset($smarty.get.ad) && $smarty.get.ad}
 	{addJsDefL name=ad}{$base_dir|cat:$smarty.get.ad|escape:'html':'UTF-8'}{/addJsDefL}
@@ -308,10 +308,10 @@
 {addJsDef availableLaterValue=$product->available_later|escape:'quotes':'UTF-8'}
 {addJsDef attribute_anchor_separator=$attribute_anchor_separator|escape:'quotes':'UTF-8'}
 {addJsDef attributesCombinations=$attributesCombinations}
-{addJsDef currencySign=$currencySign|html_entity_decode:2:"UTF-8"}
-{addJsDef currencyRate=$currencyRate|floatval}
-{addJsDef currencyFormat=$currencyFormat|intval}
-{addJsDef currencyBlank=$currencyBlank|intval}
+{addJsDef currencySign=$currency.sign|html_entity_decode:2:"UTF-8"}
+{addJsDef currencyRate=$currency.conversion_rate|floatval}
+{addJsDef currencyFormat=$currency.format|intval}
+{addJsDef currencyBlank=$currency.blank|intval}
 {addJsDef currentDate=$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}
 {if isset($combinations) && $combinations}
 	{addJsDef combinations=$combinations}
@@ -332,8 +332,8 @@
 {else}
 	{addJsDef idDefaultImage=0}
 {/if}
-{addJsDef img_ps_dir=$img_ps_dir}
-{addJsDef img_prod_dir=$img_prod_dir}
+{addJsDef img_ps_dir=$urls.img_ps_url}
+{addJsDef img_prod_dir=$urls.img_prod_url}
 {addJsDef id_product=$product->id|intval}
 {addJsDef jqZoomEnabled=$jqZoomEnabled|boolval}
 {addJsDef maxQuantityToAllowDisplayOfLastQuantityMessage=$last_qties|intval}
@@ -350,8 +350,8 @@
 {addJsDef productPriceWithoutReduction=$productPriceWithoutReduction|floatval}
 {addJsDef productPrice=$productPrice|floatval}
 {addJsDef productUnitPriceRatio=$product->unit_price_ratio|floatval}
-{addJsDef productShowPrice=(!$PS_CATALOG_MODE && $product->show_price)|boolval}
-{addJsDef PS_CATALOG_MODE=$PS_CATALOG_MODE}
+{addJsDef productShowPrice=(!$configuration.catalog_mode && $product->show_price)|boolval}
+{addJsDef PS_CATALOG_MODE=$configuration.catalog_mode}
 {if $product->specificPrice && $product->specificPrice|@count}
 	{addJsDef product_specific_price=$product->specificPrice}
 {else}
@@ -378,9 +378,8 @@
 {else}
 	{addJsDef specific_price=0}
 {/if}
-{addJsDef specific_currency=($product->specificPrice && $product->specificPrice.id_currency)|boolval}*} {* TODO: remove if always false *}
-{*
-{addJsDef stock_management=$PS_STOCK_MANAGEMENT|intval}
+{addJsDef specific_currency=($product->specificPrice && $product->specificPrice.id_currency)|boolval} {* TODO: remove if always false *}
+{addJsDef stock_management=$configuration.stock_management|intval}
 {addJsDef taxRate=$tax_rate|floatval}
 {addJsDefL name=doesntExist}{l s='This combination does not exist for this product. Please select another combination.' js=1}{/addJsDefL}
 {addJsDefL name=doesntExistNoMore}{l s='This product is no longer in stock' js=1}{/addJsDefL}
@@ -389,5 +388,5 @@
 {addJsDefL name=uploading_in_progress}{l s='Uploading in progress, please be patient.' js=1}{/addJsDefL}
 {addJsDefL name='product_fileDefaultHtml'}{l s='No file selected' js=1}{/addJsDefL}
 {addJsDefL name='product_fileButtonHtml'}{l s='Choose File' js=1}{/addJsDefL}
-{/strip} *}
+{/strip}
 

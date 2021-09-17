@@ -3,11 +3,11 @@
         <button type="button" class="prev">prev</button>
         <span class="text-prev">{l s="Précédent" mod='tunnelventeabies'}</span>
         <button type="submit" class="next">next</button>
-        {if $lang_iso == 'fr' }
+        {if $language.iso_code == 'fr' }
             <span class="next text-next">{l s="Suivant"}</span>
-        {elseif $lang_iso == 'en'}
+        {elseif $language.iso_code == 'en'}
             <span class="next text-next">{l s="Next"}</span>
-        {elseif $lang_iso == 'de'}
+        {elseif $language.iso_code == 'de'}
             <span class="next text-next">{l s="Weiter"}</span>
         {/if}
     </div>
@@ -57,7 +57,7 @@
         <div class="col-md-3 tunnel-price-block">
             <ul class="list-tunnel">
                 <li class="btn-new-layout btn-new-dark-green">grille des prix</li>
-                <li class="btn-new-layout btn-new-light-green"><span class="des">Dès</span> <span class="total_prix">{$selectedTaille.price}</span> {$currency->sign}</li>
+                <li class="btn-new-layout btn-new-light-green"><span class="des">Dès</span> <span class="total_prix">{$selectedTaille.price}</span> {$currency.sign}</li>
             </ul>
         </div>
     </div>

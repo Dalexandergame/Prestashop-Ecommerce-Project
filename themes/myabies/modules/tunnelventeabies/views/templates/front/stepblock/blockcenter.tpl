@@ -17,7 +17,7 @@
             
         {elseif $steps->getStepByPosition(1)->getStepDetailByPosition(2)->getActive()}
 
-            {include file='module:tunnelventeabies/views/templates/front/type.tpl' types=$result}
+            {include file='module:tunnelventeabies/views/templates/front/typeEdited.tpl' types=$result}
                 
         {elseif $steps->getStepByPosition(1)->getStepDetailByPosition(3)->getActive()}
 

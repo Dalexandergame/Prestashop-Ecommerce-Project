@@ -61,6 +61,7 @@
 
 {block name='javascript_head'}
   {include file="_partials/javascript.tpl" javascript=$javascript.head vars=$js_custom_vars}
+  <link rel="stylesheet" href="{$urls.js_url}dist/magnific-popup.css"">
 {/block}
 
 {block name='hook_header'}

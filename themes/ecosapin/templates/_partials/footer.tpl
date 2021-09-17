@@ -43,6 +43,7 @@
 
       </div>
       <div class="logo_paiement">
+        {*<img src="{$urls.img_url}icon-carte-bancaire.png" alt="logo paiement" />*}
         <img src="{$urls.img_url}icon-carte-bancaire.png" alt="logo paiement" />
         <p>Webdesign & development by <a href="//pulse.digital/">pulse.digital</a>
         </p>

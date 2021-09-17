@@ -1,17 +1,13 @@
 <form action="{$urls.base_url}module/tunnelvente/accesoire" id="form_autresapin" method="post">
     <h4>{l s="Nouveau sapin" mod='tunnelvente'}</h4> 
     <ul>
-         <li data-id="0" data-src="{$urls.base_url}modules/tunnelvente/images/resume.png">
+         <li data-id="0" data-src="{$urls.base_url}modules/tunnelvente/images/transparent.png">
             <input type="radio" name="autresapin" value="0" id="autresapin_0" />
             <label for="autresapin_0">{l s="Non merci je souhaite confirmer et payer" mod='tunnelvente'}</label>
         </li>
         <li data-id="1" data-src="{$urls.base_url}modules/tunnelvente/images/eco_new.png" >
             <input type="radio" name="autresapin" value="1" id="autresapin_1" checked="" />
             <label for="autresapin_1">{l s="Je souhaite commander un autre sapin" mod='tunnelvente'}</label>
-        </li>
-        <li data-id="2" data-src="{$urls.base_url}modules/tunnelvente/images/icon_little.png">
-            <input type="radio" name="autresapin" value="2" id="autresapin_2" checked="" />
-            <label for="autresapin_2">{l s="Je souhaite commander un little sapin" mod='tunnelvente'}</label>
         </li>
     </ul>
     
@@ -39,12 +35,6 @@
 {literal}
 <script type="text/javascript">
     $(function($){
-        //current
-        $('.container_newsapin').removeClass('hidden');
-        //previous
-        $('.container_pot').addClass('hidden');
-        //next
-        $('#blockProduct').addClass('hidden');
         
         $('#blockProduct').empty(); //Enlever l'image du little ecosapin dans le cas de retour arrière
         

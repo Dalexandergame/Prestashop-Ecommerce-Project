@@ -27,13 +27,12 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
                 $this->context->cookie->__set('type', $type);
                 $this->addValueTunnelVent('type', $type);
 
-                //$dateDispo = PlanningDeliveryByCarrierException::getDateDisponibleByNPA();
-                //$dateDispoR = PlanningRetourByCarrierException::getDateDisponibleByNPA();
+                $dateDispo = PlanningDeliveryByCarrierException::getDateDisponibleByNPA();
+                $dateDispoR = PlanningRetourByCarrierException::getDateDisponibleByNPA();
 
-               // if(!count($dateDispo) || !count($dateDispoR)){
-              //     $this->errors[] = Tools::displayError('Tous nos jours de livraison de ce district sont complets pour cette année. Rendez-vous en 2018!');
-               // }
-
+                if(!count($dateDispo) || !count($dateDispoR)){
+                    $this->errors[] = Tools::displayError($this->module->l('Malheureusement notre service de livraison n\'est pas disponible dans votre région. Nous espérons pouvoir trouver un partenaire dans votre région pour les prochaines années'));
+                }
 
                 $return = array(
                     'hasError' => !empty($this->errors),
@@ -67,6 +66,11 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
 
             die(Tools::jsonEncode($return));
         } else {
+            $products = $this->context->cart->getProducts();
+            foreach ($products as $product) {
+                $this->context->cart->deleteProduct($product["id_product"]);
+            }
+            
             $this->removeValueTunnelVent('id_product_sapin');
             $this->removeValueTunnelVent('id_product_recyclage');
             $this->removeValueTunnelVent('id_product_pied');
@@ -92,7 +96,7 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
 
                 $npa = Tools::getValue("npa");
                 $this->addValueTunnelVent('npa', $npa);
-                $dateDispo = PlanningDeliveryByCarrierExceptionOver::getDateDisponibleByNPA();
+                $dateDispo = PlanningDeliveryByCarrierException::getDateDisponibleByNPA();
 
                 if(!count($dateDispo)){
                     $this->errors[] = Tools::displayError('Tous nos jours de livraison de ce district sont complets pour cette année. Rendez-vous en 2018!');
@@ -191,7 +195,7 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
                             join ps_warehouse_carrier wc on wc.id_warehouse = part.warehouse_id
                             join ps_gszonevente_region r on r.id_carrier = wc.id_carrier
                             join ps_gszonevente_npa npa on npa.id_gszonevente_region = r.id_gszonevente_region
-                            where npa.`name` = $npa";
+                            where npa.`name` = $npa AND part.shop_id = '". Context::getContext()->shop->id ."'";
         $partner         = Db::getInstance()->getRow($get_partner_sql);
         if(!$partner){
             $partner['name'] = 'Poste';
@@ -223,13 +227,17 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
         if (empty($DefaultCombination) && !empty($AllCombinations)) {
             $DefaultCombination = $AllCombinations[0];
         }
+
+        $tailles = $this->getTailleDisponible($npa, false);
+
         $smarty->assign(array(
             "types" => $this->getTypeDisponible($npa),
             "npa" => $npa,
             "hasSapin" => $hasSapin,
             "id_type" => $this->getValueTunnelVent('type'),
             "partner" => $partner,
-            "tailles"             => $this->getTailleDisponible($npa),
+            "tailles"             => $tailles[0],
+            "attributs"         => $tailles[1],
             "choix"             => $this->getChoixDisponible($npa),
             "essence"             => $this->getEssenceDisponible($npa),
             "allCombinations"     =>    $AllCombinations,
@@ -237,9 +245,7 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
             "id_attribute_taille" => $this->getValueTunnelVent("id_attribute_taille") ? $this->getValueTunnelVent("id_attribute_taille") : '_',
             "isSapinSwiss"        => false,
             "selectedTaille"       => [],
-            "typetpl"             => "ecosapin",
-            "base_url" => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_,
-            "language" =>  Language::getIsoById($this->context->language->id)
+            "typetpl"             => "ecosapin"
         ));
 
         $html = $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/".self::$TEMPLATE);

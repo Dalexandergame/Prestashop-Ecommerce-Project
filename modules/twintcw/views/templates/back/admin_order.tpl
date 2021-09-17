@@ -1,6 +1,6 @@
 <div class="panel">
 	<div class="panel-heading">
-		<img src="{$base_url}modules/twintcw/logo.gif" alt="" />{lcw s='Transactions' mod='twintcw'}
+		<img src="{$urls.base_url}modules/twintcw/logo.gif" alt="" />{lcw s='Transactions' mod='twintcw'}
 	</div>
 	
 	{if $errorMessage}
@@ -53,8 +53,8 @@
 							{/if}
 						</td>
 						<td>
-							<img class="twintcw-more-details-button" src="{$base_url}modules/twintcw/images/details.png" />
-							<img class="twintcw-less-details-button" src="{$base_url}modules/twintcw/images/close.png" />
+							<img class="twintcw-more-details-button" src="{$urls.base_url}modules/twintcw/images/details.png" />
+							<img class="twintcw-less-details-button" src="{$urls.base_url}modules/twintcw/images/close.png" />
 						</td>
 					</tr>
 					<tr  class="twintcw-details-row {$activeClass}" id="twintcw_details_row_{$transaction->getTransactionId()}">

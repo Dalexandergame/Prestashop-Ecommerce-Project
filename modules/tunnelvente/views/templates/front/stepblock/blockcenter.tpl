@@ -13,23 +13,23 @@
     <div id="resp_content">
         {if $steps->getStepByPosition(1)->getStepDetailByPosition(1)->getActive()}
        
-            {include file='./../npa.tpl'}
+            {include file='module:tunnelvente/views/templates/front/npa.tpl'}
             
         {elseif $steps->getStepByPosition(1)->getStepDetailByPosition(2)->getActive()}
 
-            {include file='./../type.tpl' types=$result}
+            {include file='module:tunnelvente/views/templates/front/type.tpl' types=$result}
                 
         {elseif $steps->getStepByPosition(1)->getStepDetailByPosition(3)->getActive()}
 
-            {include file='./../taille.tpl' tailles=$result}
+            {include file='module:tunnelvente/views/templates/front/taille.tpl' tailles=$result}
 
         {elseif $steps->getStepByPosition(1)->getStepDetailByPosition(4)->getActive()}
 
-            {include file='./../sapin.tpl' result=$result}
+            {include file='module:tunnelvente/views/templates/front/sapin.tpl' result=$result}
 
         {elseif $steps->getStepByPosition(1)->getStepDetailByPosition(5)->getActive()}
 
-            {include file='./../recyclage.tpl' product=$result}
+            {include file='module:tunnelvente/views/templates/front/recyclage.tpl' product=$result}
 
         {/if}
     </div>

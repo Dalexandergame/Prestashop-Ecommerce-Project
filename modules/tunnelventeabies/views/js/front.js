@@ -26,6 +26,8 @@
  * to avoid any conflicts with others containers.
  */
 $(function ($) {
+    var calPrice;
+
     $('.priceCalcContainer').data('calPrice', {
         prices: [],
         currency_sign: $('.priceCalcContainer').data('currency'),
@@ -57,23 +59,21 @@ $(function ($) {
                 price: 0
             },
         },
-        setPriceSapin: function (price, name, lang,reset) {
+        setPriceSapin: function (price, name, reset, lang) {
             if (reset == undefined)
                 reset = false;
+
+            if (lang == undefined)
+                lang = "fr";
+
             this.price.sapin.price = price;
-            if(lang=="fr")
-            {
+            if(lang == "fr") {
                 this.price.sapin.name = 'Sapin ' + name;
-            }
-            else if(lang=="en")
-            {
+            } else if(lang == "en") {
                 this.price.sapin.name = 'Fir ' + name;
-            }
-            else if(lang=="de")
-            {
+            } else if(lang == "de") {
                 this.price.sapin.name = 'Tanne ' + name;
             }
-
 
             if (reset) {
                 this.price.recyclage.price = 0;

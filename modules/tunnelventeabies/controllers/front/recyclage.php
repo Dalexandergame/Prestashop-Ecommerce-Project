@@ -15,30 +15,7 @@ class TunnelVenteAbiesRecyclageModuleFrontController extends TunnelVenteAbiesBou
     function setId_product_recyclage()
     {
 
-        // le retour est payant pour Sapin Suisse
-        // Si une personne a pris un ecosapin + un sapin suisse (le retour ecosapin étant gratuit) le retour pour les deux sapin est gratuit.
-        // Si il prend 2 sapin suisse, ou plus, il ne paie qu’une seul fois
-
-        $type = $this->getValueTunnelVent("type");
-
-        $cart = $this->context->cart;
-
-        $this->id_product_recyclage = Configuration::get('TUNNELVENTE_ID_PRODUCT_RECYCLAGE_ECOSAPIN_GRATUIT');
-
-        $sapin_suisse = 0;
-        if ($cart && $products = $cart->getProducts()) {
-            foreach ($products as $product) {
-                if ($product['id_category_default'] == Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')) {
-                    $sapin_suisse++;
-                }
-            }
-        }
-
-        if (!$cart->getProducts() && $type == Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')) { // un seul sapin suisse => retour payant
-            $this->id_product_recyclage = Configuration::get('TUNNELVENTE_ID_PRODUCT_RECYCLAGE_SAPIN_SUISSE_PAYANT');
-        } else if ($cart->getProducts() && $type == Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE') && $sapin_suisse > 0) {
-            $this->id_product_recyclage = Configuration::get('TUNNELVENTE_ID_PRODUCT_RECYCLAGE_SAPIN_SUISSE_GRATUIT');
-        }
+        $this->id_product_recyclage = 66;
 
     }
 
@@ -164,7 +141,7 @@ class TunnelVenteAbiesRecyclageModuleFrontController extends TunnelVenteAbiesBou
                             join ps_warehouse_carrier wc on wc.id_warehouse = part.warehouse_id
                             join ps_gszonevente_region r on r.id_carrier = wc.id_carrier
                             join ps_gszonevente_npa npa on npa.id_gszonevente_region = r.id_gszonevente_region
-                            where npa.`name` = $npa";
+                            where npa.`name` = $npa AND part.shop_id = '". Context::getContext()->shop->id ."'";
         $product_info         = Db::getInstance()->getRow($get_product_info_sql);
         $partner              = Db::getInstance()->getRow($get_partner_sql);
 
@@ -203,8 +180,7 @@ class TunnelVenteAbiesRecyclageModuleFrontController extends TunnelVenteAbiesBou
                 'last_id_recyclage_checked' => $last_id_recyclage_checked,
                 'order_process'             => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
                 'image_recyclage'           => $image,
-                'resume'                    => $resume,
-                "base_url"                  => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
+                'resume'                    => $resume
             )
         );
 

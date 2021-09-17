@@ -81,6 +81,11 @@ function smartyEscape($string, $esc_type = 'html', $char_set = null, $double_enc
     }
 }
 
+smartyRegisterFunction($smarty, 'function', 'addJsDef', array('Media', 'addJsDef'));
+smartyRegisterFunction($smarty, 'block', 'addJsDefL', array('Media', 'addJsDefL'));
+smartyRegisterFunction($smarty, 'function', 'convertPrice', array('Product', 'convertPrice'));
+smartyRegisterFunction($smarty, 'function', 'convertPriceWithCurrency', array('Product', 'convertPriceWithCurrency'));
+smartyRegisterFunction($smarty, 'modifier', 'convertAndFormatPrice', array('Product', 'convertAndFormatPrice'));
 smartyRegisterFunction($smarty, 'modifier', 'escape', 'smartyEscape');
 smartyRegisterFunction($smarty, 'modifier', 'truncate', 'smarty_modifier_truncate');
 smartyRegisterFunction($smarty, 'function', 'l', 'smartyTranslate', false);

@@ -1,6 +1,5 @@
 <div class="row">
-    {include file='./blockleft.tpl'}
-    {include file='./blockcenter.tpl'}
-    {include file='./blockright.tpl'}
+    {include file='module:tunnelvente/views/templates/front/stepblock/blockleft.tpl'}
+    {include file='module:tunnelvente/views/templates/front/stepblock/blockcenter.tpl'}
+    {include file='module:tunnelvente/views/templates/front/stepblock/blockright.tpl'}
 </div>
-    

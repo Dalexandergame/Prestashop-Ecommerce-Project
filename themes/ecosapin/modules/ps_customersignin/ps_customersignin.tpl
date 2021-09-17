@@ -50,9 +50,9 @@
       >
        {* <i class="material-icons">&#xE7FF;</i>
         <span class="hidden-sm-down">{l s='Sign in' d='Shop.Theme.Actions'}</span>*}
-          <span>connexion</span>
-          <span class="ou-user">or</span>
-          <span>s'enregistre</span> </a>
+          <span>{l s='connexion' d='Shop.Theme.Actions'}</span>
+          <span class="ou-user">{l s='ou' d='Shop.Theme.Actions'}</span>
+          <span>{l s='enregistre' d='Shop.Theme.Actions'}</span> </a>
       </a>
     {/if}
   </div>

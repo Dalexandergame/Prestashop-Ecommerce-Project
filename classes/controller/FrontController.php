@@ -498,6 +498,7 @@ class FrontControllerCore extends Controller
     protected function assignGeneralPurposeVariables()
     {
         $templateVars = [
+            'priceDisplay' => Product::getTaxCalculationMethod((int)$this->context->cookie->id_customer),
             'cart' => $this->cart_presenter->present($this->context->cart),
             'currency' => $this->getTemplateVarCurrency(),
             'customer' => $this->getTemplateVarCustomer(),
@@ -1565,6 +1566,8 @@ class FrontControllerCore extends Controller
             'voucher_enabled' => (int) CartRule::isFeatureActive(),
             'return_enabled' => (int) Configuration::get('PS_ORDER_RETURN'),
             'number_of_days_for_return' => (int) Configuration::get('PS_ORDER_RETURN_NB_DAYS'),
+            'catalog_mode' => (bool)Configuration::get('PS_CATALOG_MODE') || (Group::isFeatureActive() && !(bool)Group::getCurrent()->show_prices),
+            'stock_management' => Configuration::get('PS_STOCK_MANAGEMENT'),
         ];
     }
 
@@ -1576,7 +1579,7 @@ class FrontControllerCore extends Controller
     public function getTemplateVarCurrency()
     {
         $curr = [];
-        $fields = ['name', 'iso_code', 'iso_code_num', 'sign'];
+        $fields = ['name', 'iso_code', 'iso_code_num', 'sign', 'conversion_rate', 'format', 'blank'];
         foreach ($fields as $field_name) {
             $curr[$field_name] = $this->context->currency->{$field_name};
         }

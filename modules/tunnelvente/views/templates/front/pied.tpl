@@ -1,4 +1,4 @@
-<form action="{$base_url}/module/tunnelvente/recyclage" id="form_pied"
+<form action="{$urls.base_url}module/tunnelvente/recyclage" id="form_pied"
       method="post">
     <h4>{l s="Choisissez le type de pied" mod='tunnelvente'}</h4>
     <ul>
@@ -7,7 +7,7 @@
                 <input type="radio" name="pied" id="pied_{$pied.id_product_attribute}" class="radio_pied"
                        data-price="{$pied.price_ttc}" data-idattribut="{$pied.id_attribute}"
                        value="{$pied.id_product_attribute}"
-                       data-image="//{$link->getImageLink($pied.link_rewrite, $pied.id_product|cat:'-'|cat:$pied.id_image, 'large_default')|escape:'html':'UTF-8'}"
+                       data-image="{$link->getImageLink($pied.link_rewrite, $pied.id_product|cat:'-'|cat:$pied.id_image, 'large_default')|escape:'html':'UTF-8'}"
                 />
                 <label for="pied_{$pied.id_product_attribute}">{$pied.name}</label>
             </li>
@@ -17,7 +17,7 @@
                 <input type="radio" name="pied" id="not_pied" class="radio_pied"
                        data-price="{$default_product_attribut.price_ttc}"
                        value="{$default_product_attribut.id_product_attribute}"
-                       data-image="{$base_url}/modules/tunnelvente/images/pied/default-vide.png"/>
+                       data-image="{$urls.base_url}modules/tunnelvente/images/pied/default-vide.png"/>
                 <label for="not_pied">{l s="J'ai déjà un pied pour mon sapin"  mod='tunnelvente'}</label>
             </li>
         {/if}
@@ -30,7 +30,7 @@
     {if strlen($product->description)}
         <div class="description">
             <div>
-                {$product->description nofilter}
+                {$product->description}
             </div>
         </div>
     {/if}
@@ -43,7 +43,7 @@
 </form>
 
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/taille?back=1";
+    var baseurl_tunnelvente = "{$urls.base_url}module/tunnelvente/taille?back=1";
 </script>
 
 {literal}

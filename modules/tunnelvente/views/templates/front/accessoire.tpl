@@ -14,9 +14,9 @@
     $(function($){   
         var goto = null;
         {if $autresapin == 1 }
-            goto = '{$base_url}/module/tunnelvente/type';
+            goto = '{$urls.base_url}module/tunnelvente/type';
         {else}
-            goto = '{$base_url}/fr/stock-pack/93-my-little-ecosapin.html';
+            goto = '{$urls.base_url}fr/stock-pack/93-my-little-ecosapin.html';
             window.location = goto;
         {/if}
         console.log(goto);
@@ -44,7 +44,7 @@
     </script> 
 {else}
 
-<form action="{$base_url}/module/tunnelvente/commande" id="form_accessoire" method="post">
+<form action="{$urls.base_url}module/tunnelvente/commande" id="form_accessoire" method="post">
     <h4>{l s="Choisissez vos accessoires" mod='tunnelvente'}</h4>      
    <ul>
    {foreach from=$products item=product}
@@ -70,23 +70,21 @@
            </div>
        {/foreach}
     </div>
-    <div class="btns_next_prev" style="padding-top: 5px; position: inherit;">
-       <ul style="float: right">
+    <div class="btns_next_prev">
+       <ul style="padding: 0 15px;float: right">
             <li data-id="0" >
                 <input type="submit" name="product" value="0"  id="product_0" />
                 <label for="product_0" class="passe-commande">{l s="Passer à la commande" mod='tunnelvente'}</label>
             </li>
        </ul>
-        {*<button type="button" class="prev">prev</button>*}
-        {*<button type="submit" class="next" style="background: #cbdeb1 url({$img_dir}cercle-acce.png) no-repeat center center">{l s="Commander" mod='tunnelvente'}</button>*}
     </div>
    <div class="loading"></div>
 </form>    
     
     
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/taille";
-    var baseurl_tunnelvente_product = "{$base_url}/module/tunnelvente/product";
+    var baseurl_tunnelvente = "{$urls.base_url}module/tunnelvente/taille";
+    var baseurl_tunnelvente_product = "{$urls.base_url}module/tunnelvente/product";
     $(function($){
         $('form#form_accessoire').submit(function(event){
             event.preventDefault();
@@ -103,7 +101,7 @@
         //previous
         $('.container_newsapin').addClass('hidden');
 
-        //ajaxCart.refresh();
+
         $('form#form_accessoire .prev').click(function(event){
              //window.location.href = baseurl_tunnelvente;
             var $me = $(this),classe= 'isactive';
