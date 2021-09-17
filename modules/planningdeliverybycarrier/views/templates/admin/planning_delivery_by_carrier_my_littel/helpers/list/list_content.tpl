@@ -143,7 +143,7 @@
     <tr>
         <td colspan="11" style="text-align: right;padding: 10px;">
             <a target="_blank"
-               href="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}barcode/wsbc-generate-littel.php"
+               href="{$urls.base_url}barcode/wsbc-generate-littel.php"
                class="generer_etiquette button"><i class="icon-barcode"></i> Générer les étiquettes</a>
             <script type="text/javascript">
                 $(function(){

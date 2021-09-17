@@ -36,8 +36,7 @@
     var baseurl_tunnelvente = "{$urls.base_url}module/tunnelvente/type";
     var partner_name = "{$partner['name']}";
     var partner_img = "{$partner['img']}";
-    // var partner_description = "{$partner['description']}";
-    var partner_description = "{l s=$partner['description'] mod='tunnelvente'}";
+    var partner_description = "{$partner['description']}";
 
     if(partner_name == "" && partner_img == "") {
         $('.container_type .transporteur').addClass("hidden");
@@ -46,13 +45,6 @@
         $('.container_type .transporteur').removeClass("hidden");
         $('.container_type .nom_transporteur').removeClass("hidden")
     }
-
-    if(partner_name == "Poste"){
-        $('.container_type h4').hide(0);
-    }else{
-        $('.container_type h4').show(0);
-    }
-
     $('.container_type .nom_transporteur').html(partner_name);
     $('.container_type .description_transporteur').html(partner_description);
     $('.container_type .transporteur img').attr('src',"{$urls.base_url}modules/ecosapinpartners/uploads/"+partner_img );

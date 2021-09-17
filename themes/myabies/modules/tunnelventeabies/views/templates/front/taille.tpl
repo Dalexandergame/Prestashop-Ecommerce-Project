@@ -43,7 +43,7 @@
                     });
                 </script>
                 <a title="Contactez-nous" target="_blank"
-                   href="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}fr/contactez-nous">
+                   href="{$urls.base_url}fr/contactez-nous">
                     <h4>{l s="Even bigger, contact us" mod='tunnelventeabies'}</h4></a>
             {/if}
         </div>

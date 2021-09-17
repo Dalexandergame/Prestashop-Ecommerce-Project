@@ -1,10 +1,10 @@
-<form action="{$base_url}/module/tunnelvente/{if $isSapinSwiss}pied{else}recyclage{/if}"
+<form action="{$urls.base_url}module/tunnelvente/{if $isSapinSwiss}pied{else}recyclage{/if}"
       id="form_taille" method="post">
     <h4>{l s="Choose fir size" mod='tunnelvente'}</h4>
     <ul>
         {foreach from=$tailles item=taille}
             <li data-id="{$taille.id}" {if $taille.quantity < 1} class="disabled" {/if}
-                data-src="{$base_url}/modules/tunnelvente/images/tailles/{$taille.name|replace:" ":"_"|replace:"/":"x"}{if !$taille.enpot}-coupe{/if}.png">
+                data-src="{$urls.base_url}modules/tunnelvente/images/tailles/{$taille.name|replace:" ":"_"|replace:"/":"x"}{if !$taille.enpot}-coupe{/if}.png">
                 <input id="taille_{$taille.id}" type="radio" name="taille" value="{$taille.id}"
                         {if $taille.id == $id_attribute_taille } checked {/if}
                         {if $taille.quantity < 1} disabled {/if}
@@ -23,6 +23,10 @@
                               style="background-color: red">{l s="Rupture de stock" mod='tunnelvente'}</span>
                     {/if}
                 </label>
+            </li>
+        {foreachelse}
+            <li class="not-taille">
+                <span>{l s="Désolé nous sommes en rupture de stock, revenez plus tard" mod='tunnelvente'}</span>
             </li>
         {/foreach}
     </ul>
@@ -43,7 +47,7 @@
                     });
                 </script>
                 <a title="Contactez-nous" target="_blank"
-                   href="{$base_url}/fr/contactez-nous">
+                   href="{$urls.base_url}fr/contactez-nous">
                     <h4>{l s="Even bigger, contact us" mod='tunnelvente'}</h4></a>
             {/if}
         </div>
@@ -60,8 +64,8 @@
 </form>
 
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/type";
-    var baseurl = "{$base_url}/modules/tunnelvente/images/tunnel_tailles/";
+    var baseurl_tunnelvente = "{$urls.base_url}module/tunnelvente/type";
+    var baseurl = "{$urls.base_url}img/cms/tunnel_tailles/";
 
     {if count($tailles) }
     $('.container_taille_pot img').removeClass("hidden");

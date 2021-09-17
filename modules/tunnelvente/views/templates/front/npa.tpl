@@ -11,7 +11,7 @@
     </div>
 </noscript>
 
-<form action="{$base_url}/module/tunnelvente/type"
+<form action="{$urls.base_url}module/tunnelvente/type"
       class="form_npa noscript-form-container" method="post">
     <h4>{l s="Enter the NPA" mod='tunnelvente'}</h4>
     <div class="npa-wrap">

@@ -9,6 +9,7 @@
         {assign var='productPrice' value=$product->getPrice(false, $smarty.const.NULL, $priceDisplayPrecision)}
         {assign var='productPriceWithoutReduction' value=$product->getPriceWithoutReduct(true, $smarty.const.NULL, $priceDisplayPrecision)}
 {/if}
+<div class="prix hidden"><span class="text_prix">{l s='Total' }</span> <span class="total_prix ">{displayPrice price=$cart->getordertotal(true)}</span></div>
 <!-- hidden datas -->
 <p class="hidden">
         <input type="hidden" name="token" value="{$static_token}" />
@@ -52,7 +53,7 @@
                     </span>
             {else}
                     <span id="view_full_size">
-                            <img itemprop="image" src="{$img_prod_dir}{$lang_iso}-default-large_default.jpg" id="bigpic" alt="" title="{$product->name|escape:'html':'UTF-8'}" width="{$largeSize.width}" height="{$largeSize.height}"/>
+                            <img itemprop="image" src="{$urls.img_prod_url}{$language.iso_code}-default-large_default.jpg" id="bigpic" alt="" title="{$product->name|escape:'html':'UTF-8'}" width="{$largeSize.width}" height="{$largeSize.height}"/>
                             {if !$content_only}
                                     <span class="span_link">
                                             {l s='View larger'}
@@ -250,7 +251,7 @@
                                                                                 <li{if $group.default == $id_attribute} class="selected"{/if}>
                                                                                         <a href="{$link->getProductLink($product)|escape:'html':'UTF-8'}" id="color_{$id_attribute|intval}" name="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" class="color_pick{if ($group.default == $id_attribute)} selected{/if}"{if !$img_color_exists && isset($colors.$id_attribute.value) && $colors.$id_attribute.value} style="background:{$colors.$id_attribute.value|escape:'html':'UTF-8'};"{/if} title="{$colors.$id_attribute.name|escape:'html':'UTF-8'}">
                                                                                                 {if $img_color_exists}
-                                                                                                        <img src="{$img_col_dir}{$id_attribute|intval}.jpg" alt="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" title="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" width="20" height="20" />
+                                                                                                        <img src="{$urls.img_col_url}{$id_attribute|intval}.jpg" alt="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" title="{$colors.$id_attribute.name|escape:'html':'UTF-8'}" width="20" height="20" />
                                                                                                 {/if}
                                                                                         </a>
                                                                                 </li>

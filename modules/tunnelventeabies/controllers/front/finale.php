@@ -53,11 +53,7 @@ class TunnelVenteAbiesFinaleModuleFrontController extends FrontAbies
                 }
             }
 
-            if ($id_product_recyclage > 0 && (
-                    $id_product_recyclage == (int) Configuration::get('TUNNELVENTE_ID_PRODUCT_RECYCLAGE_ECOSAPIN_GRATUIT') ||
-                    $id_product_recyclage == (int) Configuration::get('TUNNELVENTE_ID_PRODUCT_RECYCLAGE_SAPIN_SUISSE_PAYANT') ||
-                    $id_product_recyclage == (int) Configuration::get('TUNNELVENTE_ID_PRODUCT_RECYCLAGE_SAPIN_SUISSE_GRATUIT')
-                )) {
+            if ($id_product_recyclage == 66) {
                 $this->addProductInCart($cart, 1, $id_product_recyclage);
             }
 
@@ -118,7 +114,6 @@ class TunnelVenteAbiesFinaleModuleFrontController extends FrontAbies
             array(
                 "autresapin"    => $autresapin,
                 'order_process' => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
-                "base_url"      => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             )
         );
 

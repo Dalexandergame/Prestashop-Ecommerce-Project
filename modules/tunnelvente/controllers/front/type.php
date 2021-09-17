@@ -28,12 +28,13 @@ class TunnelVenteTypeModuleFrontController extends Front {
                 $this->context->cookie->__set('npa', $npa);
                 $this->addValueTunnelVent('npa', $npa);
 
-             //   $dateDispo = PlanningDeliveryByCarrierException::getDateDisponibleByNPA();
-             //   $dateDispoR = PlanningRetourByCarrierException::getDateDisponibleByNPA();
+                $dateDispo = PlanningDeliveryByCarrierException::getDateDisponibleByNPA();
+                $dateDispoR = PlanningRetourByCarrierException::getDateDisponibleByNPA();
 
-              //  if(!count($dateDispo) || !count($dateDispoR)){
-             //       $this->errors[] = Tools::displayError('Tous nos jours de livraison de ce district sont complets pour cette année. Rendez-vous en 2018!');
-             //   }
+                if(!count($dateDispo) || !count($dateDispoR)){
+                    $this->errors[] = Tools::displayError('Tous nos jours de livraison de ce district sont complets pour cette année. Rendez-vous en 2018!');
+                }
+
 
                 $return = [
                     'hasError' => !empty($this->errors),
@@ -192,12 +193,10 @@ class TunnelVenteTypeModuleFrontController extends Front {
             [
                 "npa"      => ($npa) ? $npa : '',
                 "hasSapin" => $hasSapin,
-                "base_url" => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 
         return $smarty->fetch(dirname(__FILE__) . "/../../views/templates/front/npa.tpl");
-        //."<br>$sql<br>"
     }
     private function getHtmlType($npa) {
         $smarty   = $this->context->smarty;
@@ -222,8 +221,7 @@ class TunnelVenteTypeModuleFrontController extends Front {
                             join ps_warehouse_carrier wc on wc.id_warehouse = part.warehouse_id
                             join ps_gszonevente_region r on r.id_carrier = wc.id_carrier
                             join ps_gszonevente_npa npa on npa.id_gszonevente_region = r.id_gszonevente_region
-                            where npa.`name` = $npa";
-
+                            where npa.`name` = $npa AND part.shop_id = '". Context::getContext()->shop->id ."'";
         $partner         = Db::getInstance()->getRow($get_partner_sql);
 
         if (!$partner) {
@@ -250,7 +248,6 @@ class TunnelVenteTypeModuleFrontController extends Front {
                 "hasSapin" => $hasSapin,
                 "id_type"  => $this->getValueTunnelVent('type'),
                 "partner"  => $partner,
-                "base_url" => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 

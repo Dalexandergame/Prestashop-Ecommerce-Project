@@ -1,6 +1,5 @@
 
 <form action="{$urls.base_url}module/tunnelvente/autresapin" id="form_little" method="post">
-         
    <ul class="hidden">
    {foreach from=$products item=product}
        <li data-id="{$product.id_product}" >
@@ -9,10 +8,10 @@
        </li>
    {/foreach}
    </ul>
-<div class="icon-tunnel">
+    <div class="icon-tunnel">
         <div class="cercle_taille cercle"></div>
-        {*<h2>{l s="Choisissez les accessoires de votre little ecosapin" mod='tunnelvente'}</h2>*}
-   </div> 
+        <h2>{l s="Choisissez les accessoires de votre little ecosapin" mod='tunnelvente'}</h2>
+   </div>
 <div class="clear"></div>
    <div class="description">
        {foreach from=$products item=product}

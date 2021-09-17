@@ -5,16 +5,17 @@
         <div class="steps-container">
             {foreach from=$steps->getListStep()  item=step}
                 {foreach from=$step->getListStepDetail()   item=stepDetail}
-                    {*<li class="{if $stepDetail->getActive() }active {assign var='isOk' value=""}{else} {$isOk} {/if}"> {$stepDetail->getTitre()}</li>*}
-                    <div class="step {if $stepDetail->getActive() }active {assign var='isOk' value=""}{else} {$isOk} {/if}">
+                    <div data-step="{$i}" class="step{if $stepDetail->getActive() } active{/if}">
                         <div class="step-number">{$i}</div>
                         <div class="step-description">{$stepDetail->getTitre()}</div>
                     </div>
+                    <div class="line-step"></div>
                     {assign var='i' value=$i+1}
                 {/foreach}
             {/foreach}
         </div>
     </div>
+    <div class="priceCalcContainer" data-currency="{$currency.sign}"></div>
     <script>
         $(function() {
             /*$('.step_1').addClass('active');

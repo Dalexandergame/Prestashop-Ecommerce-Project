@@ -8,7 +8,7 @@
         $('.container_newsapin').addClass('hidden');
 
         $.ajax({
-            url: "{$base_url}/module/tunnelvente/{if isset($back) && $back}boule?back=1{else}autresapin{/if}",
+            url: "{$urls.base_url}module/tunnelvente/{if isset($back) && $back}boule?back=1{else}autresapin{/if}",
             type: "post",
             data: 'ajax=1&pot=0',
             dataType: 'json',
@@ -27,7 +27,7 @@
         });
     </script>
 {else}
-    <form action="{$base_url}/module/tunnelvente/autresapin" id="form_pot"
+    <form action="{$urls.base_url}module/tunnelvente/autresapin" id="form_pot"
           method="post">
         <h4>{l s="Choisissez le cahe pot" mod='tunnelvente'}</h4>
 
@@ -37,26 +37,26 @@
                 <input type="radio" name="pot" class="radio_pot" value="{$pot.id_product_attribute}" title="{$pot.name}"
                        {if isset($last_id_product_pot_checked) and $pot.id_product_attribute == $last_id_product_pot_checked} checked="" {/if}
                         data-price="{$pot.price_ttc}" data-bg="{$pot.color}"
-                       data-image="//{$link->getImageLink($pot.link_rewrite, $pot.id_product|cat:'-'|cat:$pot.id_image, 'large_default')|escape:'html':'UTF-8'}"
+                       data-image="{$link->getImageLink($pot.link_rewrite, $pot.id_product|cat:'-'|cat:$pot.id_image, 'large_default')|escape:'html':'UTF-8'}"
                 />
             </span>
                 {foreachelse}
                 <span class="not-pot">
                 <input type="radio" name="pot" id="not_pot" class="radio_pot" checked="" data-price="0" value="0"
-                       data-image="{$base_url}/modules/tunnelvente/images/pot/default-pot.png"/>
+                       data-image="{$urls.base_url}modules/tunnelvente/images/pot/default-pot.png"/>
                 <label for="not_pot">{l s="Aucun pot disponible"  mod='tunnelvente'}</label>
                 <img style="display: none;"
-                     src="{$base_url}/modules/tunnelvente/images/pot/default-pot.png"/>
+                     src="{$urls.base_url}modules/tunnelvente/images/pot/default-pot.png"/>
             </span>
             {/foreach}
             {if count($result) }
                 <div class=" clearfix"></div>
                 <span class="not-pot">
                 <input type="radio" name="pot" id="not_pot" class="radio_pot" data-price="0" value="0"
-                       data-image="{$base_url}/modules/tunnelvente/images/pot/default-pot.png"/>
+                       data-image="{$urls.base_url}modules/tunnelvente/images/pot/default-pot.png"/>
                 <label for="not_pot">{l s="Je ne souhaite pas ajouter de cache pot"  mod='tunnelvente'}</label>
                 <img style="display: none;"
-                     src="{$base_url}/modules/tunnelvente/images/pot/default-pot.png"/>
+                     src="{$urls.base_url}modules/tunnelvente/images/pot/default-pot.png"/>
             </span>
             {/if}
         </div>
@@ -76,7 +76,7 @@
         <div class="loading"></div>
     </form>
     <script type="text/javascript">
-        var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/boule?back=1";
+        var baseurl_tunnelvente = "{$urls.base_url}module/tunnelvente/boule?back=1";
     </script>
 {literal}
     <script type="text/javascript">

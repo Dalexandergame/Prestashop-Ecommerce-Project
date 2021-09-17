@@ -5,6 +5,7 @@ if (!defined('_PS_VERSION_'))
 
 require_once dirname(__FILE__) . "/FrontAbies.php";
 require_once dirname(__FILE__) . "/little.php";
+require_once dirname(__FILE__).'/../../../planningdeliverybycarrier/classes/PlanningDeliveryByCarrierException.php';
 
 class TunnelVenteAbiesTailleModuleFrontController extends TunnelVenteLittleAbiesModuleFrontController
 {
@@ -69,7 +70,7 @@ class TunnelVenteAbiesTailleModuleFrontController extends TunnelVenteLittleAbies
 
             $type = Tools::getValue("type");
             $this->addValueTunnelVent("type", $type);
-            $dateDispo = PlanningDeliveryByCarrierExceptionOver::getDateDisponibleByNPA();
+            $dateDispo = PlanningDeliveryByCarrierException::getDateDisponibleByNPA();
 
             if (!count($dateDispo)) {
                 $this->errors[] = Tools::displayError('Tous nos jours de livraison de ce district sont complets pour cette année. Rendez-vous en 2018!');
@@ -160,7 +161,7 @@ class TunnelVenteAbiesTailleModuleFrontController extends TunnelVenteLittleAbies
                             join ps_warehouse_carrier wc on wc.id_warehouse = part.warehouse_id
                             join ps_gszonevente_region r on r.id_carrier = wc.id_carrier
                             join ps_gszonevente_npa npa on npa.id_gszonevente_region = r.id_gszonevente_region
-                            where npa.`name` = $npa";
+                            where npa.`name` = $npa AND part.shop_id = '". Context::getContext()->shop->id ."'";
         $partner         = Db::getInstance()->getRow($get_partner_sql);
         if(!$partner){
             $partner['name'] = 'Poste';
@@ -198,13 +199,17 @@ class TunnelVenteAbiesTailleModuleFrontController extends TunnelVenteLittleAbies
         if (empty($DefaultCombination) && !empty($AllCombinations)) {
             $DefaultCombination = $AllCombinations[0];
         }
+
+        $tailles = $this->getTailleDisponible($npa, false);
+
         $smarty->assign(array(
             "types" => $this->getTypeDisponible($npa),
             "npa" => $npa,
             "hasSapin" => $hasSapin,
             "id_type" => $this->getValueTunnelVent('type'),
             "partner" => $partner,
-            "tailles"             => $this->getTailleDisponible($npa),
+            "tailles"             => $tailles[0],
+            "attributs"         => $tailles[1],
             "choix"             => $this->getChoixDisponible($npa),
             "essence"             => $this->getEssenceDisponible($npa),
             "allCombinations"     =>    $AllCombinations,

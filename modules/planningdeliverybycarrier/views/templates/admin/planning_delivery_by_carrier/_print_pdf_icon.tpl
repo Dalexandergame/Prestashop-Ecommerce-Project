@@ -43,7 +43,7 @@ mark & Property of PrestaShop SA
 <span style="width:20px;">
     {if ($order_etiquette)}
         <a target="_blank"
-           href="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}barcode/wsbc-generate.php?order_ids[]={$order->id}">
+           href="{$urls.base_url}barcode/wsbc-generate.php?order_ids[]={$order->id}">
             <i class="icon-barcode"></i>
         </a>
         <input type="checkbox" class="inp_id_order" checked="" name="id_order[]" value="{$order->id}" />

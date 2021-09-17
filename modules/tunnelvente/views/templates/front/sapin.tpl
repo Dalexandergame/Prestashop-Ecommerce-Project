@@ -1,4 +1,4 @@
-<form action="{$base_url}/module/tunnelvente/{if $isSapinSwiss}pied{else}recyclage{/if}"
+<form action="{$urls.base_url}module/tunnelvente/{if $isSapinSwiss}pied{else}recyclage{/if}"
       id="form_sapin" method="post" style="display: none">
     <ul>
         {foreach from=$result item=sapin}
@@ -9,8 +9,7 @@
                 <label for="sapin_{$sapin.id_product_attribute}">{$sapin.name}</label>
                 {if !empty($sapin.id_image)}
                     <img style="display: none;"
-                         src="{$link->getImageLink($sapin.link_rewrite, $sapin.id_product|cat:'-'|cat:$sapin.id_image, 'large_default')|escape:'html':'UTF-8'}"
-                    />
+                         src="{$link->getImageLink($sapin.link_rewrite, $sapin.id_product|cat:'-'|cat:$sapin.id_image, 'large_default')|escape:'html':'UTF-8'}"/>
                 {/if}
             </li>
         {/foreach}
@@ -29,7 +28,7 @@
     </div>
     <div class="msg_info">
         <a title="Contactez-nous" target="_blank"
-           href="{$base_url}/fr/contactez-nous">
+           href="{$urls.base_url}fr/contactez-nous">
             <h4>{l s="Demande spéciale, contactez nous ici" mod='tunnelvente'}</h4></a>
     </div>
     <div class="btns_next_prev">
@@ -40,7 +39,7 @@
 </form>
 
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/taille?back=2";
+    var baseurl_tunnelvente = "{$urls.base_url}module/tunnelvente/taille?back=2";
 </script>
 {literal}
     <script type="text/javascript">

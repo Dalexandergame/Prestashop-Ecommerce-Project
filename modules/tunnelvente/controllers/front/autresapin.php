@@ -55,7 +55,6 @@ class TunnelVenteAutresapinModuleFrontController extends Front
         $smarty->assign(
             [
                 'little'   => $little,
-                "base_url" => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
             ]
         );
 

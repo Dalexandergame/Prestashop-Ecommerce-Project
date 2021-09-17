@@ -10,7 +10,7 @@
         {l s="Vous n'avez pas activé javascript. Merci de l'activer." mod='tunnelventeabies'}
     </div>
 </noscript>
-{if $isTunnelEnabled}
+{if true}
     <div class="steps-header-mobile">
         <div class="container-steps-mobile">
             <div class="step-name">
@@ -49,13 +49,7 @@
 
         <div class="npa-wrap">
             <div class="npa-wrap-inputs">
-                <input type="hidden" name="npa" class="npa_input-hidden" />
-{*                <input type="text" data-input="1" id="npaInput1" class="single-npa-input" placeholder="#" maxlength="1" />*}
-{*                <input type="text" data-input="2" id="npaInput2" class="single-npa-input" placeholder="#" maxlength="1" />*}
-{*                <input type="text" data-input="3" id="npaInput3" class="single-npa-input" placeholder="#" maxlength="1" />*}
-{*                <input type="text" data-input="4" id="npaInput4" class="single-npa-input" placeholder="#" maxlength="1" />*}
-                {*voir ticket *}
-                <input type="text"  id="npaInput" class="single-npa-input" placeholder="####" maxlength="4" />
+                <input type="text" name="npa" class="single-npa-input" placeholder="####" maxlength="4" />
             </div>
             <button type="submit">{l s="Valider" mod='tunnelventeabies'}</button>
         </div>
@@ -85,30 +79,15 @@
             $('.container_npa').removeClass('hidden');
             $('.container_type').addClass('hidden');
 
-            // $('.single-npa-input').on('input', function() {
-            //     var inputNumber = parseInt($(this).attr('data-input')),
-            //         nextInput = inputNumber+1;
-            //
-            //     if (nextInput <= 4) {
-            //         $('#npaInput' + nextInput).focus();
-            //     }
-            // });
-
             $('form.form_npa').submit(function (event) {
                 event.preventDefault();
                 var npa = $('.single-npa-input').val();
-                // $('.single-npa-input').each(function() {
-                //     if ($(this).val()) {
-                //         npa += $(this).val();
-                //     }
-                // });
 
                 if (npa == "" || npa.length != 4 || !$.isNumeric(npa)) {
-                    alert("invalide NPA");
+                    showError('{/literal}{l s='invalide NPA' mod='tunnelventeabies'}{literal}');
                     return false;
                 }
 
-                $('.npa_input-hidden').val(npa);
                 var $me = $(this), classe = 'isactive';
                 if (!$me.hasClass(classe)) {
                     $me.addClass(classe);

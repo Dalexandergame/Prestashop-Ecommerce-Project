@@ -2,11 +2,10 @@
 <module>
     <name>planningdeliverybycarrier</name>
     <displayName><![CDATA[Planning Delivery By Carrier]]></displayName>
-    <version><![CDATA[1.0.0]]></version>
+    <version><![CDATA[1.6]]></version>
     <description><![CDATA[Allows users to choose the date and time of delivery]]></description>
     <author><![CDATA[Speedyweb]]></author>
-    <tab><![CDATA[administration]]></tab>
-	<confirmUninstall><![CDATA[]]></confirmUninstall>
+    <tab><![CDATA[shipping_logistics]]></tab>
     <is_configurable>1</is_configurable>
     <need_instance>1</need_instance>
 	<limited_countries></limited_countries>

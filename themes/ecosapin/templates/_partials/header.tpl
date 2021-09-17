@@ -68,7 +68,7 @@
             {else}
                 <a href="{$urls.base_url}">
                   {*<img class="logo img-responsive" src="{$urls.img_url}ecosapin-ch-logo-1631005777.jpg" alt="{$shop.name}">*}
-                  <img class="logo img-responsive" src="https://www.ecosapin.ch/img/ecosapin-sarl-logo-1442474821.jpg" alt="{$shop.name}">
+                  <img class="logo img-responsive" src="{$urls.img_url}ecosapin-sarl-logo.jpg" alt="{$shop.name}">
                 </a>
             {/if}
         </div>
@@ -97,12 +97,11 @@
         $('.header-top img').removeAttr('src');
         $('.header-top').addClass('header-fixed');
         //$('.header-top img').attr('src', '{$urls.img_url}logo-1.png');
-        $('.header-top img').attr('src', 'https://www.ecosapin.ch/themes/ecosapin-v2/img/logo-1.png');
+        $('.header-top img').attr('src', '{$urls.img_url}logo-1.png');
       }
       else if ( $(window).scrollTop() < 100 && name_of_page !== 'index'){
         $('.header-top').removeClass('header-fixed');
-        //$('.header-top img').attr('src', "{$urls.img_url}ecosapin-ch-logo-1631005777.jpg");
-        $('.header-top img').attr('src', "https://www.ecosapin.ch/img/ecosapin-sarl-logo-1442474821.jpg");
+        $('.header-top img').attr('src', "{$urls.img_url}ecosapin-sarl-logo.jpg");
       }
       else {
         $('.header-top').removeClass('header-fixed');

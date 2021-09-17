@@ -6,7 +6,7 @@
    {* <div class="row">
         <div class="col-md-6">
             <div id="header_logo2">
-                <a href="{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}" title="{$shop_name|escape:'html':'UTF-8'}">
+                <a href="{$urls.base_url}" title="{$shop_name|escape:'html':'UTF-8'}">
                         <img class="logo img-responsive" src="{$logo_url}" alt="{$shop_name|escape:'html':'UTF-8'}"{if isset($logo_image_width) && $logo_image_width} width="{$logo_image_width}"{/if}{if isset($logo_image_height) && $logo_image_height} height="{$logo_image_height}"{/if}/>
                 </a>
             </div>
@@ -20,7 +20,7 @@
         <div class="cleafix clear"></div>
     </div>*}
    
-    {include file="./stepblock/blocksteps.tpl" steps=$steps}
+    {include file="module:tunnelvente/views/templates/front/stepblock/blocksteps.tpl" steps=$steps}
     
 </div>
 <div id="video_eco">
@@ -39,7 +39,7 @@
         <p>
             {l s="Votre petit sapin en pot, idéal pour décorer votre table ou votre bureau" mod='tunnelvente'}            
         </p>
-        <a href="{$base_dir_ssl}fr/stock-pack/93-my-little-ecosapin.html" class="little_ecosapin" title="{l s="Choisir mon little ecosapin " mod='tunnelvente'}">{l s="Choisir mon little ecosapin " mod='tunnelvente'} </a>
+        <a href="{$urls.base_url}fr/stock-pack/93-my-little-ecosapin.html" class="little_ecosapin" title="{l s="Choisir mon little ecosapin " mod='tunnelvente'}">{l s="Choisir mon little ecosapin " mod='tunnelvente'} </a>
     </div>
 </div>
 

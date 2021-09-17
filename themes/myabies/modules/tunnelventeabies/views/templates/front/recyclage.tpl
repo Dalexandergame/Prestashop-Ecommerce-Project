@@ -38,10 +38,10 @@
 </form>
 
 <script type="text/javascript">
-    {*var baseurl_tunnelvente = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}module/tunnelventeabies/taille?back=2";*}
+    {*var baseurl_tunnelvente = "{$urls.base_url}module/tunnelventeabies/taille?back=2";*}
     var baseurl_tunnelvente = "{$urls.base_url}module/tunnelventeabies/{if $isSapinSwiss}pied{else}taille{/if}?back=1";
-    var partnerImg = "{if $force_ssl}{$base_dir_ssl}{else}{$base_dir}{/if}modules/ecosapinpartners/uploads/{$resume.transporteur_img}";
-    //var link = "{$link->getPageLink($order_process, true)|escape:'html':'UTF-8'}";
+    var partnerImg = "{$urls.base_url}modules/ecosapinpartners/uploads/{$resume.transporteur_img}";
+    var link = "{$link->getPageLink($order_process, true)|escape:'html':'UTF-8'}";
 
     $(".container_recyclage").removeClass('hidden');
     $(".container_recyclage #transporteur").html('{$resume.transporteur}');

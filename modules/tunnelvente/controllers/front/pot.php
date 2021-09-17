@@ -60,8 +60,6 @@ class TunnelVentePotModuleFrontController extends Front {
                 "product"                     => $product,
                 "last_id_product_pot_checked" => ($this->getValueTunnelVent('id_product_pot')/*$this->context->cookie->id_product_pot*/)?$this->getValueTunnelVent('id_product_pot')/*$this->context->cookie->id_product_pot*/:null,
                 "skip_pot"                    => !in_array((int) $this->getValueTunnelVent('id_attribute_taille'), SqlRequete::$idAttrTailleSapinEnPot),
-                "base_url"                    => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_,
-                "link"                        => new Link()
             ]
         );
 
@@ -78,14 +76,11 @@ class TunnelVentePotModuleFrontController extends Front {
         $products = [];
 
         foreach ($result as $row) {
-            $manager = StockManagerFactory::getManager();
-            $item_real_quantity = $manager->getProductRealQuantities(
+            $item_real_quantity = $this->stockGlobal->getQteAvendre(
                 $row['id_product'],
                 $row['id_product_attribute'],
-                ($row['id_warehouse'] == '' ? null : array($row['id_warehouse'])),
-                true
+                $row['id_warehouse'] == '' ? null : array($row['id_warehouse'])
             );
-
             $row['price_ttc'] = number_format(Product::getPriceStatic($row["id_product"],true,$row['id_product_attribute']),2);
 
             if($item_real_quantity > 0)

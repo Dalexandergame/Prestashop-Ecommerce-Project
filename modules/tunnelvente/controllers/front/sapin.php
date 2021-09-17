@@ -110,8 +110,6 @@ class TunnelVenteSapinModuleFrontController extends Front
                 "result"           => $this->getSapinDisponible($id_attribute_taille, $npa, $this->getValueTunnelVent("type")),
                 "id_product_sapin" => $this->getValueTunnelVent("id_product_sapin") ? $this->getValueTunnelVent("id_product_sapin") : null,
                 "isSapinSwiss"     => $this->getValueTunnelVent('type') == 13,
-                "base_url"         => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_,
-                "link"               => new Link()
             ]
         );
 

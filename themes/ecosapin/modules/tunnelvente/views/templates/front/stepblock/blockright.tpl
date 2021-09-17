@@ -1,8 +1,8 @@
-<div class="col-md-6 thirdCol" data-currency="CHF">
+<div class="col-md-6 thirdCol" data-currency="{$currency.sign}">
     <div class="container_images ">
         <div class="prix hidden"><span class="text_prix">{l s='Total' }</span> <span class="total_prix ">0 CHF</span>
         </div>
-        <div class="container_npa ">
+        <div class="container_npa hidden ">
             <h3>Step 1: {l s='Configuration of fir' mod='tunnelvente' }</h3>
             <ul>
                 <li>{l s='Select the NPA' mod='tunnelvente' }</li>
@@ -24,7 +24,7 @@
         <div class="container_type hidden ">
             <div class="left_Type">
                 <div class="transporteur">
-                    <img src="/themes/ecosapin/_dev/img/partenaire-fribourg.jpg"/>
+                    <img src="{$urls.base_url}themes/ecosapin/assets/img/partenaire-fribourg.jpg"/>
                 </div>
                 <div class="nom_transporteur">Transporteur</div>
                 <h4>{l s='I will take care of your fir' mod='tunnelvente'}</h4>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="container_taille_pot hidden ">
-            <img src="/themes/ecosapin/_dev/img/en-pot1.png"/>
+            <img src="{$urls.base_url}themes/ecosapin/assets/img/en-pot1.png"/>
         </div>
         <div class="container_sapin hidden">
             <img class="img_sapin" style="display: none;"/>
@@ -44,14 +44,14 @@
                 <h2 class="nom_transporteur" id="taille">Taille</h2>
                 <div class="desc">{l s='Livré par' mod='tunnelvente'}</div>
                 <div class="transporteur">
-                    <img src="/themes/ecosapin/_dev/img/partenaire-fribourg.jpg"/>
+                    <img src="{$urls.base_url}themes/ecosapin/assets/img/partenaire-fribourg.jpg"/>
                 </div>
                 <h2 class="nom_transporteur" id="transporteur">Transporteur</h2>
                 {*<h2 class="nom_transporteur" id="prix" >Prix</h2>*}
             </div>
             <div class="image_right">
                 <!--<img class="img_sapin" style="display: none;" />-->
-                <img src="/themes/ecosapin/_dev/img/ecosapin-nordman.png"/>
+                <img src="{$urls.base_url}themes/ecosapin/assets/img/ecosapin-nordman.png"/>
             </div>
         </div>
         <div class="container_boule hidden">
@@ -72,7 +72,7 @@
             <div class="textpiedpromo"></div>
         </div>
         <div class="container_newsapin hidden">
-            <img src="/modules/tunnelvente/images/resume.png"
+            <img src="{$urls.base_url}modules/tunnelvente/images/resume.png"
                  class="img_newsapin" style="display: none;"/>
         </div>
         <div id="blockProduct"></div>

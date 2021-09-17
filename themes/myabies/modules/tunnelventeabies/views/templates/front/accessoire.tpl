@@ -78,7 +78,7 @@
             </li>
        </ul>
         {*<button type="button" class="prev">prev</button>*}
-        {*<button type="submit" class="next" style="background: #cbdeb1 url({$img_dir}cercle-acce.png) no-repeat center center">{l s="Commander" mod='tunnelventeabies'}</button>*}
+        {*<button type="submit" class="next" style="background: #cbdeb1 url({$urls.img_url}cercle-acce.png) no-repeat center center">{l s="Commander" mod='tunnelventeabies'}</button>*}
     </div>
    <div class="loading"></div>
 </form>    
@@ -103,7 +103,7 @@
         //previous
         $('.container_newsapin').addClass('hidden');
 
-        ajaxCart.refresh();
+
         $('form#form_accessoire .prev').click(function(event){
              //window.location.href = baseurl_tunnelvente;
             var $me = $(this),classe= 'isactive';

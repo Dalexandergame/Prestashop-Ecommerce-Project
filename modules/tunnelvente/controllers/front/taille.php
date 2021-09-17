@@ -117,13 +117,20 @@ class TunnelVenteTailleModuleFrontController extends TunnelVenteLittleModuleFron
             $typetpl = "sapinsuisse";
         }
 
+        $tailles = $this->getTailleDisponible($npa, $type);
+        $emptyCount = 0;
+
+        foreach ($tailles as $taille) {
+            $emptyCount += $taille['quantity'] < 1 ? 1 : 0;
+        }
+        if ($emptyCount == count($tailles)) $tailles = [];
+
         $smarty->assign(
             [
-                "tailles"             => $this->getTailleDisponible($npa, $type),
+                "tailles"             => $tailles,
                 "id_attribute_taille" => $this->getValueTunnelVent("id_attribute_taille") ? $this->getValueTunnelVent("id_attribute_taille") : '_',
                 "isSapinSwiss"        => $typetpl == "sapinsuisse",
-                "typetpl"             => $typetpl,
-                "base_url"            => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_
+                "typetpl"             => $typetpl
             ]
         );
 

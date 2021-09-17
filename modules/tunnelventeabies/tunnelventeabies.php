@@ -373,14 +373,13 @@ class TunnelVenteAbies extends Module
      */
     public function hookHeader()
     {
-        $this->context->controller->addJS($this->_path . '/views/js/front.js');
-       // $this->context->controller->addJS(_THEME_JS_DIR_ . 'jqtransformplugin/jquery.jqtransform.js');
+        $this->context->controller->registerJavascript('tunnelventeabies-js',$this->_path . 'views/js/front.js');
+        $this->context->controller->registerJavascript('tunnelventeabies-js',_PS_JS_DIR_ . 'jquery/jqtransformplugin/jquery.jqtransform.js',['position' =>  'head']);
         $this->context->controller->registerJavascript('tunnelventeabies-js',_PS_JS_DIR_ . 'jquery/jquery-1.11.0.min.js',['position' =>  'head', 'priority' => 50]);
         $this->context->controller->registerStylesheet('tunnelventeabies-front-style',$this->_path . 'views/css/front.css',['media'=>'all', 'priority' => 500]);
         $this->context->controller->registerStylesheet('tunnelventeabies-global-style',$this->_path . 'views/css/global.css',['media' => 'all', 'priority' => 20]);
-       // $this->context->controller->addCSS($this->_path . '/views/css/front.css');
-        $this->context->controller->addCSS(_THEME_JS_DIR_ . 'jqtransformplugin/jqtransform.css');
-        $this->context->controller->addJS(_THEME_JS_DIR_ . 'product.js');
+        $this->context->controller->registerStylesheet('tunnelventeabies-front-style',_PS_JS_DIR_ . 'jquery/jqtransformplugin/jqtransform.css');
+        $this->context->controller->registerStylesheet('tunnelventeabies-front-style',_THEME_JS_DIR_ . 'product.js');
     }
 
     function getIdProductSapins($cat)

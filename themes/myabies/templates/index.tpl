@@ -26,6 +26,6 @@
 
 {block name='page_content'}
   {block name='hook_home'}
-    {$HOOK_HOME nofilter}
+{*    {$HOOK_HOME nofilter}*}
   {/block}
 {/block}

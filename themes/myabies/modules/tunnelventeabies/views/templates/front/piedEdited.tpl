@@ -7,7 +7,7 @@
                 <div class="attribute-img-container" style="background-color:white;">
                     <span class="attribute-img-description">Sans Pied</span>
                 </div>
-                <div class="attribute-price-container"><span>Dès</span> 0.00 {$currency->sign}</div>
+                <div class="attribute-price-container"><span>Dès</span> 0.00 {$currency.sign}</div>
             </div>
         </div>
         {foreach from=$result item=pied}
@@ -18,7 +18,7 @@
                                  background-position: center;background-size: cover;">
                         <span class="attribute-img-description">{$pied.name}</span>
                     </div>
-                    <div class="attribute-price-container"><span>Dès</span> {$pied.price_ttc} {$currency->sign}</div>
+                    <div class="attribute-price-container"><span>Dès</span> {$pied.price_ttc} {$currency.sign}</div>
                 </div>
             </div>
         {/foreach}

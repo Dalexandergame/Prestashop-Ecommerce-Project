@@ -1,5 +1,5 @@
 
-<form action="{$base_url}/module/tunnelvente/autresapin" id="form_little" method="post">
+<form action="{$urls.base_url}module/tunnelvente/autresapin" id="form_little" method="post">
          
    <ul class="hidden">
    {foreach from=$products item=product}
@@ -30,8 +30,8 @@
     
     
 <script type="text/javascript">
-    var baseurl_tunnelvente = "{$base_url}/module/tunnelvente/type";
-    var baseurl_tunnelvente_product = "{$base_url}/module/tunnelvente/product";
+    var baseurl_tunnelvente = "{$urls.base_url}module/tunnelvente/type";
+    var baseurl_tunnelvente_product = "{$urls.base_url}module/tunnelvente/product";
     $(function($){
         $('form#form_little').submit(function(event){
             event.preventDefault();

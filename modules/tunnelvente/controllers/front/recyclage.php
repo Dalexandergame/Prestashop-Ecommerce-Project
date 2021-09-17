@@ -170,8 +170,7 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
                             join ps_warehouse_carrier wc on wc.id_warehouse = part.warehouse_id
                             join ps_gszonevente_region r on r.id_carrier = wc.id_carrier
                             join ps_gszonevente_npa npa on npa.id_gszonevente_region = r.id_gszonevente_region
-                            where npa.`name` = $npa";
-
+                            where npa.`name` = $npa AND part.shop_id = '". Context::getContext()->shop->id ."'";
         $product_info         = Db::getInstance()->getRow($get_product_info_sql);
         $partner              = Db::getInstance()->getRow($get_partner_sql);
 
@@ -212,8 +211,6 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
                 'order_process'             => Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order',
                 'image_recyclage'           => $image,
                 'resume'                    => $resume,
-                "base_url"                  => Tools::usingSecureMode() ? _PS_BASE_URL_SSL_ : _PS_BASE_URL_,
-                "link"                      => new Link()
             ]
         );
 
