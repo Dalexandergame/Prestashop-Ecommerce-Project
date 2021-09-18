@@ -160,9 +160,6 @@ body#checkout #header .header-nav .logo {
     z-index: 9;
 }*/
 
-.sf-menu li:nth-child(8) a {
-    display: none;
-}
 
 .sf-menu>li>a {
     font: 600 13px/22px "Source Sans Pro", sans-serif;
@@ -472,7 +469,7 @@ body#checkout section.checkout-step .step-title {
     border-radius: 20px;
 }
 
-.sf-menu li:nth-child(7) a, .sf-menu li:nth-child(8) a {
+.sf-menu li:nth-child(8) a {
     color: white !important;
 }
 /*
@@ -523,4 +520,12 @@ body#checkout section.checkout-step .step-title {
     padding: 6px 20px;
     margin: 20px 0;
     font-size: 12px;
+}
+
+a:hover {
+    color: #5c8f16 !important;
+}
+
+.header-nav span:hover {
+    color: #5c8f16 !important;
 }
