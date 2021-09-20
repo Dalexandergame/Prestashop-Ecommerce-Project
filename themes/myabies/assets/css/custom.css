@@ -23,8 +23,8 @@
 }
 
 #block_top_menu {
-    left: 42px;
-    width: auto;
+    left: -22px;
+    width: max-content;
     padding: 0;
     top: 47px;
 }
@@ -150,4 +150,12 @@ span.expand-more {
 
 #_desktop_cart .blockcart.cart-preview.inactive {
     background-color: transparent;
+}
+
+a:hover {
+    color: #eae9e7 !important;
+}
+
+.header-nav span:hover {
+    color: #eae9e7 !important;
 }
