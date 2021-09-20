@@ -38,7 +38,7 @@
                     <div class="image-sapins"><img src="{l s='https://ecosapin.ch/img/cms/etape-sapin_1.png' d='Shop.Theme.Ecosapin'}" alt="" width="679" height="301"></div>
                 </div>
             </div>
-            <div id="popup-pays">
+            {*<div id="popup-pays">
                 <div class="content-ouv-new">
                     <a class="site-fr" href="//ecosapin.fr">fr</a>
                     <a class="site-ch" href="//ecosapin.ch">ch</a>
@@ -52,7 +52,7 @@
                         <p class="txtIcons">{l s="Autre pays"}</p>
                     </div>
                 </div>
-            </div>
+            </div>*}
             <div class="clearfix">
                 <div class="btns container">
                     <a href="{$urls.base_url}module/tunnelvente/type" class="choix_spain_tunn"> {l s="Choisir mon sapin" d='Shop.Theme.Ecosapin'}</a>

@@ -23,8 +23,8 @@
 }
 
 #block_top_menu {
-    left: 42px;
-    width: auto;
+    left: -22px;
+    width: max-content;
     padding: 0;
     top: 47px;
 }
@@ -150,4 +150,79 @@ span.expand-more {
 
 #_desktop_cart .blockcart.cart-preview.inactive {
     background-color: transparent;
+}
+
+a:hover {
+    color: #eae9e7 !important;
+}
+
+.header-nav span:hover {
+    color: #eae9e7 !important;
+}
+
+select.form-control:not([size]):not([multiple]){
+    height:65px
+}
+
+.qualite, .qualites-tunnel {
+    border-radius: 5px;
+}
+
+#typesapain #columns {
+    padding-bottom: 0em;
+    padding-top: 0em;
+}
+
+#typesapain .form-control {
+    border-radius: 5px;
+}
+
+#typesapain .row {
+    margin-left: -84px;
+    margin-right: -84px;
+}
+
+.btn-new-dark-green {
+    padding: 32px 15px 32px 10px;
+}
+
+.btn-new-light-green {
+    font-size: 22px;
+}
+
+.btn-new-layout .des {
+    font-size: 18px;
+    vertical-align: top;
+}
+
+#steps .step-desc #resp_content form {
+    margin-right: 30px;
+}
+
+.agriculteur-details {
+    border-radius: 5px;
+    padding-bottom: 18px;
+}
+
+.agriculteur-details .transporteur-img {
+    margin-bottom: 17px;
+}
+
+.list-tunnel li {
+    margin-top: 13px;
+    border-radius: 5px;
+    width: 75%;
+}
+
+#steps .step-desc #resp_content form>div {
+    justify-content: center;
+}
+
+.attribute-img-description {
+    padding-top: 15px;
+}
+
+.container-recyclage {
+    width: 100%;
+    margin-left: 0% !important;
 }
