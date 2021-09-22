@@ -44,7 +44,7 @@ class Front extends ModuleFrontControllerCore
         $this->id_lang           = $this->context->language->id;
         $this->id_types          = array(Configuration::get('TUNNELVENTE_ID_LITTLE_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE'));
         $this->id_product_sapins = $this->getIdProductSapins(array(Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')));
-        $this->stockGlobal       = new AdminStockGlobalViewController(false);
+        $this->stockGlobal       = new AdminStockGlobalViewController();
     }
 
     public function init()
