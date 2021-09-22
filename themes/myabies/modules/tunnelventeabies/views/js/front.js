@@ -30,42 +30,70 @@ $(function ($) {
 
     $('.priceCalcContainer').data('calPrice', {
         prices: [],
-        currency_sign: $('#resp_content .tunnel-price-block').data('currency'),
+        currency_sign: $('.priceCalcContainer').data('currency'),
         selectorPrice: '.list-tunnel .total_prix',
+        selectorOverview : '.overview-tunnel-container',
+        recapOverview: '.final-recap-container',
         isHasRecyclage: false,
         rabaisPriceBoulePromo: 65,
         rabaisPricePotPromo: 5,
         price: {
-            sapin: 0,
-            recyclage: 0,
-            boule: 0,
-            pot: 0,
-            pied: 0,
+            sapin: {
+                name: '',
+                price: 0
+            },
+            recyclage: {
+                name: '',
+                price: 0
+            },
+            boule: {
+                name: '',
+                price: 0
+            },
+            pot: {
+                name: '',
+                price: 0
+            },
+            pied: {
+                name: '',
+                price: 0
+            },
         },
-        setPriceSapin: function (price, reset) {
+        setPriceSapin: function (price, name, reset, lang) {
             if (reset == undefined)
                 reset = false;
 
-            this.price.sapin = price;
+            if (lang == undefined)
+                lang = "fr";
 
-            if (reset) {
-                this.price.recyclage = 0;
-                this.price.boule = 0;
-                this.price.pot = 0;
-                this.price.pied = 0;
+            this.price.sapin.price = price;
+            if(lang == "fr") {
+                this.price.sapin.name = 'Sapin ' + name;
+            } else if(lang == "en") {
+                this.price.sapin.name = 'Fir ' + name;
+            } else if(lang == "de") {
+                this.price.sapin.name = 'Tanne ' + name;
             }
 
-            this.cal();
+            if (reset) {
+                this.price.recyclage.price = 0;
+                this.price.boule.price = 0;
+                this.price.pot.price = 0;
+                this.price.pied.price = 0;
+            }
+
+            this.cal(false);
         },
-        setPriceRecyclage: function (price, id_recyclage, reset) {
+        setPriceRecyclage: function (price, id_recyclage, name, reset) {
             if (reset == undefined)
                 reset = false;
 
-            this.price.recyclage = price;
+            this.price.recyclage.price = price;
+            this.price.recyclage.name = name;
 
             if (reset) {
-                this.price.boule = 0;
-                this.price.pot = 0;
+                this.price.boule.price = 0;
+                this.price.pot.price = 0;
             }
 
             if (parseInt(id_recyclage) != 0) {
@@ -74,7 +102,23 @@ $(function ($) {
                 this.isHasRecyclage = false;
             }
 
-            this.cal();
+            this.cal(true);
+        },
+        unsetPriceRecyclage: function (price, name, reset) {
+            if (reset == undefined)
+                reset = false;
+
+            this.isHasRecyclage = false;
+
+            this.price.recyclage.price = 0;
+            this.price.recyclage.name = '';
+
+            if (reset) {
+                this.price.boule.price = 0;
+                this.price.pot.price = 0;
+            }
+
+            this.cal(true);
         },
         setPriceBoule: function (price, reset) {
             if (reset == undefined)
@@ -83,11 +127,11 @@ $(function ($) {
             if (this.isHasRecyclage && parseFloat(price) > 0) {
                 this.price.boule = parseFloat(price) - this.rabaisPriceBoulePromo;
             } else {
-                this.price.boule = price;
+                this.price.boule.price = price;
             }
 
             if (reset) {
-                this.price.pot = 0;
+                this.price.pot.price = 0;
             }
 
             this.cal();
@@ -97,9 +141,9 @@ $(function ($) {
                 reset = false;
 
             if (this.isHasRecyclage && parseFloat(price) > 0) {
-                this.price.pot = parseFloat(price) - this.rabaisPricePotPromo;
+                this.price.pot.price = parseFloat(price) - this.rabaisPricePotPromo;
             } else {
-                this.price.pot = price;
+                this.price.pot.price = price;
             }
 
             if (reset) {
@@ -108,19 +152,35 @@ $(function ($) {
 
             this.cal();
         },
-        setPricePied: function (price, reset) {
+        setPricePied: function (price, name, reset) {
             if (reset == undefined)
                 reset = false;
 
-            this.price.pied = price;
+            this.price.pied.price = price;
+            this.price.pied.name = name;
 
             if (reset) {
-                this.price.recyclage = 0;
-                this.price.boule = 0;
-                this.price.pot = 0;
+                this.price.recyclage.price = 0;
+                this.price.boule.price = 0;
+                this.price.pot.price = 0;
             }
 
-            this.cal();
+            this.cal(true);
+        },
+        unsetPricePied: function (price, name, reset) {
+            if (reset == undefined)
+                reset = false;
+
+            this.price.pied.price = 0;
+            this.price.pied.name = '';
+
+            if (reset) {
+                this.price.recyclage.price = 0;
+                this.price.boule.price = 0;
+                this.price.pot.price = 0;
+            }
+
+            this.cal(true);
         },
         addAutreSapin: function () {
             var total = 0;
@@ -133,18 +193,68 @@ $(function ($) {
             this.setPriceSapin(0, true);
             this.cal();
         },
-        cal: function () {
-            var total = 0;
+        cal: function (overview) {
+            var total = 0,
+                overviewRender = '',
+                currency = this.currency_sign;
 
             $.each(this.prices, function (k, v) {
                 total += parseFloat(v);
             });
 
             $.each(this.price, function (k1, v1) {
-                total += parseFloat(v1);
+                var currentPrice = parseFloat(v1.price).toFixed(2).toString().replace('.', ',') + ' ' + currency;
+                total += parseFloat(v1.price);
+                if (v1.name !== '' && typeof v1.name !== typeof undefined) {
+                    overviewRender += '<div class="price-row-container">\n' +
+                        '    <div class="prcontainer-title">' + v1.name + '</div>\n' +
+                        '    <div class="prcontainer-price">' + currentPrice + '</div>\n' +
+                        '</div>';
+                }
             });
 
-            $(this.selectorPrice).text(parseFloat(total).toFixed(2).toString().replace('.', ',') + ' ' + this.currency_sign);
+            if (!overview) {
+                $(this.selectorPrice).text(parseFloat(total).toFixed(2).toString().replace('.', ',') + ' ' + currency);
+            } else {
+                var totalRender = parseFloat(total).toFixed(2).toString().replace('.', ',') + ' ' + currency;
+                overviewRender += '<div class="overview-container-separator"></div>' +
+                    '<div class="price-row-container">\n' +
+                    '    <div class="prcontainer-title-total">Total</div>\n' +
+                    '    <div class="prcontainer-price"><span>' + totalRender + '</span></div>\n' +
+                    '</div>';
+                $(this.selectorOverview).empty().append(overviewRender);
+            }
+        },
+        recap: function (overview) {
+            var total = 0,
+                overviewRender = '',
+                currency = this.currency_sign;
+
+            $.each(this.prices, function (k, v) {
+                total += parseFloat(v);
+            });
+
+            $.each(this.price, function (k1, v1) {
+                var currentPrice = parseFloat(v1.price).toFixed(2).toString().replace('.', ',') + ' ' + currency;
+                total += parseFloat(v1.price);
+                if (v1.name !== '' && typeof v1.name !== typeof undefined) {
+                    overviewRender += '<div class="price-row-container">\n' +
+                        '    <div class="prcontainer-title">' + v1.name + '</div>\n' +
+                        '    <div class="prcontainer-price">' + currentPrice + '</div>\n' +
+                        '</div>';
+
+                    var str = v1.name;
+                    $('.recap-' + k1 + ' .recap-description').text(str.replace('&amp;','&'));
+                }
+            });
+
+            var totalRender = parseFloat(total).toFixed(2).toString().replace('.', ',') + ' ' + currency;
+            overviewRender += '<div class="overview-container-separator"></div>' +
+                '<div class="price-row-container">\n' +
+                '    <div class="prcontainer-title-total">Total</div>\n' +
+                '    <div class="prcontainer-price"><span>' + totalRender + '</span></div>\n' +
+                '</div>';
+            $(this.recapOverview).append(overviewRender);
         },
     });
 

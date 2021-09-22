@@ -168,10 +168,16 @@ abstract class AbstractFormCore implements FormInterface
             if (array_key_exists($field->getName(), $params)) {
                 // overwrite it if necessary
                 $field->setValue($params[$field->getName()]);
-            } elseif ($field->getType() === 'checkbox') {
+            } elseif ($field->getType() === 'checkbox' && $field->getName() !== 'receive_sms') {
                 // checkboxes that are not submitted
                 // are interpreted as booleans switched off
                 $field->setValue(false);
+            }
+
+            if ($field->getName() === 'receive_sms' && !isset($params['id_address'])) {
+                $field->setValue(true);
+            } elseif ($field->getName() === 'receive_sms' && Tools::isSubmit('submitAddress')) {
+                $field->setValue($params[$field->getName()]);
             }
         }
 

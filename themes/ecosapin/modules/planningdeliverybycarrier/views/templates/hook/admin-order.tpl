@@ -8,7 +8,7 @@
 	$('document').ready(function(){
 		$('#submitDateDelivery').click(function(){
 			params = $('#form_update_planningdelivery').serialize();
-			$.ajax({type:"GET", cache:false, url:"../modules/planningdeliverybycarrier/ajax/update_date_delivery.ajax.php?" + params, success:
+			$.ajax({type:"GET", cache:false, url:"/modules/planningdeliverybycarrier/ajax/update_date_delivery.ajax.php?" + params, success:
 				function(data){
 					$('#refresh_tab_planningdelivery').html(data);
 				}
