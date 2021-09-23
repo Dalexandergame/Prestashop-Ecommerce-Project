@@ -16,7 +16,7 @@
                     <p class="ap5-pack-unavailable animated shake alert alert-danger">
                         <span>{l s='One of product is no longer available. This pack can\t be purchased' mod='pm_advancedpack'}</span>
                     </p>
-                {else if isset($productsPackErrors) && count($productsPackErrors)}
+                {elseif isset($productsPackErrors) && count($productsPackErrors)}
                     <p class="ap5-combination-unavailable animated flash alert alert-warning">
                         <span><a href="#ap5-pack-product-{current(array_keys($productsPackErrors))|intval}">{l s='One of product combination is no longer available. Please select another attribute to this product' mod='pm_advancedpack'}</a></span>
                     </p>

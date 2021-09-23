@@ -12,15 +12,94 @@
     border: 1px solid #fff;
     border-radius: 10px;
 }
-/*
-#resp_content {
-    border: 1px solid #fff;
-    border-radius: 10px;
-    padding: 9px 15px 100px;
-    position: relative;
-    height: 95vh;
+
+#product .bg-home {
+    background: url("../img/bg-home.jpg");
 }
 
+.ap5-pack-page #main {
+    background: #f9f9f9 url("../img/bg-content-tunnel.png") no-repeat left top;
+    background-size: cover;
+    border: 1px solid #6d7b69;
+    padding: 14px 0 14px 14px;
+    box-sizing: border-box;
+    margin: 35px auto 0;
+    max-width: 1170px;
+    color: #ffffff;
+    position: relative;
+}
+
+div#ap5-buy-block-container {
+    position: absolute;
+    right: 0;
+    width: 57rem;
+    top: 320px;
+}
+
+#ap5-buy-container p.ap5-combination-unavailable {
+    font-size: larger;
+}
+
+.ap5-product-list {
+    margin-bottom: -20px;
+}
+
+.product-variants>.product-variants-item .color {
+    height: 22px;
+    width: 22px;
+    display: block;
+}
+
+.product-variants>.product-variants-item ul li {
+    margin: 0 3px 3px 0;
+    padding: 1px;
+    border: 1px solid #d6d4d4;
+    clear: none;
+    width: 26px;
+    height: 26px;
+}
+
+#ap5-pack-product-5 .ap5-attributes {
+    text-align: center;
+}
+
+.ap5-attribute-fieldset {
+    display: inline-block;
+}
+
+.alert.animated.shake.alert-warning {
+    width: 90%;
+    position: absolute;
+}
+
+.alert.animated.shake.alert-warning ol li {
+    font-size: medium;
+}
+
+.alert ol {
+    text-shadow: 1px 1px #000000;
+}
+
+#main .text-justify {
+    position: absolute;
+    width: 46%;
+    right: 41px;
+    top: 73px;
+    color: white;
+}
+
+#main .h1 {
+    position: absolute;
+    right: 0;
+    width: 50%;
+    color: white ;
+    text-align: center;
+}
+
+#main p {
+    color: #eae9e7 !important;
+}
+/*
 #steps {
     height: 115vh;
     margin-top: 35px;
@@ -338,7 +417,7 @@ body#checkout section.checkout-step .address-item.selected {
 }
 
 .custom-checkbox input[type=checkbox] {
-    margin-top: .5rem;
+    margin-top: 0rem;
     opacity: 1;
 }
 
@@ -528,4 +607,8 @@ a:hover {
 
 .header-nav span:hover {
     color: #5c8f16 !important;
+}
+
+.alert {
+    font-size: 1.3rem;
 }
