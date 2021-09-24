@@ -35,7 +35,7 @@
                 <h1>{l s='DÉCOREZ VOTRE MAISON AVEC UN BEAU SAPIN QUI RETOURNERA DANS LA NATURE.' d='Shop.Theme.Ecosapin'}</h1>
                 <div class="rte"><p>{l s="Profitez d'un arbre de Noël vivant de première qualité qui sent bon la forêt, livré et récupéré à domicile, aux dates de votre choix." d='Shop.Theme.Ecosapin'}</p>
                     <p>{l s='Après les fêtes, votre sapin retournera en terre auprès des siens.' d='Shop.Theme.Ecosapin'}</p>
-                    <div class="image-sapins"><img src="{l s='https://ecosapin.ch/img/cms/etape-sapin_1.png' d='Shop.Theme.Ecosapin'}" alt="" width="679" height="301"></div>
+                    <div class="image-sapins"><img src="{$urls.base_url}{l s='img/cms/etape-sapin_1.png' d='Shop.Theme.Ecosapin'}" alt="" width="679" height="301"></div>
                 </div>
             </div>
             {*<div id="popup-pays">

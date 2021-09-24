@@ -1,5 +1,5 @@
 <form action="{$urls.base_url}module/tunnelvente/taille" id="form_type" method="post">
-    <h4>{l s="Choisissez le type de sapin" mod='tunnelvente'}</h4>
+    <h4>{l s="Choisissez le type de sapin" d='Modules.Tunnelvente.Type'}</h4>
     <ul>
         {foreach from=$types item=type}
             <li data-id="{$type.id}" data-desc="{$type.desc}">
@@ -9,14 +9,14 @@
             </li>
             {foreachelse}
             <li class="not-taille">
-                <span>{l s="Désolé nous sommes en rupture de stock, revenez plus tard" mod='tunnelvente'}</span>
+                <span>{l s="Désolé nous sommes en rupture de stock, revenez plus tard" d='Modules.Tunnelvente.Type'}</span>
             </li>
         {/foreach}
     </ul>
     {if count($types) }
         <div class="icon-tunnel">
             <div class="cercle_taille cercle"></div>
-            {*<h2>{l s="Choisissez le type de votre sapin" mod='tunnelvente'}</h2>*}
+            {*<h2>{l s="Choisissez le type de votre sapin" d='Modules.Tunnelvente.Type'}</h2>*}
         </div>
         <div class="clear"></div>
         <div class="description"><div></div></div>
@@ -37,7 +37,7 @@
     var partner_name = "{$partner['name']}";
     var partner_img = "{$partner['img']}";
     // var partner_description = "{$partner['description']}";
-    var partner_description = "{l s=$partner['description'] mod='tunnelvente'}";
+    var partner_description = "{l s=$partner['description'] d='Modules.Tunnelvente.Type'}";
 
     if(partner_name == "" && partner_img == "") {
         $('.container_type .transporteur').addClass("hidden");

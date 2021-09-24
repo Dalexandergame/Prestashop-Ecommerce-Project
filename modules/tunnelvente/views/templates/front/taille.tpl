@@ -1,6 +1,6 @@
 <form action="{$urls.base_url}module/tunnelvente/{if $isSapinSwiss}pied{else}recyclage{/if}"
       id="form_taille" method="post">
-    <h4>{l s="Choose fir size" mod='tunnelvente'}</h4>
+    <h4>{l s="Choose fir size" d='Modules.Tunnelvente.Taille'}</h4>
     <ul>
         {foreach from=$tailles item=taille}
             <li data-id="{$taille.id}" {if $taille.quantity < 1} class="disabled" {/if}
@@ -13,20 +13,20 @@
                        for="taille_{$taille.id}">{$taille.name}
                     <span class="taille_taille">
                     {if $taille.enpot == " en pot"}
-                        {l s=" en pot" mod='tunnelvente'}
+                        {l s=" en pot" d='Modules.Tunnelvente.Taille'}
                     {else}
-                        {l s=" coupé avec pied" mod='tunnelvente'}
+                        {l s=" coupé avec pied" d='Modules.Tunnelvente.Taille'}
                     {/if}
                     </span>
                     {if $taille.quantity < 1}
                         <span class="taille_taille"
-                              style="background-color: red">{l s="Rupture de stock" mod='tunnelvente'}</span>
+                              style="background-color: red">{l s="Rupture de stock" d='Modules.Tunnelvente.Taille'}</span>
                     {/if}
                 </label>
             </li>
         {foreachelse}
             <li class="not-taille">
-                <span>{l s="Désolé nous sommes en rupture de stock, revenez plus tard" mod='tunnelvente'}</span>
+                <span>{l s="Désolé nous sommes en rupture de stock, revenez plus tard" d='Modules.Tunnelvente.Taille'}</span>
             </li>
         {/foreach}
     </ul>
@@ -39,7 +39,7 @@
     <div class="description">
         <div class="msg_info">
             {if $typetpl == "ecosapin"}
-                <h4 class="prev">{l s="Bigger? Choose Swiss Fir" mod='tunnelvente'}</h4>
+                <h4 class="prev">{l s="Bigger? Choose Swiss Fir" d='Modules.Tunnelvente.Taille'}</h4>
             {elseif $typetpl == "sapinsuisse"}
                 <script>
                     $(function ($) {
@@ -48,7 +48,7 @@
                 </script>
                 <a title="Contactez-nous" target="_blank"
                    href="{$urls.base_url}fr/contactez-nous">
-                    <h4>{l s="Even bigger, contact us" mod='tunnelvente'}</h4></a>
+                    <h4>{l s="Even bigger, contact us" d='Modules.Tunnelvente.Taille'}</h4></a>
             {/if}
         </div>
     </div>

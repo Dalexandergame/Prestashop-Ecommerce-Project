@@ -45,7 +45,7 @@
 {else}
 
 <form action="{$urls.base_url}module/tunnelvente/commande" id="form_accessoire" method="post">
-    <h4>{l s="Choisissez vos accessoires" mod='tunnelvente'}</h4>      
+    <h4>{l s="Choisissez vos accessoires" d='Modules.Tunnelvente.Accessoire'}</h4>      
    <ul>
    {foreach from=$products item=product}
        <li data-id="{$product.id_product}" >
@@ -55,12 +55,12 @@
    {/foreach}
        <li>
            <input type="radio" name="product" value="0"  id="noChoice" />
-           <label for="noChoice">{l s="Je ne souhaite pas d'accessoire"  mod='tunnelvente'}</label>
+           <label for="noChoice">{l s="Je ne souhaite pas d'accessoire"  d='Modules.Tunnelvente.Accessoire'}</label>
        </li>
    </ul>
     <div class="icon-tunnel">
         <div class="cercle_taille cercle"></div>
-        {*<h2>{l s="Choisissez vos accessoires" mod='tunnelvente'}</h2>*}
+        {*<h2>{l s="Choisissez vos accessoires" d='Modules.Tunnelvente.Accessoire'}</h2>*}
    </div> 
     <div class="clear"></div>
    <div class="description">
@@ -74,7 +74,7 @@
        <ul style="padding: 0 15px;float: right">
             <li data-id="0" >
                 <input type="submit" name="product" value="0"  id="product_0" />
-                <label for="product_0" class="passe-commande">{l s="Passer à la commande" mod='tunnelvente'}</label>
+                <label for="product_0" class="passe-commande">{l s="Passer à la commande" d='Modules.Tunnelvente.Accessoire'}</label>
             </li>
        </ul>
     </div>

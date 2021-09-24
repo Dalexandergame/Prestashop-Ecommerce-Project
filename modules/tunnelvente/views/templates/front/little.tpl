@@ -11,7 +11,7 @@
    </ul>
 <div class="icon-tunnel">
         <div class="cercle_taille cercle"></div>
-        {*<h2>{l s="Choisissez les accessoires de votre little ecosapin" mod='tunnelvente'}</h2>*}
+        {*<h2>{l s="Choisissez les accessoires de votre little ecosapin" d='Modules.Tunnelvente.Little'}</h2>*}
    </div> 
 <div class="clear"></div>
    <div class="description">

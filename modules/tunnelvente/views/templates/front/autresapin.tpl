@@ -1,24 +1,24 @@
 <form action="{$urls.base_url}module/tunnelvente/accesoire" id="form_autresapin" method="post">
-    <h4>{l s="Nouveau sapin" mod='tunnelvente'}</h4> 
+    <h4>{l s="Nouveau sapin" d='Modules.Tunnelvente.Autresapin'}</h4> 
     <ul>
          <li data-id="0" data-src="{$urls.base_url}modules/tunnelvente/images/resume.png">
             <input type="radio" name="autresapin" value="0" id="autresapin_0" />
-            <label for="autresapin_0">{l s="Non merci je souhaite confirmer et payer" mod='tunnelvente'}</label>
+            <label for="autresapin_0">{l s="Non merci je souhaite confirmer et payer" d='Modules.Tunnelvente.Autresapin'}</label>
         </li>
         <li data-id="1" data-src="{$urls.base_url}modules/tunnelvente/images/eco_new.png" >
             <input type="radio" name="autresapin" value="1" id="autresapin_1" checked="" />
-            <label for="autresapin_1">{l s="Je souhaite commander un autre sapin" mod='tunnelvente'}</label>
+            <label for="autresapin_1">{l s="Je souhaite commander un autre sapin" d='Modules.Tunnelvente.Autresapin'}</label>
         </li>
         <li data-id="2" data-src="{$urls.base_url}modules/tunnelvente/images/icon_little.png">
             <input type="radio" name="autresapin" value="2" id="autresapin_2" checked="" />
-            <label for="autresapin_2">{l s="Je souhaite commander un little sapin" mod='tunnelvente'}</label>
+            <label for="autresapin_2">{l s="Je souhaite commander un little sapin" d='Modules.Tunnelvente.Autresapin'}</label>
         </li>
     </ul>
     
     
     <div class="icon-tunnel">
         <div class="cercle_autresapin cercle"></div>
-        {*<h2>{l s="Nouveau sapin" mod='tunnelvente'}</h2>*}
+        {*<h2>{l s="Nouveau sapin" d='Modules.Tunnelvente.Autresapin'}</h2>*}
     </div> 
      
     <div class="btns_next_prev">
