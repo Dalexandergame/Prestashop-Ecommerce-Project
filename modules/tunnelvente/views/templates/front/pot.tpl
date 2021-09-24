@@ -29,7 +29,7 @@
 {else}
     <form action="{$urls.base_url}module/tunnelvente/autresapin" id="form_pot"
           method="post">
-        <h4>{l s="Choisissez le cahe pot" mod='tunnelvente'}</h4>
+        <h4>{l s="Choisissez le cahe pot" d='Modules.Tunnelvente.Pot'}</h4>
 
         <div class="list_pot">
             {foreach from=$result item=pot}
@@ -44,7 +44,7 @@
                 <span class="not-pot">
                 <input type="radio" name="pot" id="not_pot" class="radio_pot" checked="" data-price="0" value="0"
                        data-image="{$urls.base_url}modules/tunnelvente/images/pot/default-pot.png"/>
-                <label for="not_pot">{l s="Aucun pot disponible"  mod='tunnelvente'}</label>
+                <label for="not_pot">{l s="Aucun pot disponible"  d='Modules.Tunnelvente.Pot'}</label>
                 <img style="display: none;"
                      src="{$urls.base_url}modules/tunnelvente/images/pot/default-pot.png"/>
             </span>
@@ -54,7 +54,7 @@
                 <span class="not-pot">
                 <input type="radio" name="pot" id="not_pot" class="radio_pot" data-price="0" value="0"
                        data-image="{$urls.base_url}modules/tunnelvente/images/pot/default-pot.png"/>
-                <label for="not_pot">{l s="Je ne souhaite pas ajouter de cache pot"  mod='tunnelvente'}</label>
+                <label for="not_pot">{l s="Je ne souhaite pas ajouter de cache pot"  d='Modules.Tunnelvente.Pot'}</label>
                 <img style="display: none;"
                      src="{$urls.base_url}modules/tunnelvente/images/pot/default-pot.png"/>
             </span>

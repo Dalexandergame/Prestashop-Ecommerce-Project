@@ -16,7 +16,7 @@
     </ul>
     <div class="icon-tunnel">
         <div class="cercle_ch_essence cercle"></div>
-        {*<h2>{l s="Choisissez l'essence de votre sapin" mod='tunnelvente'}</h2> *}
+        {*<h2>{l s="Choisissez l'essence de votre sapin" d='Modules.Tunnelvente.Sapin'}</h2> *}
     </div>
     <div class="clear"></div>
     <div class="description">
@@ -29,7 +29,7 @@
     <div class="msg_info">
         <a title="Contactez-nous" target="_blank"
            href="{$urls.base_url}fr/contactez-nous">
-            <h4>{l s="Demande spéciale, contactez nous ici" mod='tunnelvente'}</h4></a>
+            <h4>{l s="Demande spéciale, contactez nous ici" d='Modules.Tunnelvente.Sapin'}</h4></a>
     </div>
     <div class="btns_next_prev">
         <button type="button" class="prev">prev</button>

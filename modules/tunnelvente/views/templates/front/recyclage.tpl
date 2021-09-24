@@ -1,6 +1,6 @@
 <form action="{$urls.base_url}module/tunnelvente/boule" id="form_recyclage"
       method="post">
-    <h4>{l s="Choisissez le type de recyclage" mod='tunnelvente'}</h4>
+    <h4>{l s="Choisissez le type de recyclage" d='Modules.Tunnelvente.Recyclage'}</h4>
     <ul>
         <li data-id="{$product.id}">
             <input type="radio" name="recyclage" data-price="{$product.price}" value="{$product.id}"
@@ -14,7 +14,7 @@
         <li data-id="0">
             <input type="radio" name="recyclage" data-sapinPrice="" data-price="0" value="0"
                    id="recyclage_0" {if isset($last_id_recyclage_checked) and 0 == $last_id_recyclage_checked} checked="checked" {/if} />
-            <label for="recyclage_0">{l s="Je m'occupe de le recycler moi même" mod='tunnelvente'}</label>
+            <label for="recyclage_0">{l s="Je m'occupe de le recycler moi même" d='Modules.Tunnelvente.Recyclage'}</label>
         </li>
     </ul>
     <div class="icon-tunnel">
@@ -27,7 +27,7 @@
             {$product.description nofilter}
         </div>
         <div class="description_0" style="display: none">
-            {l s="Texte Je m'occupe de le recycler moi même" mod='tunnelvente'}
+            {l s="Texte Je m'occupe de le recycler moi même" d='Modules.Tunnelvente.Recyclage'}
         </div>
     </div>
     <div class="btns_next_prev">

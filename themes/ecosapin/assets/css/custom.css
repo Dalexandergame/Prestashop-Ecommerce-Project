@@ -5,7 +5,7 @@
  #steps .step-desc #resp_content .description>div {
     margin-top: 0;
     padding: 8px 27px;
-    max-height: 28vh;
+    max-height: 15vh;
     color: #fff;
     clear: both;
     display: block;
@@ -514,11 +514,11 @@ body#checkout section.checkout-step .step-title {
 .product-line-grid-right.product-line-actions.col-md-5.col-xs-12 {
     padding-top: 30px;
 }
-
+/*
 #typesapain #resp_content {
     overflow: auto;
 }
-
+*/
 #order-items .details {
     margin-bottom: 1rem;
     margin-top: 7rem;
@@ -527,6 +527,10 @@ body#checkout section.checkout-step .step-title {
 #order-items .qty {
     margin-bottom: 1rem;
     margin-top: 7rem;
+}
+
+#cart .header-top {
+    display: none;
 }
 
 .cart_navigation .button-exclusive {
@@ -602,11 +606,11 @@ body#checkout section.checkout-step .step-title {
 }
 
 a:hover {
-    color: #5c8f16 !important;
+    color: #7bd073 !important;
 }
 
 .header-nav span:hover {
-    color: #5c8f16 !important;
+    color: #7bd073 !important;
 }
 
 .alert {
