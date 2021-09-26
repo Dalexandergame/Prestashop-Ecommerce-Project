@@ -66,19 +66,19 @@ class TunnelVente extends Module
             8 => 'accessoire',
         );
         //etape 1
-        $step1 = new Step($module->l('Configuration du sapin'));
+        $step1 = new Step($module->trans('Configuration du sapin', [], 'Modules.Tunnelvente.Blockleft'));
         $step1->addStepDetail(new StepDetail($module->l('NPA'), '#'));
         $step1->addStepDetail(new StepDetail($module->l('Choisissez le type'), "{$controllers[1]}"));
         $step1->addStepDetail(new StepDetail($module->l('Petit ou grand'), "{$controllers[2]}"));
         $step1->addStepDetail(new StepDetail($module->l('Choisissez le type de recyclage'), "{$controllers[4]}"));
 
         //etape 2
-        $step2 = new Step($module->l('Choix de la décoration'));
+        $step2 = new Step($module->trans('Choix de la décoration', [], 'Modules.Tunnelvente.Blockleft'));
         $step2->addStepDetail(new StepDetail($module->l('Choisissez les boules'), "{$controllers[5]}"));
         $step2->addStepDetail(new StepDetail($module->l('Choisissez les pots'), "{$controllers[6]}"));
 
         //etape 3
-        $step3 = new Step($module->l('Confirmation et accessoires'));
+        $step3 = new Step($module->trans('Confirmation et accessoires', [], 'Modules.Tunnelvente.Blockleft'));
         $step3->addStepDetail(new StepDetail($module->l('Confirmation de commande'), "{$controllers[6]}"));
         $step3->addStepDetail(new StepDetail($module->l('Choisissez les accessoires'), "{$controllers[7]}"));
 

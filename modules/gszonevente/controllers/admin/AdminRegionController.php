@@ -15,6 +15,14 @@ class AdminRegionController extends ModuleAdminController {
             return parent::l($string, $class, $addslashes, $htmlentities);
         }
     }
+
+    public function initContent()
+    {
+        if (Shop::isFeatureActive() && Shop::getContext() != Shop::CONTEXT_SHOP) {
+            $this->errors[] = $this->l('You must select a specific shop in order to continue.');
+        }
+        parent::initContent();
+    }
     
     public function __construct() {
         $this->table = 'gszonevente_region';
@@ -23,7 +31,7 @@ class AdminRegionController extends ModuleAdminController {
 
         $this->bootstrap = true;
         $this->context = Context::getContext();
-//        $this->lang = true;
+        $this->shopLinkType = 'shop';
         $this->fields_list = array(
             'id_gszonevente_region' => array(
                 'title' => 'Id'

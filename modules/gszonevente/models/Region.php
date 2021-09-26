@@ -6,7 +6,8 @@ class Region extends ObjectModel {
     public $name;
     public $id_carrier;
     public $id_country;
-    
+    public $id_shop;
+
 
     /**
      * @see ObjectModel::$definition
@@ -17,6 +18,7 @@ class Region extends ObjectModel {
 //        'multilang' => false,
         'fields' => array(
             'id_gszonevente_region' => array('type' => self::TYPE_INT, 'validate' => 'isunsignedInt'),
+            'id_shop' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId'],
             'name' => array('type' => self::TYPE_STRING, 'lang' => false, 'validate' => 'isGenericName', 'required' => true,),
             'id_carrier' => array('type' => self::TYPE_INT, 'lang' => false, 'validate' => 'isInt', 'required' => true,),
             'id_country' => array('type' => self::TYPE_INT, 'lang' => false, 'validate' => 'isInt', 'required' => true,),
@@ -27,6 +29,15 @@ class Region extends ObjectModel {
         $return = parent::save($null_values, $autodate);
         $this->id_gszonevente_region = $this->id;
         return $return;
+    }
+
+    public function add($autoDate = true, $nullValues = false)
+    {
+        if (!$this->id_shop) {
+            $this->id_shop = Context::getContext()->shop->id;
+        }
+
+        return parent::add($autoDate, $nullValues);
     }
     
     public static function getRegions(){

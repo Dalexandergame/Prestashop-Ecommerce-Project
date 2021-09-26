@@ -1,6 +1,6 @@
 <form action="{$urls.base_url}module/tunnelvente/recyclage" id="form_pied"
       method="post">
-    <h4>{l s="Choisissez le type de pied" mod='tunnelvente'}</h4>
+    <h4>{l s="Choisissez le type de pied" d='Modules.Tunnelvente.Pied'}</h4>
     <ul>
         {foreach from=$result item=pied}
             <li>
@@ -18,7 +18,7 @@
                        data-price="{$default_product_attribut.price_ttc}"
                        value="{$default_product_attribut.id_product_attribute}"
                        data-image="{$urls.base_url}modules/tunnelvente/images/pied/default-vide.png"/>
-                <label for="not_pied">{l s="J'ai déjà un pied pour mon sapin"  mod='tunnelvente'}</label>
+                <label for="not_pied">{l s="J'ai déjà un pied pour mon sapin"  d='Modules.Tunnelvente.Pied'}</label>
             </li>
         {/if}
     </ul>

@@ -23,8 +23,8 @@
 }
 
 #block_top_menu {
-    left: 42px;
-    width: auto;
+    left: -22px;
+    width: max-content;
     padding: 0;
     top: 47px;
 }
@@ -150,4 +150,203 @@ span.expand-more {
 
 #_desktop_cart .blockcart.cart-preview.inactive {
     background-color: transparent;
+}
+
+a:hover {
+    color: #eae9e7 !important;
+}
+
+.header-nav span:hover {
+    color: #eae9e7 !important;
+}
+
+select.form-control:not([size]):not([multiple]){
+    height:65px
+}
+
+.qualite, .qualites-tunnel {
+    border-radius: 5px;
+}
+
+#typesapain #columns {
+    padding-bottom: 0em;
+    padding-top: 0em;
+}
+
+#typesapain .form-control {
+    border-radius: 5px;
+}
+
+#typesapain .row {
+    margin-left: -84px;
+    margin-right: -84px;
+}
+
+.btn-new-dark-green {
+    padding: 32px 15px 32px 10px;
+}
+
+.btn-new-light-green {
+    font-size: 22px;
+}
+
+.btn-new-layout .des {
+    font-size: 18px;
+    vertical-align: top;
+}
+
+#steps .step-desc #resp_content form {
+    margin-right: 30px;
+}
+
+.agriculteur-details {
+    border-radius: 5px;
+    padding-bottom: 18px;
+}
+
+.agriculteur-details .transporteur-img {
+    margin-bottom: 17px;
+}
+
+.list-tunnel li {
+    margin-top: 13px;
+    border-radius: 5px;
+    width: 75%;
+}
+
+#steps .step-desc #resp_content form>div {
+    justify-content: center;
+}
+
+.attribute-img-description {
+    padding-top: 15px;
+}
+
+.container-recyclage {
+    width: 100%;
+    margin-left: 0% !important;
+}
+
+body#checkout #cart-summary-product-list img {
+    /*border: 1px solid #0a0a0a;*/
+    width: 13rem;
+}
+
+.cart-summary-line .value {
+    color: #1d5202;
+    font-family: "Source Sans Pro";
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    float: right;
+}
+
+.cart-grid-body .card-block {
+    padding: 2rem;
+}
+
+#cart .card, #checkout .card {
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 20%) ;
+}
+
+#cart .header-container.img-header {
+    display: none;
+}
+
+.product-price {
+    color: #1d5202;
+    font-family: "Source Sans Pro";
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.label {
+    color: #585858;
+}
+
+.prod_qty {
+    color: #505050;
+    font-family: "Source Sans Pro";
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.product-name {
+    color: #505050;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+body#checkout section.checkout-step .carrier-name {
+    font-size: inherit;
+}
+
+body#checkout section.checkout-step .delivery-options .delivery-option label .carrier:not(.carrier-hasLogo)>.col-xs-12 {
+    padding-left: calc(10%);
+}
+
+body#checkout section.checkout-step .delivery-options>.delivery-option {
+    border: .1rem solid #5c8f16;
+    border-radius: 5px;
+}
+
+body#checkout a:hover, body#checkout a {
+    color: #5c8f16;
+}
+
+body#checkout section.checkout-step .forgot-password {
+    margin-left: 28.38rem;
+}
+
+body#checkout section.checkout-step {
+    box-shadow: 2px 2px 8px 0 #5c8f16;
+    border-bottom: 1px solid #5c8f16;
+    border-radius: 5px;
+    background: #eae9e7;
+}
+
+body#checkout section.checkout-step .step-title {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 600;
+    text-transform: none;
+    color: #5c8f16;
+    font-size: 26px;
+    padding-bottom: 15px;
+    line-height: normal;
+    margin-bottom: 12px;
+}
+
+.form-control {
+    max-width: 100% !important;
+    height: 44px;
+    background-color: white;
+    border: 1px solid #a3c272;
+    border-radius: 3px;
+    text-indent: 30px;
+}
+
+.input-group .input-group-btn>.btn[data-action=show-password] {
+    background: #7a7a7a;
+    padding: 1.69rem 1rem;
+    margin-left: 5px;
+}
+
+.custom-radio input[type=radio]:checked+span {
+    background-color: #5c8f16;
+    left: .2rem;
+    top: .2rem;
+}
+
+textarea {
+    border: .1rem solid #5c8f16;
+}
+
+.alert {
+    font-size: 1.3rem;
 }

@@ -1,5 +1,5 @@
 <form action="{$urls.base_url}module/tunnelvente/pot" id="form_boule" method="post">
-    <h4>{l s="Choisissez le type de décoration" mod='tunnelvente'}</h4>
+    <h4>{l s="Choisissez le type de décoration" d='Modules.Tunnelvente.Boule'}</h4>
     <div class="left-step1">
         <div class="list_boule">
             {foreach from=$result item=boule}
@@ -15,19 +15,19 @@
                 <span class="boule">
                 <input style="display: none;" type="radio" name="boule" class="radio_boule" value="0" checked
                        data-price="0"/>
-                {l s="Aucune décoration disponible"  mod='tunnelvente'}
+                {l s="Aucune décoration disponible"  d='Modules.Tunnelvente.Boule'}
             </span>
                 <img class="eco_img" style="display: none;"
-                     src="{$urls.base_url}module/tunnelvente/views/img/bg-default-white.png"/>
+                     src="{$urls.base_url}modules/tunnelvente/views/img/bg-default-white.png"/>
             {/foreach}
         </div>
         {if count($result)}
             <ul>
                 <li data-id="0">
                     <input type="radio" data-price="0" name="boule" value="0" id="boule_0"/>
-                    <label for="boule_0">{l s="Non merci j'ai mes propres boule" mod='tunnelvente'}</label>
+                    <label for="boule_0">{l s="Non merci j'ai mes propres boule" d='Modules.Tunnelvente.Boule'}</label>
                     <img class="eco_img" style="display: none;"
-                         src="{$urls.base_url}module/tunnelvente/views/img/bg-default-white.png"/>
+                         src="{$urls.base_url}modules/tunnelvente/views/img/bg-default-white.png"/>
                 </li>
             </ul>
         {/if}
@@ -35,7 +35,7 @@
 
     <div class="icon-tunnel">
         <div class="cercle_ch_boule cercle"></div>
-        {*<h2>{l s="Choisissez le type de décoration" mod='tunnelvente'}</h2>*}
+        {*<h2>{l s="Choisissez le type de décoration" d='Modules.Tunnelvente.Boule'}</h2>*}
     </div>
     <div class="clear"></div>
     <div class="description">

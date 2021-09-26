@@ -7,29 +7,29 @@
         </style>
     {/literal}
     <div class="alert alert-danger">
-        {l s="Vous n'avez pas activé javascript. Merci de l'activer." mod='tunnelvente'}
+        {l s="Vous n'avez pas activé javascript. Merci de l'activer." d='Modules.Tunnelvente.Npa'}
     </div>
 </noscript>
 {if $isTunnelEnabled}
 <form action="{$urls.base_url}module/tunnelvente/type"
       class="form_npa noscript-form-container" method="post">
-    <h4>{l s="Enter the NPA" mod='tunnelvente'}</h4>
+    <h4>{l s="Enter the NPA" d='Modules.Tunnelvente.Npa'}</h4>
     <div class="npa-wrap">
         <input type="text" class="input_npa" maxlength="4" name="npa" placeholder="####" {if $hasSapin } readonly {/if}
                value="{if isset($npa)}{$npa}{/if}">
         {*<input  type="number" minlength="4" required class="input_npa" maxlength="4" name="npa" placeholder="####" value="{if isset($npa)}{$npa}{/if}">*}
-        <button type="submit">{l s="Valider" mod='tunnelvente'}</button>
+        <button type="submit">{l s="Valider" d='Modules.Tunnelvente.Npa'}</button>
     </div>
     <div class="icon-tunnel">
         <div class="cercle_npa cercle"></div>
     </div>
     <br/>
     <p>
-        {l s="Indicate the NPA or you want to have your ecosapin delivered" mod='tunnelvente'}
+        {l s="Indicate the NPA or you want to have your ecosapin delivered" d='Modules.Tunnelvente.Npa'}
         <br/><br/>
-        {l s="In Switzerland, the numbers consist of" mod='tunnelvente'} <span
-                class="text-npa"><strong>{l s="four digits" mod='tunnelvente'}</strong>,
-    {l s="a locality has its own NPA, for example:" mod='tunnelvente'} <strong>{l s="1052" mod='tunnelvente'}</strong> {l s="for the Mot-sur-lausanne" mod='tunnelvente'}</span>
+        {l s="In Switzerland, the numbers consist of" d='Modules.Tunnelvente.Npa'} <span
+                class="text-npa"><strong>{l s="four digits" d='Modules.Tunnelvente.Npa'}</strong>,
+    {l s="a locality has its own NPA, for example:" d='Modules.Tunnelvente.Npa'} <strong>{l s="1052" d='Modules.Tunnelvente.Npa'}</strong> {l s="for the Mot-sur-lausanne" d='Modules.Tunnelvente.Npa'}</span>
     </p>
 
     <div class="btns_next_prev">
@@ -40,7 +40,7 @@
 {else}
     <div class="container">
         <h4 style="color: red;">
-            {l s="La réservation de votre Ecosapin sera possible dès le vendredi 18 octobre. A bientôt" mod='tunnelvente'}
+            {l s="La réservation de votre Ecosapin sera possible dès le vendredi 18 octobre. A bientôt" d='Modules.Tunnelvente.Npa'}
         </h4>
     </div>
 {/if}

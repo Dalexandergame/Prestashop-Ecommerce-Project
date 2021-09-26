@@ -18,7 +18,7 @@
                 {l s="Aucune décoration disponible"  mod='tunnelventeabies'}
             </span>
                 <img class="eco_img" style="display: none;"
-                     src="{$urls.base_url}module/tunnelventeabies/views/img/bg-default-white.png"/>
+                     src="{$urls.base_url}modules/tunnelventeabies/views/img/bg-default-white.png"/>
             {/foreach}
         </div>
         {if count($result)}
@@ -27,7 +27,7 @@
                     <input type="radio" data-price="0" name="boule" value="0" id="boule_0"/>
                     <label for="boule_0">{l s="Non merci j'ai mes propres boule" mod='tunnelventeabies'}</label>
                     <img class="eco_img" style="display: none;"
-                         src="{$urls.base_url}module/tunnelventeabies/views/img/bg-default-white.png"/>
+                         src="{$urls.base_url}modules/tunnelventeabies/views/img/bg-default-white.png"/>
                 </li>
             </ul>
         {/if}

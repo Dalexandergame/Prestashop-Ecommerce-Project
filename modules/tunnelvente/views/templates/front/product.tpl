@@ -19,7 +19,7 @@
 </p>
 <div class="image">
     {if $myLittelEcosapin}
-        <p class="text-arrow-descp">{l s="Cliquez sur les flêches pour choisir la déco et la couleur du pot" mod='tunnelvente'}</p>
+        <p class="text-arrow-descp">{l s="Cliquez sur les flêches pour choisir la déco et la couleur du pot" d='Modules.Tunnelvente.Product'}</p>
         <div class="plus_infos">
             <div class="deco text-center">
                 <span>{l s='Décoration'}</span>
@@ -33,7 +33,7 @@
     <div id="image-block" class="clearfix">
             {if $product->new}
                     <span class="new-box">
-                            <span class="new-label">{l s='New' mod='tunnelvente'}</span>
+                            <span class="new-label">{l s='New' d='Modules.Tunnelvente.Product'}</span>
                     </span>
             {/if}
            
@@ -64,7 +64,7 @@
     {if $myLittelEcosapin}
         <div class="plus_infos">                                        
             <div class="pot text-center">
-                <span>{l s='Couleur de pot' mod='tunnelvente'}</span>
+                <span>{l s='Couleur de pot' d='Modules.Tunnelvente.Product'}</span>
                 <span class="name"></span>
             </div>                                        
         </div>
@@ -200,7 +200,7 @@
         <div{if (!$allow_oosp && $product->quantity <= 0) || !$product->available_for_order || (isset($restricted_country_mode) && $restricted_country_mode) || $configuration.catalog_mode} class="unvisible"{/if}>
                 <p id="add_to_cart" class="buttons_bottom_block no-print">
                         <button type="submit" name="Submit" class="exclusive">
-                                <span>{if $content_only && (isset($product->customization_required) && $product->customization_required)}{l s='Customize' mod='tunnelvente'}{else}{l s='Add to cart' mod='tunnelvente'}{/if}</span>
+                                <span>{if $content_only && (isset($product->customization_required) && $product->customization_required)}{l s='Customize' d='Modules.Tunnelvente.Product'}{else}{l s='Add to cart' d='Modules.Tunnelvente.Product'}{/if}</span>
                         </button>
                 </p>
         </div>
@@ -278,7 +278,7 @@
         {/if}
 </div> <!-- end product_attributes -->
 
-<sapn class="text_p_contractuelle">{l s='Photo non contractuelle' mod='tunnelvente'}</sapn>
+<sapn class="text_p_contractuelle">{l s='Photo non contractuelle' d='Modules.Tunnelvente.Product'}</sapn>
 
 {if $myLittelEcosapin}
 <script type="text/javascript">

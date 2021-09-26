@@ -92,6 +92,10 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
                     }
                 } elseif ($field === 'phone') {
                     $formField->setType('tel');
+                } elseif ($field === 'phone_mobile') {
+                    $formField->setType('tel');
+                } elseif ($field === 'receive_sms') {
+                    $formField->setType('checkbox');
                 } elseif ($field === 'dni' && null !== $this->country) {
                     if ($this->country->need_identification_number) {
                         $formField->setRequired(true);
@@ -227,6 +231,8 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
                 return $this->translator->trans('Company', [], 'Shop.Forms.Labels');
             case 'vat_number':
                 return $this->translator->trans('VAT number', [], 'Shop.Forms.Labels');
+            case 'receive_sms':
+                return $this->translator->trans('Receive Sms', [], 'Shop.Forms.Labels');
             case 'dni':
                 return $this->translator->trans('Identification number', [], 'Shop.Forms.Labels');
             case 'other':
