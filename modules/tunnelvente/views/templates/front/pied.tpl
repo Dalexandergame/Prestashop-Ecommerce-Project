@@ -30,7 +30,7 @@
     {if strlen($product->description)}
         <div class="description">
             <div>
-                {$product->description}
+                {$product->description nofilter}
             </div>
         </div>
     {/if}

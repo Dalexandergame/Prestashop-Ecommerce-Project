@@ -191,7 +191,7 @@ class TunnelVenteRecyclageModuleFrontController extends TunnelVenteBouleModuleFr
 
         $get_type_sql = "SELECT cl.name FROM ps_category_lang cl
         join ps_product p on cl.id_category = p.id_category_default
-        where id_product = '" . $product_info['id_product'] . "' and cl.id_lang = $lang";
+        where id_product = '" . $product_info['id_product'] . "' and cl.id_lang = $lang and id_shop = '". Context::getContext()->shop->id."'";
 
         $type = Db::getInstance()->getValue($get_type_sql);
 
