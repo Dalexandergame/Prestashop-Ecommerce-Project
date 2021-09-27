@@ -16,6 +16,9 @@ require_once _PS_MODULE_DIR_ . '/suivicommandes/classes/pdf/HTMLTemplateFichePdf
 
 class AdminSuiviCommandesController extends ModuleAdminController
 {
+
+    public    $id_product_abies = 115; //My Sapin Abies
+    public    $id_shop = 1; //Ecosapin
     public    $dateLivraison       = NULL;
     public    $warehouse_selected  = NULL;
     protected $position_identifier = 'id_suivi_orders';
@@ -30,7 +33,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
         $this->context->cookie->__set('warehouse_selected', implode(",", $this->warehouse_selected));
     }
 
-    
     protected function l($string, $class = null, $addslashes = false, $htmlentities = true)
     {
         if ( _PS_VERSION_ >= '1.7') {
@@ -93,6 +95,10 @@ class AdminSuiviCommandesController extends ModuleAdminController
         );
 
         $this->context = Context::getContext();
+        $this->id_shop = $this->context->shop->id;
+
+        parent::__construct();
+
 
         if (!$this->osmkey || empty($this->osmkey)) {
             $this->alertmsg .= "Veuillez configurer la clé de l'API OSM! <br> ";
@@ -113,16 +119,21 @@ class AdminSuiviCommandesController extends ModuleAdminController
             $this->setParams($this->context->cookie->datepickerDatelivraison, explode(",", $this->context->cookie->warehouse_selected));
         }
 
-        //TODO how isRetour is defined needs to be changed
+        $today = new \DateTime("now");
+        $year  = $today->format("Y");
+        $month = $today->format("m");
+
+        // années d'acivité actuel
+        $dateRetourStart = $month > 6 ? (intval($year) + 1) . "-01-01" : "$year-01-01";
+
         //check if delivery or retour
         $date1          = date_create($this->dateLivraison);
-        $date2          = date_create("2019-01-01");
+        $date2          = date_create($dateRetourStart);
         $this->isRetour = date_diff($date1, $date2)->invert == 1 ? true : false;
-        // d($this->isRetour ? 'true' : 'false');
 
         if (($this->dateLivraison != null) && ($this->warehouse_selected != null)) {
             if (Tools::isSubmit('submitImport')) {
-                if ($this->warehouse_selected[0] != $this->id_carrier_post) {
+                if ($this->warehouse_selected[0] != $this->id_carrier_post."_p") {
                     $this->importCommandes();
                 } else {
                     $this->importCommandesPoste();
@@ -140,10 +151,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
             }
         }
 
-        /**
-         * Pulse
-         * By: Abdelhafid El kadiri
-         */
         //this removes the suffix _p from the Post id, selected from the front office
         $temp_warehouse_selected = [];
         foreach ($this->warehouse_selected as $warehouse_selected) {
@@ -167,17 +174,18 @@ class AdminSuiviCommandesController extends ModuleAdminController
             . 'a.recovered as recovered, ';
 
         $position = $this->isRetour
-            ? "IFNULL(a.position_retour,0) as position_new,a.position_retour as `position_retour`,"
-            : "IFNULL(a.position,0) as position_new,a.position as `position`,";
+            ? "CONCAT(car.name, LPAD(a.position_retour, 3, 0)) as position, " .
+              "IFNULL(a.position_retour,0) as position_new, a.position_retour as `position_retour`,"
+            : "CONCAT(ca.name, LPAD(a.position, 3, 0)) as position, " .
+              "IFNULL(a.position,0) as position_new, a.position as `real_position`,";
 
 
         $this->_select .= $position;
 
         $this->_join  .= ' JOIN ' . _DB_PREFIX_ . 'carrier ca ON (ca.id_carrier = a.id_carrier)'
-            . ' LEFT JOIN ' . _DB_PREFIX_ . 'carrier car ON (car.id_carrier = a.id_carrier_retour)'
-            . ' LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (a.id_order = o.id_order) '
-            . ' LEFT JOIN ' . _DB_PREFIX_ . 'address adr ON (adr.id_address = o.id_address_delivery) ';
-        //Comment
+                         . ' LEFT JOIN ' . _DB_PREFIX_ . 'carrier car ON (car.id_carrier = a.id_carrier_retour)'
+                         . ' LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (a.id_order = o.id_order) '
+                         . ' LEFT JOIN ' . _DB_PREFIX_ . 'address adr ON (adr.id_address = o.id_address_delivery) ';
         $this->_where = 'AND (datediff(a.date_delivery,"' . $this->dateLivraison . '")=0 OR datediff(a.date_retour,"' . $this->dateLivraison . '")=0) AND ';
         if ($this->warehouse_selected[0] == $this->id_carrier_post . '_p') {
             $this->_where .= ' a.id_carrier = ' . $this->id_carrier_post;
@@ -185,26 +193,23 @@ class AdminSuiviCommandesController extends ModuleAdminController
             $this->_where .= ' a.id_carrier != ' . $this->id_carrier_post . ' AND a.id_warehouse IN ' . "(" . implode(",", $temp_warehouse_selected) . ")";
         }
 
-        $this->byPassOrderByValidation = true;
-        $this->_defaultOrderBy         = 'orderable_carrier_name';
-        $this->_defaultOrderBy         .= ($this->isRetour ? ', a.position_retour' : ', a.position');
-        $this->_defaultOrderWay        = 'asc';
+        $this->_defaultOrderBy = 'position';
 
         if ($this->isRetour) {
             $position_field = [
                 'position_retour' => array(
-                    'title'           => $this->l('Position retour'),
-                    'filter_key'      => 'a!position_retour',
-                    'position_retour' => 'position_retour',
-                    'align'           => 'center'
+                    'title'      => $this->l('Position retour'),
+                    'filter_key' => 'a!position_retour',
+                    'position'   => 'real_position',
+                    'align'      => 'center'
                 )
             ];
         } else {
             $position_field = [
-                'position' => array(
+                'real_position' => array(
                     'title'      => $this->l('Position'),
                     'filter_key' => 'a!position',
-                    'position'   => 'position',
+                    'position'   => 'real_position',
                     'align'      => 'center'
                 )
             ];
@@ -275,8 +280,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
         );
 
         $this->fields_list = array_merge($position_field, $fields_list);
-
-        parent::__construct();
     }
 
 
@@ -621,17 +624,16 @@ class AdminSuiviCommandesController extends ModuleAdminController
             if ($this->context->cookie->profile != $this->carrier_profil_id) {
                 if (!($this->fields_list && is_array($this->fields_list)))
                     return false;
-               // $this->getList($this->context->language->id, null, null, 0, false, false);
+                $this->getList($this->context->language->id, null, null, 0, false, false);
 
-                $helper = new HelperList();
+                $helper                          = new HelperList();
                 $helper->force_show_bulk_actions = true;
 
                 $this->setHelperDisplay($helper);
-                //false to display header
-                $helper->simple_header = false;
+                $helper->simple_header = true;
 
                 $list = $helper->generateList($this->_list, $this->fields_list);
-        
+
                 $assign = array(
                     "warehouses"    => $this->setSelectWarehouses(),
                     "dateLivraison" => $this->dateLivraison,
@@ -697,7 +699,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
     public function getWarehouseIds()
     {
         $res        = array();
-    //    $warehouses = Store::getStores($this->context->language->id);
         $warehouses = WarehouseCore::getWarehouses();
         foreach ($warehouses as $warehouse) {
             array_push($res, $warehouse['id_warehouse']);
@@ -708,8 +709,8 @@ class AdminSuiviCommandesController extends ModuleAdminController
     public function setSelectWarehouses()
     {
         $res        = array();
-    //    $warehouses = Store::getStores($this->context->language->id);
         $warehouses = WarehouseCore::getWarehouses();
+
         $res[] = array(
             'id'       => 0,
             'name'     => ' - All Warehouses- ',
@@ -726,7 +727,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
         $res[] = array(
             'id'       => $this->id_carrier_post . '_p',
             'name'     => "La Poste",
-            'selected' => count($warehouses) != count($this->warehouse_selected) && in_array($this->id_carrier_post, $this->warehouse_selected) ? '' : ''
+            'selected' => count($warehouses) != count($this->warehouse_selected) && in_array($this->id_carrier_post."_p", $this->warehouse_selected) ? '' : ''
         );
 
         $res[] = array(
@@ -745,8 +746,8 @@ class AdminSuiviCommandesController extends ModuleAdminController
         $w = "(" . implode(",", $this->warehouse_selected) . ")";
 
         $where = " (datediff(pd.date_delivery,'" . $this->dateLivraison . "')=0 "
-            . "OR datediff(pd.date_retour,'" . $this->dateLivraison . "')=0) "
-            . "AND d.id_warehouse IN " . $w;
+                 . "OR datediff(pd.date_retour,'" . $this->dateLivraison . "')=0) "
+                 . "AND d.id_warehouse IN " . $w;
 
         $id_lang = 2; //FR
         //Import suivi_orders
@@ -759,11 +760,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
                     LEFT JOIN " . _DB_PREFIX_ . "customer_thread as ct ON o.id_order = ct.id_order 
                     LEFT JOIN " . _DB_PREFIX_ . "planning_delivery_carrier as pd ON pd.id_order in (select o2.id_order from ps_orders o2 where o2.reference = o.reference) 
                     LEFT JOIN " . _DB_PREFIX_ . "customer_message as cm ON ct.id_customer_thread = cm.id_customer_thread WHERE o.is_imported=0 AND o.id_carrier != " . $this->id_carrier_post . " AND " . $where . " GROUP BY o.id_order";
-
-        //Mettre le flag imported
-//            $sql2 ="UPDATE "._DB_PREFIX_."orders SET is_imported=1 WHERE o.id_carrier != ".$this->id_carrier_post." && id_order IN "
-//                    . "(SELECT d.id_order FROM "._DB_PREFIX_."order_detail d "
-//                    . "JOIN "._DB_PREFIX_."planning_delivery_carrier as pd ON d.id_order = pd.id_order WHERE".$where." )";
 
         $sql2 = "UPDATE " . _DB_PREFIX_ . "orders as o
             INNER JOIN " . _DB_PREFIX_ . "suivi_orders as so ON o.id_order = so.id_order
@@ -812,20 +808,24 @@ class AdminSuiviCommandesController extends ModuleAdminController
     {
         $sql1 = "SELECT id_suivi_orders,id_order
                    FROM " . _DB_PREFIX_ . "suivi_orders
-                   WHERE to_translate=1";
+                   WHERE to_translate=1
+                   AND id_order is not null";
 
         $result = Db::getInstance()->ExecuteS($sql1);
 
         foreach ($result as $res) {
 
             $commande = NULL;
-            $sql2     = "SELECT pl.name,pac.id_attribute,d.product_quantity
-                    FROM " . _DB_PREFIX_ . "orders as o 
+            $sql2     = "SELECT pl.name,pac.id_attribute,a.id_attribute_group,d.product_quantity,d.product_id
+                    FROM " . _DB_PREFIX_ . "orders as o
                     JOIN " . _DB_PREFIX_ . "order_detail as d ON o.id_order = d.id_order
                     JOIN " . _DB_PREFIX_ . "product_lang as pl ON d.product_id = pl.id_product
                     LEFT JOIN " . _DB_PREFIX_ . "product_attribute_combination as pac ON d.product_attribute_id = pac.id_product_attribute 
+                    LEFT JOIN " . _DB_PREFIX_ . "attribute as a ON pac.id_attribute = a.id_attribute
                     WHERE o.id_order = " . $res["id_order"] . "
-                    AND pl.id_lang = " . $id_lang;
+                    AND pl.id_lang = " . $id_lang . "
+                    AND pl.id_shop = " . $this->id_shop . "
+                    ORDER BY pl.name, a.id_attribute_group";
 
             $attributes = Db::getInstance()->ExecuteS($sql2);
 
@@ -842,9 +842,11 @@ class AdminSuiviCommandesController extends ModuleAdminController
                 $translated_attributes = Db::getInstance()->ExecuteS($sql3);
 
 
-                $commande .= $att["name"] .
-                    ((isset($translated_attributes[0]['att1']) && $translated_attributes[0]['att1'] != null) ? ' - ' . $translated_attributes[0]['att1'] : '') .
-                    ((isset($translated_attributes[0]['att2']) && $translated_attributes[0]['att2'] != null) ? ' : ' . $translated_attributes[0]['att2'] : '') . ' X' . $att["product_quantity"] . ',';
+                $commande .= (in_array($att["id_attribute_group"], [12, 13]) && $att["product_id"] == $this->id_product_abies? '' : $att["name"]) .
+                             ((isset($translated_attributes[0]['att1']) && $translated_attributes[0]['att1'] != null) ? ' - ' . $translated_attributes[0]['att1'] : '') .
+                             ((isset($translated_attributes[0]['att2']) && $translated_attributes[0]['att2'] != null) ? ' : ' . $translated_attributes[0]['att2'] : '') .
+                             ' X' . $att["product_quantity"] .
+                             (in_array($att["id_attribute_group"], [1, 12]) && $att["product_id"] == $this->id_product_abies ? '' : ',');
 
             }
 
@@ -865,8 +867,8 @@ class AdminSuiviCommandesController extends ModuleAdminController
         $w = "(" . implode(",", $this->warehouse_selected) . ")";
 
         $where = "WHERE (datediff(so.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(so.date_retour,'" . $this->dateLivraison . "')=0) "
-            . "AND so.id_warehouse IN " . $w . " "
-            . "AND so.id_carrier != $this->id_carrier_post ";
+                 . "AND so.id_warehouse IN " . $w . " "
+                 . "AND so.id_carrier != $this->id_carrier_post ";
 
         $sql1 = "SELECT count(*) as ncmd,
                     IF( datediff(so.date_delivery,'" . $this->dateLivraison . "')=0, so.id_carrier, so.id_carrier_retour) as id_carrier,
@@ -915,9 +917,9 @@ class AdminSuiviCommandesController extends ModuleAdminController
         $id_lang = 2;
         $w       = "(" . implode(",", $this->warehouse_selected) . ")";
 
-        $where = " WHERE o.is_imported=1 AND (datediff(so.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(so.date_retour,'" . $this->dateLivraison . "')=0) ";
+        $where = " WHERE o.is_imported=1 AND (datediff(pd.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(pd.date_retour,'" . $this->dateLivraison . "')=0) ";
 
-        if ($this->warehouse_selected[0] == $this->id_carrier_post) {
+        if ($this->warehouse_selected[0] == $this->id_carrier_post."_p") {
             $where .= 'AND so.id_carrier = ' . $this->id_carrier_post;
         } else {
             $where .= "AND d.id_warehouse IN " . $w;
@@ -1301,10 +1303,6 @@ order by `name` asc
         return NULL;
     }
 
-    /**
-     * AdminSuiviCommandesController constructor.
-     * @throws PrestaShopException
-    */
     public function getOSMRequest($idw = NULL, $order = "")
     {
         if (!$idw) {
@@ -1313,8 +1311,7 @@ order by `name` asc
         } else {
             $where = "o.id_warehouse = " . $idw;
         }
-        
-        //todo after configuring the SAM module
+
         $sql = "SELECT o.id_suivi_orders,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, o.id_carrier, o.id_carrier_retour) as id_carrier,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, ca.name, car.name) AS carrier_name,
@@ -1334,13 +1331,9 @@ order by `name` asc
         return $res;
     }
 
-    /**
-     * AdminSuiviCommandesController constructor.
-     * @throws PrestaShopException
-    */
     public function getWarehouseAddressStart($idw)
     {
-        //todo after configuring the SAM module
+
         $sql = "SELECT CONCAT(a.address1,' ',a.postcode,' ',a.city) as addresswh
                 FROM " . _DB_PREFIX_ . "warehouse as w
                 JOIN " . _DB_PREFIX_ . "address as a ON w.id_address = a.id_address
@@ -1350,10 +1343,6 @@ order by `name` asc
         return $res;
     }
 
-    /**
-     * AdminSuiviCommandesController constructor.
-     * @throws PrestaShopException
-    */
     public function ordonnerOSM()
     {
 
@@ -1391,7 +1380,7 @@ order by `name` asc
                 }
                 // tour=open donc on met le point de départ comme arrivée aussi
                 $listPoints .= $latlngStartPoint["lat"] . ',' . $latlngStartPoint["long"];
-                
+
                 if ($i >= 3) {
                     $i++;
                     $url = "http://maps.open-street.fr/api/tsp/?pts=" . $listPoints . "&nb=" . $i . "&mode=driving&unit=m&tour=open&key=" . $this->osmkey;
@@ -1455,10 +1444,6 @@ order by `name` asc
         return false;
     }
 
-    /**
-     * AdminSuiviCommandesController constructor.
-     * @throws PrestaShopException
-    */    
     public function getMap()
     {
         if ($this->isRetour) {
@@ -1602,25 +1587,23 @@ order by `name` asc
 
     public function ajaxProcessUpdatePositions()
     {
-        $way             = (int) Tools::getValue('way');
-        $id_suivi_orders = (int) Tools::getValue('id');
+        $id_suivi_orders = (int)Tools::getValue('id');
         $positions       = Tools::getValue('suivi_orders');
+        $field           = $this->isRetour? "position_retour": "position";
 
         if (is_array($positions)) {
             foreach ($positions as $position => $value) {
+                $pos   = explode('_', $value);
 
-                $pos = explode('_', $value);
-
-                // if (isset($position) && $suivi_orders->updatePosition($way, $position, $id_suivi_orders)){
                 $update_position_sql = "
-                       UPDATE ps_suivi_orders set position = $position
+                       UPDATE ps_suivi_orders set $field = $position
                        WHERE id_suivi_orders = {$pos[2]}
                     ";
-                echo $update_position_sql . " => " . $pos[3];
+                echo $update_position_sql . " => ";
                 if (isset($position) && Db::getInstance()->execute($update_position_sql))
-                    echo 'ok position ' . (int) $position . ' for id ' . (int) $pos[1] . '\r\n';
+                    echo 'ok position ' . (int)$position . ' for id ' . (int)$pos[2] . '\r\n';
                 else
-                    echo '{"hasError" : true, "errors" : "Can not update id ' . (int) $id_suivi_orders . ' to position ' . (int) $position . ' "}';
+                    echo '{"hasError" : true, "errors" : "Can not update id ' . (int)$id_suivi_orders . ' to position ' . (int)$position . ' "}';
 
             }
         }
