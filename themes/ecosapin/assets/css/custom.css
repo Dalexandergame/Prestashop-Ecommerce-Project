@@ -2,6 +2,19 @@
  * Custom code goes here.
  * A template should always ship with an empty custom.css
  */
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#steps .step-desc #resp_content p {
+    font-size: 14px;
+}
+
+#steps .step-ul div .title {
+    height: 62px;
+}
+
  #steps .step-desc #resp_content .description>div {
     margin-top: 0;
     padding: 8px 27px;
@@ -169,6 +182,7 @@ body#checkout #header .header-nav .logo {
 
 #header .header-nav .material-icons {
     line-height: initial;
+    color: white !important;
 }
 
 #cms #header .logo {
@@ -252,6 +266,22 @@ body#checkout #header .header-nav .logo {
     -ms-transition: all .3s ease-in;
     -o-transition: all .3s ease-in;
     transition: all .3s ease-in;
+}
+
+#index .sf-menu>li>a:hover {
+    color: white !important;
+}
+
+#header .header-top.header-fixed .sf-menu>li>a:hover {
+    color: #007100 !important;
+}
+
+#header .header-top.header-fixed .sf-menu>li>a:after {
+    background: #007100 !important;
+}
+
+#header .header-nav .blockcart a {
+    color: #ffffff;
 }
 
 #block_top_menu {
@@ -362,12 +392,29 @@ body#checkout #header .header-nav .logo {
 }
 
 body#checkout #cart-summary-product-list img {
-    border: 1px solid #f1f1f1;
-    width: 13rem;
+    width: 8rem;
+}
+
+.card-block.cart-summary-totals .cart-summary-line.cart-total .value {
+    font-size: 1.6rem;
+}
+
+.card-block.cart-summary-totals .cart-summary-line.cart-total .label {
+    font-size: 1.4rem;
+}
+
+.text-muted {
+    font-size: 1.25rem;
 }
 
 .label {
     color: #585858;
+    padding-left: 0px;
+}
+
+.product-quantity {
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .cart-summary-line .value {
