@@ -444,6 +444,9 @@ class AddressFormatCore extends ObjectModel
 
         $addressText = '';
         foreach ($addressFields as $line) {
+            if ($line === "receive_sms") {
+                continue;
+            }
             if (($patternsList = preg_split(self::_CLEANING_REGEX_, $line, -1, PREG_SPLIT_NO_EMPTY))) {
                 $tmpText = '';
                 foreach ($patternsList as $pattern) {
