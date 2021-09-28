@@ -392,7 +392,7 @@ body#checkout #header .header-nav .logo {
 }
 
 body#checkout #cart-summary-product-list img {
-    width: 8rem;
+    width: 12rem;
 }
 
 .card-block.cart-summary-totals .cart-summary-line.cart-total .value {

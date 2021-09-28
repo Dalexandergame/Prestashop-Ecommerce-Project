@@ -228,7 +228,7 @@ select.form-control:not([size]):not([multiple]){
 
 body#checkout #cart-summary-product-list img {
     /*border: 1px solid #0a0a0a;*/
-    width: 13rem;
+    width: 12rem;
 }
 
 .cart-summary-line .value {
