@@ -663,3 +663,21 @@ a:hover {
 .alert {
     font-size: 1.3rem;
 }
+
+.dropdown-menu>li.current, .dropdown-menu>li>a:hover {
+    background: #8bb76f;
+    color: #0a0a0a !important;
+}
+
+.dropdown-menu>li>a {
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.dropdown-menu {
+    padding: 0px;
+    margin: 0;
+    min-width: 10rem;
+}
