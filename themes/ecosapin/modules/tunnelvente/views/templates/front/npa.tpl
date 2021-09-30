@@ -44,6 +44,9 @@
         </h4>
     </div>
 {/if}
+<script type="text/javascript">
+    var npaLength = {if $shop.id == 2}5{else}4{/if};
+</script>
 {literal}
     <script type="text/javascript">
         $(function ($) {
@@ -56,7 +59,7 @@
             $('form.form_npa').submit(function (event) {
                 event.preventDefault();
                 var npa = $(".input_npa").val();
-                if (npa == "" || npa.length != 4 || !$.isNumeric(npa)) {
+                if (npa == "" || npa.length != npaLength || !$.isNumeric(npa)) {
                     alert("invalide NPA");
                     return false;
                 }
