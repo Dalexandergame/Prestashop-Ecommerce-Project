@@ -15,8 +15,8 @@
       class="form_npa noscript-form-container" method="post">
     <h4>{l s="Enter the NPA" d='Modules.Tunnelvente.Npa'}</h4>
     <div class="npa-wrap">
-        <input type="text" class="input_npa" maxlength="4" name="npa" placeholder="####" {if $hasSapin } readonly {/if}
-               value="{if isset($npa)}{$npa}{/if}">
+        <input type="text" class="input_npa" name="npa" {if $shop.id == 2}maxlength="5" placeholder="#####"{else}maxlength="4" placeholder="####"{/if}
+                {if $hasSapin } readonly {/if} value="{if isset($npa)}{$npa}{/if}">
         {*<input  type="number" minlength="4" required class="input_npa" maxlength="4" name="npa" placeholder="####" value="{if isset($npa)}{$npa}{/if}">*}
         <button type="submit">{l s="Valider" d='Modules.Tunnelvente.Npa'}</button>
     </div>

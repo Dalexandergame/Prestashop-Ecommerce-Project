@@ -1628,6 +1628,7 @@ class FrontControllerCore extends Controller
         $psImageUrl = $urls['img_ps_url'] ?? _PS_IMG_;
 
         $shop = [
+            'id' => $this->context->shop->id,
             'name' => Configuration::get('PS_SHOP_NAME'),
             'email' => Configuration::get('PS_SHOP_EMAIL'),
             'registration_number' => Configuration::get('PS_SHOP_DETAILS'),
