@@ -335,12 +335,23 @@ class CartControllerCore extends FrontController
 
         Hook::exec('actionObjectProductInCartDeleteBefore', $data, null, true);
 
-        if ($this->context->cart->deleteProduct(
-            $this->id_product,
-            $this->id_product_attribute,
-            $this->customization_id,
-            $this->id_address_delivery
-        )) {
+        if ($data['id_product'] === 54 || $data['id_product'] === 65) {
+            $products_in_cart = $this->context->cart->getProducts();
+            foreach ($products_in_cart as $product_in_cart ) {
+                    $this->context->cart->deleteProduct(
+                        $product_in_cart['id_product'],
+                        $product_in_cart['id_product_attribute'],
+                        $product_in_cart['id_customization'],
+                        $product_in_cart['id_address_delivery']);
+            }
+        }else {
+            $this->context->cart->deleteProduct(
+                $this->id_product,
+                $this->id_product_attribute,
+                $this->customization_id,
+                $this->id_address_delivery);
+        }
+
             Hook::exec('actionObjectProductInCartDeleteAfter', $data);
 
             if (!Cart::getNbProducts((int) $this->context->cart->id)) {
@@ -354,7 +365,6 @@ class CartControllerCore extends FrontController
             if (true !== $isAvailable) {
                 $this->updateOperationError[] = $isAvailable;
             }
-        }
 
         CartRule::autoRemoveFromCart();
         CartRule::autoAddToCart();
