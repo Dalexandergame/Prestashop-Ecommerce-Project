@@ -56,12 +56,12 @@ class SqlRequeteAbies
      * @param type $npa
      * @return string sql
      */
-    public static function getSqlEntrepotByNPA($npa)
+    public static function getSqlEntrepotByNPA($npa, $id_shop)
     {
         $sql = "SELECT w.id_warehouse FROM ps_gszonevente_region r
                 join ps_gszonevente_npa n on r.id_gszonevente_region = n.id_gszonevente_region
                 join ps_warehouse_carrier w on w.id_carrier = r.id_carrier
-                WHERE n.name = '%s'";
+                WHERE n.name = '%s' and r.id_shop = $id_shop";
         return sprintf($sql, $npa);
     }
 
@@ -102,10 +102,10 @@ class SqlRequeteAbies
     }
 
 
-    public static function getSqlProductAttributBoule($id_product_boule, $npa, $id_lang)
+    public static function getSqlProductAttributBoule($id_product_boule, $npa, $id_lang, $id_shop)
     {
         $DefaultEntrepotByNPA = Configuration::get('TUNNELVENTE_DEFAULT_ENTROPOT_STOCK_DISPO');// Entrepot par defaut quand il y a pas de NPA dans la BDD
-        $sqlEntrepotByNPA     = SqlRequeteAbies::getSqlEntrepotByNPA($npa);
+        $sqlEntrepotByNPA     = SqlRequeteAbies::getSqlEntrepotByNPA($npa, $id_shop);
         //test stock dispo pour cette NPA ou non
         $countEntrop = Db::getInstance()->getValue("SELECT COUNT(*) FROM ($sqlEntrepotByNPA) tEntropot");
         if ($countEntrop <= 0) {
@@ -147,13 +147,13 @@ class SqlRequeteAbies
         return $sql;
     }
 
-    public static function getSqlProductAttributPot($id_product_boule, $npa, $id_lang)
+    public static function getSqlProductAttributPot($id_product_boule, $npa, $id_lang, $id_shop)
     {
-        return self::getSqlProductAttributBoule($id_product_boule, $npa, $id_lang);
+        return self::getSqlProductAttributBoule($id_product_boule, $npa, $id_lang, $id_shop);
     }
 
-    public static function getSqlProductAttributPied($id_product_pied, $npa, $id_lang)
+    public static function getSqlProductAttributPied($id_product_pied, $npa, $id_lang, $id_shop)
     {
-        return self::getSqlProductAttributBoule($id_product_pied, $npa, $id_lang);
+        return self::getSqlProductAttributBoule($id_product_pied, $npa, $id_lang, $id_shop);
     }
 }

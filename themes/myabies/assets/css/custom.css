@@ -192,11 +192,6 @@ select.form-control:not([size]):not([multiple]){
     border-radius: 5px;
 }
 
-#typesapain .row {
-    margin-left: -84px;
-    margin-right: -84px;
-}
-
 .btn-new-dark-green {
     padding: 32px 15px 32px 10px;
 }
@@ -208,6 +203,11 @@ select.form-control:not([size]):not([multiple]){
 .btn-new-layout .des {
     font-size: 18px;
     vertical-align: top;
+}
+
+#columns {
+    max-width: 100%;
+    top: -1px;
 }
 
 #steps .step-desc #resp_content form {

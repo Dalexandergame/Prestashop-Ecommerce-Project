@@ -95,7 +95,8 @@ class TunnelVenteAbiesPiedModuleFrontController extends FrontAbies
     private function getListAttributeProductPied()
     {
         $id_lang  = $this->context->language->id;
-        $sql      = SqlRequeteAbies::getSqlProductAttributPied($this->id_product_pied, $this->getValueTunnelVent('npa'), $id_lang);
+        $id_shop  = $this->context->shop->id;
+        $sql      = SqlRequeteAbies::getSqlProductAttributPied($this->id_product_pied, $this->getValueTunnelVent('npa'), $id_lang, $id_shop);
         $result   = Db::getInstance()->executeS($sql);
         $products = array();
 

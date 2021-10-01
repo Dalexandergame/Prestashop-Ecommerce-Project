@@ -19,6 +19,8 @@ class FrontAbies extends ModuleFrontControllerCore
     protected     $id_product_sapins;
     private       $id_attributeRemoved;
     private       $id_types;
+    private       $id_lang;
+    private       $id_shop;
 
     function getIdProductSapins($cat)
     {
@@ -38,6 +40,8 @@ class FrontAbies extends ModuleFrontControllerCore
     {
         parent::__construct();
 
+        $this->id_shop           = $this->context->shop->id;
+        $this->id_lang           = $this->context->language->id;
         $this->id_types          = array(Configuration::get('TUNNELVENTE_ID_LITTLE_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE'));
         $this->id_product_sapins = $this->getIdProductSapins(array(Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')));
         $this->stockGlobal       = new AdminStockGlobalViewController(false);
@@ -135,7 +139,7 @@ class FrontAbies extends ModuleFrontControllerCore
             $this->id_attributeRemoved = array(70, 71); // taille 220/250 et 270/300
         }
         if ($npa) {
-            $sqlEntrepotByNPA = SqlRequeteAbies::getSqlEntrepotByNPA($npa);
+            $sqlEntrepotByNPA = SqlRequeteAbies::getSqlEntrepotByNPA($npa, $this->id_shop);
             //test stock dispo pour cette NPA ou non
             $countEntrop = Db::getInstance()->getValue("SELECT COUNT(*) FROM ($sqlEntrepotByNPA) tEntropot");
             if ($countEntrop > 0) {
@@ -146,14 +150,12 @@ class FrontAbies extends ModuleFrontControllerCore
             // attribute par Entrepot
         }
         $sql    = "SELECT DISTINCT id FROM ($sql) t";
-        $result = Db::getInstance()->executeS($sql);
 
         //Ajouter l'affichage du sapain taille 90/110cm pour tous les NPA
         $sql2   = "SELECT atl.id_attribute as id,`name`, 1 as dispo FROM " . _DB_PREFIX_ . "attribute_lang  atl
                     JOIN `ps_attribute` attr ON attr.`id_attribute` = atl.`id_attribute`
                     WHERE id_lang = {$id_lang} AND (atl.id_attribute IN(" . $sql . ") ) ORDER BY position";
         $result = Db::getInstance()->executeS($sql2);
-//         die($sql2);
         return $result;
     }
 
@@ -176,7 +178,7 @@ class FrontAbies extends ModuleFrontControllerCore
             $this->id_attributeRemoved = array(70, 71); // taille 220/250 et 270/300
         }
         if ($npa) {
-            $sqlEntrepotByNPA = SqlRequeteAbies::getSqlEntrepotByNPA($npa);
+            $sqlEntrepotByNPA = SqlRequeteAbies::getSqlEntrepotByNPA($npa, $this->id_shop);
             //test stock dispo pour cette NPA ou non
             $countEntrop = Db::getInstance()->getValue("SELECT COUNT(*) FROM ($sqlEntrepotByNPA) tEntropot");
             if ($countEntrop > 0) {
@@ -273,20 +275,13 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
      */
     protected function getTailleDisponible($npa, $taille_only = true)
     {
-        $warehouse   = Db::getInstance()->getValue(SqlRequeteAbies::getSqlEntrepotByNPA($npa));
+        $warehouse   = Db::getInstance()->getValue(SqlRequeteAbies::getSqlEntrepotByNPA($npa, $this->id_shop));
 
         if (!$warehouse) $warehouse = 1;
 
-        $today = new \DateTime("now");
-        $year = $today->format("Y");
-        $month = $today->format("m");
-        $date_activity_start = $month > 6 ? "$year-07-01 00:00:00" : (intval($year) - 1) . "-07-01 00:00:00";
-        $date_activity_end = $month > 6 ? (intval($year) + 1) . "-06-30 00:00:00" : "$year-06-30 00:00:00";
-
         $id_lang = $this->context->language->id;
         $product_id = 115;
-        $status_vendu = '2,5,9,10,12,18,20,21,22,23,24,25';
-        $sql = "SELECT DISTINCT group_concat(atl.id_attribute, ';', atl.name) as attributs,1 as dispo
+        $sql = "SELECT DISTINCT group_concat(atl.id_attribute, ';', atl.name ORDER BY atl.name) as attributs,1 as dispo
             FROM ps_attribute_lang atl
                      JOIN ps_product_attribute_combination pac
                           ON atl.id_attribute = pac.id_attribute
@@ -296,18 +291,8 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
             WHERE atl.id_lang = $id_lang
               AND pa.id_product = $product_id
               AND st.id_warehouse = $warehouse
-              and (st.initial_quantity - IFNULL((
-                                                    SELECT SUM(od.product_quantity) as qty_delivered
-                                                    FROM ps_orders as o
-                                                             JOIN ps_order_detail as od ON o.id_order = od.id_order
-                                                    WHERE od.product_id = pa.id_product
-                                                      AND od.product_attribute_id = pa.id_product_attribute
-                                                      AND o.current_state in ('$status_vendu')
-                                                      AND o.date_add between '$date_activity_start' and '$date_activity_end'
-                                                      AND od.id_warehouse = st.id_warehouse
-                                                ), 0)) > 0
-            group by pa.id_product_attribute
-    ";
+              and st.usable_quantity > 0
+            group by pa.id_product_attribute";
 
         $attributs = [];
         $queryResult = Db::getInstance()->executeS($sql);
@@ -333,7 +318,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
 
     protected function getChoixDisponible($npa)
     {
-        $warehouse   = Db::getInstance()->getValue(SqlRequeteAbies::getSqlEntrepotByNPA($npa));
+        $warehouse   = Db::getInstance()->getValue(SqlRequeteAbies::getSqlEntrepotByNPA($npa, $this->id_shop));
 
         if (!$warehouse) $warehouse = 1;
 
@@ -344,7 +329,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
 
     protected function getEssenceDisponible($npa)
     {
-        $warehouse   = Db::getInstance()->getValue(SqlRequeteAbies::getSqlEntrepotByNPA($npa));
+        $warehouse   = Db::getInstance()->getValue(SqlRequeteAbies::getSqlEntrepotByNPA($npa, $this->id_shop));
 
         if (!$warehouse) $warehouse = 1;
 
@@ -495,7 +480,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
             return null;
         }
         //systeme de stock est active
-        $sqlEntrepotByNPA = SqlRequeteAbies::getSqlEntrepotByNPA($npa);
+        $sqlEntrepotByNPA = SqlRequeteAbies::getSqlEntrepotByNPA($npa, $this->id_shop);
 
         $DefaultEntrepotByNPA = Configuration::get('TUNNELVENTE_DEFAULT_ENTROPOT_STOCK_DISPO');// Entrepot par defaut quand il y a pas de NPA dans la BDD
         //test stock dispo pour cette NPA ou non

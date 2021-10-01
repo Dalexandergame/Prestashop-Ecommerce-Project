@@ -175,7 +175,7 @@ class TunnelVenteAbiesFinaleModuleFrontController extends FrontAbies
         }
 
         $DefaultEntrepotByNPA = Configuration::get('TUNNELVENTE_DEFAULT_ENTROPOT_STOCK_DISPO');// Entrepot par defaut quand il y a pas de NPA dans la BDD
-        $sqlEntrepotByNPA     = SqlRequeteAbies::getSqlEntrepotByNPA($npa);
+        $sqlEntrepotByNPA     = SqlRequeteAbies::getSqlEntrepotByNPA($npa, $context->shop->id);
 
         //test stock dispo pour cette NPA ou non
         $countEntrop = Db::getInstance()->getValue("SELECT COUNT(*) FROM ($sqlEntrepotByNPA) tEntropot");
