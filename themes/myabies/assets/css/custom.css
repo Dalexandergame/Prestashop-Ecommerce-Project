@@ -2,6 +2,11 @@
  * Custom code goes here.
  * A template should always ship with an empty custom.css
  */
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 #contact #header {
     background: url("https://www.myabies.ch/themes/myabies/img/bande-1-min.jpg");
     background-size: cover;
@@ -35,7 +40,13 @@
 }
 
 #footer .col-md-6.links {
-    margin: 113px 112px 0px 126px;
+    margin: 113px 36px 0px 86px;
+}
+
+@media (min-width: 992px) {
+    .col-md-3 {
+        width: 28%;
+    }
 }
 
 #footer .col-md-2 {
@@ -99,7 +110,12 @@
 }
 
 .font-Montserrat {
+    font: normal normal bold 18px/27px Montserrat;
     letter-spacing: 1px;
+}
+
+.btn-productors {
+    padding-top: 15px;
 }
 
 .btn-sapin-header {

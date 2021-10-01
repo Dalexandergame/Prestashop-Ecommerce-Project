@@ -941,7 +941,8 @@ class PlanningDeliveryByCarrier extends Module
 <script src=\"//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js\"></script>
 ";
 //<link href=\"//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css\" rel=\"stylesheet\">
-
+        $return .= '<link href="' . _PS_JS_DIR_ . 'jquery/ui/themes/base/jquery.ui.datepicker.css" rel="stylesheet" type="text/css" media="all" />';
+        $return .= '<link href="' . _PS_JS_DIR_ . 'jquery/ui/themes/base/jquery.ui.theme.css" rel="stylesheet" type="text/css" media="all" />';
         return $return;
     }
 
