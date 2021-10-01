@@ -205,6 +205,10 @@ select.form-control:not([size]):not([multiple]){
     vertical-align: top;
 }
 
+img.img-choix-prd {
+    height: 100%;
+}
+
 #columns {
     max-width: 100%;
     top: -1px;
@@ -212,6 +216,7 @@ select.form-control:not([size]):not([multiple]){
 
 #steps .step-desc #resp_content form {
     margin-right: 30px;
+    margin-bottom: 30px;
 }
 
 .agriculteur-details {
