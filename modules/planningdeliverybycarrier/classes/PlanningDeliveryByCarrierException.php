@@ -35,40 +35,45 @@ class PlanningDeliveryByCarrierException
 	 */
 	public static function get()
     {
-        return (Db::getInstance()->ExecuteS('
-        
-        SELECT 
-            ppde.`id_planning_delivery_carrier_exception`,
-            ppde.`date_from`,
-            ppde.`date_to`,
-            -- ppde.`nb_commandes`,
-            ppde.`max_places`,
-            ppde.`id_carrier`,
-            carrier.`name`,
-            (SELECT 
-                    COUNT(*) AS real_nb_commande
-                FROM
-                    `ps_planning_delivery_carrier_exception` pde,
-                    `ps_planning_delivery_carrier` pd,
-                    `ps_orders` o,
-                    `ps_carrier` pc
-                WHERE
-                    1 = 1
-                        AND pd.`date_delivery` BETWEEN pde.`date_from` AND pde.`date_to`
-                        AND pd.`id_order` = o.`id_order`
-                        AND pc.`id_carrier` = o.`id_carrier`
-                        AND o.`id_carrier` = pde.`id_carrier`
-                        AND pc.`deleted` = 0
-                        AND pc.`active` = 1
-                        AND o.`current_state` NOT IN (6)
-                        AND pde.`id_planning_delivery_carrier_exception` = ppde.`id_planning_delivery_carrier_exception`) nb_commandes
-        FROM
-            `ps_planning_delivery_carrier_exception` ppde
-                INNER JOIN
-            `ps_carrier` carrier ON carrier.id_carrier = ppde.id_carrier
-        ORDER BY ppde.`date_from` ASC
-        
-        '));
+        $sql = 'SELECT 
+                ppde.`id_planning_delivery_carrier_exception`,
+                ppde.`date_from`,
+                ppde.`date_to`,
+                -- ppde.`nb_commandes`,
+                ppde.`max_places`,
+                ppde.`id_carrier`,
+                carrier.`name`,
+                (SELECT 
+                        COUNT(*) AS real_nb_commande
+                    FROM
+                        `ps_planning_delivery_carrier_exception` pde,
+                        `ps_planning_delivery_carrier` pd,
+                        `ps_orders` o,
+                        `ps_carrier` pc
+                    WHERE
+                        1 = 1
+                            AND pd.`date_delivery` BETWEEN pde.`date_from` AND pde.`date_to`
+                            AND pd.`id_order` = o.`id_order`
+                            AND pc.`id_carrier` = o.`id_carrier`
+                            AND o.`id_carrier` = pde.`id_carrier`
+                            AND pc.`deleted` = 0
+                            AND pc.`active` = 1
+                            AND o.`current_state` NOT IN (6)
+                            AND pde.`id_planning_delivery_carrier_exception` = ppde.`id_planning_delivery_carrier_exception`) nb_commandes
+            FROM
+                `ps_planning_delivery_carrier_exception` ppde
+                    INNER JOIN
+                `ps_carrier` carrier ON carrier.id_carrier = ppde.id_carrier
+            ORDER BY ppde.`date_from` ASC
+        ';
+        $cache_id = 'PlanningDeliveryByCarrierException::get'.md5($sql);
+
+        if (!Cache::isStored($cache_id))
+        {
+            $list = Db::getInstance()->ExecuteS($sql);
+            Cache::store($cache_id, $list);
+        }
+        return Cache::retrieve($cache_id);
     }
 
     /**
@@ -107,24 +112,20 @@ class PlanningDeliveryByCarrierException
     {
         $dates = array();
         $exceptions = PlanningDeliveryByCarrierException::get();
-        foreach ($exceptions as $exception)
-        {
-            if($exception['id_carrier'] != $carrier_id || $exception['nb_commandes'] >= $exception['max_places']) continue;
-            if ($exception['date_from'] == $exception['date_to'])
-            {
+        foreach ($exceptions as $exception) {
+            if ($exception['id_carrier'] != $carrier_id || $exception['nb_commandes'] >= $exception['max_places']) continue;
+            if ($exception['date_from'] == $exception['date_to']) {
                 $date = new DateTime($exception['date_from']);
                 $dates[] = $date->format('Y-m-d');
-            }
-            else
-            {
+            } else {
                 $begin = $exception['date_from'];
                 $end = $exception['date_to'];
-                $tmpDates = PlanningDeliveryByCarrierException::getDatesBetween ($begin, $end);
+                $tmpDates = PlanningDeliveryByCarrierException::getDatesBetween($begin, $end);
                 foreach ($tmpDates as $date)
                     $dates[] = $date;
             }
         }
-        return (count($dates) > 0) ? '"'.implode('", "', array_unique($dates)).'"' : '';
+        return (count($dates) > 0) ? '"' . implode('", "', array_unique($dates)) . '"' : '';
     }
 
 	/**
