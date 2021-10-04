@@ -1617,6 +1617,12 @@ class FrontControllerCore extends Controller
         }
         $cust['addresses'] = $addresses;
 
+        $allowedAddresses = $this->context->customer->getAllowedAddresses();
+        foreach ($allowedAddresses as &$a) {
+            $a['formatted'] = AddressFormat::generateAddress(new Address($a['id']), [], '<br>');
+        }
+        $cust['allowedAddresses'] = $allowedAddresses;
+
         return $cust;
     }
 

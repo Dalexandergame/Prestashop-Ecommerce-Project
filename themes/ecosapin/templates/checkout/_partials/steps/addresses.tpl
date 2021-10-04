@@ -55,10 +55,10 @@
             form_has_continue_button  = $form_has_continue_button
           }
         </div>
-      {elseif $customer.addresses|count > 0}
+      {elseif $customer.allowedAddresses|count > 0}
         <div id="delivery-addresses" class="address-selector js-address-selector">
           {include  file        = 'checkout/_partials/address-selector-block.tpl'
-            addresses   = $customer.addresses
+            addresses   = $customer.allowedAddresses
             name        = "id_address_delivery"
             selected    = $id_address_delivery
             type        = "delivery"
@@ -102,7 +102,7 @@
         {else}
           <div id="invoice-addresses" class="address-selector js-address-selector">
             {include  file        = 'checkout/_partials/address-selector-block.tpl'
-              addresses   = $customer.addresses
+              addresses   = $customer.allowedAddresses
               name        = "id_address_invoice"
               selected    = $id_address_invoice
               type        = "invoice"
