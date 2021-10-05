@@ -49,6 +49,7 @@
             <th>{{ 'Address'|trans({}, 'Admin.Global') }}</th>
             <th>{{ 'Country'|trans({}, 'Admin.Global') }}</th>
             <th>{{ 'Phone number(s)'|trans({}, 'Admin.Orderscustomers.Feature') }}</th>
+            <th class="text-center">{{ 'Receive sms'|trans({}, 'Admin.Global') }}</th>
             <th class="text-right">{{ 'Actions'|trans({}, 'Admin.Global') }}</th>
           </tr>
         </thead>
@@ -72,6 +73,19 @@
                 {% else %}
                   --
                 {% endif %}
+              </td>
+              <td class="toggle-type cursor-pointer">
+                <div class="text-center">
+                  {% if address.receiveSms is not empty %}
+                    <i class="material-icons ps-togglable-row grid-toggler-icon-valid">
+                      check
+                    </i>
+                  {% else %}
+                    <i class="material-icons ps-togglable-row grid-toggler-icon-not-valid">
+                      clear
+                    </i>
+                  {% endif %}
+                </div>
               </td>
               <td class="customer-address-actions text-right">
                 <div class="btn-group-action">

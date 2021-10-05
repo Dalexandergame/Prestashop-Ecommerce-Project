@@ -579,7 +579,8 @@ final class GetCustomerForViewingHandler implements GetCustomerForViewingHandler
                 $fullAddress,
                 $address['country'],
                 (string) $address['phone'],
-                (string) $address['phone_mobile']
+                (string) $address['phone_mobile'],
+                (bool) $address['receive_sms']
             );
         }
 

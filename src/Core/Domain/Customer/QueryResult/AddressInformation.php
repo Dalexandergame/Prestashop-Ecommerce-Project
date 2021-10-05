@@ -67,6 +67,11 @@ class AddressInformation
     private $addressId;
 
     /**
+     * @var bool
+     */
+    private $receiveSms;
+
+    /**
      * @param int $addressId
      * @param string $company
      * @param string $fullName
@@ -74,8 +79,9 @@ class AddressInformation
      * @param string $countryName
      * @param string $phone
      * @param string $phoneMobile
+     * @param bool $receiveSms
      */
-    public function __construct($addressId, $company, $fullName, $fullAddress, $countryName, $phone, $phoneMobile)
+    public function __construct($addressId, $company, $fullName, $fullAddress, $countryName, $phone, $phoneMobile, $receiveSms)
     {
         $this->addressId = $addressId;
         $this->company = $company;
@@ -84,6 +90,7 @@ class AddressInformation
         $this->countryName = $countryName;
         $this->phone = $phone;
         $this->phoneMobile = $phoneMobile;
+        $this->receiveSms = $receiveSms;
     }
 
     /**
@@ -140,5 +147,13 @@ class AddressInformation
     public function getPhoneMobile()
     {
         return $this->phoneMobile;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReceiveSms()
+    {
+        return $this->receiveSms;
     }
 }
