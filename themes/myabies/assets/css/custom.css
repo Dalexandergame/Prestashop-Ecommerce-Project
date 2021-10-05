@@ -108,11 +108,11 @@ body {
 .footer-container {
     margin-top: 0;
 }
-
+/*
 .font-Montserrat {
     font: normal normal bold 18px/27px Montserrat;
     letter-spacing: 1px;
-}
+}*/
 
 .btn-productors {
     padding-top: 15px;
@@ -445,7 +445,7 @@ textarea {
 
 .dropdown-menu>li>a {
     line-height: 30px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
 }
