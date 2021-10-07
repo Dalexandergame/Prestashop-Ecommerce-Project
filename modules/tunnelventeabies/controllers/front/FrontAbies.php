@@ -281,8 +281,12 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
 
         $id_lang = $this->context->language->id;
         $product_id = 115;
-        $sql = "SELECT DISTINCT group_concat(atl.id_attribute, ';', atl.name ORDER BY atl.name) as attributs,1 as dispo
-            FROM ps_attribute_lang atl
+        $sql = "SELECT DISTINCT group_concat(atl.id_attribute, ';', atl.name ORDER BY atg.position) as attributs,1 as dispo
+                     FROM ps_attribute at
+                     JOIN ps_attribute_group atg
+                          ON atg.id_attribute_group = at.id_attribute_group
+                     JOIN ps_attribute_lang atl
+                          ON atl.id_attribute = at.id_attribute
                      JOIN ps_product_attribute_combination pac
                           ON atl.id_attribute = pac.id_attribute
                      JOIN ps_product_attribute pa
