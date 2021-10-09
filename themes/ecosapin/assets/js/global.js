@@ -226,7 +226,7 @@ function scrollCompensate()
 
 function responsiveResize()
 {
-    compensante = scrollCompensate();
+    var compensante = scrollCompensate();
     if (($(window).width()+scrollCompensate()) <= 767 && responsiveflag == false)
     {
         accordion('enable');

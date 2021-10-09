@@ -322,10 +322,6 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
 
     protected function getChoixDisponible($npa)
     {
-        $warehouse   = Db::getInstance()->getValue(SqlRequeteAbies::getSqlEntrepotByNPA($npa, $this->id_shop));
-
-        if (!$warehouse) $warehouse = 1;
-
         $queryResult = $this->specialRequete($npa, 1);
 
         return array_unique($queryResult, SORT_REGULAR);
@@ -333,10 +329,6 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
 
     protected function getEssenceDisponible($npa)
     {
-        $warehouse   = Db::getInstance()->getValue(SqlRequeteAbies::getSqlEntrepotByNPA($npa, $this->id_shop));
-
-        if (!$warehouse) $warehouse = 1;
-
         $queryResult = $this->specialRequete($npa, 2);
 
         return array_unique($queryResult, SORT_REGULAR);
