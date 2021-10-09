@@ -24,7 +24,7 @@
  *}
 {block name='cart_summary_product_line'}
   <div class="media-left">
-    <a href="{$product.url}" title="{$product.name}">
+    <a href="#" title="{$product.name}">
       <img class="media-object" src="{$product.cover.medium.url}" alt="{$product.name}">
     </a>
   </div>

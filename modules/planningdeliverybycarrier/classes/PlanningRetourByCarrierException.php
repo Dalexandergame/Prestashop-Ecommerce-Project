@@ -35,7 +35,7 @@ class PlanningRetourByCarrierException
 	 */
 	public static function get()
     {
-        return (Db::getInstance()->ExecuteS('
+        $sql = '
 
         SELECT 
             ppde.`id_planning_retour_carrier_exception`,
@@ -68,7 +68,16 @@ class PlanningRetourByCarrierException
             `ps_carrier` carrier ON carrier.id_carrier = ppde.id_carrier
         ORDER BY ppde.`date_from` ASC
         
-        '));
+        ';
+
+        $cache_id = 'PlanningRetourByCarrierException::get'.md5($sql);
+
+        if (!Cache::isStored($cache_id))
+        {
+            $list = Db::getInstance()->ExecuteS($sql);
+            Cache::store($cache_id, $list);
+        }
+        return Cache::retrieve($cache_id);
     }
 
     /**
