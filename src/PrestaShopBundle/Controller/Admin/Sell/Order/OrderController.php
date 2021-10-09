@@ -492,8 +492,6 @@ class OrderController extends FrameworkBundleAdminController
             return $this->redirectToRoute('admin_orders_index');
         }
 
-        $this->handleOutOfStockProduct($orderForViewing);
-
         $merchandiseReturnEnabled = (bool) $this->configuration->get('PS_ORDER_RETURN');
 
         /** @var OrderSiblingProviderInterface $orderSiblingProvider */

@@ -3802,7 +3802,7 @@ class ProductCore extends ObjectModel
         if (Pack::isPack((int) $idProduct)) {
             return Pack::getQuantity($idProduct, $idProductAttribute, $cacheIsPack, $cart, $idCustomization);
         }
-        $availableQuantity = StockAvailable::getQuantityAvailableByProduct($idProduct, $idProductAttribute);
+        $availableQuantity = StockAvailable::getQuantityAvailableByProduct($idProduct, $idProductAttribute, $cart->id_shop, $cart->getWarehouseByNPA());
         $nbProductInCart = 0;
 
         // we don't substract products in cart if the cart is already attached to an order, since stock quantity
@@ -3831,6 +3831,10 @@ class ProductCore extends ObjectModel
      */
     public static function sqlStock($product_alias, $product_attribute = null, $inner_join = false, Shop $shop = null)
     {
+        if (!$shop) {
+            $shop = Context::getContext()->shop;
+        }
+
         $id_shop = ($shop !== null ? (int) $shop->id : null);
         $sql = (($inner_join) ? ' INNER ' : ' LEFT ')
             . 'JOIN ' . _DB_PREFIX_ . 'stock_available stock

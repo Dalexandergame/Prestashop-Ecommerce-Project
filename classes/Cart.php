@@ -1596,8 +1596,10 @@ class CartCore extends ObjectModel
         } elseif ($operator == 'up') {
             /* Add product to the cart */
 
-            $sql = 'SELECT stock.out_of_stock, IFNULL(stock.quantity, 0) as quantity
+            $sql = 'SELECT stock.out_of_stock, IFNULL(st.usable_quantity, 0) as quantity
                         FROM ' . _DB_PREFIX_ . 'product p
+                        INNER JOIN ps_stock st ON (st.id_product = `p`.id_product 
+                            AND st.id_product_attribute = '.$id_product_attribute.' AND st.id_warehouse = '.$this->getWarehouseByNPA().')
                         ' . Product::sqlStock('p', $id_product_attribute, true, $shop) . '
                         WHERE p.id_product = ' . $id_product;
 
@@ -1657,6 +1659,19 @@ class CartCore extends ObjectModel
         }
 
         return true;
+    }
+
+    /**
+     *  get id Entrepot par NPA
+     * @param type $npa
+     * @return string sql
+     */
+    public function getWarehouseByNPA()
+    {
+        return Db::getInstance()->getValue( "SELECT w.id_warehouse FROM ps_gszonevente_region r
+                join ps_gszonevente_npa n on r.id_gszonevente_region = n.id_gszonevente_region
+                join ps_warehouse_carrier w on w.id_carrier = r.id_carrier
+                WHERE n.name = {$this->npa} and r.id_shop = {$this->id_shop}");
     }
 
     /**

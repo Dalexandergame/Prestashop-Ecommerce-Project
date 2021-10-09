@@ -150,7 +150,7 @@ class Locale implements LocaleInterface
     public function formatPrice($number, $currencyCode)
     {
         return $this->numberFormatter->format(
-            $number,
+            floatval($number),
             $this->getPriceSpecification($currencyCode)
         );
     }
