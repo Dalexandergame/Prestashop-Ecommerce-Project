@@ -1668,6 +1668,10 @@ class CartCore extends ObjectModel
      */
     public function getWarehouseByNPA()
     {
+        if (empty($this->npa)) {
+            $this->npa = Context::getContext()->cookie->npa;
+        }
+
         return Db::getInstance()->getValue( "SELECT w.id_warehouse FROM ps_gszonevente_region r
                 join ps_gszonevente_npa n on r.id_gszonevente_region = n.id_gszonevente_region
                 join ps_warehouse_carrier w on w.id_carrier = r.id_carrier
@@ -2595,7 +2599,7 @@ class CartCore extends ObjectModel
                     if ((int) $warehouse['id_warehouse'] != $id_warehouse) // TODO: adil changer 3 par id_warehouse de NPA
                         continue;
                     $product_real_quantities = $manager->getProductRealQuantities(
-                        $product['id_product'], $product['id_product_attribute'], array($warehouse['id_warehouse']), true
+                        $product['id_product'], $product['id_product_attribute'], array($warehouse['id_warehouse'])
                     );
 
                     if ($product_real_quantities > 0 || Pack::isPack((int) $product['id_product']))

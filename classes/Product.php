@@ -6710,7 +6710,7 @@ class ProductCore extends ObjectModel
 
         if (Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT') && Product::usesAdvancedStockManagement($id_product) &&
             StockAvailable::dependsOnStock($id_product, $id_shop)) {
-            return $manager->getProductRealQuantities($id_product, $id_product_attribute, $id_warehouse, true);
+            return $manager->getProductRealQuantities($id_product, $id_product_attribute, $id_warehouse);
         } else {
             return StockAvailable::getQuantityAvailableByProduct($id_product, $id_product_attribute, $id_shop);
         }

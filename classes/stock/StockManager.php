@@ -124,7 +124,7 @@ class StockManagerCore implements StockManagerInterface
                     $stock_params = [
                         'physical_quantity' => ($stock->physical_quantity + $quantity),
                         'price_te' => $current_wa,
-                        'usable_quantity' => ($is_usable ? ($stock->usable_quantity + $quantity) : $stock->usable_quantity),
+                        'usable_quantity' => $stock->usable_quantity + $quantity,
                         'id_warehouse' => $warehouse->id,
                     ];
 
@@ -155,7 +155,7 @@ class StockManagerCore implements StockManagerInterface
 
                     $stock_params = [
                         'physical_quantity' => ($stock->physical_quantity + $quantity),
-                        'usable_quantity' => ($is_usable ? ($stock->usable_quantity + $quantity) : $stock->usable_quantity),
+                        'usable_quantity' => $stock->usable_quantity + $quantity,
                     ];
 
                     // updates stock in warehouse
@@ -182,7 +182,7 @@ class StockManagerCore implements StockManagerInterface
                 'id_product' => $id_product,
                 'physical_quantity' => $quantity,
                 'price_te' => $price_te,
-                'usable_quantity' => ($is_usable ? $quantity : 0),
+                'usable_quantity' => $quantity,
                 'id_warehouse' => $warehouse->id,
             ];
 
@@ -286,14 +286,9 @@ class StockManagerCore implements StockManagerInterface
         } else {
             // gets total quantities in stock for the current product
             $physical_quantity_in_stock = (int) $this->getProductPhysicalQuantities($id_product, $id_product_attribute, [$warehouse->id], false);
-            $usable_quantity_in_stock = (int) $this->getProductPhysicalQuantities($id_product, $id_product_attribute, [$warehouse->id], true);
 
             // check quantity if we want to decrement unusable quantity
-            if (!$is_usable) {
-                $quantity_in_stock = $physical_quantity_in_stock - $usable_quantity_in_stock;
-            } else {
-                $quantity_in_stock = $usable_quantity_in_stock;
-            }
+            $quantity_in_stock = $physical_quantity_in_stock;
 
             // checks if it's possible to remove the given quantity
             if ($quantity_in_stock < $quantity) {
@@ -337,7 +332,7 @@ class StockManagerCore implements StockManagerInterface
                     ];
                     $stock_params = [
                         'physical_quantity' => ($stock->physical_quantity - $quantity),
-                        'usable_quantity' => ($is_usable ? ($stock->usable_quantity - $quantity) : $stock->usable_quantity),
+                        'usable_quantity' => ($stock->usable_quantity - $quantity),
                     ];
 
                     // saves stock in warehouse
@@ -457,7 +452,7 @@ class StockManagerCore implements StockManagerInterface
 
                             $stock_params = [
                                 'physical_quantity' => ($stock->physical_quantity - $total_quantity_for_current_stock),
-                                'usable_quantity' => ($is_usable ? ($stock->usable_quantity - $total_quantity_for_current_stock) : $stock->usable_quantity),
+                                'usable_quantity' => ($stock->usable_quantity - $total_quantity_for_current_stock),
                             ];
 
                             $return[$stock->id]['quantity'] = $total_quantity_for_current_stock;

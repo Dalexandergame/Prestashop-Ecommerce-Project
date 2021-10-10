@@ -105,8 +105,7 @@ class TunnelVenteAbiesPiedModuleFrontController extends FrontAbies
             $item_real_quantity = $manager->getProductRealQuantities(
                 $row['id_product'],
                 $row['id_product_attribute'],
-                ($row['id_warehouse'] == '' ? null : array($row['id_warehouse'])),
-                true
+                ($row['id_warehouse'] == '' ? null : array($row['id_warehouse']))
             );
             $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
             if ($item_real_quantity > 0)
