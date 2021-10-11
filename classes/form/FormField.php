@@ -28,6 +28,7 @@ class FormFieldCore
     private $name = '';
     private $type = 'text';
     private $required = false;
+    private $readonly = false;
     private $label = '';
     private $value = null;
     private $availableValues = [];
@@ -41,6 +42,7 @@ class FormFieldCore
             'name' => $this->getName(),
             'type' => $this->getType(),
             'required' => $this->isRequired(),
+            'readonly' => $this->isReadonly(),
             'label' => $this->getLabel(),
             'value' => $this->getValue(),
             'availableValues' => $this->getAvailableValues(),
@@ -83,6 +85,18 @@ class FormFieldCore
     public function isRequired()
     {
         return $this->required;
+    }
+
+    public function setReadonly($readonly)
+    {
+        $this->readonly = $readonly;
+
+        return $this;
+    }
+
+    public function isReadonly()
+    {
+        return $this->readonly;
     }
 
     public function setLabel($label)
