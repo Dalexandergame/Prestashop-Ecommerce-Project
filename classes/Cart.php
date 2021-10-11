@@ -1669,7 +1669,11 @@ class CartCore extends ObjectModel
     public function getWarehouseByNPA()
     {
         if (empty($this->npa)) {
-            $this->npa = Context::getContext()->cookie->npa;
+            if (!empty(Context::getContext()->cookie->npa)) {
+                $this->npa = Context::getContext()->cookie->npa;
+            } else {
+                return null;
+            }
         }
 
         return Db::getInstance()->getValue( "SELECT w.id_warehouse FROM ps_gszonevente_region r

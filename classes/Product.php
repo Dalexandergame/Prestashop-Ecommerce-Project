@@ -3802,7 +3802,7 @@ class ProductCore extends ObjectModel
         if (Pack::isPack((int) $idProduct)) {
             return Pack::getQuantity($idProduct, $idProductAttribute, $cacheIsPack, $cart, $idCustomization);
         }
-        $availableQuantity = StockAvailable::getQuantityAvailableByProduct($idProduct, $idProductAttribute, $cart->id_shop, $cart->getWarehouseByNPA());
+        $availableQuantity = StockAvailable::getQuantityAvailableByProduct($idProduct, $idProductAttribute, $cart->id_shop, isset($cart)? $cart->getWarehouseByNPA(): null);
         $nbProductInCart = 0;
 
         // we don't substract products in cart if the cart is already attached to an order, since stock quantity
