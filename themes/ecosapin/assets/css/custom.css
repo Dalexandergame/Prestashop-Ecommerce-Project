@@ -311,6 +311,13 @@ body#checkout #header .header-nav .logo {
 
 #footer .footer-container .col-md-6.wrapper {
     padding-top: 45px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col-md-6.links {
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .footer-container {
@@ -319,12 +326,21 @@ body#checkout #header .header-nav .logo {
 
 #footer {
     padding-top: 0;
+    width: 112%;
 }
 
 .footer-block.footer-adresse {
     padding-top: 45px;
-    margin-right: -6px;
+    margin-left: 65px;
     color: #777777;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+@media (min-width: 992px) {
+    .col-md-3 {
+        width: 15%;
+    }
 }
 
 .block-contact-title, .blockcms-title, .myaccount-title, .myaccount-title a {
@@ -665,6 +681,11 @@ a:hover {
     font-size: 1.3rem;
 }
 
+#cart aside#notifications {
+    background-color: #1c5201;
+    margin-bottom: 0px;
+}
+
 .dropdown-menu>li.current, .dropdown-menu>li>a:hover {
     background: #8bb76f;
     color: #0a0a0a !important;
@@ -683,6 +704,14 @@ a:hover {
     min-width: 10rem;
 }
 
+.logo_paiement {
+    width: 26%;
+}
+
 .logo_paiement p {
-    padding-top: 45px;
+    padding-top: 27px;
+}
+
+.row {
+    margin-left: -35px;
 }
