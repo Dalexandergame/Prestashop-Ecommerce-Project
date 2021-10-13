@@ -167,6 +167,7 @@
             {if isset($field.availableValues.placeholder)}placeholder="{$field.availableValues.placeholder}"{/if}
             {if $field.maxLength}maxlength="{$field.maxLength}"{/if}
             {if $field.required}required{/if}
+            {if $field.readonly}readonly="true"{/if}
           >
           {if isset($field.availableValues.comment)}
             <span class="form-control-comment">

@@ -77,6 +77,9 @@
                   <div class="clearfix"></div>
               {/foreach}
             </div>
+            <div id="hook-display-after-carrier">
+              {$hookDisplayAfterCarrier nofilter}
+            </div>
           {/block}
           <div class="order-options">
             <div id="delivery">
@@ -116,9 +119,7 @@
     {/if}
   </div>
 
-  <div id="hook-display-after-carrier">
-    {$hookDisplayAfterCarrier nofilter}
-  </div>
+
 
   <div id="extra_carrier"></div>
 {/block}
