@@ -398,7 +398,7 @@ class StockAvailableCore extends ObjectModel
      *
      * @return int Quantity
      */
-    public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null, $id_warehouse = null)
+    public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null, $id_warehouse = 1)
     {
         // if null, it's a product without attributes
         if ($id_product_attribute === null) {
