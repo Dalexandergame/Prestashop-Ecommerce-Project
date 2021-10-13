@@ -144,7 +144,7 @@ class WarehouseCore extends ObjectModel
             $query->select('c.id_carrier');
         }
         $query->from('warehouse_carrier', 'wc');
-        $query->innerJoin('carrier', 'c', 'c.id_reference = wc.id_carrier');
+        $query->innerJoin('carrier', 'c', 'c.id_carrier = wc.id_carrier');
         $query->where($this->def['primary'] . ' = ' . (int) $this->id);
         $query->where('c.deleted = 0');
         $res = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($query);
