@@ -532,7 +532,7 @@ class PlanningDeliveryByCarrier extends Module
             }
             if (Validate::isDate($date_delivery)) {
                 $planning_delivery->date_delivery = $date_delivery;
-            } elseif ($dateDeliveryRequired) {
+            } else {
                 $errors[] = Tools::displayError($this->l('Delivery Date invalid'));
             }
 
@@ -913,12 +913,23 @@ class PlanningDeliveryByCarrier extends Module
             $country = new Country((int) ($address->id_country));
             $format  = ('US' != $country->iso_code) ? 1 : 2;
             $date_retour   = Tools::getValue('date_retour');
+            $date_delivery = Tools::getValue('date_delivery');
+            $delivery_message = Tools::getValue('delivery_message');
             $errors = [];
-            if (Tools::getValue('date_delivery') && $date_retour) {
+
+            if (($date_delivery && $date_retour && Tools::getValue('action') === "selectDeliveryOption")
+                || ((empty($date_delivery) || empty($date_retour)) && Tools::getValue('confirmDeliveryOption') == 1))
+            {
                 $errors = $this->requestProcessDateDelivery((int)($cart->id), $cart->id_carrier, Tools::getValue('date_delivery'), Tools::getValue('id_planning_delivery_slot'), $date_retour, $format);
+
             }
+
+            if (empty($delivery_message) && Tools::getValue('confirmDeliveryOption') == 1) {
+                $errors[] = Tools::displayError($this->l('Please enter your message'));
+            }
+
             if (count($errors) && $oblige == 1) {
-                $this->context->controller->step = 2;
+               // $this->context->controller->step = 2;
                 $this->smarty->assign('pderrors', $errors);
             }
         }

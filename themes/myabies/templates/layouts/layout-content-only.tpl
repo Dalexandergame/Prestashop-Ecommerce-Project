@@ -32,7 +32,9 @@
 </head>
 
 <body id="{$page.page_name}" class="{$page.body_classes|classnames}">
-
+{block name='notifications'}
+    {include file='_partials/notifications.tpl'}
+{/block}
 {block name='hook_after_body_opening_tag'}
     {hook h='displayAfterBodyOpeningTag'}
 {/block}
@@ -77,10 +79,6 @@
 
 {block name='product_activation'}
     {include file='catalog/_partials/product-activation.tpl'}
-{/block}
-
-{block name='notifications'}
-    {include file='_partials/notifications.tpl'}
 {/block}
 
 <footer id="footer">
