@@ -246,44 +246,43 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
 
                 switch ($value['id']) {
                     case 12:
-                        $product = $this->getProductByProductAttId(54, 1394, $type);
+                        $product = $this->getProductByProductAttId(54, 1394, $type, $warehouse);
                         break;
                     case 14:
-                        $product = $this->getProductByProductAttId(54, 1396, $type);
+                        $product = $this->getProductByProductAttId(54, 1396, $type, $warehouse);
                         break;
                     case 17:
-                        $product = $this->getProductByProductAttId(65, 1550, $type);
+                        $product = $this->getProductByProductAttId(65, 1550, $type, $warehouse);
                         break;
                     case 20:
-                        $product = $this->getProductByProductAttId(54, 1402, $type);
+                        $product = $this->getProductByProductAttId(54, 1402, $type, $warehouse);
                         break;
                     case 70:
-                        $product = $this->getProductByProductAttId(65, 1551, $type);
+                        $product = $this->getProductByProductAttId(65, 1551, $type, $warehouse);
                         break;
                     case 71:
-                        $product = $this->getProductByProductAttId(65, 1552, $type);
+                        $product = $this->getProductByProductAttId(65, 1552, $type, $warehouse);
                         break;
                     case 880:
-                        $product = $this->getProductByProductAttId(3, 7264, $type);
+                        $product = $this->getProductByProductAttId(3, 7264, $type, $warehouse);
                         break;
                     case 2113:
-                        $product = $this->getProductByProductAttId(65, 9337, $type);
+                        $product = $this->getProductByProductAttId(65, 9337, $type, $warehouse);
                         break;
                     case 2618:
-                        $product = $this->getProductByProductAttId(65, 10573, $type);
+                        $product = $this->getProductByProductAttId(65, 10573, $type, $warehouse);
                         break;
                     case 2619:
-                        $product = $this->getProductByProductAttId(65, 10572, $type);
+                        $product = $this->getProductByProductAttId(65, 10572, $type, $warehouse);
                         break;
                     case 2620:
-                        $product = $this->getProductByProductAttId(65, 10571, $type);
+                        $product = $this->getProductByProductAttId(65, 10571, $type, $warehouse);
                         break;
                 }
 
                 if (count($product)) {
                     $product  = $product[0];
                     $name     = explode("cm", $product["name"]);
-                    $quantity = $this->stockGlobal->getQteAvendre($product["id_product"], $product["id_product_attribute"], [$warehouse], true);
                     $result[] = array(
                         'id'       => $product["id_attribute"],
                         'price'    => number_format(round($product["price"] + ($product["price"] * 0.025), 2), 2),
@@ -291,7 +290,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
                         'type'     => (count($name) == 2? $name[1]: ""),
                         "enpot"    => in_array($value['id'], SqlRequete::$idAttrTailleSapinEnPot),
                         'image'    => $this->getImageByAttribute($product["id_attribute"]),
-                        'quantity' => $quantity,
+                        'quantity' => $product["quantity"],
                     );
                 }
             }
@@ -330,16 +329,17 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
         }
     }
 
-    public function getProductByProductAttId($idProduct, $idProductAttribute, $type)
+    public function getProductByProductAttId($idProduct, $idProductAttribute, $type, $id_warehouse = 1)
     {
-        $sql     = "SELECT p.id_product,p.id_category_default,pattr.id_product_attribute,attrl.id_attribute,attrl.name,stk.quantity, pattr.price 
+        $sql     = "SELECT p.id_product,p.id_category_default,pattr.id_product_attribute,attrl.id_attribute,attrl.name,stk.usable_quantity as quantity, pattr.price 
                 FROM ps_product_attribute_combination atc
                 JOIN `ps_product_attribute` pattr ON pattr.`id_product_attribute` = atc.`id_product_attribute`
-                JOIN `ps_stock_available` stk ON stk.`id_product_attribute` = pattr.`id_product_attribute`
+                JOIN `ps_stock` stk ON stk.`id_product_attribute` = pattr.`id_product_attribute`
                 JOIN `ps_product` p ON p.id_product = pattr.id_product
                 JOIN ps_attribute_lang attrl ON attrl.id_attribute = atc.id_attribute
                 WHERE p.id_product = $idProduct 
                 AND pattr.id_product_attribute = $idProductAttribute 
+                AND stk.`id_warehouse` = $id_warehouse
                 AND p.id_category_default = $type 
                 AND id_lang = $this->id_lang 
                 AND p.active = 1";
