@@ -394,6 +394,11 @@ textarea {
     font-size: 1.3rem;
 }
 
+#cart aside#notifications {
+    background-color: #585858;
+    margin-bottom: 0px;
+}
+
 #header .header-nav .cart-preview.active {
     background: none;
 }

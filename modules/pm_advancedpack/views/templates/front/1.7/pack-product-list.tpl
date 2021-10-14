@@ -214,7 +214,7 @@
 										{/if}
 									{/foreach}
 									<div id="ap5-product-variants-item-{$id_attribute_group|intval}" class="clearfix product-variants-item ap5-attribute-fieldset">
-										<span class="control-label">{$group.name}</span>
+										{*<span class="control-label">{$group.name}</span>*}
 										{assign var="groupName" value="group_`$productPack.id_product_pack`_$id_attribute_group"}
 										<div class="attribute_list ap5-attribute-list">
 											{if ($group.group_type == 'select')}
