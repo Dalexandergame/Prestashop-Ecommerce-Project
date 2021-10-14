@@ -46,7 +46,7 @@ div#ap5-buy-block-container {
     position: absolute;
     right: 0;
     width: 57rem;
-    top: 320px;
+    top: 318px;
 }
 
 #ap5-buy-container p.ap5-combination-unavailable {
@@ -55,6 +55,15 @@ div#ap5-buy-block-container {
 
 .ap5-product-list {
     margin-bottom: -20px;
+    margin-left: 32px;
+}
+
+#ap5-pack-product-6.ap5-product-pack-row-has-errors {
+    width: 106%;
+}
+
+#ap5-pack-product-5.ap5-product-pack-row-has-errors {
+    width: 106%!important;
 }
 
 .product-variants>.product-variants-item .color {
@@ -95,8 +104,8 @@ div#ap5-buy-block-container {
 
 #main .text-justify {
     position: absolute;
-    width: 46%;
-    right: 41px;
+    width: 44%;
+    right: 40px;
     top: 73px;
     color: white;
 }
@@ -241,7 +250,7 @@ body#checkout #header .header-nav .logo {
     background-color: #fff;
     margin-top: -37px;
     width: 100%;
-    padding-bottom: 0px !important;
+    padding-bottom: 5px !important;
 }
 /*
 .menu-page {
@@ -714,4 +723,44 @@ a:hover {
 
 .row {
     margin-left: -35px;
+}
+
+#product #header .header-top {
+    padding-bottom: 0.25rem;
+}
+
+#product #header .logo {
+    padding-top: 1rem;
+}
+
+#product .product-price {
+    color: #fff1f2;
+}
+
+.product-actions .add-to-cart {
+    height: 3.75rem;
+    line-height: initial;
+}
+
+.product-prices .tax-shipping-delivery-label {
+    font-size: 1rem;
+    color: #fff1f2;
+}
+
+.product-quantity #quantity_wanted {
+    background-color: #fff;
+    height: 3.75rem;
+    width: 4rem;
+}
+
+.product-quantity .input-group-btn-vertical .btn {
+    padding: 0.89rem .6875rem;
+}
+
+.product-quantity .input-group-btn-vertical .btn i {
+    top: .5rem;
+}
+
+.social-sharing {
+    margin-top: 0;
 }
