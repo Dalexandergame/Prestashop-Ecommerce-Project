@@ -1,5 +1,11 @@
 		<!-- pack product list-->
 		<div id="ap5-product-list" class="card ap5-product-list {if empty($from_quickview)}col-xs-12 col-12 col-sm-8 col-md-9{else}col-xs-12 col-12{/if}{if $packAvailableQuantity <= 0} ap5-pack-oos{/if}{if $packDeviceIsTablet || $packDeviceIsMobile} ap5-is-mobile{/if}">
+
+		<div class="list-deco-fleche">
+			<a href="#0" class="prev-deco"></a>
+			<a href="#0" class="next-deco"></a>
+		</div>
+
 		{assign var=nbPackProducts value=count($productsPack)}
 		{foreach from=$productsPack item=productPack}
 			{assign var=imageIds value="`$productPack.id_product`-`$productPack.image.id_image`"}
@@ -266,3 +272,31 @@
 		{/foreach}
 		</div>
 		<!-- end pack product list -->
+	{literal}
+		<script type="text/javascript">
+			$(document).ready(function(){
+
+				$(".list-deco-fleche").next('.titleSapin').hide();
+				$(".list-deco-fleche .next-deco").click(function(){
+					if($("#ap5-pack-product-6 .ap5-color-to-pick-list li.selected").next("li").length){
+						$("#ap5-pack-product-6 .ap5-color-to-pick-list li.selected").next("li").children("a").click();
+						return false;
+					}else{
+						$("#ap5-pack-product-6 .ap5-color-to-pick-list li:first").children("a").click();
+					}
+				});
+
+
+				$(".list-deco-fleche .prev-deco").click(function(){
+					if($("#ap5-pack-product-6 .ap5-color-to-pick-list li.selected").prev("li").length){
+						$("#ap5-pack-product-6 .ap5-color-to-pick-list li.selected").prev("li").children("a").click();
+						return false;
+					}else{
+						$("#ap5-pack-product-6 .ap5-color-to-pick-list li:last").children("a").click();
+					}
+				});
+
+			});
+
+		</script>
+	{/literal}
