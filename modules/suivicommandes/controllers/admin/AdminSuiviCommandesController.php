@@ -925,30 +925,36 @@ class AdminSuiviCommandesController extends ModuleAdminController
             $where .= "AND d.id_warehouse IN " . $w;
         }
 
-        //Import suivi_orders
-        $sql1 = "UPDATE " . _DB_PREFIX_ . "suivi_orders so
-                    JOIN " . _DB_PREFIX_ . "orders as o ON o.id_order = so.id_order
-                    JOIN " . _DB_PREFIX_ . "address as a ON o.id_address_delivery = a.id_address
-                    JOIN " . _DB_PREFIX_ . "order_detail as d ON o.id_order = d.id_order 
-                    JOIN " . _DB_PREFIX_ . "planning_delivery_carrier as pd ON so.id_order = pd.id_order 
-                    SET so.firstname = a.firstname,
-                        so.lastname = a.lastname,
-                        so.company = a.company,
-                        so.address1 = a.address1,
-                        so.address2 = a.address2,
-                        so.postcode = a.postcode,
-                        so.city = a.city,
-                        so.phone = a.phone,
-                        so.date_delivery = pd.date_delivery,
-                        so.date_retour = pd.date_retour,
-                        so.commande = (SELECT GROUP_CONCAT(distinct(d.product_name),' X',d.product_quantity) 
-                                        FROM " . _DB_PREFIX_ . "order_detail as d 
-                                        WHERE d.id_order = so.id_order
-                                        GROUP BY d.id_order),
-                        so.to_translate = IF( o.id_lang != " . $id_lang . ", 1, 0),
-                        so.phone_mobile = a.phone_mobile " . $where;
+        //Select new data
+        $sql = "
+        SELECT distinct so.id_suivi_orders,
+               a.firstname,
+               a.lastname,
+               a.company,
+               a.address1,
+               a.address2,
+               a.postcode,
+               a.city,
+               a.phone,
+               pd.date_delivery,
+               pd.date_retour,
+               (SELECT GROUP_CONCAT(distinct (d.product_name), ' X', d.product_quantity)
+                FROM ps_order_detail as d
+                WHERE d.id_order = so.id_order
+                GROUP BY d.id_order)    as commande,
+               IF(o.id_lang != 2, 1, 0) as to_translate,
+               a.phone_mobile
+        FROM ps_suivi_orders so
+                 JOIN ps_orders as o ON o.id_order = so.id_order
+                 JOIN ps_address as a ON o.id_address_delivery = a.id_address
+                 JOIN ps_order_detail as d ON o.id_order = d.id_order
+                 JOIN ps_planning_delivery_carrier as pd ON so.id_order = pd.id_order
+        $where";
 
-        Db::getInstance()->Execute($sql1);
+        $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS($sql);
+        foreach ($result as $item) {
+            Db::getInstance()->update('suivi_orders', $item, 'id_suivi_orders=' .$item['id_suivi_orders']);
+        }
         $this->translateCommandsTo($id_lang);
     }
 

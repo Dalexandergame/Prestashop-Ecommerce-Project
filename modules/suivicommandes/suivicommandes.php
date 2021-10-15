@@ -156,21 +156,4 @@ class SuiviCommandes extends Module
         }
         return $tab->add();
     }
-    /*
-    public function getTabId($className, $module)
-	{
-		$row = Db::getInstance()->getRow('SELECT `id_tab` FROM '._DB_PREFIX_.'tab WHERE `class_name` = "'.$className.'" AND `module` = "'.$module.'"');
-		return ($row ? $row['id_tab'] : false);
-	}
-
-    public function deleteTab()
-	{
-		$idTab = $this->getTabId('AdminSuiviCommandes', 'suivicommandes');
-		if ($idTab)
-		{
-			Db::getInstance()->Execute('DELETE FROM '._DB_PREFIX_.'tab WHERE `id_tab` = '.(int)($idTab));
-			Db::getInstance()->Execute('DELETE FROM '._DB_PREFIX_.'tab_lang WHERE `id_tab` = '.(int)($idTab));
-		}
-	}    
-    */    
 }
