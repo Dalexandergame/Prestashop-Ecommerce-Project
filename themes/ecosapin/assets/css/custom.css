@@ -110,6 +110,14 @@ div#ap5-buy-block-container {
     color: white;
 }
 
+.cart-grid-body .h1 {
+    position: relative!important;
+    text-align: left!important;
+    font: 600 28px/22px "Source Sans Pro", sans-serif;
+    color: #5c8f16!important;
+    text-transform: uppercase;
+}
+
 #main .h1 {
     position: absolute;
     right: 0;
@@ -347,7 +355,7 @@ body#checkout #header .header-nav .logo {
 }
 
 @media (min-width: 992px) {
-    .col-md-3 {
+    .footer-block.footer-adresse {
         width: 15%;
     }
 }
@@ -367,6 +375,15 @@ body#checkout #header .header-nav .logo {
     font-size: 12px;
     text-transform: uppercase;
     font-weight: 600;
+}
+
+.page-header h1{
+    font: 600 28px/22px "Source Sans Pro", sans-serif;
+    color: #5c8f16;
+    text-transform: uppercase;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
 }
 
 #header .header-nav .cart-preview.active {
@@ -419,6 +436,7 @@ body#checkout #header .header-nav .logo {
 
 body#checkout #cart-summary-product-list img {
     width: 12rem;
+    border: none;
 }
 
 .card-block.cart-summary-totals .cart-summary-line.cart-total .value {
@@ -434,8 +452,46 @@ body#checkout #cart-summary-product-list img {
 }
 
 .label {
-    color: #585858;
+    color: #428bca;
     padding-left: 0px;
+    padding-right: 0px;
+    font-size: 11.2px;
+    font-weight: 100;
+}
+
+.product-line-info.couleur .label {
+    color: #428bca;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 11.2px;
+    text-transform: capitalize;
+}
+
+.product-line-info.product-line-info-secondary.text-muted .label {
+    font-size: 11.2px;
+    color: #428bca;
+    text-transform: none;
+}
+
+span.value, .product-line-info.taille .label, .product-line-info.taille .label {
+    font-size: 11.2px;
+    color: #428bca;
+    text-transform: none;
+}
+
+.product-line-info .label {
+    color: #505050;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.cart-summary-line .label {
+    font-weight: 700;
+    color: #6c6c6c;
+    text-transform: uppercase;
+    font-size: 14px;
 }
 
 .product-quantity {
@@ -447,7 +503,7 @@ body#checkout #cart-summary-product-list img {
     color: #1d5202;
     font-family: "Source Sans Pro";
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 700!important;
     text-transform: uppercase;
     float: right;
 }
@@ -470,7 +526,12 @@ body#checkout #cart-summary-product-list img {
 .btn-primary, .btn-primary:active, .btn-primary:hover {
     background-color: #5c8f16;
     border-color: #5c8f16;
-    border-radius: 5px;
+    border-radius: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: capitalize;
 }
 
 .btn-primary:active:hover {
@@ -580,26 +641,41 @@ body#checkout section.checkout-step .step-title {
     min-height: fit-content;
 }
 
+.product-line-grid-left {
+width: 15%;
+}
+
 .product-line-grid-body.col-md-4.col-xs-8 {
-    padding-top: 30px;
+padding-top: 30px;
+width: 40%;
 }
 
 .product-line-grid-right.product-line-actions.col-md-5.col-xs-12 {
-    padding-top: 30px;
+padding-top: 30px;
 }
 /*
 #typesapain #resp_content {
-    overflow: auto;
+overflow: auto;
 }
 */
 #order-items .details {
     margin-bottom: 1rem;
     margin-top: 7rem;
+    color: #515151;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 #order-items .qty {
     margin-bottom: 1rem;
     margin-top: 7rem;
+    color: #515151;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 #cart .header-top {
@@ -721,7 +797,7 @@ a:hover {
     padding-top: 27px;
 }
 
-.row {
+.footer-container .row {
     margin-left: -35px;
 }
 
@@ -729,7 +805,7 @@ a:hover {
     padding-bottom: 0.25rem;
 }
 
-#product #header .logo {
+#header .logo {
     padding-top: 1rem;
 }
 
@@ -763,4 +839,117 @@ a:hover {
 
 .social-sharing {
     margin-top: 0;
+}
+
+.block-promo .promo-input {
+    height: 2.9rem;
+    margin-right: 0.76rem;
+}
+
+.block-promo .promo-code form {
+    text-align: left;
+}
+
+.block-promo {
+    margin-left: 2rem;
+    width: 35%;
+    border: 1px solid #c0c0c0;
+}
+
+.block-promo .promo-code-button {
+    font: 600 18px/22px "Source Sans Pro", sans-serif;
+    color: #5c8f16;
+    text-transform: uppercase;
+    padding: 16px 0 10px 10px;
+    text-align: left;
+}
+
+.page-header {
+    border-bottom: none;
+}
+
+.page-my-account #content .links a {
+    text-align: center;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 0 .9375rem;
+    margin-bottom: 1.875rem;
+    font: 600 16px/20px "Source Sans Pro", sans-serif;
+    color: #568A13;
+    text-decoration: none;
+    position: relative;
+}
+
+.page-my-account #content .links a i {
+    font-size: 70px;
+    color: #568A13;
+    height: 100%;
+    padding: 10px 0 0 0;
+    text-align: center;
+    display: block;
+}
+
+.page-my-account #content .links a span.link-item {
+    box-shadow: none;
+    padding: 1rem 0 5rem;
+}
+
+.icon, [class^="icon-"] {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#my-account .info-account {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #F6F6F6;
+    color: #717171;
+    font-weight: 700;
+}
+
+.h1.card-title {
+    font: 600 28px/22px "Source Sans Pro", sans-serif;
+    color: #5c8f16;
+    text-transform: uppercase;
+    padding: 0px 0px 17px 0px;
+    margin-bottom: 20px;
+}
+
+#order-items .row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+#order-items .h3 {
+    background: #f6f6f6;
+    border-bottom-width: 1px;
+    color: #6c6c6c;
+    vertical-align: middle;
+    padding: 7px 8px 9px 35px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    text-transform: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#order-details>.card-title {
+    font: 600 28px/22px "Source Sans Pro", sans-serif;
+    color: #5c8f16;
+    text-transform: uppercase;
+    padding: 0px 0px 17px 0px;
+}
+
+#order-items table tr td {
+    font-size: inherit;
+}
+
+#content-hook_order_confirmation .card-block .row>div>p {
+    color: #5c8f16;
+    padding-left: 42px;
 }
