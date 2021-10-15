@@ -1593,6 +1593,9 @@ class AdvancedPack extends Product
                         }
                         $stock_available->add();
                     }
+                    $warehouse =  new Warehouse(1); // default warehouse
+                    $stock_manager = StockManagerFactory::getManager();
+                    $stock_manager->addProduct((int)$idProduct, (int)$idProductAttribute, $warehouse, $quantity, 0, 100);
                     Cache::clean('StockAvailable::getQuantityAvailableByProduct_'.(int)$idProduct.'*');
                 }
             }

@@ -214,7 +214,6 @@
 										{/if}
 									{/foreach}
 									<div id="ap5-product-variants-item-{$id_attribute_group|intval}" class="clearfix product-variants-item ap5-attribute-fieldset">
-										{*<span class="control-label">{$group.name}</span>*}
 										{assign var="groupName" value="group_`$productPack.id_product_pack`_$id_attribute_group"}
 										<div class="attribute_list ap5-attribute-list">
 											{if ($group.group_type == 'select')}
@@ -230,9 +229,12 @@
 													{foreach from=$group.attributes key=id_attribute item=group_attribute}
 														{assign var=ap5_isCurrentSelectedIdAttribute value=((isset($productsPackErrors[$productPack.id_product_pack]) && isset($packCompleteAttributesList[$productPack.id_product_pack]) && in_array($id_attribute, $packCompleteAttributesList[$productPack.id_product_pack])) || $group.default == $id_attribute)}
 														<li class="float-left float-xs-left pull-xs-left input-container{if $ap5_isCurrentSelectedIdAttribute} selected{/if}">
-															<a href="{$productPack.presentation.url}" data-id-product-pack="{$productPack.id_product_pack|intval}" data-id-attribute-group="{$id_attribute_group|intval}" data-id-attribute="{$id_attribute|intval}" id="color_{$id_attribute|intval}" name="{$productPack.attributes.colors.$id_attribute.name}" class="ap5-color color color_pick{if $ap5_isCurrentSelectedIdAttribute} selected{/if}{if in_array($productPack.id_product_pack, $packExcludeList)} disabled{/if}" style="background: {$productPack.attributes.colors.$id_attribute.value};" title="{$productPack.attributes.colors.$id_attribute.name}">
-																{if $productPack.attributes.colors.$id_attribute.image_exists}
-																	<img src="{$urls.img_col_url}{$id_attribute|intval}.jpg" alt="{$productPack.attributes.colors.$id_attribute.name}" />
+															<a href="{$productPack.presentation.url}" data-id-product-pack="{$productPack.id_product_pack|intval}" data-id-attribute-group="{$id_attribute_group|intval}" data-id-attribute="{$id_attribute|intval}" id="color_{$id_attribute|intval}"
+															   name="{$productPack.attributes.colors.$id_attribute.name|default:''}" class="ap5-color color color_pick{if $ap5_isCurrentSelectedIdAttribute} selected{/if}{if in_array($productPack.id_product_pack, $packExcludeList)} disabled{/if}"
+															   style="background: {$productPack.attributes.colors.$id_attribute.value|default:''};"
+															   title="{$productPack.attributes.colors.$id_attribute.name|default:''}">
+																{if !empty($productPack.attributes.colors.$id_attribute.image_exists|default:'')}
+																	<img src="{$urls.img_col_url}{$id_attribute|intval}.jpg" alt="{$productPack.attributes.colors.$id_attribute.name|default:''}" />
 																{/if}
 															</a>
 														</li>

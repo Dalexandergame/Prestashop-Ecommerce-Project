@@ -91,9 +91,9 @@ class StockManagerCore implements StockManagerInterface
             'price_te' => $price_te,
             'last_wa' => null,
             'current_wa' => null,
-            'id_employee' => (int) $context->employee->id ? (int) $context->employee->id : $employee->id,
-            'employee_firstname' => $context->employee->firstname ? $context->employee->firstname : $employee->firstname,
-            'employee_lastname' => $context->employee->lastname ? $context->employee->lastname : $employee->lastname,
+            'id_employee' => $context->employee->id ?? $employee->id ?? 1,
+            'employee_firstname' => $context->employee->firstname ?? $employee->firstname ?? 'admin',
+            'employee_lastname' => $context->employee->lastname ?? $employee->lastname ?? 'admin',
             'sign' => 1,
         ];
 

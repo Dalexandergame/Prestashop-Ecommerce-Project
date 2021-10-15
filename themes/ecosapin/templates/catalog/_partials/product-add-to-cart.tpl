@@ -28,17 +28,7 @@
 
     {block name='product_quantity'}
       <div class="product-quantity clearfix">
-        <div class="qty">
-          <input
-            type="number"
-            name="qty"
-            id="quantity_wanted"
-            value="{$product.quantity_wanted}"
-            class="input-group"
-            min="{$product.minimal_quantity}"
-            aria-label="{l s='Quantity' d='Shop.Theme.Actions'}"
-          >
-        </div>
+        <input type="hidden" name="qty" value="1">
 
         <div class="add">
           <button
