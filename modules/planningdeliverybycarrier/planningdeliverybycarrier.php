@@ -57,11 +57,6 @@ class PlanningDeliveryByCarrier extends Module
 
     public function install()
     {
-        if (!file_exists(dirname(__FILE__) . '/' . self::INSTALL_SQL_FILE)) return (false);
-        else if (!$sql = Tools::file_get_contents(dirname(__FILE__) . '/' . self::INSTALL_SQL_FILE)) return (false);
-        $sql = str_replace('PREFIX_', _DB_PREFIX_, $sql);
-        $sql = preg_split("/;\s*[\r\n]+/", $sql);
-        foreach ($sql as $query) if (!Db::getInstance()->Execute(trim($query))) return (false);
         if (!$this->getTabId('AdminPlanningDeliveryByCarrier', 'planningdeliverybycarrier')) $this->addTab();
 
         if (!parent::install()
@@ -89,14 +84,6 @@ class PlanningDeliveryByCarrier extends Module
 
     public function uninstall()
     {
-        Configuration::deleteByName('PLANNING_DELIVERY_REQUIRED');
-        Configuration::deleteByName('PLANNING_DELIVERY_HOMEBACKOFFICE');
-        Configuration::deleteByName('PLANNING_DELIVERY_CARRIERS');
-        Configuration::deleteByName('PLANNING_DELIVERY_UNAV_OSS');
-        Db::getInstance()->Execute('DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'planning_delivery_carrier`');
-        Db::getInstance()->Execute('DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'planning_delivery_carrier_slot`');
-        Db::getInstance()->Execute('DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'planning_delivery_carrier_slot_day`');
-        Db::getInstance()->Execute('DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'planning_delivery_carrier_exception`');
         $this->deleteTab();
         return parent::uninstall();
     }
