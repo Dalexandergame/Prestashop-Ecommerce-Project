@@ -103,6 +103,7 @@ modules/
 !modules/psgdpr
 !modules/referralprogram
 !modules/mailchimppro
+!modules/stripe_official
 
 # Custom modules
 !modules/planningdeliverybycarrier

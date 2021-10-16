@@ -196,7 +196,7 @@ class CheckoutDeliveryStepCore extends AbstractCheckoutStep
         $deliveryOptions = $this->getCheckoutSession()->getDeliveryOptions();
         $currentDeliveryOption = $deliveryOptions[$this->getCheckoutSession()->getSelectedDeliveryOption()];
 
-        if (empty($requestParams['date_delivery']) || empty($requestParams['date_retour']) || empty($requestParams['delivery_message'])) {
+        if (empty($requestParams['date_delivery']) || empty($requestParams['delivery_message'])) {
             return false;
         }
 
