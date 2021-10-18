@@ -75,19 +75,22 @@
                             data: 'ajax=1&' + $me.serialize(),
                             dataType: 'json',
                             success: function (json) {
-
                                 if (json.hasError) {
-
                                     $.each(json.errors, function (k, v) {
                                         showError(v);
                                     });
                                 } else {
-
-
                                     $('#resp_content').html(json.html);
                                     $('#my_errors').empty();
                                     ShowHideStep(json.numStep);
                                 }
+                                $me.removeClass(classe);
+                                $("body").css("cursor", "default");
+                            },
+                            error: function(res) {
+                                $.each(res.responseJSON.errors, function (k, v) {
+                                    showError(v);
+                                });
                                 $me.removeClass(classe);
                                 $("body").css("cursor", "default");
                             }
