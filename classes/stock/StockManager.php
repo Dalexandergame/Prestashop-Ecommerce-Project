@@ -543,6 +543,12 @@ class StockManagerCore implements StockManagerInterface
         $query->select('SUM(' . ($usable ? 's.usable_quantity' : 's.physical_quantity') . ')');
         $query->from('stock', 's');
         $query->where('s.id_product = ' . (int) $id_product);
+
+        if (!empty(Shop::getContextShopID())) {
+            $query->innerJoin('warehouse_shop', 'ws', 'ws.id_warehouse = s.id_warehouse');
+            $query->where('ws.id_shop = ' . Shop::getContextShopID());
+        }
+
         if (0 != $id_product_attribute) {
             $query->where('s.id_product_attribute = ' . (int) $id_product_attribute);
         }
@@ -624,7 +630,7 @@ class StockManagerCore implements StockManagerInterface
             $query->where('o.valid = 1 OR (os.id_order_state != ' . (int) Configuration::get('PS_OS_ERROR') . '
 						   AND os.id_order_state != ' . (int) Configuration::get('PS_OS_CANCELED') . ')');
             $query->groupBy('od.id_order_detail');
-            if (count($ids_warehouse)) {
+            if (!empty($ids_warehouse)) {
                 $query->where('od.id_warehouse IN(' . implode(', ', $ids_warehouse) . ')');
             }
             $res = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($query);
