@@ -70,7 +70,6 @@
         </span>
       </a>
 
-{*
       {if !$configuration.is_catalog}
         <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="order-slips-link" href="{$urls.pages.order_slip}">
           <span class="link-item">
@@ -101,7 +100,7 @@
       {block name='display_customer_account'}
         {hook h='displayCustomerAccount'}
       {/block}
-        *}
+
     </div>
   </div>
 {/block}

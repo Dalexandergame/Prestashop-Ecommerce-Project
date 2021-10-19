@@ -880,6 +880,10 @@ a:hover {
     position: relative;
 }
 
+.page-my-account #content .links a:hover {
+    color: #568A13!important;
+}
+
 .page-my-account #content .links a i {
     font-size: 70px;
     color: #568A13;
@@ -889,9 +893,17 @@ a:hover {
     display: block;
 }
 
+.page-my-account #content .links a i:hover {
+    color: #568A13;
+}
+
 .page-my-account #content .links a span.link-item {
     box-shadow: none;
     padding: 1rem 0 5rem;
+}
+
+.page-my-account #content .links a span.link-item:hover {
+    background-color: #e7e7e7;
 }
 
 .icon, [class^="icon-"] {
