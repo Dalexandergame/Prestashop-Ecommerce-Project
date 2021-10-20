@@ -32,7 +32,7 @@ $(function ($) {
         selectorPrice: '.thirdCol .total_prix',
         isHasRecyclage: false,
         rabaisPriceBoulePromo: 65,
-        rabaisPricePotPromo: 5,
+        rabaisPricePotPromo: 3.50,
         price: {
             sapin: 0,
             recyclage: 0,
