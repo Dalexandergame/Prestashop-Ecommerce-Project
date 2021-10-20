@@ -742,6 +742,8 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
     public function importCommandes()
     {
+        // fix missing orders
+        Db::getInstance()->Execute("update ignore ps_planning_delivery_carrier pdc join ps_orders o on pdc.id_cart = o.id_cart set pdc.id_order = o.id_order where pdc.id_order = 0 ");
 
         $w = "(" . implode(",", $this->warehouse_selected) . ")";
 
