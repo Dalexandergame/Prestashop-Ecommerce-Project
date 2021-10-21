@@ -737,8 +737,6 @@ class AdminWarehousesControllerCore extends AdminController
         $ids_carriers_selected = Tools::getValue('ids_carriers_selected');
         if (Tools::isSubmit('ids_carriers_selected') && !empty($ids_carriers_selected)) {
             $warehouse->setCarriers($ids_carriers_selected);
-        } else {
-            $warehouse->setCarriers(Tools::getValue('ids_carriers_available'));
         }
 
         return parent::processUpdate();
