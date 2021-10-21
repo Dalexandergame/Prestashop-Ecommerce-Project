@@ -85,7 +85,6 @@ class AdminPlanningDeliveryByCarrierMyLittelController extends ModuleAdminContro
         $this->_where = '
 		AND os.`id_order_state` NOT IN (' . Configuration::get('PLANNING_DELIVERY_UNAV_OSS') . ')
                 AND a.reference IN (select o.reference from ps_orders o join ps_order_detail od on od.id_order = o.id_order join ps_pm_advancedpack_products app on app.id_product = od.product_id and app.id_pack = 93)
-                AND ' . $date_depart . ' = ' . ($this->dateLivraison ? '"' . $this->dateLivraison . '"' : 'CURDATE()') . '
                 ';
         if (!is_null($this->carrier_selected) && (int) $this->carrier_selected > 0) {
             $this->_where .= ' AND a.`id_carrier` = ' . (int) $this->carrier_selected . ' ';
@@ -97,7 +96,7 @@ class AdminPlanningDeliveryByCarrierMyLittelController extends ModuleAdminContro
         );
 
         $this->_orderBy  = 'pd.date_delivery';
-        $this->_orderWay = 'ASC';
+        $this->_orderWay = 'DESC';
         //  $this->_group = ' GROUP BY a.id_order ';
         $statuses_array = array();
         $statuses       = OrderState::getOrderStates((int) $this->context->language->id);

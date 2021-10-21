@@ -408,17 +408,8 @@ class TunnelVenteAbies extends Module
         $productMyLitte    = new Product((int) Configuration::get('TUNNELVENTE_ID_PRODUCT_MYLITTELECOSAPIN'), false, $this->context->language->id);
         $cart              = $this->context->cart;
         $hasSapin          = false;
-        $id_product_sapins = $this->getIdProductSapins(array(Configuration::get('TUNNELVENTE_ID_ECOSAPIN'), Configuration::get('TUNNELVENTE_ID_SAPIN_SUISSE')));
-        $npa               = '';
-        if ($cart && $products = $cart->getProducts()) {
-            $npa = $cart->npa;
-            foreach ($products as $product) {
-                if (in_array($product['id_product'], $id_product_sapins)) {
-                    $hasSapin = true;
-                    break;
-                }
-            }
-        }
+        $npa               = $cart->npa;
+
         $this->context->smarty->assign(array(
                                            'steps'                 => $steps,
                                            'prod_mylittelecosapin' => $productMyLitte,

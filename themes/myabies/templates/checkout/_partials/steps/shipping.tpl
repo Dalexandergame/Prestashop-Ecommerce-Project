@@ -44,7 +44,7 @@
                   <div class="row delivery-option">
                     <div class="col-sm-1">
                       <span class="custom-radio float-xs-left">
-                        <input type="radio" name="delivery_option[{$id_address}]" id="delivery_option_{$carrier.id}" value="{$carrier_id}"{if $delivery_option == $carrier_id} checked{/if}>
+                        <input class="delivery_option_radio" type="radio" name="delivery_option[{$id_address}]" id="delivery_option_{$carrier.id}" value="{$carrier_id}"{if $delivery_option == $carrier_id} checked{/if}>
                         <span></span>
                       </span>
                     </div>
@@ -76,6 +76,9 @@
                   </div>
                   <div class="clearfix"></div>
               {/foreach}
+            </div>
+            <div id="hook-display-after-carrier">
+              {$hookDisplayAfterCarrier nofilter}
             </div>
           {/block}
           <div class="order-options">
@@ -116,9 +119,7 @@
     {/if}
   </div>
 
-  <div id="hook-display-after-carrier">
-    {$hookDisplayAfterCarrier nofilter}
-  </div>
+
 
   <div id="extra_carrier"></div>
 {/block}

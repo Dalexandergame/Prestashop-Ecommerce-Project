@@ -620,6 +620,35 @@ class CustomerCore extends ObjectModel
     }
 
     /**
+     * Get simplified Addresses arrays.
+     *
+     * @param int|null $idLang Language ID
+     *
+     * @return array
+     */
+    public function getAllowedAddresses($idLang = null, $noCache = true)
+    {
+        if (!$this->id) {
+            return [];
+        }
+
+        if (null === $idLang) {
+            $idLang = Context::getContext()->language->id;
+        }
+
+        $npa = Context::getContext()->cart->npa;
+        $sql = $this->getSimpleAddressSql(null, $idLang);
+        $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
+        $addresses = [];
+        foreach ($result as $addr) {
+            if ($addr['postcode'] !== $npa) continue;
+            $addresses[$addr['id']] = $addr;
+        }
+
+        return $addresses;
+    }
+
+    /**
      * Get Address as array.
      *
      * @param int $idAddress Address ID

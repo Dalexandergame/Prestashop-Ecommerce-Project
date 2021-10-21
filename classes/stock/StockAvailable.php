@@ -199,7 +199,7 @@ class StockAvailableCore extends ObjectModel
                         continue;
                     }
 
-                    $product_quantity = $manager->getProductRealQuantities($id_product, null, $allowed_warehouse_for_product_clean, true);
+                    $product_quantity = $manager->getProductRealQuantities($id_product, null, $allowed_warehouse_for_product_clean);
 
                     Hook::exec(
                         'actionUpdateQuantity',
@@ -223,38 +223,18 @@ class StockAvailableCore extends ObjectModel
                             continue;
                         }
 
-                        $quantity = $manager->getProductRealQuantities($id_product, $id_product_attribute, $allowed_warehouse_for_combination_clean, true);
+                        foreach ($allowed_warehouse_for_combination_clean as $warehouse) {
+                            $quantity = $manager->getProductRealQuantities($id_product, $id_product_attribute, $warehouse);
 
-                        $query = new DbQuery();
-                        $query->select('COUNT(*)');
-                        $query->from('stock_available');
-                        $query->where('id_product = ' . (int) $id_product . ' AND id_product_attribute = ' . (int) $id_product_attribute .
-                            StockAvailable::addSqlShopRestriction(null, $id_shop));
-
-                        if ((int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query)) {
                             $query = [
-                                'table' => 'stock_available',
-                                'data' => ['quantity' => $quantity],
-                                'where' => 'id_product = ' . (int) $id_product . ' AND id_product_attribute = ' . (int) $id_product_attribute .
-                                StockAvailable::addSqlShopRestriction(null, $id_shop),
+                                'table' => 'stock',
+                                'data' => ['usable_quantity' => $quantity],
+                                'where' => 'id_product = ' . (int) $id_product . ' AND id_product_attribute = ' . (int) $id_product_attribute . ' AND id_warehouse = ' . (int) $warehouse
                             ];
                             Db::getInstance()->update($query['table'], $query['data'], $query['where']);
-                        } else {
-                            $query = [
-                                'table' => 'stock_available',
-                                'data' => [
-                                    'quantity' => $quantity,
-                                    'depends_on_stock' => 1,
-                                    'out_of_stock' => $out_of_stock,
-                                    'id_product' => (int) $id_product,
-                                    'id_product_attribute' => (int) $id_product_attribute,
-                                ],
-                            ];
-                            StockAvailable::addSqlShopParams($query['data'], $id_shop);
-                            Db::getInstance()->insert($query['table'], $query['data']);
-                        }
 
-                        $product_quantity += $quantity;
+                            $product_quantity += $quantity;
+                        }
 
                         Hook::exec(
                             'actionUpdateQuantity',
@@ -418,8 +398,12 @@ class StockAvailableCore extends ObjectModel
      *
      * @return int Quantity
      */
-    public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null)
+    public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null, $id_warehouse = 1)
     {
+        if (empty($id_warehouse)) {
+            $id_warehouse = 1;
+        }
+
         // if null, it's a product without attributes
         if ($id_product_attribute === null) {
             $id_product_attribute = 0;
@@ -427,17 +411,13 @@ class StockAvailableCore extends ObjectModel
 
         $key = 'StockAvailable::getQuantityAvailableByProduct_' . (int) $id_product . '-' . (int) $id_product_attribute . '-' . (int) $id_shop;
         if (!Cache::isStored($key)) {
-            $query = new DbQuery();
-            $query->select('SUM(quantity)');
-            $query->from('stock_available');
+            $query = 'SELECT IFNULL(st.usable_quantity, 0) as quantity
+                        FROM ' . _DB_PREFIX_ . 'product p
+                        INNER JOIN ps_stock st ON (st.id_product = `p`.id_product 
+                            AND st.id_product_attribute = '.$id_product_attribute.' AND st.id_warehouse = '.$id_warehouse.')
+                        ' . Product::sqlStock('p', $id_product_attribute, true) . '
+                        WHERE p.id_product = ' . $id_product;
 
-            // if null, it's a product without attributes
-            if ($id_product !== null) {
-                $query->where('id_product = ' . (int) $id_product);
-            }
-
-            $query->where('id_product_attribute = ' . (int) $id_product_attribute);
-            $query = StockAvailable::addSqlShopRestriction($query, $id_shop);
             $result = (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
             Cache::store($key, $result);
 

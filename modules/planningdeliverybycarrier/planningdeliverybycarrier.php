@@ -57,11 +57,6 @@ class PlanningDeliveryByCarrier extends Module
 
     public function install()
     {
-        if (!file_exists(dirname(__FILE__) . '/' . self::INSTALL_SQL_FILE)) return (false);
-        else if (!$sql = Tools::file_get_contents(dirname(__FILE__) . '/' . self::INSTALL_SQL_FILE)) return (false);
-        $sql = str_replace('PREFIX_', _DB_PREFIX_, $sql);
-        $sql = preg_split("/;\s*[\r\n]+/", $sql);
-        foreach ($sql as $query) if (!Db::getInstance()->Execute(trim($query))) return (false);
         if (!$this->getTabId('AdminPlanningDeliveryByCarrier', 'planningdeliverybycarrier')) $this->addTab();
 
         if (!parent::install()
@@ -89,14 +84,6 @@ class PlanningDeliveryByCarrier extends Module
 
     public function uninstall()
     {
-        Configuration::deleteByName('PLANNING_DELIVERY_REQUIRED');
-        Configuration::deleteByName('PLANNING_DELIVERY_HOMEBACKOFFICE');
-        Configuration::deleteByName('PLANNING_DELIVERY_CARRIERS');
-        Configuration::deleteByName('PLANNING_DELIVERY_UNAV_OSS');
-        Db::getInstance()->Execute('DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'planning_delivery_carrier`');
-        Db::getInstance()->Execute('DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'planning_delivery_carrier_slot`');
-        Db::getInstance()->Execute('DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'planning_delivery_carrier_slot_day`');
-        Db::getInstance()->Execute('DROP TABLE IF EXISTS `' . _DB_PREFIX_ . 'planning_delivery_carrier_exception`');
         $this->deleteTab();
         return parent::uninstall();
     }
@@ -432,6 +419,7 @@ class PlanningDeliveryByCarrier extends Module
 
         if (count($oldRow)) {
             Db::getInstance()->update('planning_delivery_carrier', $values, '`id_order`=' . (int) $order->id);
+            Db::getInstance()->update('suivi_orders', $values, '`id_order`=' . (int) $order->id);
         } else {
             $values['id_order'] = $order->id;
             $values['id_cart']  = $order->id_cart;
@@ -439,8 +427,9 @@ class PlanningDeliveryByCarrier extends Module
             Db::getInstance()->insert('planning_delivery_carrier', $values);
         }
 
-        if (count($errors))
+        if (count($errors)) {
             $this->smarty->assign('pderrors', $errors);
+        }
 
         $result = Db::getInstance()->getRow('
                 SELECT pd.`date_delivery`, pds.`name`, pd.`date_retour`
@@ -532,7 +521,7 @@ class PlanningDeliveryByCarrier extends Module
             }
             if (Validate::isDate($date_delivery)) {
                 $planning_delivery->date_delivery = $date_delivery;
-            } elseif ($dateDeliveryRequired) {
+            } else {
                 $errors[] = Tools::displayError($this->l('Delivery Date invalid'));
             }
 
@@ -913,12 +902,23 @@ class PlanningDeliveryByCarrier extends Module
             $country = new Country((int) ($address->id_country));
             $format  = ('US' != $country->iso_code) ? 1 : 2;
             $date_retour   = Tools::getValue('date_retour');
+            $date_delivery = Tools::getValue('date_delivery');
+            $delivery_message = Tools::getValue('delivery_message');
             $errors = [];
-            if (Tools::getValue('date_delivery') && $date_retour) {
+
+            if (($date_delivery && $date_retour && Tools::getValue('action') === "selectDeliveryOption")
+                || ((empty($date_delivery) || empty($date_retour)) && Tools::getValue('confirmDeliveryOption') == 1))
+            {
                 $errors = $this->requestProcessDateDelivery((int)($cart->id), $cart->id_carrier, Tools::getValue('date_delivery'), Tools::getValue('id_planning_delivery_slot'), $date_retour, $format);
+
             }
+
+            if (empty($delivery_message) && Tools::getValue('confirmDeliveryOption') == 1) {
+                $errors[] = Tools::displayError($this->l('Please enter your message'));
+            }
+
             if (count($errors) && $oblige == 1) {
-                $this->context->controller->step = 2;
+               // $this->context->controller->step = 2;
                 $this->smarty->assign('pderrors', $errors);
             }
         }
@@ -941,7 +941,8 @@ class PlanningDeliveryByCarrier extends Module
 <script src=\"//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js\"></script>
 ";
 //<link href=\"//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css\" rel=\"stylesheet\">
-
+        $return .= '<link href="' . _PS_JS_DIR_ . 'jquery/ui/themes/base/jquery.ui.datepicker.css" rel="stylesheet" type="text/css" media="all" />';
+        $return .= '<link href="' . _PS_JS_DIR_ . 'jquery/ui/themes/base/jquery.ui.theme.css" rel="stylesheet" type="text/css" media="all" />';
         return $return;
     }
 
@@ -1467,127 +1468,6 @@ class PlanningDeliveryByCarrier extends Module
 		";
     }
 
-//    protected function _displayFormException()
-//    {
-//        $availableCarriers = explode(', ', Configuration::get('PLANNING_DELIVERY_CARRIERS'));
-//        $carriers = Carrier::getCarriers((int)$this->context->language->id, true, false, false, null, Carrier::ALL_CARRIERS);
-//        $mycarrier = array();
-//        $carrierAndNbCommande = array();
-//        foreach ( PlanningDeliveryByCarrierException::getAllNbCommandeAndRealNbCommand() as $r){
-//            $carrierAndNbCommande[$r['id_planning_delivery_carrier_exception']] = $r;
-//        }
-//
-//        foreach ($carriers as $carrier){
-//            $mycarrier[$carrier['id_carrier']]   = $carrier;
-//        }
-//        $this->_html .= $this->includeDatepicker(array('date_from', 'date_to'), false, 1, 1);
-//        $this->_html .= '
-//            <a id="planningdelivery_exceptions" name="planningdelivery_exceptions"></a>
-//            <form action="'.$_SERVER['REQUEST_URI'].'" method="post" name="exception_form">
-//            <fieldset><legend><img src="'.$this->_path.'img/prefs.gif" alt="" title="" />'.$this->l('Exceptions').'&nbsp;<a href="javascript:{}" onclick="$.scrollTo(\'#planningdelivery_top\', 1200);"><img src="'._PS_ADMIN_IMG_.'up.gif" alt="" /></a></legend>
-//                    <p>'.$this->l('Add as many exceptions as necessary.').'</p><br />
-//                    <label>'.$this->l('Exception').'</label>
-//                    <div class="margin-form">
-//                            <label class="t" for="id_carrier_exception">'.($this->checkVersion() > '1.5' ? '<i class="icon-AdminParentShipping"></i>' : '<img src="../img/t/AdminParentShipping.gif" />').''.$this->l('Carrier').'</label>
-//                            <select name="id_carrier_exception" id="id_carrierException">';
-//        foreach ($carriers as $carrier)
-//            if (in_array($carrier['id_carrier'], $availableCarriers))
-//                $this->_html .= '
-//                                            <option value="'.(int)($carrier['id_carrier']).'"'.((int)($carrier['id_carrier']) == (int)($this->id_carrier) ? ' selected="selected" ' : '').'>'.$carrier['name'].' (id:'.$carrier['id_carrier'].')</option>';
-//        $this->_html .= '
-//                            </select>
-//                            <label class="t" for="nb_commandes"> '.$this->l('Nombre des commandes').'</label>
-//                            <input type="text" name="nb_commandes" id="nb_commandes"/>
-//                            <label class="t" for="date_from"> '.$this->l('Date from').'</label>
-//                            <input type="text" name="date_from" id="date_from"/>
-//                            <label class="t" for="date_to"> '.$this->l('to').'</label>
-//                            <input type="text" name="date_to" id="date_to"/>
-//                            <input type="submit" name="submitException" value="'.$this->l('Add').'" class="button" />
-//                    </div>';
-//
-//        $exceptions = PlanningDeliveryByCarrierException::get();
-//
-//        $len = count($exceptions);
-//        if ($len)
-//        {
-//            $this->_html .= '
-//                            <input type="hidden" name="id_planning_delivery_carrier_exception" id="id_planning_delivery_carrier_exception" />
-//                            <input type="hidden" name="exception_name" id="exception_name" />
-//                            <input type="hidden" name="exception_action" id="slot_action" />
-//                            <br /><table class="table" style="width:100%;">
-//                            <thead>
-//                            <tr>
-//                             <th style="width:95%;">'.$this->l('Restricted dates').'</th>
-//                             <th style="width:5%;">'.$this->l('Actions').'</th>
-//                            </tr>
-//                            </thead>
-//                            <tbody>';
-////                            foreach ($carriers as $carrier){
-//
-////                                    $exceptions = PlanningDeliveryByCarrierException::get($carrier['id_carrier']);
-//            foreach ($exceptions as $exception){
-//                if (in_array($exception['id_carrier'], $availableCarriers)){
-//                    $html_updateNbCommand = '<span class="nb_commande" style="float: right;">'
-//                        . '<label>'.( isset($carrierAndNbCommande[(int)$exception['id_planning_delivery_carrier_exception']])? '<span style="color:red">(nb commande : '.$carrierAndNbCommande[(int)$exception['id_planning_delivery_carrier_exception']]['real_nb_commande'].')</span>':'')
-//                        .'nombre des commandes </label>'
-//                        . '<input type="text" name="nb_commande" value="'.$exception['nb_commandes'].'" style="width:70px"/> '
-//                        . ' <span class="updaet_nb_commande button" data-id="'.(int)($exception['id_planning_delivery_carrier_exception']).'"><i class="icon-pencil"></i> modifier</span>'
-//                        . '</span>';
-//                    $this->_html .= '
-//                                            <tr>
-//                                             <td> '.($exception['date_from'] == $exception['date_to'] ? $this->dateFR_S($exception['date_from']) : $this->l('From').' '.$this->dateFR_S($exception['date_from']).' '.$this->l('to').' '.$this->dateFR_S($exception['date_to'])).', '.$this->l('Carrier').' <strong>'.$mycarrier[$exception['id_carrier']]['name'].' (id:'.$exception['id_carrier'].')</strong>'
-//                        .$html_updateNbCommand
-//                        .'</td>
-//                                             <td style="text-align:center;"><a href="javascript:;" onclick="deleteException(\''.(int)($exception['id_planning_delivery_carrier_exception']).'\');"><img src="'.$this->_path.'img/delete.png" alt="'.$this->l('Delete').'" /></a></td>
-//                                            </tr>';
-//                }
-//            }
-////                            }
-//            $this->_html .= '
-//                            </tbody>
-//                            </table>';
-//        }
-//        $this->_html .= '
-//                    </fieldset>
-//            </form><br />
-//            <script type="text/javascript">
-//                $(document).ready(function(){
-//                    $(".updaet_nb_commande").css("cursor","pointer").click(function(e){
-//                        e.preventDefault();
-//                        var $me = $(this),id = $me.data("id"),nbCommande = $me.parent().find("input").val();
-//
-//                        $.ajax({
-//                            url : "'.$this->context->link->getAdminLink('AdminModules').'&configure='.$this->name.'",
-//                            data : {
-//                                    ajax : true,
-//                                    action : "Updatenbcommande",
-//                                    id_planning_delivery_carrier_exception : id,
-//                                    nb_commande : nbCommande,
-//                                    },
-//                            type : "POST",
-//                            dataType: "json",
-//                            success : function(data){
-//                                try {
-//                                    if(data.success){
-//                                        showSuccessMessage(data.msg);
-//                                    }else{
-//                                        showErrorMessage(data.msg);
-//                                    }
-//                                }catch(err) {
-//                                    showNoticeMessage("erreur");
-//                                }
-//                            },
-//                            error : function(msg){
-//                                showNoticeMessage("erreur ");
-//                            }
-//                        });
-//
-//                    });
-//                })
-//            </script>
-//            ';
-//    }
-
     protected function _displayRetourFormException()
     {
         $carriers = Carrier::getCarriers((int) $this->context->language->id, true, false, false, null, Carrier::ALL_CARRIERS);
@@ -1709,125 +1589,6 @@ class PlanningDeliveryByCarrier extends Module
         </script>
 		";
     }
-
-//    protected function _displayRetourFormException()
-//    {
-//        $availableCarriers = explode(', ', Configuration::get('PLANNING_DELIVERY_CARRIERS'));
-//        $carriers = Carrier::getCarriers((int)$this->context->language->id, true, false, false, null, Carrier::ALL_CARRIERS);
-//        $mycarrier = array();
-//        $carrierAndNbCommande = array();
-//        foreach ( PlanningRetourByCarrierException::getAllNbCommandeAndRealNbCommand() as $r){
-//            $carrierAndNbCommande[$r['id_planning_retour_carrier_exception']] = $r;
-//        }
-//        foreach ($carriers as $carrier){
-//            $mycarrier[$carrier['id_carrier']]   = $carrier;
-//        }
-//        $this->_html .= $this->includeDatepicker(array('date_from_retour', 'date_to_retour'), false, 1, 1);
-//        $this->_html .= '
-//		<a id="planningretour_exceptions" name="planningretour_exceptions"></a>
-//		<form action="'.$_SERVER['REQUEST_URI'].'" method="post" name="retour_exception_form">
-//		<fieldset><legend><img src="'.$this->_path.'img/prefs.gif" alt="" title="" />'.$this->l('Retour').'&nbsp;<a href="javascript:{}" onclick="$.scrollTo(\'#planningretour_top\', 1200);"><img src="'._PS_ADMIN_IMG_.'up.gif" alt="" /></a></legend>
-//			<p>'.$this->l('Add as many exceptions as necessary.').'</p><br />
-//			<label>'.$this->l('Date de retour').'</label>
-//			<div class="margin-form">
-//				<label class="t" for="id_carrier_exception">'.($this->checkVersion() > '1.5' ? '<i class="icon-AdminParentShipping"></i>' : '<img src="../img/t/AdminParentShipping.gif" />').''.$this->l('Carrier').'</label>
-//                                <select name="id_carrier_retour" id="id_carrierRetour">';
-//        foreach ($carriers as $carrier)
-//            if (in_array($carrier['id_carrier'], $availableCarriers))
-//                $this->_html .= '
-//                                                <option value="'.(int)($carrier['id_carrier']).'"'.((int)($carrier['id_carrier']) == (int)($this->id_carrier) ? ' selected="selected" ' : '').'>'.$carrier['name'].' (id:'.$carrier['id_carrier'].')</option>';
-//        $this->_html .= '
-//                                </select>
-//                                <label class="t" for="nb_commandes"> '.$this->l('Nombre des commandes').'</label>
-//                                <input type="text" name="nb_commandes" id="nb_commandes"/>
-//				<label class="t" for="date_from_retour"> '.$this->l('Date from').'</label>
-//				<input type="text" name="date_from" id="date_from_retour"/>
-//				<label class="t" for="date_to_retour"> '.$this->l('to').'</label>
-//				<input type="text" name="date_to" id="date_to_retour"/>
-//				<input type="submit" name="submitRetourException" value="'.$this->l('Add').'" class="button" />
-//			</div>';
-//
-//        $exceptions = PlanningRetourByCarrierException::get();
-//
-//        $len = count($exceptions);
-//        if ($len)
-//        {
-//            $this->_html .= '
-//				<input type="hidden" name="id_planning_retour_carrier_exception" id="id_planning_retour_carrier_exception" />
-//				<input type="hidden" name="retour_exception_name" id="retour_exception_name" />
-//				<input type="hidden" name="retour_exception_action" id="slot_action_r" />
-//				<br /><table class="table" style="width:100%;">
-//				<thead>
-//				<tr>
-//				 <th style="width:95%;">'.$this->l('Restricted dates').'</th>
-//				 <th style="width:5%;">'.$this->l('Actions').'</th>
-//				</tr>
-//				</thead>
-//				<tbody>';
-////                               foreach ($carriers as $carrier){
-//
-////                                        $exceptions = PlanningRetourByCarrierException::get($carrier['id_carrier']);
-//            foreach ($exceptions as $exception){
-//                if (in_array($exception['id_carrier'], $availableCarriers)){
-//                    $html_updateNbCommand = '<span class="nb_commande" style="float: right;">'
-//                        . '<label>'.( isset($carrierAndNbCommande[(int)$exception['id_planning_retour_carrier_exception']])? '<span style="color:red">(nb commande : '.$carrierAndNbCommande[(int)$exception['id_planning_retour_carrier_exception']]['real_nb_commande'].')</span>':'')
-//                        .'nombre des commandes </label>'
-//                        . '<input type="text" name="nb_commande" value="'.$exception['nb_commandes'].'" style="width:70px"/> '
-//                        . ' <span class="updaet_nb_commande_retour button" data-id="'.(int)($exception['id_planning_retour_carrier_exception']).'"><i class="icon-pencil"></i> modifier</span>'
-//                        . '</span>';
-//                    $this->_html .= '
-//                                                <tr>
-//                                                 <td> '.($exception['date_from'] == $exception['date_to'] ? $this->dateFR_S($exception['date_from']) : $this->l('From').' '.$this->dateFR_S($exception['date_from']).' '.$this->l('to').' '.$this->dateFR_S($exception['date_to'])).', '.$this->l('Carrier').' <strong>'.$mycarrier[$exception['id_carrier']]['name'].' (id:'.$exception['id_carrier'].')</strong>'
-//                        .$html_updateNbCommand.
-//                        '</td>
-//                                                 <td style="text-align:center;"><a href="javascript:;" onclick="deleteRetourException(\''.(int)($exception['id_planning_retour_carrier_exception']).'\');"><img src="'.$this->_path.'img/delete.png" alt="'.$this->l('Delete').'" /></a></td>
-//                                                </tr>';
-//                }
-//            }
-////                                }
-//            $this->_html .= '
-//				</tbody>
-//				</table>';
-//        }
-//        $this->_html .= '
-//			</fieldset>
-//		</form><br />
-//                <script type="text/javascript">
-//                    $(document).ready(function(){
-//                        $(".updaet_nb_commande_retour").css("cursor","pointer").click(function(e){
-//                            e.preventDefault();
-//                            var $me = $(this),id = $me.data("id"),nbCommande = $me.parent().find("input").val();
-//
-//                            $.ajax({
-//                                url : "'.$this->context->link->getAdminLink('AdminModules').'&configure='.$this->name.'",
-//                                data : {
-//                                        ajax : true,
-//                                        action : "Updatenbcommanderetour",
-//                                        id_planning_retour_carrier_exception : id,
-//                                        nb_commande : nbCommande,
-//                                        },
-//                                type : "POST",
-//                                dataType: "json",
-//                                success : function(data){
-//                                    try {
-//                                        if(data.success){
-//                                            showSuccessMessage(data.msg);
-//                                        }else{
-//                                            showErrorMessage(data.msg);
-//                                        }
-//                                    }catch(err) {
-//                                        showNoticeMessage("erreur");
-//                                    }
-//                                },
-//                                error : function(msg){
-//                                    showNoticeMessage("erreur ");
-//                                }
-//                            });
-//
-//                        });
-//                    })
-//                </script>';
-//    }
 
     protected function _displayInformation()
     {

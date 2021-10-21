@@ -84,6 +84,7 @@ class CheckoutAddressesStepCore extends AbstractCheckoutStep
         $this->addressForm->fillWith([
             'firstname' => $this->getCheckoutSession()->getCustomer()->firstname,
             'lastname' => $this->getCheckoutSession()->getCustomer()->lastname,
+            'postcode' => $this->context->cart->npa
         ]);
 
         if (isset($requestParams['saveAddress'])) {

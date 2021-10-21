@@ -15,8 +15,8 @@
       class="form_npa noscript-form-container" method="post">
     <h4>{l s="Enter the NPA" d='Modules.Tunnelvente.Npa'}</h4>
     <div class="npa-wrap">
-        <input type="text" class="input_npa" maxlength="4" name="npa" placeholder="####" {if $hasSapin } readonly {/if}
-               value="{if isset($npa)}{$npa}{/if}">
+        <input type="text" class="input_npa" name="npa" {if $shop.id == 2}maxlength="5" placeholder="#####"{else}maxlength="4" placeholder="####"{/if}
+                {if $hasSapin } readonly {/if} value="{if isset($npa)}{$npa}{/if}">
         {*<input  type="number" minlength="4" required class="input_npa" maxlength="4" name="npa" placeholder="####" value="{if isset($npa)}{$npa}{/if}">*}
         <button type="submit">{l s="Valider" d='Modules.Tunnelvente.Npa'}</button>
     </div>
@@ -44,6 +44,9 @@
         </h4>
     </div>
 {/if}
+<script type="text/javascript">
+    var npaLength = {if $shop.id == 2}5{else}4{/if};
+</script>
 {literal}
     <script type="text/javascript">
         $(function ($) {
@@ -56,7 +59,7 @@
             $('form.form_npa').submit(function (event) {
                 event.preventDefault();
                 var npa = $(".input_npa").val();
-                if (npa == "" || npa.length != 4 || !$.isNumeric(npa)) {
+                if (npa == "" || npa.length != npaLength || !$.isNumeric(npa)) {
                     alert("invalide NPA");
                     return false;
                 }
@@ -72,19 +75,22 @@
                             data: 'ajax=1&' + $me.serialize(),
                             dataType: 'json',
                             success: function (json) {
-
                                 if (json.hasError) {
-
                                     $.each(json.errors, function (k, v) {
                                         showError(v);
                                     });
                                 } else {
-
-
                                     $('#resp_content').html(json.html);
                                     $('#my_errors').empty();
                                     ShowHideStep(json.numStep);
                                 }
+                                $me.removeClass(classe);
+                                $("body").css("cursor", "default");
+                            },
+                            error: function(res) {
+                                $.each(res.responseJSON.errors, function (k, v) {
+                                    showError(v);
+                                });
                                 $me.removeClass(classe);
                                 $("body").css("cursor", "default");
                             }

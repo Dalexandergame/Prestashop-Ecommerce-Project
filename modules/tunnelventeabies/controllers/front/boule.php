@@ -134,8 +134,9 @@ class TunnelVenteAbiesBouleModuleFrontController extends FrontAbies
     {
 
         $id_lang = $this->context->language->id;
+        $id_shop = $this->context->shop->id;
 
-        $sql      = SqlRequeteAbies::getSqlProductAttributBoule($this->id_product_boule, $this->getValueTunnelVent('npa'), $id_lang);
+        $sql      = SqlRequeteAbies::getSqlProductAttributBoule($this->id_product_boule, $this->getValueTunnelVent('npa'), $id_lang, $id_shop);
         $result   = Db::getInstance()->executeS($sql);
         $products = array();
 

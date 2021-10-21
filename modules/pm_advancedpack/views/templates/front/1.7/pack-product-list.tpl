@@ -1,5 +1,11 @@
 		<!-- pack product list-->
 		<div id="ap5-product-list" class="card ap5-product-list {if empty($from_quickview)}col-xs-12 col-12 col-sm-8 col-md-9{else}col-xs-12 col-12{/if}{if $packAvailableQuantity <= 0} ap5-pack-oos{/if}{if $packDeviceIsTablet || $packDeviceIsMobile} ap5-is-mobile{/if}">
+
+		<div class="list-deco-fleche">
+			<a href="#0" class="prev-deco"></a>
+			<a href="#0" class="next-deco"></a>
+		</div>
+
 		{assign var=nbPackProducts value=count($productsPack)}
 		{foreach from=$productsPack item=productPack}
 			{assign var=imageIds value="`$productPack.id_product`-`$productPack.image.id_image`"}
@@ -208,7 +214,6 @@
 										{/if}
 									{/foreach}
 									<div id="ap5-product-variants-item-{$id_attribute_group|intval}" class="clearfix product-variants-item ap5-attribute-fieldset">
-										<span class="control-label">{$group.name}</span>
 										{assign var="groupName" value="group_`$productPack.id_product_pack`_$id_attribute_group"}
 										<div class="attribute_list ap5-attribute-list">
 											{if ($group.group_type == 'select')}
@@ -224,9 +229,12 @@
 													{foreach from=$group.attributes key=id_attribute item=group_attribute}
 														{assign var=ap5_isCurrentSelectedIdAttribute value=((isset($productsPackErrors[$productPack.id_product_pack]) && isset($packCompleteAttributesList[$productPack.id_product_pack]) && in_array($id_attribute, $packCompleteAttributesList[$productPack.id_product_pack])) || $group.default == $id_attribute)}
 														<li class="float-left float-xs-left pull-xs-left input-container{if $ap5_isCurrentSelectedIdAttribute} selected{/if}">
-															<a href="{$productPack.presentation.url}" data-id-product-pack="{$productPack.id_product_pack|intval}" data-id-attribute-group="{$id_attribute_group|intval}" data-id-attribute="{$id_attribute|intval}" id="color_{$id_attribute|intval}" name="{$productPack.attributes.colors.$id_attribute.name}" class="ap5-color color color_pick{if $ap5_isCurrentSelectedIdAttribute} selected{/if}{if in_array($productPack.id_product_pack, $packExcludeList)} disabled{/if}" style="background: {$productPack.attributes.colors.$id_attribute.value};" title="{$productPack.attributes.colors.$id_attribute.name}">
-																{if $productPack.attributes.colors.$id_attribute.image_exists}
-																	<img src="{$urls.img_col_url}{$id_attribute|intval}.jpg" alt="{$productPack.attributes.colors.$id_attribute.name}" />
+															<a href="{$productPack.presentation.url}" data-id-product-pack="{$productPack.id_product_pack|intval}" data-id-attribute-group="{$id_attribute_group|intval}" data-id-attribute="{$id_attribute|intval}" id="color_{$id_attribute|intval}"
+															   name="{$productPack.attributes.colors.$id_attribute.name|default:''}" class="ap5-color color color_pick{if $ap5_isCurrentSelectedIdAttribute} selected{/if}{if in_array($productPack.id_product_pack, $packExcludeList)} disabled{/if}"
+															   style="background: {$productPack.attributes.colors.$id_attribute.value|default:''};"
+															   title="{$productPack.attributes.colors.$id_attribute.name|default:''}">
+																{if !empty($productPack.attributes.colors.$id_attribute.image_exists|default:'')}
+																	<img src="{$urls.img_col_url}{$id_attribute|intval}.jpg" alt="{$productPack.attributes.colors.$id_attribute.name|default:''}" />
 																{/if}
 															</a>
 														</li>
@@ -266,3 +274,31 @@
 		{/foreach}
 		</div>
 		<!-- end pack product list -->
+	{literal}
+		<script type="text/javascript">
+			$(document).ready(function(){
+
+				$(".list-deco-fleche").next('.titleSapin').hide();
+				$(".list-deco-fleche .next-deco").click(function(){
+					if($("#ap5-pack-product-6 .ap5-color-to-pick-list li.selected").next("li").length){
+						$("#ap5-pack-product-6 .ap5-color-to-pick-list li.selected").next("li").children("a").click();
+						return false;
+					}else{
+						$("#ap5-pack-product-6 .ap5-color-to-pick-list li:first").children("a").click();
+					}
+				});
+
+
+				$(".list-deco-fleche .prev-deco").click(function(){
+					if($("#ap5-pack-product-6 .ap5-color-to-pick-list li.selected").prev("li").length){
+						$("#ap5-pack-product-6 .ap5-color-to-pick-list li.selected").prev("li").children("a").click();
+						return false;
+					}else{
+						$("#ap5-pack-product-6 .ap5-color-to-pick-list li:last").children("a").click();
+					}
+				});
+
+			});
+
+		</script>
+	{/literal}

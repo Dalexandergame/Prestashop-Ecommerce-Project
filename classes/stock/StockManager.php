@@ -91,9 +91,9 @@ class StockManagerCore implements StockManagerInterface
             'price_te' => $price_te,
             'last_wa' => null,
             'current_wa' => null,
-            'id_employee' => (int) $context->employee->id ? (int) $context->employee->id : $employee->id,
-            'employee_firstname' => $context->employee->firstname ? $context->employee->firstname : $employee->firstname,
-            'employee_lastname' => $context->employee->lastname ? $context->employee->lastname : $employee->lastname,
+            'id_employee' => $context->employee->id ?? $employee->id ?? 1,
+            'employee_firstname' => $context->employee->firstname ?? $employee->firstname ?? 'admin',
+            'employee_lastname' => $context->employee->lastname ?? $employee->lastname ?? 'admin',
             'sign' => 1,
         ];
 
@@ -124,7 +124,7 @@ class StockManagerCore implements StockManagerInterface
                     $stock_params = [
                         'physical_quantity' => ($stock->physical_quantity + $quantity),
                         'price_te' => $current_wa,
-                        'usable_quantity' => ($is_usable ? ($stock->usable_quantity + $quantity) : $stock->usable_quantity),
+                        'usable_quantity' => $stock->usable_quantity + $quantity,
                         'id_warehouse' => $warehouse->id,
                     ];
 
@@ -155,7 +155,7 @@ class StockManagerCore implements StockManagerInterface
 
                     $stock_params = [
                         'physical_quantity' => ($stock->physical_quantity + $quantity),
-                        'usable_quantity' => ($is_usable ? ($stock->usable_quantity + $quantity) : $stock->usable_quantity),
+                        'usable_quantity' => $stock->usable_quantity + $quantity,
                     ];
 
                     // updates stock in warehouse
@@ -182,7 +182,7 @@ class StockManagerCore implements StockManagerInterface
                 'id_product' => $id_product,
                 'physical_quantity' => $quantity,
                 'price_te' => $price_te,
-                'usable_quantity' => ($is_usable ? $quantity : 0),
+                'usable_quantity' => $quantity,
                 'id_warehouse' => $warehouse->id,
             ];
 
@@ -286,14 +286,9 @@ class StockManagerCore implements StockManagerInterface
         } else {
             // gets total quantities in stock for the current product
             $physical_quantity_in_stock = (int) $this->getProductPhysicalQuantities($id_product, $id_product_attribute, [$warehouse->id], false);
-            $usable_quantity_in_stock = (int) $this->getProductPhysicalQuantities($id_product, $id_product_attribute, [$warehouse->id], true);
 
             // check quantity if we want to decrement unusable quantity
-            if (!$is_usable) {
-                $quantity_in_stock = $physical_quantity_in_stock - $usable_quantity_in_stock;
-            } else {
-                $quantity_in_stock = $usable_quantity_in_stock;
-            }
+            $quantity_in_stock = $physical_quantity_in_stock;
 
             // checks if it's possible to remove the given quantity
             if ($quantity_in_stock < $quantity) {
@@ -337,7 +332,7 @@ class StockManagerCore implements StockManagerInterface
                     ];
                     $stock_params = [
                         'physical_quantity' => ($stock->physical_quantity - $quantity),
-                        'usable_quantity' => ($is_usable ? ($stock->usable_quantity - $quantity) : $stock->usable_quantity),
+                        'usable_quantity' => ($stock->usable_quantity - $quantity),
                     ];
 
                     // saves stock in warehouse
@@ -457,7 +452,7 @@ class StockManagerCore implements StockManagerInterface
 
                             $stock_params = [
                                 'physical_quantity' => ($stock->physical_quantity - $total_quantity_for_current_stock),
-                                'usable_quantity' => ($is_usable ? ($stock->usable_quantity - $total_quantity_for_current_stock) : $stock->usable_quantity),
+                                'usable_quantity' => ($stock->usable_quantity - $total_quantity_for_current_stock),
                             ];
 
                             $return[$stock->id]['quantity'] = $total_quantity_for_current_stock;
@@ -548,6 +543,12 @@ class StockManagerCore implements StockManagerInterface
         $query->select('SUM(' . ($usable ? 's.usable_quantity' : 's.physical_quantity') . ')');
         $query->from('stock', 's');
         $query->where('s.id_product = ' . (int) $id_product);
+
+        if (!empty(Shop::getContextShopID())) {
+            $query->innerJoin('warehouse_shop', 'ws', 'ws.id_warehouse = s.id_warehouse');
+            $query->where('ws.id_shop = ' . Shop::getContextShopID());
+        }
+
         if (0 != $id_product_attribute) {
             $query->where('s.id_product_attribute = ' . (int) $id_product_attribute);
         }
@@ -629,7 +630,7 @@ class StockManagerCore implements StockManagerInterface
             $query->where('o.valid = 1 OR (os.id_order_state != ' . (int) Configuration::get('PS_OS_ERROR') . '
 						   AND os.id_order_state != ' . (int) Configuration::get('PS_OS_CANCELED') . ')');
             $query->groupBy('od.id_order_detail');
-            if (count($ids_warehouse)) {
+            if (!empty($ids_warehouse)) {
                 $query->where('od.id_warehouse IN(' . implode(', ', $ids_warehouse) . ')');
             }
             $res = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($query);

@@ -582,6 +582,7 @@
                 if (!essences.includes(keys[2])) {
                     let essenceElem = $(essenceClass + " option[value=" + keys[2] + "]");
                     if (!essences.length) {
+                        $(essenceClass).val(keys[2]);
                         essenceElem.attr("selected", "selected");
                     }
                     essenceElem.show();
@@ -630,6 +631,7 @@
                 if (!essences.includes(keys[2])) {
                     let essenceElem = $(essenceClass + " option[value=" + keys[2] + "]");
                     if (!essences.length) {
+                        $(essenceClass).val(keys[2]);
                         essenceElem.attr("selected", "selected");
                     }
                     essenceElem.show();

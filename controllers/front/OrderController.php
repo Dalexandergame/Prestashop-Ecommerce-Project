@@ -290,8 +290,8 @@ class OrderControllerCore extends FrontController
         $product = $this->context->cart->checkQuantities(true);
         if (is_array($product)) {
             // if there is an issue with product quantities, redirect to cart page
-            $cartLink = $this->context->link->getPageLink('cart', null, null, ['action' => 'show']);
-            Tools::redirect($cartLink);
+            $orderLink = $this->context->link->getPageLink('order');
+            Tools::redirect($orderLink);
         }
 
         $this->checkoutProcess

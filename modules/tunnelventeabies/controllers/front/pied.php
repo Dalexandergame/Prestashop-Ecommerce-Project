@@ -95,7 +95,8 @@ class TunnelVenteAbiesPiedModuleFrontController extends FrontAbies
     private function getListAttributeProductPied()
     {
         $id_lang  = $this->context->language->id;
-        $sql      = SqlRequeteAbies::getSqlProductAttributPied($this->id_product_pied, $this->getValueTunnelVent('npa'), $id_lang);
+        $id_shop  = $this->context->shop->id;
+        $sql      = SqlRequeteAbies::getSqlProductAttributPied($this->id_product_pied, $this->getValueTunnelVent('npa'), $id_lang, $id_shop);
         $result   = Db::getInstance()->executeS($sql);
         $products = array();
 
@@ -104,8 +105,7 @@ class TunnelVenteAbiesPiedModuleFrontController extends FrontAbies
             $item_real_quantity = $manager->getProductRealQuantities(
                 $row['id_product'],
                 $row['id_product_attribute'],
-                ($row['id_warehouse'] == '' ? null : array($row['id_warehouse'])),
-                true
+                ($row['id_warehouse'] == '' ? null : array($row['id_warehouse']))
             );
             $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
             if ($item_real_quantity > 0)

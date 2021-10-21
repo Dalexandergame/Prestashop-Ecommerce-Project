@@ -3799,10 +3799,18 @@ class ProductCore extends ObjectModel
         $idCustomization = null
     ) {
         // pack usecase: Pack::getQuantity() returns the pack quantity after cart quantities have been removed from stock
-        if (Pack::isPack((int) $idProduct)) {
-            return Pack::getQuantity($idProduct, $idProductAttribute, $cacheIsPack, $cart, $idCustomization);
+        if ($idProduct == 93) {
+            $sql = "SELECT IFNULL(MIN(st.usable_quantity), 0) as quantity
+                        FROM ps_pm_advancedpack_products ap
+                            INNER JOIN ps_pm_advancedpack_cart_products acp ON ap.id_product_pack = acp.id_product_pack
+                        INNER JOIN ps_stock st ON (st.id_product = ap.id_product AND st.id_product_attribute = acp.id_product_attribute AND st.id_warehouse = ".$cart->getWarehouseByNPA().")
+                        WHERE acp.id_product_attribute_pack = $idProductAttribute";
+
+            $availableQuantity = (int) Db::getInstance()->getValue($sql);
+
+        } else {
+            $availableQuantity = StockAvailable::getQuantityAvailableByProduct($idProduct, $idProductAttribute, Context::getContext()->shop->id, isset($cart) ? $cart->getWarehouseByNPA() : 1);
         }
-        $availableQuantity = StockAvailable::getQuantityAvailableByProduct($idProduct, $idProductAttribute);
         $nbProductInCart = 0;
 
         // we don't substract products in cart if the cart is already attached to an order, since stock quantity
@@ -3831,6 +3839,10 @@ class ProductCore extends ObjectModel
      */
     public static function sqlStock($product_alias, $product_attribute = null, $inner_join = false, Shop $shop = null)
     {
+        if (!$shop) {
+            $shop = Context::getContext()->shop;
+        }
+
         $id_shop = ($shop !== null ? (int) $shop->id : null);
         $sql = (($inner_join) ? ' INNER ' : ' LEFT ')
             . 'JOIN ' . _DB_PREFIX_ . 'stock_available stock
@@ -5062,7 +5074,7 @@ class ProductCore extends ObjectModel
 
         $row['quantity'] = Product::getQuantity(
             (int) $row['id_product'],
-            0,
+            (int) $row['id_product_attribute'],
             isset($row['cache_is_pack']) ? $row['cache_is_pack'] : null,
             $context->cart
         );
@@ -6706,7 +6718,7 @@ class ProductCore extends ObjectModel
 
         if (Configuration::get('PS_ADVANCED_STOCK_MANAGEMENT') && Product::usesAdvancedStockManagement($id_product) &&
             StockAvailable::dependsOnStock($id_product, $id_shop)) {
-            return $manager->getProductRealQuantities($id_product, $id_product_attribute, $id_warehouse, true);
+            return $manager->getProductRealQuantities($id_product, $id_product_attribute, $id_warehouse);
         } else {
             return StockAvailable::getQuantityAvailableByProduct($id_product, $id_product_attribute, $id_shop);
         }

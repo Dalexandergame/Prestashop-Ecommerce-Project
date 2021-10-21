@@ -45,19 +45,20 @@
         {/if}
 
         <p class="promo-code-button display-promo{if $cart.discounts|count > 0} with-discounts{/if}">
-          <a class="collapse-button" href="#promo-code">
-            {l s='Have a promo code?' d='Shop.Theme.Checkout'}
-          </a>
+         {* <a class="collapse-button" href="#promo-code">*}
+            {l s='BONS DE RÉDUCTION' d='Shop.Theme.Checkout'}
+         {* </a>*}
         </p>
 
-        <div id="promo-code" class="collapse{if $cart.discounts|count > 0} in{/if}">
+        <div id="promo-code" class="{if $cart.discounts|count > 0} in{/if}">
           <div class="promo-code">
             {block name='cart_voucher_form'}
               <form action="{$urls.pages.cart}" data-link-action="add-voucher" method="post">
                 <input type="hidden" name="token" value="{$static_token}">
                 <input type="hidden" name="addDiscount" value="1">
-                <input class="promo-input" type="text" name="discount_name" placeholder="{l s='Promo code' d='Shop.Theme.Checkout'}">
-                <button type="submit" class="btn btn-primary"><span>{l s='Add' d='Shop.Theme.Actions'}</span></button>
+                {*<input class="promo-input" type="text" name="discount_name" placeholder="{l s='Promo code' d='Shop.Theme.Checkout'}">*}
+                  <input class="promo-input" type="text" name="discount_name">
+                <button type="submit" class="btn btn-primary"><span>{l s='ok' d='Shop.Theme.Actions'}</span></button>
               </form>
             {/block}
 
@@ -67,9 +68,9 @@
               </div>
             {/block}
 
-            <a class="collapse-button promo-code-button cancel-promo" role="button" data-toggle="collapse" data-target="#promo-code" aria-expanded="true" aria-controls="promo-code">
+           {* <a class="collapse-button promo-code-button cancel-promo" role="button" data-toggle="collapse" data-target="#promo-code" aria-expanded="true" aria-controls="promo-code">
               {l s='Close' d='Shop.Theme.Checkout'}
-            </a>
+            </a>*}
           </div>
         </div>
 

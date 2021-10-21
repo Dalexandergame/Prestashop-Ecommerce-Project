@@ -174,6 +174,10 @@ abstract class AbstractFormCore implements FormInterface
                 $field->setValue(false);
             }
 
+            if ($field->getName() === 'postcode' && Tools::getValue('controller') == 'order') {
+                $field->setReadonly(true);
+            }
+
             if ($field->getName() === 'receive_sms' && !isset($params['id_address'])) {
                 $field->setValue(true);
             } elseif ($field->getName() === 'receive_sms' && Tools::isSubmit('submitAddress')) {

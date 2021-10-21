@@ -60,8 +60,9 @@ class TunnelVentePotModuleFrontController extends FrontAbies {
     private function getListAttributeProductPot() {
 
         $id_lang = $this->context->language->id;
+        $id_shop = $this->context->shop->id;
 
-        $sql = SqlRequeteAbies::getSqlProductAttributPot($this->id_product_pot,$this->getValueTunnelVent('npa'), $id_lang);
+        $sql = SqlRequeteAbies::getSqlProductAttributPot($this->id_product_pot,$this->getValueTunnelVent('npa'), $id_lang, $id_shop);
         $result = Db::getInstance()->executeS($sql);        
         $products = array();
 

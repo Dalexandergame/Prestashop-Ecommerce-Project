@@ -190,16 +190,16 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
             }
         }
 
+        $id_shop = Context::getContext()->shop->id;
         $get_partner_sql = "select part.partner_id, part.name , part.img, part.description 
                             from ps_partners part
                             join ps_warehouse_carrier wc on wc.id_warehouse = part.warehouse_id
                             join ps_gszonevente_region r on r.id_carrier = wc.id_carrier
                             join ps_gszonevente_npa npa on npa.id_gszonevente_region = r.id_gszonevente_region
-                            where npa.`name` = $npa AND part.shop_id = '". Context::getContext()->shop->id ."'";
+                            where npa.name = $npa AND part.shop_id = $id_shop AND r.id_shop = $id_shop";
         $partner         = Db::getInstance()->getRow($get_partner_sql);
         if(!$partner){
             $partner['name'] = 'Poste';
-            // $partner['description'] = $this->module->l('Votre sapin sera livré par Poste');
             $partner['description'] = 'Votre sapin sera livré par Poste';
             $partner['img'] = 'post.png';
         }else{
