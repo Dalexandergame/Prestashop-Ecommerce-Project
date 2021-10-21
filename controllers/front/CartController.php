@@ -335,7 +335,7 @@ class CartControllerCore extends FrontController
 
         Hook::exec('actionObjectProductInCartDeleteBefore', $data, null, true);
 
-        if ($data['id_product'] === 54 || $data['id_product'] === 65 || $data['id_product'] === 115) {
+        if (in_array($data['id_product'], [2, 3, 4, 54, 65, 115])) {
             $products_in_cart = $this->context->cart->getProducts();
             foreach ($products_in_cart as $product_in_cart ) {
                     $this->context->cart->deleteProduct(
@@ -344,7 +344,12 @@ class CartControllerCore extends FrontController
                         $product_in_cart['id_customization'],
                         $product_in_cart['id_address_delivery']);
             }
-        }else {
+
+            //remove stored npa
+            unset($this->context->cookie->npa);
+            unset($this->context->cart->npa);
+            $this->context->cart->update();
+        } else {
             $this->context->cart->deleteProduct(
                 $this->id_product,
                 $this->id_product_attribute,
