@@ -641,7 +641,7 @@ class CustomerCore extends ObjectModel
         $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
         $addresses = [];
         foreach ($result as $addr) {
-            if ($addr['postcode'] !== $npa) continue;
+            if (!empty($npa) && $addr['postcode'] !== $npa) continue;
             $addresses[$addr['id']] = $addr;
         }
 
