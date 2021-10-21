@@ -34,8 +34,28 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
     {
         parent::initContent();
 
+        $cart = $this->context->cart;
+        $allProductsInStock = $cart->isAllProductsInStock();
+        $allProductsExist = $cart->checkAllProductsAreStillAvailableInThisState();
+        $allProductsHaveMinimalQuantity = $cart->checkAllProductsHaveMinimalQuantities();
+
+        if ($allProductsInStock !== true || $allProductsExist !== true || $allProductsHaveMinimalQuantity !== true) {
+            $cartShowUrl = $this->context->link->getPageLink(
+                'cart',
+                null,
+                $this->context->language->id,
+                [
+                    'action' => 'show',
+                ],
+                false,
+                null,
+                false
+            );
+            Tools::redirect($cartShowUrl);
+        }
+
         try {
-            if ($this->context->cart->id == null) {
+            if ($cart->id == null) {
                 throw new Exception("cart ID is empty", 1);
             }
 
@@ -45,7 +65,7 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
                 $capture_method = 'automatic';
             }
 
-            $amount = (int) ($this->context->cart->getOrderTotal() * 100);
+            $amount = (int) ($cart->getOrderTotal() * 100);
             $_REQUEST["amount"] = $amount;
             $_POST["amount"] = $amount;
             $datasIntent = array(
@@ -54,7 +74,7 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
                 "payment_method_types" => array(Tools::getValue('payment_option')),
                 "capture_method" => $capture_method,
                 "metadata" => array(
-                    'id_cart' => $this->context->cart->id
+                    'id_cart' => $cart->id
                 )
             );
 
@@ -69,7 +89,7 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
                     $stripe_fullname = $firstname . ' ' . $lastname;
                 }
 
-                $address = new Address($this->context->cart->id_address_invoice);
+                $address = new Address($cart->id_address_invoice);
 
                 $payment_method = array(
                     'billing_details' => array(
@@ -108,7 +128,7 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
                     'stripe_official',
                     'orderConfirmationReturn',
                     array(
-                        'id_cart' => $this->context->cart->id
+                        'id_cart' => $cart->id
                     ),
                     true
                 );
@@ -116,7 +136,7 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
             }
 
             $stripeIdempotencyKey = new StripeIdempotencyKey();
-            $intent = $stripeIdempotencyKey->createNewOne($this->context->cart->id, $datasIntent);
+            $intent = $stripeIdempotencyKey->createNewOne($cart->id, $datasIntent);
         } catch (Exception $e) {
             error_log($e->getMessage());
             ProcessLoggerHandler::logError(

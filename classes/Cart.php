@@ -682,8 +682,8 @@ class CartCore extends ObjectModel
                         pl.`description_short`, pl.`available_now`, pl.`available_later`, product_shop.`id_category_default`, p.`id_supplier`,
                         p.`id_manufacturer`, m.`name` AS manufacturer_name, product_shop.`on_sale`, product_shop.`ecotax`, product_shop.`additional_shipping_cost`,
                         product_shop.`available_for_order`, product_shop.`show_price`, product_shop.`price`, product_shop.`active`, product_shop.`unity`, product_shop.`unit_price_ratio`,
-                        stock.`quantity` AS quantity_available, p.`width`, p.`height`, p.`depth`, stock.`out_of_stock`, p.`weight`,
-                        p.`available_date`, p.`date_add`, p.`date_upd`, IFNULL(stock.quantity, 0) as quantity, pl.`link_rewrite`, cl.`link_rewrite` AS category,
+                        st.usable_quantity AS quantity_available, p.`width`, p.`height`, p.`depth`, stock.`out_of_stock`, p.`weight`,
+                        p.`available_date`, p.`date_add`, p.`date_upd`, IFNULL(st.usable_quantity, 0) as quantity, pl.`link_rewrite`, cl.`link_rewrite` AS category,
                         CONCAT(LPAD(cp.`id_product`, 10, 0), LPAD(IFNULL(cp.`id_product_attribute`, 0), 10, 0), IFNULL(cp.`id_address_delivery`, 0), IFNULL(cp.`id_customization`, 0)) AS unique_id, cp.id_address_delivery,
                         product_shop.advanced_stock_management, ps.product_supplier_reference supplier_reference');
 
@@ -712,6 +712,9 @@ class CartCore extends ObjectModel
 
         // @todo test if everything is ok, then refactorise call of this method
         $sql->join(Product::sqlStock('cp', 'cp'));
+        $sql->join('LEFT JOIN ps_stock st ON st.id_product = cp.id_product
+            AND st.id_product_attribute = IFNULL(`cp`.id_product_attribute, 0)
+            AND st.id_warehouse = ' . $this->getWarehouseByNPA());
 
         // Build WHERE clauses
         $sql->where('cp.`id_cart` = ' . (int) $this->id);
@@ -1672,7 +1675,7 @@ class CartCore extends ObjectModel
             if (!empty(Context::getContext()->cookie->npa)) {
                 $this->npa = Context::getContext()->cookie->npa;
             } else {
-                return null;
+                return 1;
             }
         }
 

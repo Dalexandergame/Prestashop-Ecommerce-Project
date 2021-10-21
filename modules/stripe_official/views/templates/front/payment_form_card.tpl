@@ -21,7 +21,7 @@
  * @copyright Copyright (c) Stripe
  * @license   Commercial license
 *}
-<form class="stripe-payment-form" id="stripe-card-payment">
+<form class="stripe-payment-form payment-form" id="stripe-card-payment">
     {if $applepay_googlepay == 'on'}
         <div id="stripe-payment-request-button"></div>
 
