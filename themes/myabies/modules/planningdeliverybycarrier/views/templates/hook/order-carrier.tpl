@@ -40,7 +40,7 @@
 		{/if}
 	</div>
         {*tst*}
-       {* {if isset($dateRetourRequired) && $dateRetourRequired }*}
+        {if isset($dateRetourRequired) && $dateRetourRequired }
 	<div id="day_slots_retour" class="delivery_option col-md-4">
 		<label id="lab_date_retour" for="date_retour">
 			{l s='Date de retour' mod='planningdeliverybycarrier'} :
@@ -52,7 +52,7 @@
 
 		</label>		
 	</div>
-       {* {/if}*}
+        {/if}
     {*   {if $opc}
        <div class="col-md-12">
 		<input type="button" id="submitDateDelivery" name="submitDateDelivery" value="{l s='Save' mod='planningdeliverybycarrier'}" class="btn btn-default link-home" /></div>
