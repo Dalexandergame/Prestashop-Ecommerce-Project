@@ -1679,10 +1679,12 @@ class CartCore extends ObjectModel
             }
         }
 
-        return Db::getInstance()->getValue( "SELECT w.id_warehouse FROM ps_gszonevente_region r
+        $result = Db::getInstance()->getValue( "SELECT w.id_warehouse FROM ps_gszonevente_region r
                 join ps_gszonevente_npa n on r.id_gszonevente_region = n.id_gszonevente_region
                 join ps_warehouse_carrier w on w.id_carrier = r.id_carrier
                 WHERE n.name = {$this->npa} and r.id_shop = {$this->id_shop}");
+
+        return $result? $result: 1;
     }
 
     /**

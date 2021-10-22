@@ -287,13 +287,6 @@ class OrderControllerCore extends FrontController
             Tools::redirect($cartLink);
         }
 
-        $product = $this->context->cart->checkQuantities(true);
-        if (is_array($product)) {
-            // if there is an issue with product quantities, redirect to cart page
-            $orderLink = $this->context->link->getPageLink('order');
-            Tools::redirect($orderLink);
-        }
-
         $this->checkoutProcess
             ->setNextStepReachable()
             ->markCurrentStep()
