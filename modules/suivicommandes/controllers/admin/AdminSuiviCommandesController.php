@@ -1748,7 +1748,7 @@ order by `name` asc
         $order       = new Order($order_id);
         $customer_id = $order->id_customer;
         $token       = Tools::getAdminTokenLite('AdminCustomers');
-        $link        = _PS_BASE_URL_ . __PS_BASE_URI__ . "commandes/index.php?controller=AdminCustomers&id_customer=$customer_id&viewcustomer&token=$token";
+        $link        = _PS_BASE_URL_ . __PS_BASE_URI__ . "administration/index.php?controller=AdminCustomers&id_customer=$customer_id&viewcustomer&token=$token";
         return "<a href='$link'><i class='icon-search'></i> Détails Client</a>";
     }
 }

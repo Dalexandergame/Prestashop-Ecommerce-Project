@@ -218,7 +218,7 @@ class EcosapinPartners extends Module {
         $module_path = _MODULE_DIR_.'/'.$this->name;
         // http://ecosapin.local/commandes/index.php?controller=AdminModules&configure=ecosapinpartners
         $token = Tools::getAdminTokenLite('AdminModules');
-        $goBackUrl = _PS_BASE_URL_.__PS_BASE_URI__.'commandes/index.php?controller=AdminModules'
+        $goBackUrl = _PS_BASE_URL_.__PS_BASE_URI__.'administration/index.php?controller=AdminModules'
         .'&configure='.$this->name .'&token='.$token;
         $partner->description = $partner->description[$this->context->language->id];
         $this->context->smarty->assign('partner' , $partner);
@@ -428,6 +428,7 @@ class EcosapinPartners extends Module {
     }
 
     private function _getPartners(){
+        $shop_id = Context::getContext()->shop->id;
         $getPartnersQuery = "
               SELECT 
               p.partner_id, 
@@ -439,6 +440,7 @@ class EcosapinPartners extends Module {
               wh.reference as warehouse_reference
               FROM "._DB_PREFIX_."partners as p
               LEFT JOIN "._DB_PREFIX_."warehouse as wh ON (p.warehouse_id = wh.id_warehouse)
+              WHERE p.shop_id = '$shop_id'
           ";
         return Db::getInstance()->executeS($getPartnersQuery);
     }

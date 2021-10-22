@@ -6,13 +6,17 @@
 body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-
+/*
 #steps .step-desc #resp_content p {
     font-size: 14px;
-}
+}*/
 
 #steps .step-ul div .title {
     height: 62px;
+}
+
+#steps .step-desc ul li label, .not-pot label {
+    font-family: Source Sans Pro, sans-serif;
 }
 
  #steps .step-desc #resp_content .description>div {
@@ -531,7 +535,7 @@ span.value, .product-line-info.taille .label, .product-line-info.taille .label {
     padding-right: 15px;
     font-weight: 700;
     font-size: 11px;
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 .btn-primary:active:hover {
@@ -551,7 +555,6 @@ body#checkout section.checkout-step .address-item.selected {
 }
 
 .custom-checkbox input[type=checkbox] {
-    margin-top: 0rem;
     opacity: 1;
 }
 
@@ -962,6 +965,47 @@ a:hover {
 }
 
 #content-hook_order_confirmation .card-block .row>div>p {
-    color: #5c8f16;
+   /* color: #5c8f16;*/
     padding-left: 42px;
+}
+
+.forgotten-password .form-fields label.required, label.col-md-3.form-control-label.required, label.col-md-3.form-control-label {
+    color: #505050 !important;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    width: 25%;
+    text-align: center;
+}
+
+.forgotten-password .form-fields .center-email-fields button {
+    margin-left: 10px;
+}
+
+.send-renew-password-link {
+    color: darkgreen;
+    padding-right: 0px;
+    font-size: 11px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.page-customer-account #content {
+    margin-bottom: 16px;
+}
+
+.page-customer-account #content .forgot-password, .page-customer-account #content .no-account {
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    margin-top: 2rem;
+    padding-bottom: 1.9375rem;
+}
+
+.page-customer-account #content .forgot-password a, .page-customer-account #content .no-account a {
+    color: #5c8f29;
+}
+
+.page-authentication #content {
+    max-width: 675px;
 }

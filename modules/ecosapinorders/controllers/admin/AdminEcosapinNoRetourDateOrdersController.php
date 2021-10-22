@@ -90,7 +90,7 @@ class AdminEcosapinNoRetourDateOrdersController extends ModuleAdminController
     public function displayAfficherLink($token, $id)
     {
         $token = Tools::getAdminTokenLite('AdminOrders');
-        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "commandes/index.php?controller=AdminOrders&id_order=$id&vieworder&token=$token";
+        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "administration/index.php?controller=AdminOrders&id_order=$id&vieworder&token=$token";
         return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> détails</a>";
     }
 }

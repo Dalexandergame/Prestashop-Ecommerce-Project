@@ -91,7 +91,11 @@
             <label>
               <input name="{$field.name}" type="checkbox" value="1" {if $field.value}checked="checked"{/if} {if $field.required}required{/if}>
               <span><i class="material-icons rtl-no-flip checkbox-checked">&#xE5CA;</i></span>
-              {$field.label nofilter}
+             {if $field.name === 'receive_sms'}
+                {l s='Receive Sms' d='Shop.Theme.Customeraccount'}
+             {else}
+                {$field.label nofilter}
+             {/if}
             </label>
           </span>
         {/block}

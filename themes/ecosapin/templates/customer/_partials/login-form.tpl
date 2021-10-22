@@ -29,7 +29,9 @@
   {/block}
 
   <form id="login-form" action="{block name='login_form_actionurl'}{$action}{/block}" method="post">
-
+    <div>
+      <p class="send-renew-password-link">{l s='In order to guarantee the best possible security for your data, we have updated our platform and ask you to reset your password' d='Shop.Theme.Customeraccount'}</p>
+    </div>
     <section>
       {block name='login_form_fields'}
         {foreach from=$formFields item="field"}
