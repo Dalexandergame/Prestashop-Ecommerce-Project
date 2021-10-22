@@ -123,14 +123,14 @@ class AdminCustomersFilterController extends ModuleAdminController
     public function displayAfficherLink($token, $id){
         $order = new Order($id);
         $token = Tools::getAdminTokenLite('AdminCustomers');
-        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "commandes/index.php?controller=AdminCustomers&id_customer={$order->id_customer}&viewcustomer&token=$token";
+        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "administration/index.php?controller=AdminCustomers&id_customer={$order->id_customer}&viewcustomer&token=$token";
         return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> ".$this->l("Details")."</a>";
     }
 
     public function displayOrderLink($token, $id)
     {
         $token = Tools::getAdminTokenLite('AdminOrders');
-        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "commandes/index.php?controller=AdminOrders&id_order=$id&vieworder&token=$token";
+        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "administration/index.php?controller=AdminOrders&id_order=$id&vieworder&token=$token";
         return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> " . $this->l("Commande") . "</a>";
     }
 }

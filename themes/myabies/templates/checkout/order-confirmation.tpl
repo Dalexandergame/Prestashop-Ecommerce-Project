@@ -73,6 +73,12 @@
     </div>
   </section>
 
+  {block name='continue_shopping'}
+    <a class="btn btn-primary" style="margin-bottom: 10px;" href="{$urls.pages.index}">
+      <i class="material-icons">chevron_left</i>{l s='Back to shop' d='Shop.Theme.Actions'}
+    </a>
+  {/block}
+
   {block name='hook_payment_return'}
     {if ! empty($HOOK_PAYMENT_RETURN)}
     <section id="content-hook_payment_return" class="card definition-list">
