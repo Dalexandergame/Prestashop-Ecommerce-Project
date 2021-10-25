@@ -993,6 +993,7 @@ a:hover {
 
 .page-customer-account #content {
     margin-bottom: 16px;
+    border-radius: 10px;
 }
 
 .page-customer-account #content .forgot-password, .page-customer-account #content .no-account {
@@ -1008,4 +1009,280 @@ a:hover {
 
 .page-authentication #content {
     max-width: 675px;
+}
+
+#history #page, #discount #page {
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+#history .table-bordered, #discount .table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+    border: none;
+}
+
+#history .table>thead>tr>th, #discount .table>thead>tr>th  {
+    font-weight: 700;
+    font-size: 14px;
+    padding: 23px 8px 23px 18px;
+}
+
+.table-striped>tbody>tr>th {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 23px 8px 23px 18px;
+}
+
+#history .table tbody > tr > td, #discount .table tbody > tr > td {
+    border-bottom: 1px solid #f6f6f6;
+    padding: 23px 8px 23px 18px;
+    color: #505050;
+}
+
+#history .table tbody > tr > td.history_price, #discount .table tbody > tr > td.history_price {
+    color: #5c8f16;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+#history .table tbody > tr > td.history_date, #discount .table tbody > tr > td.history_date {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#history .table tbody > tr > td.history_method, #discount .table tbody > tr > td.history_method {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#discount .bg-home, #order-slip .bg-home, #module-psgdpr-gdpr .bg-home, #module-stripe_official-stripeCards .bg-home {
+    min-height: auto;
+    background: none;
+}
+
+.table-labeled .label {
+    border-radius: 8px;
+    font: 600 12px "Source Sans Pro", sans-serif;
+    text-transform: uppercase;
+    color: #515151;
+}
+
+.page-customer-account #content .order-actions a {
+    background-color: #f6f6f6;
+    border-color: #f6f6f6;
+    border-radius: 3px;
+    color: #5c8f16;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 23px 8px 23px 18px;
+}
+
+#history h6.info-title {
+    margin-bottom: 1px;
+    padding: 15px 0;
+    background-color: #f6f6f6;
+    text-align: center;
+    display: block;
+    color: #6c6c6c;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.page-footer .account-link span {
+    font-size: 11px;
+}
+
+.page-addresses .address .address-footer a {
+    color: #fff;
+}
+
+.page-addresses .address, .page-addresses .address .address-body h4 {
+    font-size: 14px;
+    color: #6c6c6c;
+}
+
+.psgdprinfo17 {
+    font-size: 14px;
+}
+
+@media (max-width: 767px) {
+
+    div#ap5-buy-block-container {
+        position: inherit;
+    }
+
+    .ap5-product-list {
+        margin: 0px 15px auto!important;
+        width: 89%!important;
+    }
+
+    #main .h1 {
+        position: inherit;
+        display: inline-block;
+        padding: 10px 10px;
+        border: 1px solid #ffffff;
+        border-radius: 6px;
+        right: -30px;
+        width: 80%;
+        font-size: 25px;
+        text-align: center;
+        text-transform: capitalize;
+    }
+
+    #main .text-justify {
+        position: initial;
+        width: 96%;
+    }
+
+    #main p {
+        margin-bottom: 1em;
+        min-height: 1px;
+        color: #4d4d52;
+        font: 400 14px/28px "Source Sans Pro", sans-serif;
+    }
+
+    #index #header, #typesapain #header {
+         background: none;
+    }
+
+    #ap5-pack-product-6 .ap5-pack-product-image {
+        top: 0px;
+    }
+
+    #ap5-pack-product-5 img {
+        margin-top: 25px;
+    }
+
+    #ap5-pack-product-5 .ap5-attributes {
+        text-align: center;
+        right: 0px;
+    }
+
+    .alert.animated.shake.alert-warning {
+        margin-left: -8px;
+    }
+
+    #ap5-buy-container.unvisible {
+        width: 69%;
+        margin-top: 49px;
+        margin-left: -7px;
+    }
+
+    .ap5-product-list {
+        height: 530px;
+    }
+
+    #typesapain #header, #product #header, #checkout #header, #cart #header {
+        height: 48px;
+    }
+
+    #typesapain #header .header-nav .top-logo, #product #header .header-nav .top-logo, #checkout #header .header-nav .top-logo, #cart #header .header-nav .top-logo {
+        display: none;
+    }
+
+    #cart .bg-home {
+        background: none;
+    }
+
+    #header .header-nav {
+        background: #1c5201;
+    }
+
+    .header-fixed {
+        display: none;
+    }
+
+    nav.header-nav {
+        height: 48px;
+    }
+
+    #header .header-nav .top-logo a img {
+        max-height: 100px;
+        position: relative;
+        top: 60px;
+    }
+
+    #block_top_menu {
+        position: relative;
+        left: 5px;
+        top: 0px;
+    }
+
+    .sf-menu li:nth-child(8) {
+        display: none;
+    }
+
+    .sf-menu {
+        display: block;
+    }
+
+    .sf-menu > li > a {
+        margin: 0 15px;
+        text-transform: none !important;
+        color: #5D5D5D !important;
+        display: block;
+    }
+
+    #index .sf-menu.sf-js-enabled>li:first-child a {
+        color: #007100!important;
+    }
+
+    .dropdown select>option:checked {
+        background: #8bb76f;
+        color: #0a0a0a !important;
+    }
+
+    .dropdown select>option {
+        color:#333333;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .footer-container {
+        padding-left: 62px;
+    }
+
+    #footer .footer-container .h3:after {
+        display: block;
+        content: "\f055";
+        font-family: FontAwesome;
+        position: absolute;
+        right: 90px;
+        top: 45px;
+    }
+
+    .footer-block.footer-adresse {
+        margin-left: -30px;
+        margin-bottom: 10px;
+    }
+
+    .logo_paiement {
+        width: 65%;
+        float: left;
+    }
+
+    #cart .product-line-grid-left {
+        width: 50%;
+    }
+
+    .product-line-grid-right .product-price {
+        color: #1d5202;
+        margin-left: -32px;
+    }
+
+    .block-promo .promo-input+button {
+        margin-top: 5px;
+    }
+
+    .block-promo .promo-input {
+        width: 100%;
+    }
+
+    .forgotten-password .form-fields label.required, label.col-md-3.form-control-label.required, label.col-md-3.form-control-label {
+        width: 52%;
+        text-align: left;
+    }
 }
