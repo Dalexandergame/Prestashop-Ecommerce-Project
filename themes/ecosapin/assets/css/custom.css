@@ -1171,7 +1171,7 @@ a:hover {
     }
 
     .ap5-product-list {
-        height: 530px;
+        height: 495px;
     }
 
     #typesapain #header, #product #header, #checkout #header, #cart #header {
@@ -1209,10 +1209,10 @@ a:hover {
         left: 5px;
         top: 0px;
     }
-
+/*
     .sf-menu li:nth-child(8) {
         display: none;
-    }
+    }*/
 
     .sf-menu {
         display: block;
@@ -1284,5 +1284,14 @@ a:hover {
     .forgotten-password .form-fields label.required, label.col-md-3.form-control-label.required, label.col-md-3.form-control-label {
         width: 52%;
         text-align: left;
+    }
+
+    #entreprise .contact-entre {
+        font-size: 25px;
+        padding-top: 6px;
+    }
+
+    .pm-ap-owl-dots {
+        display: none;
     }
 }
