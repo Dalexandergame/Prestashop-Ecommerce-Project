@@ -23,15 +23,6 @@ class SwissbillingErrorModuleFrontController extends ModuleFrontController
             $this->display_column_left = false;
             parent::initContent();
 
-            $Context = Context::getContext();
-            $smarty = $Context->smarty;
-
-            // sur mobile injection du Header
-            $Context = new Context();
-            if($Context->getMobileDevice()){
-                $smarty->display(_PS_THEME_MOBILE_DIR_.'header.tpl');
-            }
-
             $Swissbilling = New Swissbilling();
             
             $msg = Tools::getValue('msg');
@@ -64,21 +55,22 @@ class SwissbillingErrorModuleFrontController extends ModuleFrontController
                         $SoapClient->EshopTransactionConfirmation($merchant,$transaction_ref,$order_timestamp);
                     }catch(SoapFault $exception){
                         // laisser désactivé, pour permettre un retour d'erreur affiché au client
-                        //d($exception);
+                        //dump($exception);
+                        // exit();
                     }
 
-                    Logger::addLog(pSQL($response->status,true),1,3,'Swissbilling',$transaction_ref);
+                    Logger::addLog(pSQL($response->status,true),1,4,'Swissbilling',$transaction_ref);
 
                 }catch(SoapFault $exception){
-                   d($exception);
+                   dump($exception);
+                   exit();
                 }
             }
 
             $this->context->smarty->assign(array('ps_version' => $Swissbilling->ps_version,
                                                  'msg_error' => $msg_error
                                            ));
-            $this->setTemplate('error.tpl');
-
+            return $this->setTemplate('module:'.$Swissbilling->name.'/views/templates/front/error.tpl');
     }
 
 }
