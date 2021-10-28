@@ -1,13 +1,13 @@
 /* Back-Office */
+.red{color:#CC0000;}
+.m-top-5{margin-top:5px;}
+
+#div_bo_swissbilling #table_swissbilling{width:100%;}
 #div_bo_swissbilling #table_swissbilling td{padding-right:5px;}
 
 #div_bo_swissbilling input[name="max_amount"]{float:left;}
 #div_bo_swissbilling input[name="admin_fee_amount"]{float:left;}
 #div_bo_swissbilling .iso_currency{line-height:25px;}
-
-#div_bo_swissbilling #languages_info_prepmt{display:none;}
-#div_bo_swissbilling #language_current_info_prepmt{margin-left:5px;}      
-#div_bo_swissbilling #info_prepmt_1{margin-bottom:10px;}
 
 /* Front-Office */
 #div_fo_swissbilling #page_error{}

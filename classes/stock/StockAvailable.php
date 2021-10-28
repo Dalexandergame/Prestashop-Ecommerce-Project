@@ -409,6 +409,10 @@ class StockAvailableCore extends ObjectModel
             $id_product_attribute = 0;
         }
 
+        if ($id_product === null && Tools::getValue('product_id')) {
+            $id_product = Tools::getValue('product_id');
+        }
+
         $key = 'StockAvailable::getQuantityAvailableByProduct_' . (int) $id_product . '-' . (int) $id_product_attribute . '-' . (int) $id_shop;
         if (!Cache::isStored($key)) {
             $query = 'SELECT IFNULL(st.usable_quantity, 0) as quantity
