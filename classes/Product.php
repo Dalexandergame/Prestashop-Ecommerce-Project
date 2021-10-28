@@ -3803,7 +3803,7 @@ class ProductCore extends ObjectModel
             $sql = "SELECT IFNULL(MIN(st.usable_quantity), 0) as quantity
                         FROM ps_pm_advancedpack_products ap
                             INNER JOIN ps_pm_advancedpack_cart_products acp ON ap.id_product_pack = acp.id_product_pack
-                        INNER JOIN ps_stock st ON (st.id_product = ap.id_product AND st.id_product_attribute = acp.id_product_attribute AND st.id_warehouse = ".$cart->getWarehouseByNPA().")
+                        INNER JOIN ps_stock st ON (st.id_product = ap.id_product AND st.id_product_attribute = acp.id_product_attribute AND st.id_warehouse = ".(isset($cart) ? $cart->getWarehouseByNPA() : 1).")
                         WHERE acp.id_product_attribute_pack = $idProductAttribute";
 
             $availableQuantity = (int) Db::getInstance()->getValue($sql);

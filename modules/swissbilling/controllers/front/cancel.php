@@ -45,13 +45,15 @@ class SwissbillingCancelModuleFrontController extends ModuleFrontController
                     // le paiement a été refusé  (inutile de conserver le log)
                     $SoapClient->EshopTransactionConfirmation($merchant,$transaction_ref,$order_timestamp);
                 }catch(SoapFault $exception){
-                    d($exception);
+                    dump($exception);
+                    exit();
                 }
 
                 Logger::addLog(pSQL($response->status,true),1,3,'Swissbilling',$transaction_ref);
 
             }catch(SoapFault $exception){
-               d($exception);
+               dump($exception);
+               exit();
             }
         }
         
