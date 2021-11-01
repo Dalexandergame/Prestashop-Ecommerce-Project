@@ -198,11 +198,15 @@
 </p>
 <div class="box-cart-bottom">
         <div{if (!$allow_oosp && $product->quantity <= 0) || !$product->available_for_order || (isset($restricted_country_mode) && $restricted_country_mode) || $configuration.catalog_mode} class="unvisible"{/if}>
-                <p id="add_to_cart" class="buttons_bottom_block no-print">
-                        <button type="submit" name="Submit" class="exclusive">
-                                <span>{if $content_only && (isset($product->customization_required) && $product->customization_required)}{l s='Customize' d='Modules.Tunnelvente.Product'}{else}{l s='Add to cart' d='Modules.Tunnelvente.Product'}{/if}</span>
-                        </button>
-                </p>
+            <form action="{$urls.pages.cart}" method="post" class="add-to-cart-or-refresh">
+                <input type="hidden" name="token" value="{$static_token}">
+                <input type="hidden" name="id_product" value="{$product->id}" class="product_page_product_id">
+                <input type="hidden" name="qty" value="1">
+                <button class="exclusive" data-button-action="add-to-cart" type="submit">
+                    {*<i class="material-icons shopping-cart"></i>*}
+                    {l s='Add to cart' d='Shop.Theme.Actions'}
+                </button>
+            </form>
         </div>
         {if isset($HOOK_PRODUCT_ACTIONS) && $HOOK_PRODUCT_ACTIONS}{$HOOK_PRODUCT_ACTIONS}{/if}
 </div> <!-- end box-cart-bottom -->
