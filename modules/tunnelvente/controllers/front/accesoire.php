@@ -36,7 +36,14 @@ class TunnelVenteAccesoireModuleFrontController extends Front
                     $id_product = (int) Db::getInstance()->getValue($sql);
 
                     if ($id_product > 0) {
-                        $t = $this->addProductInCart($cart, 1, $id_product, $id_product_attribute);
+                        $id_attribute_taille = $this->getValueTunnelVent('id_attribute_taille');
+                        $id_product_boule = $this->getValueTunnelVent('id_product_boule');
+
+                        if ($id_product === 52 && ($id_attribute_taille == 70 || $id_attribute_taille == 71) && isset($id_product_boule)) {
+                            $t = $this->addProductInCart($cart, 2, $id_product, $id_product_attribute);
+                        }else{
+                            $t = $this->addProductInCart($cart, 1, $id_product, $id_product_attribute);
+                        }
 
                         if (!$t) {
                             $_product       = new Product($id_product, false, $this->context->language->id);
