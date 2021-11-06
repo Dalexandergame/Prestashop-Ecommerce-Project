@@ -412,6 +412,7 @@ class EcosapinPartners extends Module {
         $partner->img = $partner_img;
         $partner->description = $partner_description[$this->context->language->id];
         $partner->warehouse_id = $warehouse_id;
+        $partner->shop_id = Context::getContext()->shop->id;
         if(!$partner->save())
             return false;
 
