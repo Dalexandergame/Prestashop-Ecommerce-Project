@@ -66,6 +66,9 @@ class PlanningRetourByCarrierException
             `ps_planning_retour_carrier_exception` ppde
                 INNER JOIN
             `ps_carrier` carrier ON carrier.id_carrier = ppde.id_carrier
+                INNER JOIN
+            `ps_carrier_shop` pcs ON pcs.id_carrier =  carrier.id_carrier
+                WHERE pcs.id_shop = '.(int)Context::getContext()->shop->id.';
         ORDER BY ppde.`date_from` ASC
         
         ';

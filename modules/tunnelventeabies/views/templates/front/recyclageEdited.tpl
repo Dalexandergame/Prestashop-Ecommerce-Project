@@ -50,7 +50,7 @@
                 <div class="attribute-img-container"
                      style="background-image:url('{$urls.base_url}modules/tunnelventeabies/images/recyclage/abies_recycle.JPG');
                              background-position: center;background-size: contain;background-color: #193128;background-repeat: no-repeat;">
-                    <div class="attribute-hover-container">
+                    <div class="attribute-hover-container_recyclage">
                         <button type="button" class="tunnel-recycle-action tunnel-add-btn">Add</button>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                 <div class="attribute-img-container"
                      style="background-image:url('{$urls.base_url}modules/tunnelventeabies/images/recyclage/manual_recycle.JPG');
                              background-position: center;background-size: contain;background-color: #193128;background-repeat: no-repeat;">
-                    <div class="attribute-hover-container">
+                    <div class="attribute-hover-container_recyclage">
                         <button type="button" class="tunnel-recycle-action tunnel-add-btn">Add</button>
                     </div>
                 </div>

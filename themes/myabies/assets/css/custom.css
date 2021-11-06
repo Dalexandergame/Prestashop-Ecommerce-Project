@@ -304,6 +304,7 @@ body#checkout #cart-summary-product-list img {
 #cart .card, #checkout .card {
     border-radius: 10px;
     box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 20%) ;
+    padding: 0px 10px 10px;
 }
 
 #cart .header-container.img-header {
@@ -404,6 +405,22 @@ header {
     border-radius: 3px;
     text-indent: 30px;
 }
+
+.attribute-hover-container_recyclage {
+    display: none;
+    background-color: rgba(25, 49, 40, .8);
+    height: 400px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.attribute-img-container:hover .attribute-hover-container_recyclage, form#form_recyclage .attribute-img-container:hover .attribute-hover-container_recyclage ,.active .attribute-img-container:hover .attribute-hover-container_recyclage ,
+.active .attribute-hover-container_recyclage ,.attribute-img-description:hover ,.attribute-img-description{
+    display: flex;
+}
+
 
 .input-group .input-group-btn>.btn[data-action=show-password] {
     background: #7a7a7a;
@@ -524,4 +541,28 @@ textarea {
 
 #order-items table tr td {
     font-size: inherit;
+}
+
+/* Block Promo*/
+.block-promo .promo-input {
+    height: 2.9rem;
+    margin-right: 0.76rem;
+}
+
+.block-promo .promo-code form {
+    text-align: left;
+}
+
+.block-promo {
+    margin-left: 2rem;
+    width: 35%;
+    border: 1px solid #c0c0c0;
+}
+
+.block-promo .promo-code-button {
+    font: 600 18px/22px "Source Sans Pro", sans-serif;
+    color: #5c8f16;
+    text-transform: uppercase;
+    padding: 16px 0 10px 10px;
+    text-align: left;
 }
