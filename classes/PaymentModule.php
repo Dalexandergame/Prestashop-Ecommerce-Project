@@ -586,6 +586,12 @@ abstract class PaymentModuleCore extends Module
                         $invoice_state = $invoice->id_state ? new State((int) $invoice->id_state) : false;
                         $carrier = $order->id_carrier ? new Carrier($order->id_carrier) : false;
 
+                        $date_retour =  Db::getInstance()->getRow('SELECT pd.`date_retour` FROM `' . _DB_PREFIX_ . 'planning_delivery_carrier` pd WHERE pd.`id_cart` = ' . (int) ($this->context->cart->id));
+                        $date_retour = new DateTime($date_retour['date_retour']);
+                        $date_delivery = new DateTime($orderData['order']->delivery_date);
+                        $return_date = $date_retour->format('d/m/Y');
+                        $delivery_date = $date_delivery->format('d/m/Y');
+
                         $data = [
                             '{firstname}' => $this->context->customer->firstname,
                             '{lastname}' => $this->context->customer->lastname,
@@ -605,6 +611,8 @@ abstract class PaymentModuleCore extends Module
                             '{delivery_lastname}' => $delivery->lastname,
                             '{delivery_address1}' => $delivery->address1,
                             '{delivery_address2}' => $delivery->address2,
+                            '{delivery_date}' => $delivery_date,
+                            '{return_date}' => $return_date,
                             '{delivery_city}' => $delivery->city,
                             '{delivery_postal_code}' => $delivery->postcode,
                             '{delivery_country}' => $delivery->country,
@@ -1045,8 +1053,10 @@ abstract class PaymentModuleCore extends Module
         $order->round_mode = Configuration::get('PS_PRICE_ROUND_MODE');
         $order->round_type = Configuration::get('PS_ROUND_TYPE');
 
+        $delivery_date =  Db::getInstance()->getRow('SELECT pd.`date_delivery` FROM `' . _DB_PREFIX_ . 'planning_delivery_carrier` pd WHERE pd.`id_cart` = ' . (int) ($cart->id));
+
         $order->invoice_date = '0000-00-00 00:00:00';
-        $order->delivery_date = '0000-00-00 00:00:00';
+        $order->delivery_date = $delivery_date['date_delivery']/*'0000-00-00 00:00:00'*/;
 
         if ($debug) {
             PrestaShopLogger::addLog('PaymentModule::validateOrder - Order is about to be added', 1, null, 'Cart', (int) $cart->id, true);

@@ -3,14 +3,18 @@
 <div id="choose_delivery_date" class=""  data-idcarrierpost="{$id_carrier_post}">
 	<p class="carrier_title norm col-md-12">{l s='Choose your delivery date' mod='planningdeliverybycarrier'}</p>
 
-	{if isset($pderrors) && $pderrors}
+	{if isset($pderrors) && $pderrors || isset($msg_errors) && $msg_errors}
 		<br />
 		<div class="error" style="color: red">
-			<p>{if $pderrors|@count > 1}{l s='There are %d errors' sprintf=$pderrors|@count mod='planningdeliverybycarrier'}{else}{l s='There is %d error' sprintf=$pderrors|@count  mod='planningdeliverybycarrier'}{/if}</p>
+			{if isset($msg_errors)}
+				{assign var=err value=1}
+			{/if}
+			<p>{if $pderrors|@count > 1}{l s='There are %d errors' sprintf=$pderrors|@count + $err mod='planningdeliverybycarrier'}{else}{l s='There is %d error' sprintf=$pderrors|@count + $err  mod='planningdeliverybycarrier'}{/if}</p>
 			<ol>
 			{foreach from=$pderrors key=k item=error}
 				<li>{$error}</li>
 			{/foreach}
+				<li>{$msg_errors}</li>
 			</ol>
 		</div>
 	{/if}

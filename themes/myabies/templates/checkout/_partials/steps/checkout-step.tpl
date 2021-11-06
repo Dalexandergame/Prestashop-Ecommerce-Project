@@ -43,4 +43,12 @@
       {block name='step_content'}DUMMY STEP CONTENT{/block}
     </div>
   </section>
+
+  <script>
+    var step = {$step_is_current};
+    if (step) {
+      var elmnt = document.getElementById("{$identifier}");
+      elmnt.scrollIntoView();
+    }
+  </script>
 {/block}
