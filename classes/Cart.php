@@ -2673,7 +2673,7 @@ class CartCore extends ObjectModel
 
             //todo "93" is the id for the little sapin package
             //todo when warehouse not Cotton
-            if($product['id_product'] == 53 && $id_warehouse != 1)
+            if($product['id_product'] == 93 && $id_warehouse != 1)
                 $product['carrier_list'] = array(Configuration::get('TUNNELVENTE_ID_CARRIER_POST'));
 
             $tCherryIds = explode(';', Configuration::get('cherrycheckout_product_id'));

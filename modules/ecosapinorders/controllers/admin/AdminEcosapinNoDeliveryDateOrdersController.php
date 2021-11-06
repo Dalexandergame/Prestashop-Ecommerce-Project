@@ -26,7 +26,6 @@ class AdminEcosapinNoDeliveryDateOrdersController extends ModuleAdminController{
         $this->_select = '
 		a.id_currency,
 		a.id_order AS id_pdf,
-		IF(YEAR(pdc.date_delivery) = 0 , "aucune" , pdc.date_delivery) as "delivery_date",
 		CONCAT(LEFT(c.`firstname`, 1), \'. \', c.`lastname`) AS `customer`,
 		osl.`name` AS `osname`,
 		os.`color`,
@@ -34,10 +33,9 @@ class AdminEcosapinNoDeliveryDateOrdersController extends ModuleAdminController{
 		country_lang.name as cname,
 		IF(a.valid, 1, 0) badge_success';
 
-        $this->_where = ' = 0 OR YEAR(pdc.date_delivery) = 0 OR pdc.date_delivery = "--"';
+        $this->_where .= ' and a.id_order not in (select distinct id_order from ps_planning_delivery_carrier)';
 
         $this->_join = '
-		LEFT JOIN `'._DB_PREFIX_.'planning_delivery_carrier` pdc ON (pdc.`id_order` = a.`id_order`)
 		LEFT JOIN `'._DB_PREFIX_.'customer` c ON (c.`id_customer` = a.`id_customer`)
 		LEFT JOIN `'._DB_PREFIX_.'address` address ON address.id_address = a.id_address_delivery
 		LEFT JOIN `'._DB_PREFIX_.'country` country ON address.id_country = country.id_country
@@ -45,7 +43,6 @@ class AdminEcosapinNoDeliveryDateOrdersController extends ModuleAdminController{
 		LEFT JOIN `'._DB_PREFIX_.'order_state` os ON (os.`id_order_state` = a.`current_state`)
 		LEFT JOIN `'._DB_PREFIX_.'order_state_lang` osl ON (os.`id_order_state` = osl.`id_order_state` AND osl.`id_lang` = '.(int)$this->context->language->id.')';
         $this->_orderBy = 'id_order';
-        $this->_group = 'group by id_order';
         $this->_orderWay = 'DESC';
         $this->_use_found_rows = true;
 
