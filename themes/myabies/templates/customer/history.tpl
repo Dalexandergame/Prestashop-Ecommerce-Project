@@ -29,7 +29,7 @@
 {/block}
 
 {block name='page_content'}
-  <h6>{l s='Here are the orders you\'ve placed since your account was created.' d='Shop.Theme.Customeraccount'}</h6>
+  <h6 class="info-title">{l s='Here are the orders you\'ve placed since your account was created.' d='Shop.Theme.Customeraccount'}</h6>
 
   {if $orders}
     <table class="table table-striped table-bordered table-labeled hidden-sm-down">
@@ -47,10 +47,10 @@
       <tbody>
         {foreach from=$orders item=order}
           <tr>
-            <th scope="row">{$order.details.reference}</th>
-            <td>{$order.details.order_date}</td>
-            <td class="text-xs-right">{$order.totals.total.value}</td>
-            <td class="hidden-md-down">{$order.details.payment}</td>
+            <th class="history_reference" scope="row">{$order.details.reference}</th>
+            <td class="history_date">{$order.details.order_date}</td>
+            <td class="history_price">{$order.totals.total.value}</td>
+            <td class="history_method">{$order.details.payment}</td>
             <td>
               <span
                 class="label label-pill {$order.history.current.contrast}"
