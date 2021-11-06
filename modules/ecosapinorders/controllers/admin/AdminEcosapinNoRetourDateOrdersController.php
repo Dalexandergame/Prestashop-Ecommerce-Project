@@ -40,7 +40,7 @@ class AdminEcosapinNoRetourDateOrdersController extends ModuleAdminController
         $this->_where = ' = 0 OR YEAR(pdc.date_retour) = 0 OR pdc.date_retour = "--"';
 
         $this->_join           = '
-        LEFT JOIN `' . _DB_PREFIX_ . 'planning_delivery_carrier` pdc ON (pdc.`id_order` = a.`id_order`)
+		LEFT JOIN `' . _DB_PREFIX_ . 'planning_delivery_carrier` pdc ON (pdc.`id_order` = a.`id_order`)
 		LEFT JOIN `' . _DB_PREFIX_ . 'customer` c ON (c.`id_customer` = a.`id_customer`)
 		LEFT JOIN `' . _DB_PREFIX_ . 'address` address ON address.id_address = a.id_address_delivery
 		LEFT JOIN `' . _DB_PREFIX_ . 'country` country ON address.id_country = country.id_country

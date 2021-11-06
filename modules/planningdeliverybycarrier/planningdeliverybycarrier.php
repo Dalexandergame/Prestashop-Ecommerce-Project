@@ -521,7 +521,7 @@ class PlanningDeliveryByCarrier extends Module
             }
             if (Validate::isDate($date_delivery)) {
                 $planning_delivery->date_delivery = $date_delivery;
-            } else {
+            } elseif(empty($date_delivery) && !$result) {
                 $errors[] = Tools::displayError($this->l('Delivery Date invalid'));
             }
 
@@ -532,7 +532,7 @@ class PlanningDeliveryByCarrier extends Module
             }
             /* Date de retour */
             $planning_delivery->test_date = $date_retour;
-          //  if ($this->dateRetourRequiredByCart($planning_delivery->id_cart)) {
+            if ($this->dateRetourRequiredByCart($planning_delivery->id_cart)) {
 //                d($planning_delivery);
                 if ($format && !empty($date_retour) && strlen($date_retour) >= 10 && $date_retour != 'undefined') {
                     $dFormat     = (1 == $format) ? 'd/m/Y' : 'm/d/Y';
@@ -542,10 +542,10 @@ class PlanningDeliveryByCarrier extends Module
                     } else {
                         $errors[] = Tools::displayError($this->l('Date de retour invalid ' . $date_retour));
                     }
-                } else {
+                } elseif (empty($date_retour) && !$result) {
                     $errors[] = Tools::displayError($this->l('Date de retour indéfini'));
                 }
-         //   }
+            }
 
 //            d($planning_delivery);
             //todo planning insert code
@@ -903,18 +903,18 @@ class PlanningDeliveryByCarrier extends Module
             $format  = ('US' != $country->iso_code) ? 1 : 2;
             $date_retour   = Tools::getValue('date_retour');
             $date_delivery = Tools::getValue('date_delivery');
-            $delivery_message = Tools::getValue('delivery_message');
+            $delivery_message = Message::getMessageByCartId($this->context->cart->id);
             $errors = [];
 
-            if (($date_delivery && $date_retour && Tools::getValue('action') === "selectDeliveryOption")
-                || ((empty($date_delivery) || empty($date_retour)) && Tools::getValue('confirmDeliveryOption') == 1))
+            if ((($date_delivery && $date_retour) || (empty($date_delivery) || empty($date_retour))) && !Tools::getValue('confirm-addresses'))
             {
                 $errors = $this->requestProcessDateDelivery((int)($cart->id), $cart->id_carrier, Tools::getValue('date_delivery'), Tools::getValue('id_planning_delivery_slot'), $date_retour, $format);
 
             }
 
-            if (empty($delivery_message) && Tools::getValue('confirmDeliveryOption') == 1) {
-                $errors[] = Tools::displayError($this->l('Please enter your message'));
+            if (empty($delivery_message) && !Tools::getValue('confirm-addresses') && $cart->id_carrier !== "0") {
+                $msg_errors = Tools::displayError($this->l('Please enter your message'));
+                $this->smarty->assign('msg_errors', $msg_errors);
             }
 
             if (count($errors) && $oblige == 1) {

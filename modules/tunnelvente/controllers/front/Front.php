@@ -120,7 +120,7 @@ class Front extends ModuleFrontControllerCore
         return self::$steps;
     }
 
-    public function requete($npa)
+    public function requete($npa, $has_quantity = false)
     {
         //systeme de stock est activé
         $sql                       = SqlRequete::getSqlAttribute($this->id_lang, $this->id_shop);
@@ -145,6 +145,9 @@ class Front extends ModuleFrontControllerCore
                 $sql .= " AND st.id_warehouse IN($sqlEntrepotByNPA)";
             } else {
                 $sql .= " AND st.id_warehouse IN($DefaultEntrepotByNPA)";
+            }
+            if ($has_quantity) {
+                $sql .= " AND st.usable_quantity > 0";
             }
             // attribute par Entrepot
         }
@@ -197,7 +200,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
     protected function getTypeDisponible($npa = 0)
     {
 
-        $result = $this->requete($npa);
+        $result = $this->requete($npa, true);
         $res    = $test = array();
 
 
