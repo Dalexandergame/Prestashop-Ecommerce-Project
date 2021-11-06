@@ -167,7 +167,14 @@ class TunnelVenteBouleModuleFrontController extends Front
                 $row['id_product_attribute'],
                 $row['id_warehouse'] == '' ? null : array($row['id_warehouse'])
             );
-            $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
+
+            $id_attribute_taille = $this->getValueTunnelVent('id_attribute_taille');
+
+            if ($id_attribute_taille == 70 || $id_attribute_taille == 71) {
+                $row['price_ttc']   = (number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2)) * 2;
+            }else{
+                $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
+            }
 
             if ($item_real_quantity > 0)
                 $products[] = $row;

@@ -519,6 +519,7 @@ span.value, .product-line-info.taille .label, .product-line-info.taille .label {
     border: 1px solid #a3c272;
     border-radius: 3px;
     text-indent: 30px;
+    margin-bottom: 8px;
 }
 
 .input-group .input-group-btn>.btn[data-action=show-password] {
@@ -991,9 +992,14 @@ a:hover {
     margin-bottom: 25px;
 }
 
+.page-addresses .address .address-body {
+    padding: 2rem;
+}
+
 .page-customer-account #content {
     margin-bottom: 16px;
     border-radius: 10px;
+    padding: 2rem;
 }
 
 .page-customer-account #content .forgot-password, .page-customer-account #content .no-account {
