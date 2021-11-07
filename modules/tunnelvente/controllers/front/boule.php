@@ -161,13 +161,20 @@ class TunnelVenteBouleModuleFrontController extends Front
         $result   = Db::getInstance()->executeS($sql);
         $products = [];
 
-        foreach ($result as $row) {
+        foreach ($result as &$row) {
             $item_real_quantity = $this->stockGlobal->getQteAvendre(
                 $row['id_product'],
                 $row['id_product_attribute'],
                 $row['id_warehouse'] == '' ? null : array($row['id_warehouse'])
             );
-            $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2);
+            $id_attribute_taille = $this->getValueTunnelVent('id_attribute_taille');
+            $quantity = 1;
+
+            if ($id_attribute_taille == 70 || $id_attribute_taille == 71) {
+                $quantity = 2;
+            }
+
+            $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']) * $quantity, 2);
 
             if ($item_real_quantity > 0)
                 $products[] = $row;

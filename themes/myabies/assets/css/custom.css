@@ -270,7 +270,7 @@ body#order-confirmation #header .header-nav {
 }
 
 .attribute-img-description {
-    padding-top: 15px;
+    padding-top: 10px;
 }
 
 .container-recyclage {
@@ -304,6 +304,7 @@ body#checkout #cart-summary-product-list img {
 #cart .card, #checkout .card {
     border-radius: 10px;
     box-shadow: 2px 2px 8px 0 rgb(0 0 0 / 20%) ;
+    padding: 0px 10px 10px;
 }
 
 #cart .header-container.img-header {
@@ -400,10 +401,27 @@ header {
     max-width: 100% !important;
     height: 44px;
     background-color: white;
-    border: 1px solid #a3c272;
+    border: 1px solid #585858;
     border-radius: 3px;
     text-indent: 30px;
+    margin-bottom: 8px;
 }
+
+.attribute-hover-container_recyclage {
+    display: none;
+    background-color: rgba(25, 49, 40, .8);
+    height: 400px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.attribute-img-container:hover .attribute-hover-container_recyclage, form#form_recyclage .attribute-img-container:hover .attribute-hover-container_recyclage ,.active .attribute-img-container:hover .attribute-hover-container_recyclage ,
+.active .attribute-hover-container_recyclage ,.attribute-img-description:hover ,.attribute-img-description{
+    display: flex;
+}
+
 
 .input-group .input-group-btn>.btn[data-action=show-password] {
     background: #7a7a7a;
@@ -524,4 +542,271 @@ textarea {
 
 #order-items table tr td {
     font-size: inherit;
+}
+
+/* Block Promo*/
+.block-promo .promo-input {
+    height: 2.9rem;
+    margin-right: 0.76rem;
+}
+
+.block-promo .promo-code form {
+    text-align: left;
+}
+
+.block-promo {
+    margin-left: 2rem;
+    width: 35%;
+    border: 1px solid #c0c0c0;
+}
+
+.block-promo .promo-code-button {
+    font: 600 18px/22px "Source Sans Pro", sans-serif;
+    color: #5c8f16;
+    text-transform: uppercase;
+    padding: 16px 0 10px 10px;
+    text-align: left;
+}
+
+/*My account*/
+#my-account #page .row, #identity #page .row, #addresses #page .row, #address #page .row, #history #page .row, #order-slip #page .row, #discount #page .row, #authentication #page .row, #password #page .row {
+    padding: 0 120px;
+}
+
+#my-account #page #columns, #identity #page #columns, #addresses #page #columns, #address #page #columns, #history #page #columns, #order-slip #page #columns, #discount #page #columns, #module-psgdpr-gdpr #page #columns, #module-stripe_official-stripeCards #page #columns, #authentication #page #columns, #password #page #columns {
+    padding-top: 0;
+}
+
+#authentication #page .form-group.row {
+    padding: 0;
+}
+
+#authentication .page-header h1 {
+    padding-left: 90px;
+}
+
+#module-psgdpr-gdpr #page .row, #module-stripe_official-stripeCards #page .row {
+    padding: 0 200px;
+}
+
+.page-my-account #content .links a {
+    text-align: center;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 0 .9375rem;
+    margin-bottom: 1.875rem;
+    font: 600 16px/20px "Source Sans Pro", sans-serif;
+    color: #585858;
+    text-decoration: none;
+    position: relative;
+}
+
+.page-my-account #content .links a:hover {
+    color: #2b2b2b !important;
+}
+
+.page-my-account #content .links a i {
+    font-size: 70px;
+    color: #585858;
+    height: 100%;
+    padding: 10px 0 0 0;
+    text-align: center;
+    display: block;
+}
+
+.page-my-account #content .links a i:hover {
+    color: #585858;
+}
+
+.page-my-account #content .links a span.link-item {
+    box-shadow: none;
+    padding: 1rem 0 5rem;
+}
+
+.page-my-account #content .links a span.link-item:hover {
+    background-color: #b8b7b7;
+}
+
+.icon, [class^="icon-"] {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#my-account .info-account {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #F6F6F6;
+    color: #717171;
+    font-weight: 700;
+}
+
+.page-header h1 {
+    font: 600 28px/22px "Source Sans Pro", sans-serif;
+    color: #585858;
+    text-transform: uppercase;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+.page-customer-account #content {
+    margin-bottom: 16px;
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.page-customer-account #content .forgot-password, .page-customer-account #content .no-account {
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    margin-top: 2rem;
+    padding-bottom: 1.9375rem;
+}
+
+.page-customer-account #content .forgot-password a, .page-customer-account #content .no-account a {
+    color: #5c8f29;
+}
+
+.page-customer-account #content .order-actions a {
+    background-color: #f6f6f6;
+    border-color: #f6f6f6;
+    border-radius: 3px;
+    color: #5c8f16;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 23px 8px 23px 18px;
+}
+
+.forgotten-password .form-fields label.required, label.col-md-3.form-control-label.required, label.col-md-3.form-control-label {
+    color: #505050 !important;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    width: 25%;
+    text-align: center;
+}
+
+.forgotten-password .form-fields .center-email-fields button {
+    margin-left: 10px;
+}
+
+#password .form-control {
+    border: 1px solid #585858;
+}
+
+.page-addresses .address .address-footer a {
+    color: #FFFFFF;
+}
+
+.page-addresses .address .address-body {
+    padding: 2rem;
+}
+
+.page-addresses .address, .page-addresses .address .address-body h4 {
+    font-size: 14px;
+    color: #6c6c6c;
+}
+
+.col-md-3.form-control-comment {
+    width: 25%;
+}
+
+.col-md-6.form-control-valign {
+    padding-bottom: 10px;
+}
+
+#history h6.info-title {
+    margin-bottom: 1px;
+    padding: 15px 0;
+    background-color: #f6f6f6;
+    text-align: center;
+    display: block;
+    color: #6c6c6c;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+#history #page, #discount #page {
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+#history .table-bordered, #discount .table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+    border: none;
+}
+
+#history .table>thead>tr>th, #discount .table>thead>tr>th  {
+    font-weight: 700;
+    font-size: 14px;
+    padding: 23px 8px 23px 18px;
+}
+
+.table-striped>tbody>tr>th {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 23px 8px 23px 18px;
+}
+
+#history .table tbody > tr > td, #discount .table tbody > tr > td {
+    border-bottom: 1px solid #f6f6f6;
+    padding: 23px 8px 23px 18px;
+    color: #505050;
+}
+
+#history .table tbody > tr > td.history_price, #discount .table tbody > tr > td.history_price {
+    color: #5c8f16;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+#history .table tbody > tr > td.history_date, #discount .table tbody > tr > td.history_date {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#history .table tbody > tr > td.history_method, #discount .table tbody > tr > td.history_method {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#discount .bg-home, #order-slip .bg-home, #module-psgdpr-gdpr .bg-home, #module-stripe_official-stripeCards .bg-home {
+    min-height: auto;
+    background: none;
+}
+
+.table-labeled .label {
+    border-radius: 8px;
+    font: 600 12px "Source Sans Pro", sans-serif;
+    text-transform: uppercase;
+    color: #515151;
+}
+
+#module-psgdpr-gdpr #page .container {
+    max-width: 100%;
+}
+
+.psgdprinfo17 {
+    font-size: 14px;
+}
+
+#module-psgdpr-gdpr #header, #module-stripe_official-stripeCards #header, #discount #header, #order-slip #header {
+    background-color: #193128;
+}
+
+.send-renew-password-link {
+    /*color: darkgreen;*/
+    padding-right: 0px;
+    font-size: 11px;
+    text-align: center;
+    margin-bottom: 25px;
 }
