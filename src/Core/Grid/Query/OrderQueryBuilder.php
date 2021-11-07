@@ -95,6 +95,8 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
             ->addSelect('cu.`id_customer` IS NULL as `deleted_customer`')
             ->addSelect('os.color, o.payment, s.name AS shop_name')
             ->addSelect('o.date_add, cu.company, cl.name AS country_name, o.invoice_number, o.delivery_number')
+            ->addSelect('o.delivery_date')
+            ->addSelect('w.name AS `wharehouse_name`')
         ;
 
         $this->addNewCustomerField($qb);
@@ -155,6 +157,9 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
                 'os.id_order_state = osl.id_order_state AND osl.id_lang = :context_lang_id'
             )
             ->leftJoin('o', $this->dbPrefix . 'shop', 's', 'o.id_shop = s.id_shop')
+            ->innerJoin('o', $this->dbPrefix . 'carrier', 'car', 'o.id_carrier = car.id_carrier')
+            ->innerJoin('car', $this->dbPrefix . 'warehouse_carrier', 'wc', 'car.id_carrier = wc.id_carrier')
+            ->innerJoin('wc', $this->dbPrefix . 'warehouse', 'w', 'wc.id_warehouse = w.id_warehouse')
             ->andWhere('o.`id_shop` IN (:context_shop_ids)')
             ->setParameter('context_lang_id', $this->contextLangId, PDO::PARAM_INT)
             ->setParameter('context_shop_ids', $this->contextShopIds, Connection::PARAM_INT_ARRAY)
@@ -304,6 +309,7 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
             'customer' => 'customer',
             'osname' => 'osl.name',
             'date_add' => 'o.`date_add`',
+            'delivery_date' => 'o.`delivery_date`',
         ];
 
         if (isset($sortableFields[$criteria->getOrderBy()])) {
