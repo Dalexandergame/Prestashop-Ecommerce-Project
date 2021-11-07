@@ -176,6 +176,7 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
             'reference' => 'o.`reference`',
             'company' => 'cu.`company`',
             'payment' => 'o.`payment`',
+            'warehouse'=> 'w.`name`',
             'customer' => $this->getCustomerField(),
         ];
 
@@ -183,6 +184,7 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
 
         $dateComparisonFilters = [
             'date_add' => 'o.`date_add`',
+            'delivery_date' => 'o.`delivery_date`',
         ];
 
         foreach ($filters as $filterName => $filterValue) {
@@ -310,6 +312,7 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
             'osname' => 'osl.name',
             'date_add' => 'o.`date_add`',
             'delivery_date' => 'o.`delivery_date`',
+            'warehouse' => 'w.`name`'
         ];
 
         if (isset($sortableFields[$criteria->getOrderBy()])) {
