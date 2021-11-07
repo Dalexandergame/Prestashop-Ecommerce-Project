@@ -95,7 +95,7 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
             ->addSelect('cu.`id_customer` IS NULL as `deleted_customer`')
             ->addSelect('os.color, o.payment, s.name AS shop_name')
             ->addSelect('o.date_add, cu.company, cl.name AS country_name, o.invoice_number, o.delivery_number')
-            ->addSelect('o.delivery_date')
+            ->addSelect('plc.`date_delivery` AS `delivery_date`')
             ->addSelect('w.name AS `wharehouse_name`')
         ;
 
@@ -157,6 +157,7 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
                 'os.id_order_state = osl.id_order_state AND osl.id_lang = :context_lang_id'
             )
             ->leftJoin('o', $this->dbPrefix . 'shop', 's', 'o.id_shop = s.id_shop')
+            ->leftJoin('o', $this->dbPrefix . 'planning_delivery_carrier', 'plc', 'o.id_order = plc.id_order')
             ->innerJoin('o', $this->dbPrefix . 'carrier', 'car', 'o.id_carrier = car.id_carrier')
             ->innerJoin('car', $this->dbPrefix . 'warehouse_carrier', 'wc', 'car.id_carrier = wc.id_carrier')
             ->innerJoin('wc', $this->dbPrefix . 'warehouse', 'w', 'wc.id_warehouse = w.id_warehouse')
@@ -184,7 +185,7 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
 
         $dateComparisonFilters = [
             'date_add' => 'o.`date_add`',
-            'delivery_date' => 'o.`delivery_date`',
+            'delivery_date' => 'plc.`date_delivery`',
         ];
 
         foreach ($filters as $filterName => $filterValue) {
@@ -311,7 +312,7 @@ final class OrderQueryBuilder implements DoctrineQueryBuilderInterface
             'customer' => 'customer',
             'osname' => 'osl.name',
             'date_add' => 'o.`date_add`',
-            'delivery_date' => 'o.`delivery_date`',
+            'delivery_date' => 'plc.`date_delivery`',
             'warehouse' => 'w.`name`'
         ];
 
