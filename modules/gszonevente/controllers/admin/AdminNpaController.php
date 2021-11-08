@@ -64,19 +64,9 @@ class AdminNpaController extends ModuleAdminController {
     }
 
     public function processAdd() {
-        
-        $npa = Tools::getValue("name");
-        $sql = "SELECT COUNT(*) FROM "._DB_PREFIX_."gszonevente_npa WHERE name='{$npa}'";
-        $nb = Db::getInstance()->getValue($sql);
-        if($nb){
-            $this->errors[] = $this->l("Erreur d'ajout NPA {$npa} existe déja ");
-            return false;
-        }
         $object = parent::processAdd();
         if (Tools::isSubmit('submitAdd'.$this->table.'AndStay')) {
-//            if ($this->display == 'add') {
             $this->redirect_after = self::$currentIndex . '&addgszonevente_npa&id_gszonevente_region=' . $this->id_gszonevente_region . '&token=' . $this->token;
-//            }
         }  else {
             $this->redirect_after = self::$currentIndex . '&id_gszonevente_region=' . $this->id_gszonevente_region . '&token=' . $this->token;
         }

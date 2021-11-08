@@ -285,8 +285,9 @@ class PlanningDeliveryByCarrier extends Module
         $dateTo                  = Tools::getValue('date_to');
         $maxPlaces               = Tools::getValue('max_places');
         $id_carrier              = Tools::getValue('id_carrier');
+        $id_slot                 = Tools::getValue('id_slot');
         if (Tools::isSubmit('submitException') && empty($action_exception) && !empty($dateFrom)) {
-            PlanningDeliveryByCarrierException::add($dateFrom, (empty($dateTo) ? $dateFrom : $dateTo), $maxPlaces, $id_carrier);
+            PlanningDeliveryByCarrierException::add($dateFrom, (empty($dateTo) ? $dateFrom : $dateTo), $maxPlaces, $id_carrier, $id_slot);
             $this->_html .= '<div class="conf confirm">' . $this->l('Settings updated') . '</div>';
         }
         if (Tools::isSubmit('submitRetourException') && empty($action_exception) && !empty($dateFrom)) {
@@ -395,9 +396,9 @@ class PlanningDeliveryByCarrier extends Module
     {
         $order         = new Order($id_order);
         $format        = 1;
-        $date_retour   = Tools::getValue('date_retour');
-        $date_delivery = Tools::getValue('date_delivery');
-        $errors        = $this->requestProcessDateDelivery($order->id_cart, $order->id_carrier, Tools::getValue('date_delivery'), Tools::getValue('id_planning_delivery_slot'), $date_retour, $format);
+        $date_retour   = trim(Tools::getValue('date_retour'));
+        $date_delivery = trim(Tools::getValue('date_delivery'));
+        $errors        = $this->requestProcessDateDelivery($order->id_cart, $order->id_carrier, Tools::getValue('date_delivery'), Tools::getValue('day_slot'), $date_retour, $format);
         $values        = array('id_order' => $id_order);
         if ($format && !empty($date_delivery)) {
             $dFormat       = (1 == $format) ? 'd/m/Y' : 'm/d/Y';
@@ -415,10 +416,12 @@ class PlanningDeliveryByCarrier extends Module
         }
 
         $values['date_upd'] = date('Y-m-d H:i:s');
+        $values['id_planning_delivery_carrier_slot'] = Tools::getValue('day_slot');
         $oldRow             = Db::getInstance()->executeS("select * from ps_planning_delivery_carrier where id_order = " . $order->id);
 
         if (count($oldRow)) {
             Db::getInstance()->update('planning_delivery_carrier', $values, '`id_order`=' . (int) $order->id);
+            unset($values['id_planning_delivery_carrier_slot']);
             Db::getInstance()->update('suivi_orders', $values, '`id_order`=' . (int) $order->id);
         } else {
             $values['id_order'] = $order->id;
@@ -527,8 +530,12 @@ class PlanningDeliveryByCarrier extends Module
 
             /* Créneau horaire */
             if ($slotRequired) {
-                if (Validate::isUnsignedId($id_planning_delivery_slot)) $planning_delivery->id_planning_delivery_carrier_slot = $id_planning_delivery_slot;
-                elseif ($dateDeliveryRequired) $errors[] = Tools::displayError($this->l('Invalid slot'));
+                if (Validate::isUnsignedId($id_planning_delivery_slot)) {
+                    $planning_delivery->id_planning_delivery_carrier_slot = $id_planning_delivery_slot;
+                }
+                elseif ($dateDeliveryRequired && !$result) {
+                    $errors[] = Tools::displayError($this->l('Invalid slot'));
+                }
             }
             /* Date de retour */
             $planning_delivery->test_date = $date_retour;
@@ -802,12 +809,12 @@ class PlanningDeliveryByCarrier extends Module
                     }
                 }
                 $return .= '
-                            function showSlots(dateText, inst) {
+                            function showSlotsRetour(dateText, inst) {
                                     var id_carrier_checked = getIdCarrierChecked();
                                     var path = "' . __PS_BASE_URI__ . 'modules/planningdeliverybycarrier/";
                                     var id_lang = ' . (int) ($this->context->language->id) . ';
                                     var format = ' . $format . ';
-                                    getDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', id_carrier_checked);
+                                    getRetourDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', id_carrier_checked);
                             }
                             var datesRemoveRetour = ' . json_encode($carrierAndNbCommande) . ' ;
                             </script>';
@@ -862,11 +869,11 @@ class PlanningDeliveryByCarrier extends Module
 					//}
 					return [true];
 				}
-				function showSlots(dateText, inst){
+				function showSlotsRetour(dateText, inst){
 					var path = "' . __PS_BASE_URI__ . 'modules/planningdeliverybycarrier/";
 					var id_lang = ' . (int) ((int) $this->context->language->id) . ';
 					var format = ' . $format . ';
-					getDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', ' . $id_carrier . ');
+					getRetourDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', ' . $id_carrier . ');
 				}';
         } elseif ($onAdminPlanningDelivery == 2) {
             $return .= '
@@ -878,7 +885,7 @@ class PlanningDeliveryByCarrier extends Module
 			});';
             return $return;
         }
-        $onSelect = (Configuration::get('PLANNING_DELIVERY_SLOT_' . $id_carrier)) ? "onSelect: showSlots, \n" : '';
+        $onSelect = (Configuration::get('PLANNING_DELIVERY_SLOT_' . $id_carrier)) ? "onSelect: showSlotsRetour, \n" : '';
         $dFormat  = (1 == $format) ? 'dd/mm/yy' : 'mm/dd/yy';
         $return   .= '
 		$(function(){
@@ -1349,6 +1356,15 @@ class PlanningDeliveryByCarrier extends Module
             }
         }
         $carrier_html_list .= "</select>";
+        $slots = DB::getInstance()->executeS("SELECT id_planning_delivery_carrier_slot as 'id_slot', name, customers_max FROM ps_planning_delivery_carrier_slot");
+
+        $slot_html_list = "<select id='id_slot' name='id_slot'><option selected disabled>-</option>";
+        if ($slots) {
+            foreach ($slots as $row) {
+                $slot_html_list .= "<option value='" . $row['id_slot'] . "' >" . $row['name'] . " (id: " . $row['id_slot'] . ")</option>";
+            }
+        }
+        $slot_html_list .= "</select>";
 
         $this->_html .= $this->includeDatepicker(array('date_from', 'date_to'), false, 1, 1);
         $this->_html .= '
@@ -1373,6 +1389,10 @@ class PlanningDeliveryByCarrier extends Module
 				<label class="t" for="id_carrier">' . $this->l('carrier') . '</label>
 				<br>
 				' . $carrier_html_list . '
+				<br>
+				<label class="t" for="id_slot">' . $this->l('slot') . '</label>
+				<br>
+				' . $slot_html_list . '
 				<br>
 				<input type="submit" name="submitException" value="' . $this->l('Add') . '" class="button" />
 			</div>';
@@ -1403,31 +1423,6 @@ class PlanningDeliveryByCarrier extends Module
 				</thead>
 				<tbody>';
             foreach ($exceptions as $exception) {
-//                $sql = "SELECT
-//                            pde.`id_planning_delivery_carrier_exception`,
-//                            pde.`id_carrier`,
-//                            pde.`date_from`,
-//                            pde.`date_to`,
-//                            pde.`max_places`,
-//                            COUNT(*) AS real_nb_commande
-//                        FROM
-//                            `ps_planning_delivery_carrier_exception` pde, `ps_planning_delivery_carrier` pd, `ps_orders` o, `ps_carrier` pc
-//                        WHERE
-//                            1 = 1
-//                                AND pd.`date_delivery` BETWEEN pde.`date_from` AND pde.`date_to`
-//                                AND pd.`id_order` = o.`id_order`
-//                                AND pc.`id_carrier` = o.`id_carrier`
-//                                AND o.`id_carrier` = pde.`id_carrier`
-//                                AND pc.`deleted` = 0
-//                                AND pc.`active` = 1
-//                                AND o.`current_state` NOT IN (6)
-//                                AND pde.`id_planning_delivery_carrier_exception` = {$exception['id_planning_delivery_carrier_exception']}";
-//
-//                $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
-//                $exception['nb_commandes'] = $result[0]["real_nb_commande"];
-//                d($exception);
-//                $exception['nb_commandes'] = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql)[0]["real_nb_commande"];
-
                 $isMaxReached = ($exception['nb_commandes'] >= $exception['max_places']);
 
                 $this->_html .= '
@@ -1439,7 +1434,7 @@ class PlanningDeliveryByCarrier extends Module
                         'color:white;background:green;padding:5px;border-radius:5px;margin:1px;display:inline-block;'
                     ) . ';">' . $exception['nb_commandes'] . '</span></td>
 					 <td> <a class="texte" data-type="text" data-pk="' . $exception['id_planning_delivery_carrier_exception'] . '">' . $exception['max_places'] . '</a></td>
-					 <td> ' . $exception['name'] . '(id: ' . $exception['id_carrier'] . ')</td>
+					 <td> ' . $exception['name'] . ' (id: ' . $exception['id_carrier'] . ') '. $exception['slot'] .'</td>
 					 <td style="text-align:center;"><a href="javascript:;" onclick="deleteException(\'' . (int) ($exception['id_planning_delivery_carrier_exception']) . '\');"><img src="' . $this->_path . 'img/delete.png" alt="' . $this->l('Delete') . '" /></a></td>
 					</tr>';
             }
@@ -1528,29 +1523,6 @@ class PlanningDeliveryByCarrier extends Module
 				</thead>
 				<tbody>';
             foreach ($exceptions as $exception) {
-//                $sql = "SELECT
-//                            pde.`id_planning_retour_carrier_exception`,
-//                            pde.`id_carrier`,
-//                            pde.`date_from`,
-//                            pde.`date_to`,
-//                            pde.`max_places`,
-//                            COUNT(*) AS real_nb_commande
-//                        FROM
-//                            `ps_planning_retour_carrier_exception` pde, `ps_planning_delivery_carrier` pd, `ps_orders` o, `ps_carrier` pc
-//                        WHERE
-//                            1 = 1
-//                                AND pd.`date_retour` BETWEEN pde.`date_from` AND pde.`date_to`
-//                                AND pd.`id_order` = o.`id_order`
-//                                AND pc.`id_carrier` = o.`id_carrier`
-//                                AND o.`id_carrier` = pde.`id_carrier`
-//                                AND pc.`deleted` = 0
-//                                AND pc.`active` = 1
-//                                AND o.`current_state` NOT IN (6)
-//                                AND pde.`id_planning_retour_carrier_exception` = {$exception['id_planning_retour_carrier_exception']}";
-//
-//                $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS($sql);
-//                $exception['nb_commandes'] = $result[0]["real_nb_commande"];
-
                 $isMaxReached = ($exception['nb_commandes'] >= $exception['max_places']);
 
                 $this->_html .= '
@@ -1562,7 +1534,7 @@ class PlanningDeliveryByCarrier extends Module
                         'color:white;background:green;padding:5px;border-radius:5px;margin:1px;display:inline-block;'
                     ) . ';">' . $exception['nb_commandes'] . '</span></td>
 					 <td> <a class="texte_retour" data-type="text" data-pk="' . $exception['id_planning_retour_carrier_exception'] . '">' . $exception['max_places'] . '</a></td>
-					 <td> ' . $exception['name'] . '(id: ' . $exception['id_carrier'] . ')</td>
+					 <td> ' . $exception['name'] . ' (id: ' . $exception['id_carrier'] . ')</td>
 					 <td style="text-align:center;"><a href="javascript:;" onclick="deleteRetourException(\'' . (int) ($exception['id_planning_retour_carrier_exception']) . '\');"><img src="' . $this->_path . 'img/delete.png" alt="' . $this->l('Delete') . '" /></a></td>
 					</tr>';
             }
@@ -1630,7 +1602,7 @@ class PlanningDeliveryByCarrier extends Module
 
     public function _displaySpeedyWeb()
     {
-        return $this->l('Realisation : ') . '<a href="http://www.speedyweb.fr" title="Cr&eacute;ation et r&eacute;f&eacute;rencement de sites web &agrave; Perpignan, Lille et Paris - SpeedyWeb">SpeedyWeb</a>';
+        return $this->l('Realisation : ') . '<a href="https://www.speedyweb.fr" title="Cr&eacute;ation et r&eacute;f&eacute;rencement de sites web &agrave; Perpignan, Lille et Paris - SpeedyWeb">SpeedyWeb</a>';
     }
 
     /***************************************************************************************************************/
@@ -1640,9 +1612,7 @@ class PlanningDeliveryByCarrier extends Module
         $slotsAvalaibles = array();
         if (Validate::isDate($date_delivery)) {
             $dt         = new DateTime($date_delivery);
-            $day_number = $dt->format('w');
-            if ($day_number == 0) $dayNumber = 7;
-            $slots = PlanningDeliverySlotByCarrier::getByDay($day_number, $id_lang, $id_carrier);
+            $slots = PlanningDeliverySlotByCarrier::getByDate($date_delivery, $id_lang, $id_carrier);
             if (isset($slots) === true && count($slots)) {
                 $displaySlots = false;
                 foreach ($slots as $slot)
@@ -1759,7 +1729,7 @@ class PlanningDeliveryByCarrier extends Module
                 }
                 $product_list = $cart->getProducts();
                 foreach ($product_list as $product) {
-                    if ($product["id_product"] == 53) {
+                    if ($product["id_product"] == 93) {
                         $post_id = Configuration::get('TUNNELVENTE_ID_CARRIER_POST');
                         $arr     = [];
                         $arr1    = explode(', ', $unavalaibleDates);
@@ -1788,8 +1758,8 @@ class PlanningDeliveryByCarrier extends Module
                 foreach ($carriers as $carrier) {
                     $id_carrier = $carrier['id_carrier'];
                     if (in_array($id_carrier, $planningCarriers)) {
-                        $unavalaibleDates = PlanningDeliveryByCarrierException::getDatesByCarrier($id_carrier);
-                        $unavailableDays = str_replace('7', '0', Configuration::get('PLANNING_DELIVERY_UNAV_DAYS'.$carrier['id_carrier']));
+                        //$unavalaibleDates = PlanningDeliveryByCarrierException::getDatesByCarrier($id_carrier);
+                        //$unavailableDays = str_replace('7', '0', Configuration::get('PLANNING_DELIVERY_UNAV_DAYS'.$carrier['id_carrier']));
                         $return .= '
                                             //TODO: get dates by id_carrier
                                             var unavalaibleDates' . $id_carrier . ' = [' . $unavalaibleDates . '];
