@@ -50,8 +50,16 @@ class stripe_officialOrderConfirmationReturnModuleFrontController extends Module
             $payment_intent = Tools::getValue('paymentIntent');
         }
 
+        $options = [];
+
+        //todo magic values should be dynamic
+        if(Shop::getContextShopID() === 2) {
+            $options['stripe_account'] = 'acct_1JrqvHHb3AcGIZAB';
+        }
+
         $intent = \Stripe\PaymentIntent::retrieve(
-            $payment_intent
+            $payment_intent,
+            $options
         );
 
         $payment_method = $intent->payment_method_types[0];
