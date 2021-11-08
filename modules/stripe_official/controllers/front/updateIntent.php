@@ -32,12 +32,22 @@ class stripe_officialUpdateIntentModuleFrontController extends ModuleFrontContro
     {
         parent::initContent();
 
-        $intent = \Stripe\PaymentIntent::update(
-            Tools::getValue('id_payment_intent'),
-            [
-                'payment_method_types' => [Tools::getValue('payment')]
-            ]
-        );
+        try {
+            $intent = \Stripe\PaymentIntent::update(
+                Tools::getValue('id_payment_intent'),
+                [
+                    'payment_method_types' => [Tools::getValue('payment')]
+                ]
+            );
+        } catch (Exception $e) {
+            $intent = \Stripe\PaymentIntent::update(
+                Tools::getValue('id_payment_intent'),
+                [
+                    'payment_method_types' => [Tools::getValue('payment')],
+                    'stripe_account' => 'acct_1JrqvHHb3AcGIZAB'
+                ]
+            );
+        }
 
         echo 'Payment intent updated with success';
         exit;

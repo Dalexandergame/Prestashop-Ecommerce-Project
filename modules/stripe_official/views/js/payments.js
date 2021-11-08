@@ -63,7 +63,8 @@ $(function(){
     * Setup Stripe Elements.
     */
     // Create a Stripe client.
-    const stripe = Stripe(stripe_pk);
+    const options = stripe_account? {stripeAccount: stripe_account}: {};
+    const stripe = Stripe(stripe_pk, options);
 
     // Create an instance of Elements and prepare the CSS
     const elements = stripe.elements({

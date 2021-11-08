@@ -42,7 +42,11 @@ class ValidationOrderActions extends DefaultActions
             $this->context = $this->conveyor['context'];
             $this->module = $this->conveyor['module'];
 
-            $intent = \Stripe\PaymentIntent::retrieve($this->conveyor['paymentIntent']);
+            try {
+                $intent = \Stripe\PaymentIntent::retrieve($this->conveyor['paymentIntent']);
+            } catch (Exception $e) {
+                $intent = \Stripe\PaymentIntent::retrieve($this->conveyor['paymentIntent'], ['stripe_account' => 'acct_1JrqvHHb3AcGIZAB']);
+            }
 
             ProcessLoggerHandler::logInfo(
                 '$intent : '.$intent,
@@ -176,8 +180,11 @@ class ValidationOrderActions extends DefaultActions
         try {
             $this->context = $this->conveyor['context'];
             $this->module = $this->conveyor['module'];
-
-            $intent = \Stripe\PaymentIntent::retrieve($this->conveyor['paymentIntent']);
+            try {
+                $intent = \Stripe\PaymentIntent::retrieve($this->conveyor['paymentIntent']);
+            } catch (Exception $e) {
+                $intent = \Stripe\PaymentIntent::retrieve($this->conveyor['paymentIntent'], ['stripe_account' => 'acct_1JrqvHHb3AcGIZAB']);
+            }
             $charges = $intent->charges->data;
 
             // Payment failed for redirect payment methods
@@ -280,11 +287,19 @@ class ValidationOrderActions extends DefaultActions
         $message = 'Stripe Transaction ID: '.$this->conveyor['paymentIntent'];
 
         if (strpos($this->conveyor['token'], 'pm_') !== false) {
-            $this->conveyor['payment_method'] = \Stripe\PaymentMethod::retrieve($this->conveyor['token']);
+            try {
+                $this->conveyor['payment_method'] = \Stripe\PaymentMethod::retrieve($this->conveyor['token']);
+            } catch (Exception $e) {
+                $this->conveyor['payment_method'] = \Stripe\PaymentMethod::retrieve($this->conveyor['token'], ['stripe_account' => 'acct_1JrqvHHb3AcGIZAB']);
+            }
             $this->conveyor['datas']['type'] = $this->conveyor['payment_method']->type;
             $this->conveyor['datas']['owner'] = $this->conveyor['payment_method']->billing_details->name;
         } else {
-            $this->conveyor['source'] = \Stripe\Source::retrieve($this->conveyor['token']);
+            try {
+                $this->conveyor['source'] = \Stripe\Source::retrieve($this->conveyor['token']);
+            } catch (Exception $e) {
+                $this->conveyor['source'] = \Stripe\Source::retrieve($this->conveyor['token'], ['stripe_account' => 'acct_1JrqvHHb3AcGIZAB']);
+            }
             $this->conveyor['datas']['type'] = $this->conveyor['source']->type;
             $this->conveyor['datas']['owner'] = $this->conveyor['source']->owner->name;
         }
@@ -354,7 +369,11 @@ class ValidationOrderActions extends DefaultActions
             $order = new Order($idOrder);
 
             // capture payment for card if no catch and authorize enabled
-            $intent = \Stripe\PaymentIntent::retrieve($this->conveyor['paymentIntent']);
+            try {
+                $intent = \Stripe\PaymentIntent::retrieve($this->conveyor['paymentIntent']);
+            } catch (Exception $e) {
+                $intent = \Stripe\PaymentIntent::retrieve($this->conveyor['paymentIntent'], ['stripe_account' => 'acct_1JrqvHHb3AcGIZAB']);
+            }
             ProcessLoggerHandler::logInfo(
                 'payment method => '.$intent->payment_method_types[0],
                 null,
@@ -390,19 +409,39 @@ class ValidationOrderActions extends DefaultActions
             // END capture payment for card if no catch and authorize enabled
 
             if (empty($this->conveyor['source'])) {
-                \Stripe\PaymentIntent::update(
-                    $this->conveyor['paymentIntent'],
-                    [
-                        'description' => $this->context->shop->name.' '.$order->reference
-                    ]
-                );
+                $options = [
+                    'description' => $this->context->shop->name.' '.$order->reference
+                ];
+
+                try {
+                    \Stripe\PaymentIntent::update(
+                        $this->conveyor['paymentIntent'],
+                        $options
+                    );
+                } catch (Exception $e) {
+                    $options['stripe_account'] = 'acct_1JrqvHHb3AcGIZAB';
+                    \Stripe\PaymentIntent::update(
+                        $this->conveyor['paymentIntent'],
+                        $options
+                    );
+                }
             } else {
-                \Stripe\Charge::update(
-                    $this->conveyor['chargeId'],
-                    [
-                        'description' => $this->context->shop->name.' '.$order->reference
-                    ]
-                );
+                $options = [
+                    'description' => $this->context->shop->name.' '.$order->reference
+                ];
+
+                try {
+                    \Stripe\Charge::update(
+                        $this->conveyor['chargeId'],
+                        $options
+                    );
+                } catch (Exception $e) {
+                    $options['stripe_account'] = 'acct_1JrqvHHb3AcGIZAB';
+                    \Stripe\Charge::update(
+                        $this->conveyor['chargeId'],
+                        $options
+                    );
+                }
             }
 
             if ($this->conveyor['status'] == 'requires_capture') {
