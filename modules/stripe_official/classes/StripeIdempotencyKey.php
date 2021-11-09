@@ -124,19 +124,12 @@ class StripeIdempotencyKey extends ObjectModel
     public function createNewOne($id_cart, $datasIntent)
     {
         $idempotency_key = $id_cart.'_'.uniqid();
-        $options = [
-            'idempotency_key' => $idempotency_key
-        ];
-
-        //todo magic values should be dynamic
-        if(Shop::getContextShopID() === 2) {
-            $datasIntent['application_fee_amount'] = $datasIntent['amount'] * 0.08;
-            $options['stripe_account'] = 'acct_1JrqvHHb3AcGIZAB';
-        }
 
         $intent = \Stripe\PaymentIntent::create(
             $datasIntent,
-            $options
+            [
+              'idempotency_key' => $idempotency_key
+            ]
         );
 
         $stripeIdempotencyKey = new StripeIdempotencyKey();

@@ -72,6 +72,10 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
                 )
             );
 
+            if (Shop::getContextShopID() === 2) {
+                $datasIntent['application_fee_amount'] = $datasIntent['amount'] * 0.08;
+            }
+
             if (!Tools::getValue('id_payment_method')) {
                 if (version_compare(_PS_VERSION_, '1.7', '>=')) {
                     $firstname = str_replace('"', '\\"', $this->context->customer->firstname);
