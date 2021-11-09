@@ -370,6 +370,7 @@ class Stripe_official extends PaymentModule
     );
 
     public static $webhook_events = array(
+        'application_fee.created',
         'charge.expired',
         'charge.failed',
         'charge.succeeded',
@@ -864,7 +865,7 @@ class Stripe_official extends PaymentModule
 
                 /* Check if webhook url is wrong */
                 $expectedWebhookUrl = $this->context->link->getModuleLink('stripe_official', 'webhook', array(), true, Configuration::get('PS_LANG_DEFAULT'), Configuration::get('PS_SHOP_DEFAULT'));
-                if ($webhookEndpoint->url != $expectedWebhookUrl) {
+                if (false && $webhookEndpoint->url != $expectedWebhookUrl) {
                     $this->errors[] =
                         $this->l('Webhook URL configuration is wrong, click on save button to fix issue. Webhook configuration will be corrected.', $this->name) .' | '.
                         $this->l('Current webhook URL : ',$this->name).$webhookEndpoint->url .' | '.
@@ -1280,6 +1281,7 @@ class Stripe_official extends PaymentModule
 
         try {
             \Stripe\Stripe::setApiKey($secretKey);
+            \Stripe\Stripe::setAccountId('');
             \Stripe\Account::retrieve();
         } catch (Exception $e) {
             error_log($e->getMessage());
