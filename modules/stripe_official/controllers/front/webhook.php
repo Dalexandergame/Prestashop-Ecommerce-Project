@@ -98,10 +98,8 @@ class stripe_officialWebhookModuleFrontController extends ModuleFrontController
             }
 
             if ($event->type === 'application_fee.created') {
-                $charge = \Stripe\Charge::retrieve(
-                    $event->data->object->charge,
-                    ['stripe_account' => 'acct_1JrqvHHb3AcGIZAB']
-                );
+                \Stripe\Stripe::setAccountId('acct_1JrqvHHb3AcGIZAB');
+                $charge = \Stripe\Charge::retrieve($event->data->object->charge);
                 $event->type = 'charge.succeeded';
                 $event->data->object = $charge;
             }
