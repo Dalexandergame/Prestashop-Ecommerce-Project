@@ -722,7 +722,7 @@ class Swissbilling extends PaymentModule
                             'currency'                  => $Currency->iso_code, //multi currency, can be chosen from the payment method config
                             'amount'                    => $total_order+Configuration::get('SWSBLG_ADMIN_FEE_AMOUNT'), // Order amount
                             'VAT_amount'                => $total_tax,
-                            'admin_fee_amount'          => $admin_fee_amount,
+                            'admin_fee_amount'          => 0,
                             'delivery_fee_amount'       => $Cart->getTotalShippingCost(),
                             'coupon_discount_amount'    => $total_discount,
                             'vol_discount'              => 0,
