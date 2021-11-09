@@ -439,6 +439,11 @@ class Stripe_official extends PaymentModule
         if (self::isWellConfigured()) {
             try {
                 \Stripe\Stripe::setApiKey($this->getSecretKey());
+
+                if(Shop::getContextShopID() === 2) {
+                    \Stripe\Stripe::setAccountId('acct_1JrqvHHb3AcGIZAB');
+                }
+
                 $version = $this->version.'_'._PS_VERSION_.'_'.phpversion();
                 \Stripe\Stripe::setAppInfo(
                     'StripePrestashop',
