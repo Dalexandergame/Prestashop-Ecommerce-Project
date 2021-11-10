@@ -237,20 +237,6 @@ final class OrderGridDefinitionFactory extends AbstractFilterableGridDefinitionF
                     ],
                 ])
             )
-            ->add((new DataColumn('warehouse'))
-                ->setName($this->trans('warehouse', [], 'Admin.Advparameters.Feature'))
-                ->setOptions([
-                    'field' => 'wharehouse_name',
-                ])
-            )
-            ->add((new DateTimeColumn('delivery_date'))
-                ->setName($this->trans('Delivery Date', [], 'Admin.Advparameters.Feature'))
-                ->setOptions([
-                    'field' => 'delivery_date',
-                    'format' => $this->contextDateFormat,
-                    'clickable' => true,
-                ])
-            )
             ->add((new DateTimeColumn('date_add'))
                 ->setName($this->trans('Date', [], 'Admin.Global'))
                 ->setOptions([
@@ -357,15 +343,6 @@ final class OrderGridDefinitionFactory extends AbstractFilterableGridDefinitionF
                 ])
                 ->setAssociatedColumn('payment')
             )
-            ->add((new Filter('warehouse', TextType::class))
-                ->setTypeOptions([
-                    'required' => false,
-                    'attr' => [
-                        'placeholder' => $this->trans('Search', [], 'Admin.Actions'),
-                    ],
-                ])
-                ->setAssociatedColumn('warehouse')
-            )
             ->add((new Filter('osname', ChoiceType::class))
                 ->setTypeOptions([
                     'required' => false,
@@ -373,12 +350,6 @@ final class OrderGridDefinitionFactory extends AbstractFilterableGridDefinitionF
                     'translation_domain' => false,
                 ])
                 ->setAssociatedColumn('osname')
-            )
-            ->add((new Filter('delivery_date', DateRangeType::class))
-                ->setTypeOptions([
-                    'required' => false,
-                ])
-                ->setAssociatedColumn('delivery_date')
             )
             ->add((new Filter('date_add', DateRangeType::class))
                 ->setTypeOptions([
