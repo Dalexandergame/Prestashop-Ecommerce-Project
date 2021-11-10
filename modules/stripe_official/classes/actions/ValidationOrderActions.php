@@ -704,7 +704,8 @@ class ValidationOrderActions extends DefaultActions
 
         $order = new Order($id_order);
 
-        if ($this->conveyor['events_states'][$this->conveyor['event_json']->type] == $order->getCurrentState()) {
+        if ($this->conveyor['events_states'][$this->conveyor['event_json']->type] == $order->getCurrentState()
+        || Configuration::get('PS_OS_PAYMENT') == $order->getCurrentState()) {
             ProcessLoggerHandler::logInfo(
                 'Order status is already the good one',
                 null,
