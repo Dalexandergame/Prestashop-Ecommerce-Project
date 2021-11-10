@@ -97,6 +97,27 @@ class PlanningDeliverySlotByCarrier
 		pds.`id_lang` = '.(int)$id_lang));
 	}
 
+    /**
+     * Get slot by Date
+     *
+     * @return array Slot
+     */
+    public static function getByDate($date, $id_lang, $id_carrier)
+    {
+        if (!Validate::isDate($date)
+            || !Validate::isUnsignedId($id_lang)
+            || !Validate::isUnsignedId($id_carrier))
+            die(Tools::displayError());
+        return (Db::getInstance()->ExecuteS('
+		SELECT pds.`id_planning_delivery_carrier_slot`, pds.`name`, pds.`slot1`, pds.`slot2`, pdsd.`max_places`
+		FROM `' . _DB_PREFIX_ . 'planning_delivery_carrier_slot` pds
+		INNER JOIN `' . _DB_PREFIX_ . 'planning_delivery_carrier_exception` pdsd
+		ON pds.`id_planning_delivery_carrier_slot` = pdsd.`slot_id`
+		WHERE \'' . $date . '\' between pdsd.`date_from` and pdsd.`date_to` AND
+		pdsd.`id_carrier` = ' . (int)$id_carrier . ' AND
+		pds.`id_lang` = ' . (int)$id_lang));
+    }
+
 	/**
 	 * Get slot by id
 	 *
@@ -136,7 +157,7 @@ class PlanningDeliverySlotByCarrier
 			AND o.`id_carrier` = \''.$id_carrier.'\'
 			AND oh.`id_order_state` NOT IN (0, 6, 7, 8)
 			AND pd.`id_order` != 0');
-		if (count($result) >= $slot['customers_max'])
+		if (count($result) >= $slot['max_places'])
 			return true;
 		return false;
 	}

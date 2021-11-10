@@ -20,15 +20,12 @@ if ($id_lang)
 		$date_text = $planning_delivery->X_dateformat($date_text, $d_format, 'Y-m-d');		
 		if (Validate::isDate($date_text))
 		{
-			$dt = new DateTime($date_text);
-			$day_number = $dt->format('w');
-			if ($day_number == 0) $day_number = 7;
-			$slots = PlanningDeliverySlotByCarrier::getByDay($day_number, $id_lang, $id_carrier);
+			$slots = PlanningDeliverySlotByCarrier::getByDate($date_text, $id_lang, $id_carrier);
 			if (!$on_admin_planning_delivery) echo '<label id="lab_delivery_slot" for="id_planning_delivery_slot">';
 			else echo '<p id="lab_delivery_slot">';
-			echo $planning_delivery->l('Time\'s slot', 'PlanningDeliveryByCarrier').' : ';
 			if (count($slots) > 0)
 			{
+                echo $planning_delivery->l('Time\'s slot', 'PlanningDeliveryByCarrier').' : ';
 				$display_slots = false;
 				foreach ($slots as $slot)
 				{
@@ -40,20 +37,13 @@ if ($id_lang)
 				if ($display_slots)
 				{
 					echo '<select name="id_planning_delivery_slot" id="id_planning_delivery_slot">';
-					echo '<option> - </option>';
 					foreach ($slots as $slot)
 						if (!PlanningDeliverySlotByCarrier::isFull($date_text, $slot, $id_carrier))
-							echo '<option value="'.(int)$slot['id_planning_delivery_carrier_slot'].'">'.
+							echo '<option value="'.(int)$slot['id_planning_delivery_carrier_slot'].'" ' . ($slot['id_planning_delivery_carrier_slot'] == $slots[0]['id_planning_delivery_carrier_slot']? 'selected':'') . '>'.
 							htmlspecialchars(PlanningDeliverySlotByCarrier::hideSlotsPosition($slot['name']), ENT_COMPAT, 'UTF-8').'</option>';
 					echo '</select>';
 				}
-				else
-					echo '<br /><br /><span class="error">'.
-					$planning_delivery->l('No slot is available for the dates selected.', 'PlanningDeliveryByCarrier').'</span>';
 			}
-			else
-				echo '<br /><br /><span class="error">'.
-				$planning_delivery->l('No slot is available for the dates selected.', 'PlanningDeliveryByCarrier').'</span>';
 			echo (!$on_admin_planning_delivery) ? '</label>' : '</p>';
 		}
 	}

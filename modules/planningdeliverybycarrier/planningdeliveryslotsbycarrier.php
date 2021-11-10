@@ -26,9 +26,9 @@ if (empty($_GET['id_lang']) === false)
 				echo '<label id="lab_delivery_slot" for="id_planning_delivery_slot">';
 			else
 				echo '<p id="lab_delivery_slot">';
-			echo $planning_delivery->l('Time\'s slot').' : ';
 			if (isset($slots) === true && count($slots))
 			{
+                echo $planning_delivery->l('Time\'s slot').' : ';
 				$display_slots = false;
 				foreach ($slots as $slot)
 					if (!PlanningDeliverySlotByCarrier::isFull($_GET['dateText'], $slot))
@@ -43,11 +43,7 @@ if (empty($_GET['id_lang']) === false)
 							htmlspecialchars(PlanningDeliverySlotByCarrier::hideSlotsPosition($slot['name']), ENT_COMPAT, 'UTF-8').'</option>';
 					echo '</select>';
 				}
-				else
-					echo '<span class="error">'.$planning_delivery->l('No slot is available for the dates selected.').'</span>';
 			}
-			else
-				echo '<span class="error">'.$planning_delivery->l('No slot is available for the dates selected.').'</span>';
 			echo (!$_GET['onAdminPlanningDelivery']) ? '</label>' : '</p>';
 		}
 	}

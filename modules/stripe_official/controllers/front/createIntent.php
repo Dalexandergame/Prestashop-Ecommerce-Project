@@ -59,12 +59,6 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
                 throw new Exception("cart ID is empty", 1);
             }
 
-            if (Tools::getValue('payment_option') == 'card') {
-                $capture_method = 'manual';
-            } else {
-                $capture_method = 'automatic';
-            }
-
             $amount = (int) ($cart->getOrderTotal() * 100);
             $_REQUEST["amount"] = $amount;
             $_POST["amount"] = $amount;
@@ -72,11 +66,15 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
                 "amount" => $amount,
                 "currency" => Tools::getValue('currency'),
                 "payment_method_types" => array(Tools::getValue('payment_option')),
-                "capture_method" => $capture_method,
+                "capture_method" => 'automatic',
                 "metadata" => array(
                     'id_cart' => $cart->id
                 )
             );
+
+            if (Shop::getContextShopID() === 2) {
+                $datasIntent['application_fee_amount'] = $datasIntent['amount'] * 0.08;
+            }
 
             if (!Tools::getValue('id_payment_method')) {
                 if (version_compare(_PS_VERSION_, '1.7', '>=')) {
