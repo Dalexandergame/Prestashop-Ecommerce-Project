@@ -380,9 +380,9 @@ class PlanningDeliveryByCarrier extends Module
                 FROM `' . _DB_PREFIX_ . 'planning_delivery_carrier` pd
                 LEFT JOIN `' . _DB_PREFIX_ . 'planning_delivery_carrier_slot` pds
                 ON pd.`id_planning_delivery_carrier_slot` = pds.`id_planning_delivery_carrier_slot`
-                WHERE pd.`id_cart` = ' . $order->id_cart
-        )
-        ;
+                WHERE pd.`id_cart` = ' . $order->id_cart . '
+                ORDER BY pd.id_planning_delivery_carrier DESC'
+        );
         $this->smarty->assign('order', $order);
         $this->smarty->assign('date_delivery', $result['date_delivery']);
         $this->smarty->assign('date_retour', $result['date_retour']);
