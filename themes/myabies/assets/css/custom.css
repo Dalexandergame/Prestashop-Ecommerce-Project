@@ -103,6 +103,45 @@ body {
     margin-top: 19px;
 }
 
+.cms-id-8 #header{
+    background: #193128;
+}
+
+.cms-id-8 #columns {
+    position: relative;
+    max-width: 85%;
+    padding-bottom: 50px;
+    padding-top: 15px;
+}
+.cms-id-8 .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#cms #center_column h3 {
+    padding: 20px 30px 30px;
+}
+
+.cms-id-8 #center_column h3 {
+    font-family: Source Sans Pro,sans-serif;
+    line-height: 1.1;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: none;
+    margin: 0;
+    padding: 0 0 17px;
+    background-color: #e1ecd4;
+    border: 1px solid #e1ecd4;
+    border-radius: 3px;
+    background-image: none;
+    color: #3f6c2c;
+    outline: none;
+    transition: all .35s ease-in;
+    cursor: pointer;
+}
+
 #footer .footer-container .h3 {
     margin: 0 0 36px 0;
     cursor: pointer;
