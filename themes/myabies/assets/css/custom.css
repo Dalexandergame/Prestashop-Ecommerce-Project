@@ -120,26 +120,27 @@ body {
     padding-right: 15px;
 }
 
-#cms #center_column h3 {
-    padding: 20px 30px 30px;
-}
-
 .cms-id-8 #center_column h3 {
-    font-family: Source Sans Pro,sans-serif;
+    font: normal normal 750 16px/30px Montserrat;
     line-height: 1.1;
     font-size: 20px;
     font-weight: 600;
     border-bottom: none;
     margin: 0;
     padding: 0 0 17px;
-    background-color: #e1ecd4;
-    border: 1px solid #e1ecd4;
     border-radius: 3px;
     background-image: none;
     color: #3f6c2c;
     outline: none;
     transition: all .35s ease-in;
     cursor: pointer;
+}
+
+.cms-id-8 #center_column p {
+    font: normal normal normal 16px/35px Source Serif Pro;
+    letter-spacing: 0;
+    opacity: .84;
+
 }
 
 #footer .footer-container .h3 {
