@@ -69,7 +69,7 @@ class PlanningRetourByCarrierException
                 INNER JOIN
             `ps_carrier_shop` pcs ON pcs.id_carrier =  carrier.id_carrier
                 WHERE pcs.id_shop = '.(int)Context::getContext()->shop->id.'
-        ORDER BY ppde.`date_from` DESC      
+        ORDER BY ppde.`date_from` ASC      
         ';
 
         $cache_id = 'PlanningRetourByCarrierException::get'.md5($sql);
