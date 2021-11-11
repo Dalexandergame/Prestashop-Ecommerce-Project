@@ -3,7 +3,7 @@
 
 
 ini_set('display_errors', true);
-require_once dirname(__FILE__) . '/../config/config.inc.php';
+require_once dirname(__FILE__) . '/../../config/config.inc.php';
 include("wsbc-init.php");
 include("wsbc-utils.php");
 include("PDFMerger.php");

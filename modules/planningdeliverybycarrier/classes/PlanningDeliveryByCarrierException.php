@@ -70,7 +70,7 @@ class PlanningDeliveryByCarrierException
                 `ps_carrier_shop` pcs ON pcs.id_carrier =  carrier.id_carrier
                     LEFT JOIN
                 `ps_planning_delivery_carrier_slot` pdcs ON pdcs.id_planning_delivery_carrier_slot = ppde.slot_id
-                    WHERE pcs.id_shop = '.(int)Context::getContext()->shop->id.';
+                    WHERE pcs.id_shop = '.(int)Context::getContext()->shop->id.'
             ORDER BY ppde.`date_from` ASC
         ';
         $cache_id = 'PlanningDeliveryByCarrierException::get'.md5($sql);

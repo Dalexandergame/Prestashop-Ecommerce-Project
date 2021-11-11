@@ -65,19 +65,44 @@ class stripe_officialOrderConfirmationReturnModuleFrontController extends Module
             );
         } else {
             $datas = array(
-                'payment_method' => $payment_method
+                'payment_method' => $payment_method,
+                'cart_id' => $this->context->cart->id
             );
 
             if ($payment_method == 'oxxo') {
                 $datas['voucher_url'] = $intent->next_action->oxxo_display_details->hosted_voucher_url;
             }
 
-            $url = Context::getContext()->link->getModuleLink(
-                'stripe_official',
-                'orderSuccess',
-                $datas,
-                true
-            );
+            $id_cart = (int) $this->context->cart->id;
+            sleep(5);
+            $id_order = (int) Order::getOrderByCartId($id_cart);
+
+            if (!empty($id_order)) {
+                if (isset($this->context->customer->secure_key)) {
+                    $secure_key = $this->context->customer->secure_key;
+                } else {
+                    $secure_key = false;
+                }
+
+                $url = Context::getContext()->link->getPageLink(
+                    'order-confirmation',
+                    true,
+                    null,
+                    array(
+                        'id_cart' => $id_cart,
+                        'id_module' => (int)$this->module->id,
+                        'id_order' => $id_order,
+                        'key' => $secure_key
+                    )
+                );
+            } else {
+                $url = Context::getContext()->link->getModuleLink(
+                    'stripe_official',
+                    'orderSuccess',
+                    $datas,
+                    true
+                );
+            }
         }
 
         // for redirect payments
