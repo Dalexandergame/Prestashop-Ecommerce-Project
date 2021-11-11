@@ -250,13 +250,13 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
                 if ($warehouse == 32) { // Paris exception
                     switch ($value['id']) {
                         case 12:
-                            $product = $this->getProductByProductAttId(120, 11828, $type, $warehouse);
+                            $product = $this->getProductByProductAttId(123, 12243, $type, $warehouse);
                             break;
                         case 14:
-                            $product = $this->getProductByProductAttId(120, 11830, $type, $warehouse);
+                            $product = $this->getProductByProductAttId(123, 12244, $type, $warehouse);
                             break;
                         case 20:
-                            $product = $this->getProductByProductAttId(120, 11836, $type, $warehouse);
+                            $product = $this->getProductByProductAttId(123, 12245, $type, $warehouse);
                             break;
                     }
 
