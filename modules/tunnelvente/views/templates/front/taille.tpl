@@ -47,7 +47,7 @@
                     });
                 </script>
                 <a title="Contactez-nous" target="_blank"
-                   href="{$urls.base_url}content/9-contact-us">
+                   href="mailto:contact@ecosapin.ch">
                     <h4>{l s="Even bigger, contact us" d='Modules.Tunnelvente.Taille'}</h4></a>
             {/if}
         </div>
