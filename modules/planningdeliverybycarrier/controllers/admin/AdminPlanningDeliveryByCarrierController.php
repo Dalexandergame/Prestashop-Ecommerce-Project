@@ -80,7 +80,7 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
         }
         $this->_where = '
 		AND os.`id_order_state` NOT IN (' . Configuration::get('PLANNING_DELIVERY_UNAV_OSS') . ')
-                AND ' . $date_depart . ' = ' . ($this->dateLivraison ? '"' . $this->dateLivraison . '"' : 'CURDATE()') . '
+                AND ca.`id_carrier` = ' . $id_carrier .' AND DATE(pd.date_delivery) = ' . ($this->dateLivraison ? '"' . $this->dateLivraison . '"' : 'CURDATE()') . '
                 ';
         $this->_where .= ' AND a.reference NOT IN (select o.reference from ps_orders o join ps_order_detail od on od.id_order = o.id_order join ps_pm_advancedpack_products app on app.id_product = od.product_id and app.id_pack = 93)';
 
@@ -483,7 +483,7 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
 
         if (!($this->fields_list && is_array($this->fields_list)))
             return false;
-        //$this->getList($this->context->language->id);
+        $this->getList($this->context->language->id);
 
         // Empty list is ok
         if (!is_array($this->_list))

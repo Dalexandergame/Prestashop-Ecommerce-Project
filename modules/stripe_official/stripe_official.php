@@ -370,6 +370,7 @@ class Stripe_official extends PaymentModule
     );
 
     public static $webhook_events = array(
+        'application_fee.created',
         'charge.expired',
         'charge.failed',
         'charge.succeeded',
@@ -439,6 +440,11 @@ class Stripe_official extends PaymentModule
         if (self::isWellConfigured()) {
             try {
                 \Stripe\Stripe::setApiKey($this->getSecretKey());
+
+                if(Shop::getContextShopID() === 2) {
+                    \Stripe\Stripe::setAccountId('acct_1JrqvHHb3AcGIZAB');
+                }
+
                 $version = $this->version.'_'._PS_VERSION_.'_'.phpversion();
                 \Stripe\Stripe::setAppInfo(
                     'StripePrestashop',
@@ -859,7 +865,7 @@ class Stripe_official extends PaymentModule
 
                 /* Check if webhook url is wrong */
                 $expectedWebhookUrl = $this->context->link->getModuleLink('stripe_official', 'webhook', array(), true, Configuration::get('PS_LANG_DEFAULT'), Configuration::get('PS_SHOP_DEFAULT'));
-                if ($webhookEndpoint->url != $expectedWebhookUrl) {
+                if (false && $webhookEndpoint->url != $expectedWebhookUrl) {
                     $this->errors[] =
                         $this->l('Webhook URL configuration is wrong, click on save button to fix issue. Webhook configuration will be corrected.', $this->name) .' | '.
                         $this->l('Current webhook URL : ',$this->name).$webhookEndpoint->url .' | '.
@@ -1275,6 +1281,7 @@ class Stripe_official extends PaymentModule
 
         try {
             \Stripe\Stripe::setApiKey($secretKey);
+            \Stripe\Stripe::setAccountId('');
             \Stripe\Account::retrieve();
         } catch (Exception $e) {
             error_log($e->getMessage());
@@ -1325,7 +1332,11 @@ class Stripe_official extends PaymentModule
         \Stripe\Stripe::setApiKey($this->getSecretKey());
 
         try {
-            $intent = \Stripe\PaymentIntent::retrieve($id_payment_intent);
+            try {
+                $intent = \Stripe\PaymentIntent::retrieve($id_payment_intent);
+            } catch (Exception $e) {
+                $intent = \Stripe\PaymentIntent::retrieve($id_payment_intent, ['stripe_account' => 'acct_1JrqvHHb3AcGIZAB']);
+            }
             $intent->capture(['amount_to_capture' => $amount]);
             return true;
         } catch (\Stripe\Error\ApiConnection $e) {
@@ -1549,9 +1560,17 @@ class Stripe_official extends PaymentModule
             $auto_save_card = true;
         }
 
+        $stripe_account = null;
+
+        //todo magic values should be dynamic
+        if(Shop::getContextShopID() === 2) {
+            $stripe_account = 'acct_1JrqvHHb3AcGIZAB';
+        }
+
         // Javacript variables needed by Elements
         Media::addJsDef(array(
             'stripe_pk' => $this->getPublishableKey(),
+            'stripe_account' => $stripe_account,
             'stripe_merchant_country_code' => $merchantCountry->iso_code,
 
             'stripe_currency' => Tools::strtolower($currency),

@@ -123,6 +123,10 @@ class ValidationOrderActions extends DefaultActions
 
             \Stripe\Stripe::setApiKey($secret_key);
 
+            if(Shop::getContextShopID() === 2) {
+                \Stripe\Stripe::setAccountId('acct_1JrqvHHb3AcGIZAB');
+            }
+
             $amount = $this->context->cart->getOrderTotal();
 
             if (!$this->module->isZeroDecimalCurrency($this->context->currency->iso_code)) {
@@ -700,7 +704,8 @@ class ValidationOrderActions extends DefaultActions
 
         $order = new Order($id_order);
 
-        if ($this->conveyor['events_states'][$this->conveyor['event_json']->type] == $order->getCurrentState()) {
+        if ($this->conveyor['events_states'][$this->conveyor['event_json']->type] == $order->getCurrentState()
+        || Configuration::get('PS_OS_ERROR') != $order->getCurrentState()) {
             ProcessLoggerHandler::logInfo(
                 'Order status is already the good one',
                 null,

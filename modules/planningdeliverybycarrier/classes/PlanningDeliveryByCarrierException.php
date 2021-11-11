@@ -15,17 +15,18 @@ class PlanningDeliveryByCarrierException
 	 * Add an exception
 	 * @return boolean succeed
 	 */
-	public static function add($date_from, $date_to, $maxPlaces, $id_carrier)
+	public static function add($date_from, $date_to, $maxPlaces, $id_carrier, $id_slot = null)
 	{
 		if (!Validate::isDate($date_from)
 			|| !Validate::isDate($date_to))
 			die(Tools::displayError());
 		return (Db::getInstance()->Execute('
 		INSERT INTO `'._DB_PREFIX_.'planning_delivery_carrier_exception`
-		(`date_from`, `date_to`, `max_places`,`id_carrier`) VALUES(
+		(`date_from`, `date_to`, `max_places`, `slot_id`,`id_carrier`) VALUES(
 		\''.pSQL($date_from).'\',
 		\''.pSQL($date_to).'\',
 		\''.pSQL($maxPlaces).'\',
+		\''.pSQL($id_slot).'\',
 		\''.pSQL($id_carrier).'\')'));
 	}
 
@@ -59,14 +60,17 @@ class PlanningDeliveryByCarrierException
                             AND pc.`deleted` = 0
                             AND pc.`active` = 1
                             AND o.`current_state` NOT IN (6)
-                            AND pde.`id_planning_delivery_carrier_exception` = ppde.`id_planning_delivery_carrier_exception`) nb_commandes
+                            AND pde.`id_planning_delivery_carrier_exception` = ppde.`id_planning_delivery_carrier_exception`) nb_commandes,
+                            pdcs.name as slot
             FROM
                 `ps_planning_delivery_carrier_exception` ppde
                     INNER JOIN
                 `ps_carrier` carrier ON carrier.id_carrier = ppde.id_carrier
                     INNER JOIN
                 `ps_carrier_shop` pcs ON pcs.id_carrier =  carrier.id_carrier
-                    WHERE pcs.id_shop = '.(int)Context::getContext()->shop->id.';
+                    LEFT JOIN
+                `ps_planning_delivery_carrier_slot` pdcs ON pdcs.id_planning_delivery_carrier_slot = ppde.slot_id
+                    WHERE pcs.id_shop = '.(int)Context::getContext()->shop->id.'
             ORDER BY ppde.`date_from` ASC
         ';
         $cache_id = 'PlanningDeliveryByCarrierException::get'.md5($sql);

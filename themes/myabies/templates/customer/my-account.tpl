@@ -30,6 +30,8 @@
 
 {block name='page_content'}
   <div class="row">
+    <p class="info-account">{l s='Welcome to your home page. You can manage your personal information and your orders there.' d='Shop.Theme.Customeraccount'}</p>
+
     <div class="links">
 
       <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12" id="identity-link" href="{$urls.pages.identity}">
@@ -103,7 +105,7 @@
 {block name='page_footer'}
   {block name='my_account_links'}
     <div class="text-sm-center">
-      <a href="{$logout_url}" >
+      <a class="btn btn-primary" href="{$logout_url}" >
         {l s='Sign out' d='Shop.Theme.Actions'}
       </a>
     </div>

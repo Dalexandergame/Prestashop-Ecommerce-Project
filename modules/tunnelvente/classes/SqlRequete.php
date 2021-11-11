@@ -16,9 +16,11 @@ class SqlRequete
                 JOIN  " . _DB_PREFIX_ . "product_attribute_combination pac
                 ON atl.id_attribute = pac.id_attribute
                 JOIN  " . _DB_PREFIX_ . "product_attribute pa
-                ON pa.id_product_attribute = pac.id_product_attribute      
-                JOIN " . _DB_PREFIX_ . "stock st 
-                ON st.id_product_attribute = pa.id_product_attribute
+                ON pa.id_product_attribute = pac.id_product_attribute    
+                JOIN " . _DB_PREFIX_ . "warehouse_product_location wpl
+                ON pa.id_product_attribute = wpl.id_product_attribute
+                JOIN " . _DB_PREFIX_ . "stock st
+                ON wpl.id_warehouse = st.id_warehouse
                 JOIN " . _DB_PREFIX_ . "attribute_shop ats 
                 ON ats.id_attribute = atl.id_attribute
                 WHERE atl.id_lang = %s AND ats.id_shop = %s

@@ -642,8 +642,17 @@ class Swissbilling extends PaymentModule
         $Cart = new Cart($this->context->cart->id);
         $products = $Cart->getProducts();     
         $items = array();
+        $id_frais_product = Db::getInstance()->getValue('
+                    SELECT p.`id_product`
+                    FROM `'._DB_PREFIX_.'product` p
+                    LEFT JOIN `'._DB_PREFIX_.'product_shop` ps ON (p.`id_product` = ps.`id_product`)
+                    WHERE p.`reference` = "'.pSQL($this->ref_product).'"
+                    AND ps.`id_shop`="'.pSQL($this->context->shop->id).'"');
 
         foreach($products as $p){
+            if ($id_frais_product == $p['id_product']) {
+                continue;
+            }
 
             // création d'un détail de commande
             $Product = new Product($p['id_product'],null,$this->context->cookie->id_lang);

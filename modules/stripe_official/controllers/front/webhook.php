@@ -97,6 +97,13 @@ class stripe_officialWebhookModuleFrontController extends ModuleFrontController
                 exit;
             }
 
+            if ($event->type === 'application_fee.created') {
+                \Stripe\Stripe::setAccountId('acct_1JrqvHHb3AcGIZAB');
+                $charge = \Stripe\Charge::retrieve($event->data->object->charge);
+                $event->type = 'charge.succeeded';
+                $event->data->object = $charge;
+            }
+
             if (!in_array($event->type, Stripe_official::$webhook_events)) {
                 $msg = 'webhook "'.$event->type.'" call not yet supported';
                 ProcessLoggerHandler::logInfo($msg, null, null, 'webhook');

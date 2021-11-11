@@ -206,6 +206,11 @@ function getDaySlot(path, dateText, format, id_lang, onAdminPlanningDelivery, id
 	});
 }
 
+function getRetourDaySlot(path, dateText, format, id_lang, onAdminPlanningDelivery, id_carrier)
+{
+	// console.log("getRetourDaySlot");
+}
+
 function resetDateDelivery(path,id_cart)
 {
 //	$('#choose_delivery_date').hide();

@@ -7,7 +7,7 @@
  */
 class Partner extends ObjectModel
 {
-    public $partner_id, $name, $img, $description, $warehouse_id;
+    public $partner_id, $name, $img, $description, $warehouse_id, $shop_id;
 
     public static $definition = array(
         'table' => 'partners',
@@ -17,6 +17,7 @@ class Partner extends ObjectModel
             'name'  => ['type' => self::TYPE_STRING],
             'img'  => ['type' => self::TYPE_STRING],
             'description'  => ['type' => self::TYPE_STRING],
+            'shop_id' => ['type' => self::TYPE_INT, 'validate' => 'isUnsignedId'],
             'warehouse_id' => ['type' => self::TYPE_INT]
         ]
     );

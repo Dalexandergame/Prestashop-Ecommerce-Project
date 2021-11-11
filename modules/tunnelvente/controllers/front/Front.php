@@ -247,40 +247,58 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
             if (!in_array($value['id'], $this->id_attributeRemoved)) {
                 $product  = [];
 
-                switch ($value['id']) {
-                    case 12:
-                        $product = $this->getProductByProductAttId(54, 1394, $type, $warehouse);
-                        break;
-                    case 14:
-                        $product = $this->getProductByProductAttId(54, 1396, $type, $warehouse);
-                        break;
-                    case 17:
-                        $product = $this->getProductByProductAttId(65, 1550, $type, $warehouse);
-                        break;
-                    case 20:
-                        $product = $this->getProductByProductAttId(54, 1402, $type, $warehouse);
-                        break;
-                    case 70:
-                        $product = $this->getProductByProductAttId(65, 1551, $type, $warehouse);
-                        break;
-                    case 71:
-                        $product = $this->getProductByProductAttId(65, 1552, $type, $warehouse);
-                        break;
-                    case 880:
-                        $product = $this->getProductByProductAttId(3, 7264, $type, $warehouse);
-                        break;
-                    case 2113:
-                        $product = $this->getProductByProductAttId(65, 9337, $type, $warehouse);
-                        break;
-                    case 2618:
-                        $product = $this->getProductByProductAttId(65, 10573, $type, $warehouse);
-                        break;
-                    case 2619:
-                        $product = $this->getProductByProductAttId(65, 10572, $type, $warehouse);
-                        break;
-                    case 2620:
-                        $product = $this->getProductByProductAttId(65, 10571, $type, $warehouse);
-                        break;
+                if ($warehouse == 32) { // Paris exception
+                    switch ($value['id']) {
+                        case 12:
+                            $product = $this->getProductByProductAttId(120, 11828, $type, $warehouse);
+                            break;
+                        case 14:
+                            $product = $this->getProductByProductAttId(120, 11830, $type, $warehouse);
+                            break;
+                        case 20:
+                            $product = $this->getProductByProductAttId(120, 11836, $type, $warehouse);
+                            break;
+                    }
+
+                    $price = $product["price"] ;
+                } else {
+                    switch ($value['id']) {
+                        case 12:
+                            $product = $this->getProductByProductAttId(54, 1394, $type, $warehouse);
+                            break;
+                        case 14:
+                            $product = $this->getProductByProductAttId(54, 1396, $type, $warehouse);
+                            break;
+                        case 17:
+                            $product = $this->getProductByProductAttId(65, 1550, $type, $warehouse);
+                            break;
+                        case 20:
+                            $product = $this->getProductByProductAttId(54, 1402, $type, $warehouse);
+                            break;
+                        case 70:
+                            $product = $this->getProductByProductAttId(65, 1551, $type, $warehouse);
+                            break;
+                        case 71:
+                            $product = $this->getProductByProductAttId(65, 1552, $type, $warehouse);
+                            break;
+                        case 880:
+                            $product = $this->getProductByProductAttId(3, 7264, $type, $warehouse);
+                            break;
+                        case 2113:
+                            $product = $this->getProductByProductAttId(65, 9337, $type, $warehouse);
+                            break;
+                        case 2618:
+                            $product = $this->getProductByProductAttId(65, 10573, $type, $warehouse);
+                            break;
+                        case 2619:
+                            $product = $this->getProductByProductAttId(65, 10572, $type, $warehouse);
+                            break;
+                        case 2620:
+                            $product = $this->getProductByProductAttId(65, 10571, $type, $warehouse);
+                            break;
+                    }
+
+                    $price = $product["price"] + ($product["price"] * 0.025);
                 }
 
                 if (count($product)) {
@@ -288,7 +306,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
                     $name     = explode("cm", $product["name"]);
                     $result[] = array(
                         'id'       => $product["id_attribute"],
-                        'price'    => number_format(round($product["price"] + ($product["price"] * 0.025), 2), 2),
+                        'price'    =>  number_format(round($price , 2), 2),
                         'name'     => (count($name) == 2? $name[0] . " cm": $value["name"]),
                         'type'     => (count($name) == 2? $name[1]: ""),
                         "enpot"    => in_array($value['id'], SqlRequete::$idAttrTailleSapinEnPot),

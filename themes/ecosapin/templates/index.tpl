@@ -64,17 +64,18 @@
                            title="Ecosapin bous présente sont concept en video...">Play</a>
                     </div>
                 </div>
-
-                <div id="my_littel_ecosapin">
-                    <div class="container">
-                        <h1>{l s="little ecosapin" d='Shop.Theme.Ecosapin'}</h1>
-                        <p>
-                            {l s="Votre petit sapin en pot, idéal pour décorer votre table ou votre bureau" d='Shop.Theme.Ecosapin'}
-                        </p>
-                        <a href="{$urls.base_url}stock-pack/93-my-little-ecosapin.html" class="little_ecosapin"
-                           title="{l s="Choisir mon little ecosapin " d='Shop.Theme.Ecosapin'}">{l s="Choisir mon little ecosapin " d='Shop.Theme.Ecosapin'} </a>
+                {if $shop.id !== 2}
+                    <div id="my_littel_ecosapin">
+                        <div class="container">
+                            <h1>{l s="little ecosapin" d='Shop.Theme.Ecosapin'}</h1>
+                            <p>
+                                {l s="Votre petit sapin en pot, idéal pour décorer votre table ou votre bureau" d='Shop.Theme.Ecosapin'}
+                            </p>
+                            <a href="{$urls.base_url}stock-pack/93-my-little-ecosapin.html" class="little_ecosapin"
+                            title="{l s="Choisir mon little ecosapin " d='Shop.Theme.Ecosapin'}">{l s="Choisir mon little ecosapin " d='Shop.Theme.Ecosapin'} </a>
+                        </div>
                     </div>
-                </div>
+                {/if}
             </div>
         {literal}
             <script type="text/javascript">
