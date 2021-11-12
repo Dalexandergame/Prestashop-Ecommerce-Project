@@ -335,7 +335,7 @@ class CartControllerCore extends FrontController
 
         Hook::exec('actionObjectProductInCartDeleteBefore', $data, null, true);
 
-        if (in_array($data['id_product'], [2, 3, 4, 54, 65, 115])) {
+        if (in_array($data['id_product'], [2, 3, 4, 54, 65, 115, 123])) {
             $products_in_cart = $this->context->cart->getProducts();
             foreach ($products_in_cart as $product_in_cart ) {
                     $this->context->cart->deleteProduct(
