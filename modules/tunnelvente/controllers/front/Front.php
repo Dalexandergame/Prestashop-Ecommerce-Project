@@ -259,8 +259,6 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
                             $product = $this->getProductByProductAttId(123, 12245, $type, $warehouse);
                             break;
                     }
-
-                    $price = $product["price"] ;
                 } else {
                     switch ($value['id']) {
                         case 12:
@@ -297,16 +295,21 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
                             $product = $this->getProductByProductAttId(65, 10571, $type, $warehouse);
                             break;
                     }
-
-                    $price = $product["price"] + ($product["price"] * 0.025);
                 }
 
                 if (count($product)) {
                     $product  = $product[0];
                     $name     = explode("cm", $product["name"]);
+
+                    if ($warehouse == 32) { // Paris exception
+                        $price = number_format(round($product["price"], 2), 2);
+                    } else {
+                        $price = number_format(round($product["price"] + ($product["price"] * 0.025), 2), 2);
+                    }
+
                     $result[] = array(
                         'id'       => $product["id_attribute"],
-                        'price'    =>  number_format(round($price , 2), 2),
+                        'price'    => $price,
                         'name'     => (count($name) == 2? $name[0] . " cm": $value["name"]),
                         'type'     => (count($name) == 2? $name[1]: ""),
                         "enpot"    => in_array($value['id'], SqlRequete::$idAttrTailleSapinEnPot),
