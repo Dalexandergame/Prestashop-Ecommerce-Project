@@ -6,5 +6,4 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
-<script type="text/javascript" src="{$path_pd|escape:'htmlall'}modules/planningdeliverybycarrier/js/datepickerSlot.js"></script>
 <!-- /MODULE Planning delivery -->

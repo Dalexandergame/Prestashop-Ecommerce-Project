@@ -1,4 +1,4 @@
-<!--<script type="text/javascript" src="{$base_dir|escape:'htmlall'}modules/planningdeliverybycarrier/js/datepickerSlot.js"></script>-->
+<script type="text/javascript" src="{$base_dir|escape:'htmlall'}modules/planningdeliverybycarrier/js/datepickerSlot.js"></script>
 {$datepickerJs nofilter}
 <div id="choose_delivery_date" class=""  data-idcarrierpost="{$id_carrier_post}">
 	<p class="carrier_title norm col-md-12">{l s='Choose your delivery date' mod='planningdeliverybycarrier'}</p>
