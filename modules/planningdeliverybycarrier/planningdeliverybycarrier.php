@@ -320,7 +320,10 @@ class PlanningDeliveryByCarrier extends Module
 
     public function hookHeader($params)
     {
-        $this->context->controller->addJqueryUI('ui.datepicker');
+        $this->context->controller->registerJavascript('ui-core-js', _PS_JS_DIR_ . 'jquery/ui/jquery.ui.core.min.js', ['position' => 'bottom', 'priority' => 80]);
+        $this->context->controller->registerJavascript('date-picker', _PS_JS_DIR_ . 'jquery/ui/jquery.ui.datepicker.min.js', ['position' => 'bottom', 'priority' => 100]);
+        $this->context->controller->registerJavascript('order-opc', _THEME_JS_DIR_ . 'order-opc.js', ['position' => 'bottom', 'priority' => 50]);
+        $this->context->controller->registerJavascript('bootstrap-editable', _PS_JS_DIR_ . 'bootstrap-editable.min.js', ['position' => 'bottom', 'priority' => 80]);
         $this->smarty->assign('path_pd', __PS_BASE_URI__);
         return $this->display(__FILE__, 'header.tpl');
     }
@@ -606,7 +609,7 @@ class PlanningDeliveryByCarrier extends Module
 
         $datepickerJs = $this->includeDatepicker('date_delivery', false, $format, 0);
         $datepickerJs .= $this->includeDatepickerRetour('date_retour', false, $format, 0);
-        $opc          = Configuration::get('PS_ORDER_PROCESS_TYPE');
+        $opc          = Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order';
 
         $dFormat            = (1 == $format) ? 'd/m/Y' : 'm/d/Y';
         $dateRetourRequired = $this->dateRetourRequired();
