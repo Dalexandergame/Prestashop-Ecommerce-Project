@@ -1326,7 +1326,7 @@ class PlanningDeliveryByCarrier extends Module
 				<p>' . $this->l('Select the time\'s slots corresponding to each day. You can select multiple slots by pressing the ctrl key.') . '</p><br />
 				<label for="id_day">' . $this->l('Day') . '</label>
 				<div class="margin-form">
-				<select name="id_day" id="id_day" onchange="getDaySlot(\'' . $_SERVER['REQUEST_URI'] . '\', this.options[this.selectedIndex].value, 1, \'' . (int) ((int) $this->context->language->id) . '\', 1, \'' . (int) ($this->id_carrier) . '\');">';
+				<select name="id_day" id="id_day" onchange="getPlanningDaySlot(\'' . $_SERVER['REQUEST_URI'] . '\', this.options[this.selectedIndex].value, 1, \'' . (int) ((int) $this->context->language->id) . '\', 1, \'' . (int) ($this->id_carrier) . '\');">';
         foreach ($this->days as $dayNumber => $day)
             $this->_html .= '
 						<option value="' . (int) ($dayNumber) . '">' . $this->l($day) . '</option>';
@@ -1338,7 +1338,7 @@ class PlanningDeliveryByCarrier extends Module
 				</div>
 				<div class="margin-form clear"><input type="submit" name="submitSlotDay" value="' . $this->l('Save') . '" class="button" /></div>
 				<script type="text/javascript">
-					getDaySlot(\'' . $_SERVER['REQUEST_URI'] . '\', document.getElementById(\'id_day\').options[0].value, 1, \'' . (int) ((int) $this->context->language->id) . '\', false, \'' . (int) ($this->id_carrier) . '\');
+					getPlanningDaySlot(\'' . $_SERVER['REQUEST_URI'] . '\', document.getElementById(\'id_day\').options[0].value, 1, \'' . (int) ((int) $this->context->language->id) . '\', false, \'' . (int) ($this->id_carrier) . '\');
 				</script>
 			<input type="hidden" name="subIdCarrier" value="' . $this->id_carrier . '" />
 			</fieldset>
@@ -1661,7 +1661,7 @@ class PlanningDeliveryByCarrier extends Module
 					var path = "' . __PS_BASE_URI__ . 'modules/planningdeliverybycarrier/";
 					var id_lang = ' . (int) ((int) $this->context->language->id) . ';
 					var format = ' . $format . ';
-					getDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', ' . $id_carrier . ');
+					getPlanningDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', ' . $id_carrier . ');
 				}';
         } elseif ($onAdminPlanningDelivery == 2) {
             $return .= '
@@ -1778,7 +1778,7 @@ class PlanningDeliveryByCarrier extends Module
                                     var path = "' . __PS_BASE_URI__ . 'modules/planningdeliverybycarrier/";
                                     var id_lang = ' . (int) ($this->context->language->id) . ';
                                     var format = ' . $format . ';
-                                    getDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', id_carrier_checked);
+                                    getPlanningDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', id_carrier_checked);
                             };
                             var datesRemove = ' . json_encode($carrierAndNbCommande) . ' ;
                             </script>';

@@ -194,7 +194,7 @@ function includeDatePicker(path)
 	});
 }
 
-function getDaySlot(path, dateText, format, id_lang, onAdminPlanningDelivery, id_carrier)
+function getPlanningDaySlot(path, dateText, format, id_lang, onAdminPlanningDelivery, id_carrier)
 {
 	$.get(path + 'ajax/planningdeliveryslotsbycarrier.ajax.php', { dateText: dateText, format: format, id_lang: id_lang, onAdminPlanningDelivery : onAdminPlanningDelivery, id_carrier: id_carrier, cache: new Date().getTime()},
 	function(data){	

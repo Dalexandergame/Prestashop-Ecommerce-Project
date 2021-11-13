@@ -347,7 +347,7 @@ class PlanningDeliveryByCarrier_over extends PlanningDeliveryByCarrier
                                     var path = "'.__PS_BASE_URI__.'modules/planningdeliverybycarrier/";
                                     var id_lang = '.(int)($this->context->language->id).';
                                     var format = '.$format.';
-                                    getDaySlot(path, dateText, format, id_lang, '.$onAdminPlanningDelivery.', id_carrier_checked);
+                                    getPlanningDaySlot(path, dateText, format, id_lang, '.$onAdminPlanningDelivery.', id_carrier_checked);
                             };
                             var datesRemove = '.  json_encode($carrierAndNbCommande).' ;
                             </script>';
@@ -420,7 +420,7 @@ class PlanningDeliveryByCarrier_over extends PlanningDeliveryByCarrier
                                     var path = "'.__PS_BASE_URI__.'modules/planningdeliverybycarrier/";
                                     var id_lang = '.(int)($this->context->language->id).';
                                     var format = '.$format.';
-                                    getDaySlot(path, dateText, format, id_lang, '.$onAdminPlanningDelivery.', id_carrier_checked);
+                                    getPlanningDaySlot(path, dateText, format, id_lang, '.$onAdminPlanningDelivery.', id_carrier_checked);
                             }
                             var datesRemoveRetour = '.  json_encode($carrierAndNbCommande).' ;
                             </script>';
@@ -474,7 +474,7 @@ class PlanningDeliveryByCarrier_over extends PlanningDeliveryByCarrier
 					var path = "'.__PS_BASE_URI__.'modules/planningdeliverybycarrier/";
 					var id_lang = '.(int)((int)$this->context->language->id).';
 					var format = '.$format.';
-					getDaySlot(path, dateText, format, id_lang, '.$onAdminPlanningDelivery.', '.$id_carrier.');
+					getPlanningDaySlot(path, dateText, format, id_lang, '.$onAdminPlanningDelivery.', '.$id_carrier.');
 				}';
 		}
 		elseif ($onAdminPlanningDelivery == 2)
@@ -535,7 +535,7 @@ class PlanningDeliveryByCarrier_over extends PlanningDeliveryByCarrier
 					var path = "' . __PS_BASE_URI__ . 'modules/planningdeliverybycarrier/";
 					var id_lang = ' . (int) ((int) $this->context->language->id) . ';
 					var format = ' . $format . ';
-					getDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', ' . $id_carrier . ');
+					getPlanningDaySlot(path, dateText, format, id_lang, ' . $onAdminPlanningDelivery . ', ' . $id_carrier . ');
 				}';
         } elseif ($onAdminPlanningDelivery == 2) {
             $return .= '
