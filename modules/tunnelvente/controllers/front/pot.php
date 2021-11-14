@@ -85,7 +85,7 @@ class TunnelVentePotModuleFrontController extends Front {
             if ($row['id_warehouse'] == 32 || $row['id_warehouse'] == 21) { // Paris exception
                 $price = number_format(round($row["price"], 2), 2);
             } else {
-                $price = number_format(round($row["price"] + ($row["price"] * 0.025), 2), 2);
+                $price = number_format(round(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']), 2), 2);
             }
 
             $row['price_ttc'] = $price;
