@@ -82,8 +82,9 @@ class SqlRequete
         $date_activity_start = $month > 6 ? "$year-07-01 00:00:00" : (intval($year) - 1) . "-07-01 00:00:00";
         $date_activity_end   = $month >= 6 ? (intval($year) + 1) . "-06-30 00:00:00" : "$year-06-30 00:00:00";
 
-        $sql = "SELECT pa.`id_product_attribute`,pa.price,attl.name,pa.id_product,att.color,i.`id_image`,pl.link_rewrite, il.`legend`, att.id_attribute, st.id_warehouse 
-                    FROM " . _DB_PREFIX_ . "product_attribute pa 
+        $sql = "SELECT pa.`id_product_attribute`,p.price,attl.name,pa.id_product,att.color,i.`id_image`,pl.link_rewrite, il.`legend`, att.id_attribute, st.id_warehouse 
+                    FROM " . _DB_PREFIX_ . "product_attribute_shop pa 
+                    JOIN " . _DB_PREFIX_ . "product_shop p ON p.id_product = pa.id_product AND p.id_shop = ".Shop::getContextShopID()."
                     JOIN " . _DB_PREFIX_ . "product_attribute_combination pac ON pac.id_product_attribute = pa.id_product_attribute
                     LEFT JOIN " . _DB_PREFIX_ . "product_attribute_shop pas ON ( pas.id_product_attribute = pa.id_product_attribute AND pas.`id_shop` = " . Context::getContext()->shop->id . " )
                     JOIN " . _DB_PREFIX_ . "attribute att ON att.id_attribute = pac.`id_attribute`
@@ -94,7 +95,7 @@ class SqlRequete
                     LEFT JOIN `" . _DB_PREFIX_ . "image` i ON (i.`id_image` = pai.id_image )
                     LEFT JOIN `" . _DB_PREFIX_ . "image_lang` il ON (i.`id_image` = il.`id_image` AND il.`id_lang` = " . (int) ($id_lang) . ")
                     JOIN " . _DB_PREFIX_ . "stock st ON ( st.id_product_attribute = pa.`id_product_attribute` )
-                    WHERE pa.id_product = {$id_product_boule} AND attl.`id_lang` = {$id_lang} AND st.id_warehouse IN(" . $sqlEntrepotByNPA . ")
+                    WHERE pa.id_product = {$id_product_boule} AND pa.id_shop = ".Shop::getContextShopID()." AND attl.`id_lang` = {$id_lang} AND st.id_warehouse IN(" . $sqlEntrepotByNPA . ")
                     AND 0 < st.physical_quantity - (
                         SELECT IFNULL(SUM(od2.product_quantity),0) as qty_delivered
                         FROM " . _DB_PREFIX_ . "orders as o2

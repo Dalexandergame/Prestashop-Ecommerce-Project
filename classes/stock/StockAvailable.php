@@ -138,6 +138,33 @@ class StockAvailableCore extends ObjectModel
      */
     public static function synchronize($id_product, $order_id_shop = null)
     {
+        // todo hacking stock
+        $today = new \DateTime("now");
+        $year  = $today->format("Y");
+        $month = $today->format("m");
+
+        // années d'acivité actuel
+        $date_activity_start = $month > 6 ? "$year-07-01 00:00:00" : (intval($year) - 1) . "-07-01 00:00:00";
+        $date_activity_end   = $month >= 6 ? (intval($year) + 1) . "-06-30 00:00:00" : "$year-06-30 00:00:00";
+
+        $sql = "
+            update ps_stock s
+            set usable_quantity = GREATEST(physical_quantity - ifnull(
+                (SELECT SUM(od.product_quantity) as qty_delivered
+                 FROM ps_orders as o
+                          JOIN ps_order_detail as od ON o.id_order = od.id_order
+                          LEFT JOIN ps_product_attribute_combination as pac ON od.product_attribute_id = pac.id_product_attribute
+                 WHERE od.product_id = s.id_product
+                   AND pac.id_product_attribute = s.id_product_attribute
+                   AND o.current_state in (2, 5, 10, 12, 18, 20, 21, 22, 23, 29, 33, 34, 35)
+                   AND o.date_add between '$date_activity_start' and '$date_activity_end'
+                   AND od.id_warehouse = s.id_warehouse
+                ), 0), 0)
+        ";
+        Db::getInstance()->execute($sql);
+
+        return true;
+
         if (!Validate::isUnsignedId($id_product)) {
             return false;
         }

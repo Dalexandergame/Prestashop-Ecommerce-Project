@@ -174,7 +174,7 @@ class TunnelVenteBouleModuleFrontController extends Front
                 $quantity = 2;
             }
 
-            $row['price_ttc']   = number_format(Product::getPriceStatic($row["id_product"], true, $row['id_product_attribute']) * $quantity, 2);
+            $row['price_ttc'] = number_format($row["price"] * $quantity, 2);
 
             if ($item_real_quantity > 0)
                 $products[] = $row;
