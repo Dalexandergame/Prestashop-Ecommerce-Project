@@ -630,7 +630,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
                 $helper->force_show_bulk_actions = true;
 
                 $this->setHelperDisplay($helper);
-                $helper->simple_header = true;
+                $helper->simple_header = false;
 
                 $list = $helper->generateList($this->_list, $this->fields_list);
 
@@ -983,6 +983,7 @@ where
   and pl.id_lang = " . $id_lang . "
   and agl.id_lang = " . $id_lang . "
   and a.id_attribute_group != 8 -- Ignore packs
+  and pl.id_shop = " . $this->id_shop . "
 order by `name` asc
 "
         )
