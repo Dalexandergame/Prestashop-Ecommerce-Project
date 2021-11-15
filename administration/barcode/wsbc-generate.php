@@ -104,7 +104,7 @@ if (empty($order_ids) || $order_ids == "") {
             $orders[$row['id_order']]['hasRetour'] = true;
         }
         $order = new Order($row['id_order']);
-        changeOrderStatus($order);
+        //changeOrderStatus($order);
     }
     $productsToDeliver = array();
     $date_d            = "";
