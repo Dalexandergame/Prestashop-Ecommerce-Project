@@ -20,6 +20,8 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
         if ($this->ajax && $this->isXmlHttpRequest()  ) {
 
             if(Tools::isSubmit('npa')) {
+                StockAvailable::synchronize(null);
+
                 $type = 13;
                 $npa =  Tools::getValue("npa");
                 $this->context->cookie->__set('npa', $npa);

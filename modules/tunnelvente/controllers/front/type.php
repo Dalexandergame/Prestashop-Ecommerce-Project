@@ -23,6 +23,7 @@ class TunnelVenteTypeModuleFrontController extends Front {
         if ($this->ajax && $this->isXmlHttpRequest()) {
 
             if (Tools::isSubmit('npa')) {
+                StockAvailable::synchronize(null);
 
                 $npa =  Tools::getValue("npa");
                 $this->context->cookie->__set('npa', $npa);
