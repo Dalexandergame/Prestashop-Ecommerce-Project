@@ -1,0 +1,43 @@
+
+.map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.results {
+    background-color: white;
+    opacity: 0.8;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 320px;
+    height: 480px;
+    overflow-y: scroll;
+}
+
+/* Pour régler le conflit css avec le svg declaré dans \2016\commandes\themes\default\css\vendor\nv.d3.css et qui empechait l'affichage de la route */
+svg {
+  width:auto !important;
+  height:auto !important;
+}
+
+.leaflet-top {
+    top: 95px !important;
+}
+
+.leaflet-left {
+    left: 220px;
+}
+
+.carrier{
+    font-size:14px;
+    font-weight:bold;
+    margin-left:5px;
+}
+
+.leaflet-right{
+    display: none;
+}
