@@ -38,9 +38,9 @@
 
     <br><br>
 
-   {* <div id="blockc" class="row">
+    <div id="blockc" class="row">
       {include file='./blockc.tpl' blocks=$blocks} 
-    </div>*}
+    </div>
 
     <br><br>
     {if isset($lists)}

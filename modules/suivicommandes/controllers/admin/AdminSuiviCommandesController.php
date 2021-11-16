@@ -11,8 +11,8 @@
  * @license   https://opensource.org/licenses/GPL-3.0 GNU General Public License version 3
  */
 
-require_once _PS_MODULE_DIR_ . '/suivicommandes/classes/SuiviOrder.php';
-require_once _PS_MODULE_DIR_ . '/suivicommandes/classes/pdf/HTMLTemplateFichePdf.php';
+require_once (dirname(__FILE__) . '/../../classes/SuiviOrder.php');
+require_once dirname(__FILE__) . '/../../classes/pdf/HTMLTemplateFichePdf.php';
 
 class AdminSuiviCommandesController extends ModuleAdminController
 {
