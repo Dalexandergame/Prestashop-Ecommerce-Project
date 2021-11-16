@@ -8,7 +8,7 @@ body {
 }
 
 #contact #header {
-    background: url("https://www.myabies.ch/themes/myabies/img/bande-1-min.jpg");
+    background: url("https://www.myabies.ch/themes/myabies/assets/img/bande-1-min.jpg");
     background-size: cover;
 }
 
@@ -36,7 +36,7 @@ body {
 
 
 #typesapain #footer {
-    display: none;
+    display: none !important;
 }
 
 #footer .col-md-8.links {
@@ -141,6 +141,42 @@ body {
     letter-spacing: 0;
     opacity: .84;
 
+}
+
+.cms-id-23 .container-body2, .cms-id-24 .container-body2, .cms-id-25 .container-body2, .cms-id-26 .container-body2{
+    padding: 0 8%;
+}
+
+.cms-id-22 .title-essence {
+    margin-top: 0;
+}
+
+.cms-id-22 #message::placeholder {
+    padding-left: 3rem ;
+}
+
+.page-contact .contact-rich {
+    display: none;
+}
+.page-contact .contact-form {
+    background: inherit;
+    font : inherit;
+}
+
+.page-contact .form-control {
+    background-color: inherit;
+}
+
+.page-contact textarea.form-control {
+    width: 65%;
+}
+
+.page-contact .input-group .input-group-btn>.btn{
+    padding: 1.5rem 0.75rem;
+    border-radius: 0.125rem;
+    background: grey;
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
 }
 
 #footer .footer-container .h3 {
@@ -850,3 +886,167 @@ textarea {
     text-align: center;
     margin-bottom: 25px;
 }
+
+@media (max-width : 449px) {
+    #footer .col-md-2 {
+        margin: 0 34.8%;
+    }
+    
+    #footer img.logo-myabies {
+        width: 90px;
+        height: auto;
+    }
+
+    #footer .logo-social {
+        padding-right: 10px;
+        padding-left: 17px;
+    }
+
+    #footer .col-md-8.links {
+        margin: 3rem 0;
+    }
+
+    .footer-container #footer .row {
+        margin: 0;
+    }
+
+    #footer.container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .footer-container #footer .footer-block {
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: 0;
+    }
+
+    #footer .block-payment{
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+
+    #footer .logo-payment{
+        width: 20%;
+    }
+
+    #typesapain #footer {
+        display: none !important;
+    }
+
+    #footer .bar {display: none;}
+
+    #header, #header .header-top, #header .is-open {background: none;}
+
+    #index .btn-header {
+        margin-bottom: 2rem;
+    }
+
+    #index .big-title-productors, .text-productors, .title-productors, .big-title-sapin, .text-sapins, .title-sapin {
+        text-align: center;
+    }
+
+    #index .btn-sapin, .btn-productors{
+        width: 75%;
+        margin: 0 auto;
+        padding: auto;
+    }
+
+    #typesapain #columns {
+        padding: 0;
+    }
+
+    #typesapain .tunnelVenteHeading {
+        text-align: center;
+    }
+
+    #typesapain #form_type{
+        margin-left: 10%;
+        margin-right: 10%
+    }
+
+    #typesapain .choix-prd .tunnel-form-group.for-mobile, .tunnel-form-group.tunnel-form-group-padding.for-mobile.respo-mobile {
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    #typesapain .tunnel-select-container select {
+        background-position: 100% 40%;
+        background-size: 18% 100%;
+    }
+
+    #typesapain img.img-choix-prd {
+        width: 100%;
+    }
+
+    #typesapain .list-tunnel li {
+        border-radius: 5px;
+        width: 95%;
+        margin: 2.5rem auto 0 auto;
+    }
+
+    #typesapain .attribute-hover-container_recyclage {
+        height: 75%;
+    }
+
+    #cart .block-promo, #checkout .block-promo {
+        width: 90%;
+    }
+
+    body#checkout section.checkout-step .forgot-password {
+        margin-left: 8.3rem;
+    }
+
+    .cms-id-22 .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #index .sf-menu {
+        display: block;
+        margin-top: -140%;
+        padding: 0;
+        width: 163.2%;
+        height: 400px;
+        background-color: #f6f6f6;
+    }
+
+    #index .sf-menu > li {
+        margin: 0;
+        padding: 0;
+    }
+
+    #index .sf-menu.sf-js-enabled > li > a {
+        font: 600 13px/22px;
+        padding: 17px 0 10px;
+        transition: all .3s ease-in;
+    }
+
+    .page-contact .input-group .input-group-btn > .btn {
+        padding: 1.25rem 0.75rem;
+    }
+
+    .page-contact textarea.form-control, .page-contact label.col-md-3.form-control-label  {
+        width: 100%;
+    }
+
+    #authentication #page .row, #password #page .row {
+        padding: 0;
+        margin: 0;
+    }
+
+    #authentication .page-header h1 {
+        padding-left: 1.5rem;
+        font: 520 26px/25px "Source Sans Pro", sans-serif;
+    }
+
+    #authentication label.col-md-3.form-control-label.required, label.col-md-3.form-control-label{
+        width: 100%;
+    }
+
+    #authentication .btn-primary {
+        margin-left: 65%;
+    }
+}
+
