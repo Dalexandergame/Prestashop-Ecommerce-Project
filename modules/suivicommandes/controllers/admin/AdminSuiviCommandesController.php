@@ -154,7 +154,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
         //this removes the suffix _p from the Post id, selected from the front office
         $temp_warehouse_selected = [];
         foreach ($this->warehouse_selected as $warehouse_selected) {
-            $wh_selected = str_replace('_p', '', $warehouse_selected);
+            $wh_selected = str_replace("_p", '', $warehouse_selected);
             if (!in_array($wh_selected, $temp_warehouse_selected))
                 $temp_warehouse_selected[] = $wh_selected;
         }
@@ -187,7 +187,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
                          . ' LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (a.id_order = o.id_order) '
                          . ' LEFT JOIN ' . _DB_PREFIX_ . 'address adr ON (adr.id_address = o.id_address_delivery) ';
         $this->_where = 'AND (datediff(a.date_delivery,"' . $this->dateLivraison . '")=0 OR datediff(a.date_retour,"' . $this->dateLivraison . '")=0) AND ';
-        if ($this->warehouse_selected[0] == $this->id_carrier_post . '_p') {
+        if ($this->warehouse_selected[0] == $this->id_carrier_post . "_p") {
             $this->_where .= ' a.id_carrier = ' . $this->id_carrier_post;
         } else {
             $this->_where .= ' a.id_carrier != ' . $this->id_carrier_post . ' AND a.id_warehouse IN ' . "(" . implode(",", $temp_warehouse_selected) . ")";
@@ -725,7 +725,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
             );
         }
         $res[] = array(
-            'id'       => $this->id_carrier_post . '_p',
+            'id'       => $this->id_carrier_post . "_p",
             'name'     => "La Poste",
             'selected' => count($warehouses) != count($this->warehouse_selected) && in_array($this->id_carrier_post."_p", $this->warehouse_selected) ? '' : ''
         );

@@ -827,6 +827,7 @@ services:
             - '@=service("prestashop.core.form.choice_provider.profile").getChoices()'
             - '@=service("prestashop.adapter.multistore_feature").isActive()'
             - '@=service("prestashop.adapter.employee.avatar_provider").getDefaultAvatarUrl()'
+            - '@=service("prestashop.adapter.data_provider.warehouse").getChoices()'
         calls:
             - { method: setTranslator, arguments: ['@translator'] }
         tags:

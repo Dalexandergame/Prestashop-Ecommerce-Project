@@ -62,7 +62,8 @@ final class GetEmployeeForEditingHandler implements GetEmployeeForEditingHandler
             (int) $employee->id_lang,
             (bool) $employee->active,
             (int) $employee->id_profile,
-            $employee->getAssociatedShops()
+            $employee->getAssociatedShops(),
+            (int) $employee->id_warehouse,
         );
     }
 }

@@ -62,6 +62,26 @@ class WarehouseDataProvider
     }
 
     /**
+     * Get all warehouses.
+     *
+     * @param bool $ignore_shop Optional, false by default - Allows to get only the warehouses that are associated to one/some shops (@see $id_shop)
+     * @param int $id_shop optional, Context::shop::Id by default - Allows to define a specific shop to filter
+     *
+     * @return array Warehouses (ID, reference/name concatenated)
+     */
+    public function getChoices($ignore_shop = false, $id_shop = null)
+    {
+        $warehouses = $this->getWarehouses($ignore_shop, $id_shop);
+        $choices = [];
+
+        foreach ($warehouses as $warehouse) {
+            $choices[$warehouse['name']] = (int) $warehouse['id_warehouse'];
+        }
+
+        return $choices;
+    }
+
+    /**
      * For a given product and warehouse, gets the product warehouse data.
      *
      * @param int $id_product

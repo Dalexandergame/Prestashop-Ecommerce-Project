@@ -82,6 +82,7 @@ final class EmployeeFormDataProvider implements FormDataProviderInterface
             'active' => $editableEmployee->isActive(),
             'profile' => $editableEmployee->getProfileId(),
             'shop_association' => $editableEmployee->getShopAssociation(),
+            'id_warehouse' => $editableEmployee->getWarehouseId()
         ];
     }
 

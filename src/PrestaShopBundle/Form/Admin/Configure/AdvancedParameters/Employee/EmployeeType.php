@@ -58,6 +58,11 @@ final class EmployeeType extends AbstractType
     /**
      * @var array
      */
+    private $warehouses;
+
+    /**
+     * @var array
+     */
     private $languagesChoices;
 
     /**
@@ -92,13 +97,15 @@ final class EmployeeType extends AbstractType
         array $tabChoices,
         array $profilesChoices,
         $isMultistoreFeatureActive,
-        $defaultAvatarUrl
+        $defaultAvatarUrl,
+        $warehouses
     ) {
         $this->languagesChoices = $languagesChoices;
         $this->tabChoices = $tabChoices;
         $this->profilesChoices = $profilesChoices;
         $this->isMultistoreFeatureActive = $isMultistoreFeatureActive;
         $this->defaultAvatarUrl = $defaultAvatarUrl;
+        $this->warehouses = $warehouses;
     }
 
     /**
@@ -159,10 +166,8 @@ final class EmployeeType extends AbstractType
                 'choices' => $this->languagesChoices,
             ])
             ->add('id_warehouse', ChoiceType::class, [
-                'label' => "Warehouse ref",
-                'choices' => [
-                    "COTTENS" => "1", "GENEVE" => "2", "FRIBOURG" => "3", "VALAIS" => "4", "BERN" => "5", "ZURICH" => "6", "NEUCHATEL" => "7", "BALE" => "8", "SAINT-GALL" => "9", "TESSIN" => "10", "GENEVE VELO" => "11", "ZUG" => "12"
-                ]
+                'label' => "Warehouse",
+                'choices' => $this->warehouses
             ])
         ;
 
