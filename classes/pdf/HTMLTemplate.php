@@ -195,6 +195,10 @@ abstract class HTMLTemplateCore
      */
     protected function getTemplate($template_name)
     {
+        if (!isset($this->shop)){
+            $this->shop = Context::getContext()->shop;
+        }
+
         $template = false;
         $default_template = rtrim(_PS_PDF_DIR_, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $template_name . '.tpl';
         $overridden_template = _PS_ALL_THEMES_DIR_ . $this->shop->theme->getName() . DIRECTORY_SEPARATOR . 'pdf' . DIRECTORY_SEPARATOR . $template_name . '.tpl';
