@@ -3177,6 +3177,11 @@ class ProductCore extends ObjectModel
             $context = Context::getContext();
         }
 
+        if (Tools::getValue('pdf')) {
+            $order_id = $GLOBALS['order']->id;
+            $context->cart = Cart::getCartByOrderId($order_id);
+        }
+
         $cur_cart = $context->cart;
 
         if ($divisor !== null) {
@@ -4978,6 +4983,11 @@ class ProductCore extends ObjectModel
             true,
             $quantity
         );
+
+        if (Tools::getValue('pdf')) {
+            $context->currency = new Currency((int) $context->cart->id_currency);
+        }
+
 
         if (self::$_taxCalculationMethod == PS_TAX_EXC) {
             $row['price_tax_exc'] = Tools::ps_round($row['price_tax_exc'], Context::getContext()->getComputingPrecision());
