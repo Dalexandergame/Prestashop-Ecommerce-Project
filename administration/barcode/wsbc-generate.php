@@ -97,6 +97,7 @@ if (empty($order_ids) || $order_ids == "") {
     $generated = array();
     $results   = $Db->executeS($_sql);
     $orders    = array();
+    $_GET['pdf'] = 1;
     foreach ($results as $row) {
         if (in_array($row['product_id'], $id_produts_genereEtiqueete)) {
             $orders[$row['id_order']]['products'] [] = $row;
@@ -104,7 +105,7 @@ if (empty($order_ids) || $order_ids == "") {
             $orders[$row['id_order']]['hasRetour'] = true;
         }
         $order = new Order($row['id_order']);
-        //changeOrderStatus($order);
+        changeOrderStatus($order);
     }
     $productsToDeliver = array();
     $date_d            = "";

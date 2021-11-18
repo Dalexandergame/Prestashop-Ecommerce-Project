@@ -103,6 +103,7 @@ if (empty($order_ids) || $order_ids == "") {
     $results   = $Db->executeS($_sql);
 
     $orders = array();
+    $_GET['pdf'] = 1;
     foreach ($results as $row) {
         if (in_array($row['product_id'], $id_produts_genereEtiqueete)) {
             $orders[$row['id_order']]['products'] [] = $row;

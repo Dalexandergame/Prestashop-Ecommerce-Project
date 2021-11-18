@@ -942,6 +942,14 @@ textarea {
         margin-bottom: 2rem;
     }
 
+    #index .sf-menu.sf-js-enabled > li:first-child a{
+        color: #777 !important;
+    }
+
+    #index .logo .img-responsive {
+        padding-top: 1.5rem;
+    }
+
     #index .big-title-productors, .text-productors, .title-productors, .big-title-sapin, .text-sapins, .title-sapin {
         text-align: center;
     }
@@ -1003,7 +1011,35 @@ textarea {
         padding-right: 0;
     }
 
-    #index .sf-menu {
+    #index .js-top-menu-bottom{    
+        position: relative;
+        z-index: 5;
+        margin-top: -10%;
+        margin-left: 2%;
+    }
+
+    .cms-id-21 .js-top-menu-bottom{
+        position: relative;
+        z-index: 5;
+        margin-top: 70%;
+        margin-left: 2%;
+    }
+
+    .cms-id-20 .js-top-menu-bottom, .cms-id-22 .js-top-menu-bottom {    
+        position: relative;
+        z-index: 5;
+        margin-top: 10%;
+        margin-left: 2%;
+    }
+
+    #contact .js-top-menu-bottom {    
+        position: relative;
+        z-index: 5;
+        margin-top: -12%;
+        margin-left: 2%;
+    }
+
+    #index .sf-menu, #contact .sf-menu {
         display: block;
         margin-top: -140%;
         padding: 0;
@@ -1012,12 +1048,53 @@ textarea {
         background-color: #f6f6f6;
     }
 
-    #index .sf-menu > li {
+    #index .sf-menu > li, #contact .sf-menu > li {
         margin: 0;
         padding: 0;
     }
 
-    #index .sf-menu.sf-js-enabled > li > a {
+    #index .sf-menu.sf-js-enabled > li > a, #contact .sf-menu.sf-js-enabled > li > a {
+        font: 600 13px/22px;
+        padding: 17px 0 10px;
+        transition: all .3s ease-in;
+    }
+
+    .cms-id-22 .sf-menu, .cms-id-20 .sf-menu {
+        display: block;
+        margin-top: -110%;
+        padding: 0;
+        width: 163.2%;
+        height: 400px;
+        background-color: #f6f6f6;
+    }
+
+    .cms-id-22 .sf-menu > li, .cms-id-20 .sf-menu > li {
+        margin: 0;
+        padding: 0;
+    }
+
+    .cms-id-22 .sf-menu.sf-js-enabled > li > a, .cms-id-20 .sf-menu.sf-js-enabled > li > a {
+        font: 600 13px/22px;
+        padding: 17px 0 10px;
+        transition: all .3s ease-in;
+    }
+
+
+    .cms-id-21 .sf-menu {
+        display: block;
+        margin-top: -20%;
+        padding: 0;
+        width: 163.2%;
+        height: 400px;
+        background-color: #f6f6f6;
+    }
+
+    .cms-id-21 .sf-menu > li {
+        margin: 0;
+        padding: 0;
+    }
+
+    .cms-id-21 .sf-menu.sf-js-enabled > li > a {
         font: 600 13px/22px;
         padding: 17px 0 10px;
         transition: all .3s ease-in;
@@ -1047,6 +1124,13 @@ textarea {
 
     #authentication .btn-primary {
         margin-left: 65%;
+    }
+}
+
+@media (max-width: 677px) {
+
+    #steps .step-desc #resp_content form > div {
+        justify-content: unset;
     }
 }
 

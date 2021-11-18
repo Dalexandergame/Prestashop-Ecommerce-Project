@@ -57,7 +57,7 @@ function changeOrderStatus($order)
         // Create new OrderHistory
         $history              = new OrderHistory();
         $history->id_order    = $order->id;
-        $history->id_employee = (int) Context::getContext()->employee->id;
+        $history->id_employee = 1;//(int) Context::getContext()->employee->id;
 
         $use_existings_payment = false;
         if (!$order->hasInvoice())
