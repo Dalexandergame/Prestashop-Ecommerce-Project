@@ -99,6 +99,83 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
         parent::__construct();
 
+        if (Tools::getIsset('fix_duplicate_orders')) {
+            $db_instance = Db::getInstance();
+            $query = "
+                select reference
+                     , group_concat(id_order)        order_ids
+                     , max(id_carrier)               id_carrier
+                     , sum(total_discounts)          total_discounts
+                     , sum(total_discounts_tax_excl) total_discounts_tax_excl
+                     , sum(total_discounts_tax_incl) total_discounts_tax_incl
+                     , sum(total_paid)               total_paid
+                     , sum(total_paid_real)          total_paid_real
+                     , sum(total_paid_tax_excl)      total_paid_tax_excl
+                     , sum(total_paid_tax_incl)      total_paid_tax_incl
+                     , sum(total_products)           total_products
+                     , sum(total_products_wt)        total_products_wt
+                     , sum(total_shipping)           total_shipping
+                     , sum(total_shipping_tax_excl)  total_shipping_tax_excl
+                     , sum(total_shipping_tax_incl)  total_shipping_tax_incl
+                     , sum(total_wrapping)           total_wrapping
+                     , sum(total_wrapping_tax_excl)  total_wrapping_tax_excl
+                     , sum(total_wrapping_tax_incl)  total_wrapping_tax_incl
+                from ps_orders
+                group by reference
+                having count(*) > 1
+            ";
+
+            $result = $db_instance->ExecuteS($query);
+
+            foreach ($result as $order) {
+                list($main_order, $duplicate_order) = explode(',', $order['order_ids']);
+                $carrier_id = $order['id_carrier'];
+
+                $db_instance->Execute("
+                    update ps_orders set 
+                        id_carrier = $carrier_id,
+                        total_discounts = {$order['total_discounts']},
+                        total_discounts_tax_excl = {$order['total_discounts_tax_excl']},
+                        total_discounts_tax_incl = {$order['total_discounts_tax_incl']},
+                        total_paid = {$order['total_paid']},
+                        total_paid_real = {$order['total_paid_real']},
+                        total_paid_tax_excl = {$order['total_paid_tax_excl']},
+                        total_paid_tax_incl = {$order['total_paid_tax_incl']},
+                        total_products = {$order['total_products']},
+                        total_products_wt = {$order['total_products_wt']},
+                        total_shipping = {$order['total_shipping']},
+                        total_shipping_tax_excl = {$order['total_shipping_tax_excl']},
+                        total_shipping_tax_incl = {$order['total_shipping_tax_incl']},
+                        total_wrapping = {$order['total_wrapping']},
+                        total_wrapping_tax_excl = {$order['total_wrapping_tax_excl']},
+                        total_wrapping_tax_incl = {$order['total_wrapping_tax_incl']}
+                    where id_order = $main_order
+                ");
+                $db_instance->Execute("
+                    update ps_order_invoice set
+                        total_discounts_tax_excl = {$order['total_discounts_tax_excl']},
+                        total_discounts_tax_incl = {$order['total_discounts_tax_incl']},
+                        total_paid_tax_excl = {$order['total_paid_tax_excl']},
+                        total_paid_tax_incl = {$order['total_paid_tax_incl']},
+                        total_products = {$order['total_products']},
+                        total_products_wt = {$order['total_products_wt']},
+                        total_shipping_tax_excl = {$order['total_shipping_tax_excl']},
+                        total_shipping_tax_incl = {$order['total_shipping_tax_incl']},
+                        total_wrapping_tax_excl = {$order['total_wrapping_tax_excl']},
+                        total_wrapping_tax_incl = {$order['total_wrapping_tax_incl']}
+                    where id_order = $main_order
+                ");
+                $db_instance->Execute("update ps_orders set current_state = 6, reference = concat(substr(reference,1,6), 'XXX') where id_order = $duplicate_order");
+                $db_instance->Execute("update ps_suivi_orders set order_id = $main_order where order_id = $duplicate_order");
+                $db_instance->Execute("update ps_stripe_capture set order_id = $main_order where order_id = $duplicate_order");
+                $db_instance->Execute("update ps_twint_for_prestashop set order_id = $main_order where order_id = $duplicate_order");
+                $db_instance->Execute("update ps_planning_delivery_carrier set order_id = $main_order where order_id = $duplicate_order");
+                $db_instance->Execute("update ps_order_detail set id_order = $main_order where id_order = $duplicate_order");
+                $db_instance->Execute("update ps_order_carrier set id_carrier = $carrier_id where id_order = $main_order");
+                $db_instance->Execute("update ps_order_history set id_order_state = 6 where id_order = $duplicate_order");
+                $db_instance->Execute("update ps_order_invoice_payment set id_order = $main_order where id_order = $duplicate_order");
+            }
+        }
 
         if (!$this->osmkey || empty($this->osmkey)) {
             $this->alertmsg .= "Veuillez configurer la clé de l'API OSM! <br> ";
