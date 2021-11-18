@@ -243,6 +243,10 @@ class OrderHistoryCore extends ObjectModel
                         StockAvailable::updateQuantity($product['product_id'], $product['product_attribute_id'], (int) $product['product_quantity'], $order->id_shop);
                     }
                 }
+
+                if (Tools::getValue('pdf')) {
+                    $employee = new Employee(1);
+                }
                 // From here, there is 2 cases : $old_os exists, and we can test shipped state evolution,
                 // Or old_os does not exists, and we should consider that initial shipped state is 0 (to allow decrease of stocks)
 
