@@ -301,7 +301,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
                     $product  = $product[0];
                     $name     = explode("cm", $product["name"]);
 
-                    if ($warehouse == 32 || $warehouse == 21) { // Paris exception
+                    if ($warehouse == 32) { // Paris exception
                         $price = number_format(round($product["price"], 2), 2);
                     } else {
                         $price = number_format(round(Product::getPriceStatic($product["id_product"], true, $product['id_product_attribute']), 2), 2);
