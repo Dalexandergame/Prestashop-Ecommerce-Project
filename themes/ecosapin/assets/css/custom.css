@@ -1303,9 +1303,8 @@ a:hover {
 }
 
 @media (max-width : 479px) {
-    
+
     #typesapain .bg-home {
-        background-attachment: unset;
         min-height: 100%;
     }
 
