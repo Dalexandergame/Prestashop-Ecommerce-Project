@@ -5141,11 +5141,13 @@ class ProductCore extends ObjectModel
 
         $row['ecotax_rate'] = (float) Tax::getProductEcotaxRate($context->cart->{Configuration::get('PS_TAX_ADDRESS_TYPE')});
 
-        Hook::exec('actionGetProductPropertiesAfter', [
-            'id_lang' => $id_lang,
-            'product' => &$row,
-            'context' => $context,
-        ]);
+        if (!Tools::getValue('pdf')) {
+            Hook::exec('actionGetProductPropertiesAfter', [
+                'id_lang' => $id_lang,
+                'product' => &$row,
+                'context' => $context,
+            ]);
+        }
 
         $combination = new Combination($id_product_attribute);
 
