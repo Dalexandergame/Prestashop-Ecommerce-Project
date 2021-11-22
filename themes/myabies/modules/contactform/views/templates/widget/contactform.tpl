@@ -25,9 +25,30 @@
 <section class="contact-form">
     <div class="row container-contact">
       <div class="col-md-6 contact-us-myabies">
-          <h2 class="title-contact">{l s="Formulaire de contact" d='Modules.ContactForm.Shop'}</h2>
-          <form action="https://www.myabies.ch/fr/contactez-nous" method="post" class="contact-form-box" enctype="multipart/form-data">
+          <h2 class="title-contact">{l s="Formulaire de contact" d='Modules.ContactForm.Admin'}</h2>
+          <form action="{$urls.base_url}nous-contacter" method="post" class="contact-form-box" enctype="multipart/form-data">
+          
+          {if $notifications}
+            <div class="col-xs-12 alert {if $notifications.nw_error}alert-danger{else}alert-success{/if}">
+              <ul>
+                {foreach $notifications.messages as $notif}
+                  <li>{$notif}</li>
+                {/foreach}
+              </ul>
+            </div>
+          {/if}
+      
+          {if !$notifications || $notifications.nw_error}
             <div class="clearfix">
+                <div class="row">
+                  <div class="form-group col-md-12 col-xs-12">
+                    <select name="id_contact" class="form-control form-control-select">
+                      {foreach from=$contact.contacts item=contact_elt}
+                        <option value="{$contact_elt.id_contact}">{$contact_elt.name}</option>
+                      {/foreach}
+                    </select>
+                  </div>
+                </div>
                 <div class="row">
                     <div class="form-group col-md-12 col-xs-12">
                       <input class="form-control grey validate sapin-nom" type="text" id="nom" name="nom" value="" />
@@ -45,6 +66,7 @@
                   <button type="submit" name="submitMessage" id="submitMessage" class="link-home btn btn-"> <span>Send</span> </button>
                 </div>
             </div>
+          {/if}
           </form>
       </div>
       <div class="col-md-6 contact-us-myabies">
