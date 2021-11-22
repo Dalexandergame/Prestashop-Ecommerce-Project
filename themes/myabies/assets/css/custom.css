@@ -12,6 +12,36 @@ body {
     background-size: cover;
 }
 
+#contact #wrapper {
+    background-color: #E7E9EB
+}
+
+#contact #content-wrapper{
+    width: 100%;
+}
+
+.row.container-contact {
+    font:  inherit;
+    width: 100%;
+    margin: 5em auto;
+    display: flex;
+    column-gap: 2rem;
+}
+
+#contact .contact-us-myabies {
+    padding : 3rem;
+    background-color: #f1f1f1;
+}
+
+
+#contact .link-home#submitMessage {
+    margin-left: 12.5%;
+}
+
+#contact .title-contact {
+    text-align: center;
+}
+
 .sf-menu > li > a {
     font: normal normal bold 18px/18px Montserrat;
     letter-spacing: 0.93px;
@@ -164,11 +194,17 @@ body {
 }
 
 .page-contact .form-control {
+    border: unset;
     background-color: inherit;
+    border-bottom: 2px solid grey;
+    width: 80%;
+    margin: 1rem auto;
 }
 
 .page-contact textarea.form-control {
-    width: 65%;
+    width: 80%;
+    margin: 1.5rem auto;
+    font-size: normal;
 }
 
 .page-contact .input-group .input-group-btn>.btn{
@@ -1105,7 +1141,7 @@ textarea {
     }
 
     .page-contact textarea.form-control, .page-contact label.col-md-3.form-control-label  {
-        width: 100%;
+        width: 80%;
     }
 
     #authentication #page .row, #password #page .row {
@@ -1132,5 +1168,27 @@ textarea {
     #steps .step-desc #resp_content form > div {
         justify-content: unset;
     }
+
+
 }
 
+@media (max-width: 560px) {
+    .row.container-contact {
+        width: 100%;
+        margin: 5em auto;
+        display: block;
+    }
+
+    .row.container-contact {
+        width: 100%;
+        margin: 0;
+    }
+
+    #contact .contact-us-myabies {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+
+}

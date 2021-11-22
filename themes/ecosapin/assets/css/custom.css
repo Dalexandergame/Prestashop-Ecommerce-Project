@@ -1302,7 +1302,7 @@ a:hover {
     }
 }
 
-@media (max-width : 479px) {
+@media (max-width : 768px) {
 
     #typesapain .bg-home {
         min-height: 100%;
