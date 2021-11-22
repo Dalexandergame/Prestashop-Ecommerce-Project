@@ -25,7 +25,7 @@
 <section class="contact-form">
     <div class="row container-contact">
       <div class="col-md-6 contact-us-myabies">
-          <h2 class="title-contact">{l s="Formulaire de contact" d='Modules.ContactForm.Admin'}</h2>
+          <h2 class="title-contact">{l s="Formulaire de contact" d='Modules.ContactForm.Shop'}</h2>
           <form action="https://www.myabies.ch/fr/contactez-nous" method="post" class="contact-form-box" enctype="multipart/form-data">
             <div class="clearfix">
                 <div class="row">
