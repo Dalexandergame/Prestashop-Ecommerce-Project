@@ -427,12 +427,6 @@ class StockAvailableCore extends ObjectModel
      */
     public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null, $id_warehouse = 1)
     {
-        if (Tools::getValue('order_id')) {
-            $order_id = Tools::getValue('order_id');
-            $cart = Cart::getCartByOrderId($order_id);
-            $id_warehouse = $cart->getWarehouseByNPA();
-        }
-
         if (empty($id_warehouse)) {
             $id_warehouse = 1;
         }
@@ -446,16 +440,22 @@ class StockAvailableCore extends ObjectModel
             $id_product = Tools::getValue('product_id');
         }
 
-        $query = 'SELECT IFNULL(st.usable_quantity, 0) as quantity
-                    FROM ' . _DB_PREFIX_ . 'product p
-                    INNER JOIN ps_stock st ON (st.id_product = `p`.id_product 
-                        AND st.id_product_attribute = '.$id_product_attribute.' AND st.id_warehouse = '.$id_warehouse.')
-                    ' . Product::sqlStock('p', $id_product_attribute, true) . '
-                    WHERE p.id_product = ' . $id_product;
+        $key = 'StockAvailable::getQuantityAvailableByProduct_' . (int) $id_product . '-' . (int) $id_product_attribute . '-' . (int) $id_shop;
+        if (!Cache::isStored($key)) {
+            $query = 'SELECT IFNULL(st.usable_quantity, 0) as quantity
+                        FROM ' . _DB_PREFIX_ . 'product p
+                        INNER JOIN ps_stock st ON (st.id_product = `p`.id_product 
+                            AND st.id_product_attribute = '.$id_product_attribute.' AND st.id_warehouse = '.$id_warehouse.')
+                        ' . Product::sqlStock('p', $id_product_attribute, true) . '
+                        WHERE p.id_product = ' . $id_product;
 
-        $result = (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
+            $result = (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
+            Cache::store($key, $result);
 
-        return $result;
+            return $result;
+        }
+
+        return Cache::retrieve($key);
     }
 
     /**

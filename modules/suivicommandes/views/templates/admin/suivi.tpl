@@ -1,9 +1,9 @@
 
-<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css"
+{*<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css"
       rel="stylesheet"/>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
       
-
+      *}
 <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 
 {if isset($alert)}
@@ -159,7 +159,6 @@
             {if $carriers}
             source: [
                 {foreach from=$carriers item=carrier}
-                    {literal}{{/literal}value: "{$carrier.id_carrier}", text: "{$carrier.name}"{literal}}{/literal},
                 {/foreach}
             ],
             {/if}
