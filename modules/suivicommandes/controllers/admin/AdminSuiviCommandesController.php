@@ -1082,7 +1082,7 @@ order by `name` asc
                         'name'     => 'id_carrier',
                         'required' => true,
                         'options'  => array(
-                            'query' => $this->getCarriers($this->context->language->id),
+                            'query' => $this->getCarriers($this->context->language->id, $this->id_shop),
                             'id'    => 'id_carrier',
                             'name'  => 'name'
                         ),
@@ -1093,7 +1093,7 @@ order by `name` asc
                         'name'     => 'id_carrier_retour',
                         'required' => true,
                         'options'  => array(
-                            'query' => $this->getCarriers($this->context->language->id),
+                            'query' => $this->getCarriers($this->context->language->id, $this->id_shop),
                             'id'    => 'id_carrier',
                             'name'  => 'name'
                         ),
