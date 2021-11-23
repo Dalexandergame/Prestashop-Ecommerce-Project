@@ -559,8 +559,14 @@ final class AddProductToOrderHandler extends AbstractOrderHandler implements Add
     {
         //check if product is available in stock
         if (!Product::isAvailableWhenOutOfStock(StockAvailable::outOfStock($command->getProductId()->getValue()))) {
+            $id_warehouse = 1 ;
+            if ($command->getOrderId()) {
+                $order_id = $command->getOrderId();
+                $cart = Cart::getCartByOrderId($order_id->getValue());
+                $id_warehouse = $cart->getWarehouseByNPA();
+            }
             $combinationId = null !== $command->getCombinationId() ? $command->getCombinationId()->getValue() : 0;
-            $availableQuantity = StockAvailable::getQuantityAvailableByProduct($command->getProductId()->getValue(), $combinationId);
+            $availableQuantity = StockAvailable::getQuantityAvailableByProduct($command->getProductId()->getValue(), $combinationId, Shop::getContextShopID(), $id_warehouse);
 
             if ($availableQuantity < $command->getProductQuantity()) {
                 throw new ProductOutOfStockException(sprintf('Product with id "%s" is out of stock, thus cannot be added to cart', $product->id));
