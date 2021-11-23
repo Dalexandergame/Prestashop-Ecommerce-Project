@@ -718,7 +718,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
                     "token"         => $this->token,
                     "wh"            => "(" . implode(",", $this->warehouse_selected) . ")",
                     "lists"         => $list,
-                    "carriers"      => $this->getCarriers($this->context->language->id, $this->id_shop),
+                    "carriers"      => $this->getCarriers($this->context->language->id),
                     "alert"         => $this->alertmsg,
                     "link"          => $this->context->link,
                     "restricted"    => FALSE
@@ -1783,14 +1783,13 @@ order by `name` asc
         if ($sql2) Db::getInstance()->Execute($sql2);
     }
 
-    public static function getCarriers($id_lang, $id_shop, $modules_filters = Carrier::PS_CARRIERS_ONLY)
+    public static function getCarriers($id_lang, $modules_filters = Carrier::PS_CARRIERS_ONLY)
     {
         $sql = '
 		SELECT c.*
 		FROM `' . _DB_PREFIX_ . 'carrier` c
 		LEFT JOIN `' . _DB_PREFIX_ . 'carrier_lang` cl ON (c.`id_carrier` = cl.`id_carrier` AND cl.`id_lang` = ' . (int) $id_lang . ')
-		WHERE c.`deleted` = 0
-		AND cl.`id_shop` = ' . $id_shop ;
+		WHERE c.`deleted` = 0';
 
         switch ($modules_filters) {
             case 1 :

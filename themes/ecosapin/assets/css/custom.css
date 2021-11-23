@@ -1301,18 +1301,3 @@ a:hover {
         display: none;
     }
 }
-
-@media (max-width : 769px) {
-
-    #typesapain .bg-home {
-        min-height: 100%;
-    }
-
-    #typesapain .thirdCol {
-        position: relative;
-    }
-
-    #typesapain {
-        overflow-y: auto;
-    }
-}

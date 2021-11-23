@@ -3803,12 +3803,6 @@ class ProductCore extends ObjectModel
         Cart $cart = null,
         $idCustomization = null
     ) {
-
-        if ($cart == null && Tools::getValue('order_id')) {
-            $order_id = Tools::getValue('order_id');
-            $cart = Cart::getCartByOrderId($order_id);
-        }
-
         // pack usecase: Pack::getQuantity() returns the pack quantity after cart quantities have been removed from stock
         if ($idProduct == 93) {
             $sql = "SELECT IFNULL(MIN(st.usable_quantity), 0) as quantity
@@ -5147,13 +5141,11 @@ class ProductCore extends ObjectModel
 
         $row['ecotax_rate'] = (float) Tax::getProductEcotaxRate($context->cart->{Configuration::get('PS_TAX_ADDRESS_TYPE')});
 
-        if (!Tools::getValue('pdf')) {
-            Hook::exec('actionGetProductPropertiesAfter', [
-                'id_lang' => $id_lang,
-                'product' => &$row,
-                'context' => $context,
-            ]);
-        }
+        Hook::exec('actionGetProductPropertiesAfter', [
+            'id_lang' => $id_lang,
+            'product' => &$row,
+            'context' => $context,
+        ]);
 
         $combination = new Combination($id_product_attribute);
 
