@@ -1674,6 +1674,8 @@ class CartCore extends ObjectModel
         if (empty($this->npa)) {
             if (!empty(Context::getContext()->cookie->npa)) {
                 $this->npa = Context::getContext()->cookie->npa;
+            }elseif (empty(Context::getContext()->cookie->npa) && !empty($this->id_customer)) {
+                $this->npa = Db::getInstance()->getValue('SELECT postcode From ps_address WHERE id_customer = '. $this->id_customer);
             } else {
                 return 1;
             }
