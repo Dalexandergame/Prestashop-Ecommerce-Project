@@ -42,9 +42,6 @@ class ConfigurationActions extends DefaultActions
 
         /* If mode has changed delete webhook of previous mode */
         if (Tools::getValue(Stripe_official::MODE) != Configuration::get(Stripe_official::MODE)) {
-            $key = Configuration::get(Stripe_official::MODE) ? Configuration::get(Stripe_official::TEST_KEY) : Configuration::get(Stripe_official::KEY);
-            $stripeClient = new \Stripe\StripeClient($key);
-            $stripeClient->webhookEndpoints->delete(Configuration::get('STRIPE_WEBHOOK_ID'));
             Configuration::updateValue(Stripe_official::WEBHOOK_SIGNATURE, '');
         }
 
