@@ -423,9 +423,10 @@ class StockAvailableCore extends ObjectModel
      * @param int $id_product_attribute Optional
      * @param int $id_shop Optional : gets context by default
      *
+     * @param int $id_warehouse
      * @return int Quantity
      */
-    public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null, $id_warehouse = 1)
+    public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null, $id_warehouse = null)
     {
         if (Tools::getValue('order_id')) {
             $order_id = Tools::getValue('order_id');
@@ -434,7 +435,9 @@ class StockAvailableCore extends ObjectModel
         }
 
         if (empty($id_warehouse)) {
-            $id_warehouse = 1;
+            $sql_warehouse = '';
+        }else{
+            $sql_warehouse = 'AND st.id_warehouse = '.$id_warehouse;
         }
 
         // if null, it's a product without attributes
@@ -446,10 +449,10 @@ class StockAvailableCore extends ObjectModel
             $id_product = Tools::getValue('product_id');
         }
 
-        $query = 'SELECT IFNULL(st.usable_quantity, 0) as quantity
+        $query = 'SELECT SUM(IFNULL(st.usable_quantity, 0)) as quantity
                     FROM ' . _DB_PREFIX_ . 'product p
                     INNER JOIN ps_stock st ON (st.id_product = `p`.id_product 
-                        AND st.id_product_attribute = '.$id_product_attribute.' AND st.id_warehouse = '.$id_warehouse.')
+                        AND st.id_product_attribute = '.$id_product_attribute.' '. $sql_warehouse .')
                     ' . Product::sqlStock('p', $id_product_attribute, true) . '
                     WHERE p.id_product = ' . $id_product;
 
