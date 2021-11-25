@@ -73,7 +73,7 @@ class stripe_officialCreateIntentModuleFrontController extends ModuleFrontContro
             );
 
             if (Shop::getContextShopID() === 2) {
-                $datasIntent['application_fee_amount'] = $datasIntent['amount'] * 0.08;
+                $datasIntent['application_fee_amount'] = (int) ($datasIntent['amount'] * 0.08);
             }
 
             if (!Tools::getValue('id_payment_method')) {
