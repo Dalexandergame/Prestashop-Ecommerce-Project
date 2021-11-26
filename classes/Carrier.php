@@ -1393,6 +1393,8 @@ where pr.id_product = '. $product_id . ')
 
     public static function getAllowedCarrierByNpa($npa)
     {
+        if (empty($npa)) $npa = "'' or 1 = 1";
+
         $sql = 'SELECT distinct
     c.`id_carrier`
 FROM
