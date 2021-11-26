@@ -401,12 +401,6 @@ class StockAvailableCore extends ObjectModel
      */
     public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null, $id_warehouse = null)
     {
-        if (Tools::getValue('order_id')) {
-            $order_id = Tools::getValue('order_id');
-            $cart = Cart::getCartByOrderId($order_id);
-            $id_warehouse = $cart->getWarehouseByNPA();
-        }
-
         // if null, it's a product without attributes
         if ($id_product_attribute === null) {
             $id_product_attribute = 0;
