@@ -3850,19 +3850,6 @@ class ProductCore extends ObjectModel
      */
     public static function sqlStock($product_alias, $product_attribute = null, $inner_join = false, Shop $shop = null, $product_warehouse = null)
     {
-        if (!$shop) {
-            $shop = Context::getContext()->shop;
-        }
-
-        // todo hacking stock
-        $today = new \DateTime("now");
-        $year  = $today->format("Y");
-        $month = $today->format("m");
-
-        // années d'acivité actuel
-        $date_activity_start = $month > 6 ? "$year-07-01 00:00:00" : (intval($year) - 1) . "-07-01 00:00:00";
-        $date_activity_end   = $month >= 6 ? (intval($year) + 1) . "-06-30 00:00:00" : "$year-06-30 00:00:00";
-
         $sqlAttribut = !empty($product_attribute)? ', s.id_product_attribute':'';
         $sqlAttribut .= !empty($product_warehouse)? ', s.id_warehouse':'';
         $sql = (($inner_join) ? ' INNER ' : ' LEFT ')
