@@ -407,10 +407,6 @@ class StockAvailableCore extends ObjectModel
             $id_warehouse = $cart->getWarehouseByNPA();
         }
 
-        if (empty($id_warehouse)) {
-            $id_warehouse = 1;
-        }
-
         // if null, it's a product without attributes
         if ($id_product_attribute === null) {
             $id_product_attribute = 0;
@@ -422,7 +418,7 @@ class StockAvailableCore extends ObjectModel
 
         $query = 'SELECT IFNULL(stock.quantity, 0) as quantity
                     FROM ' . _DB_PREFIX_ . 'product p
-                    ' . Product::sqlStock('p', $id_product_attribute, true) . '
+                    ' . Product::sqlStock('p', $id_product_attribute, true, null, $id_warehouse) . '
                     WHERE p.id_product = ' . $id_product;
 
         $result = (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
