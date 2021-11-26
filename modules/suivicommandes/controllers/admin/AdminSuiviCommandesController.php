@@ -996,7 +996,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
         $id_lang = 2;
         $w       = "(" . implode(",", $this->warehouse_selected) . ")";
 
-        $where = " WHERE o.is_imported=1 AND (datediff(pd.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(pd.date_retour,'" . $this->dateLivraison . "')=0) ";
+        $where = " WHERE (datediff(pd.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(pd.date_retour,'" . $this->dateLivraison . "')=0) ";
 
         if ($this->warehouse_selected[0] == $this->id_carrier_post."_p") {
             $where .= 'AND so.id_carrier = ' . $this->id_carrier_post;
@@ -1032,7 +1032,6 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
         $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS($sql);
         foreach ($result as $item) {
-            $item['company'] = str_replace("'", "\'", $item['company']);
             Db::getInstance()->update('suivi_orders', $item, 'id_suivi_orders=' .$item['id_suivi_orders']);
         }
         $this->translateCommandsTo($id_lang);

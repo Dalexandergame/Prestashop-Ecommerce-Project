@@ -428,18 +428,6 @@ class StockAvailableCore extends ObjectModel
      */
     public static function getQuantityAvailableByProduct($id_product = null, $id_product_attribute = null, $id_shop = null, $id_warehouse = null)
     {
-        if (Tools::getValue('order_id')) {
-            $order_id = Tools::getValue('order_id');
-            $cart = Cart::getCartByOrderId($order_id);
-            $id_warehouse = $cart->getWarehouseByNPA();
-        }
-
-        if (empty($id_warehouse)) {
-            $sql_warehouse = '';
-        }else{
-            $sql_warehouse = 'AND st.id_warehouse = '.$id_warehouse;
-        }
-
         // if null, it's a product without attributes
         if ($id_product_attribute === null) {
             $id_product_attribute = 0;
@@ -449,11 +437,9 @@ class StockAvailableCore extends ObjectModel
             $id_product = Tools::getValue('product_id');
         }
 
-        $query = 'SELECT SUM(IFNULL(st.usable_quantity, 0)) as quantity
+        $query = 'SELECT IFNULL(stock.quantity, 0) as quantity
                     FROM ' . _DB_PREFIX_ . 'product p
-                    INNER JOIN ps_stock st ON (st.id_product = `p`.id_product 
-                        AND st.id_product_attribute = '.$id_product_attribute.' '. $sql_warehouse .')
-                    ' . Product::sqlStock('p', $id_product_attribute, true) . '
+                    ' . Product::sqlStock('p', $id_product_attribute, true, null, $id_warehouse) . '
                     WHERE p.id_product = ' . $id_product;
 
         $result = (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue($query);
