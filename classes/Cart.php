@@ -1596,7 +1596,7 @@ class CartCore extends ObjectModel
         } elseif ($operator == 'up') {
             /* Add product to the cart */
 
-            $sql = 'SELECT stock.out_of_stock, IFNULL(st.quantity, 0) as quantity
+            $sql = 'SELECT stock.out_of_stock, IFNULL(stock.quantity, 0) as quantity
                         FROM ' . _DB_PREFIX_ . 'product p
                         ' . Product::sqlStock('p', $id_product_attribute, true, $shop, $this->getWarehouseByNPA()) . '
                         WHERE p.id_product = ' . $id_product;
