@@ -2770,6 +2770,8 @@ class AdminControllerCore extends Controller
      */
     public function init()
     {
+        StockAvailable::synchronize(null);
+
         Hook::exec(
             'actionAdminControllerInitBefore',
             [

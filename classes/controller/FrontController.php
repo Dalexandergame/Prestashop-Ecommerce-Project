@@ -260,6 +260,8 @@ class FrontControllerCore extends Controller
      */
     public function init()
     {
+        StockAvailable::synchronize(null);
+
         Hook::exec(
             'actionFrontControllerInitBefore',
             [

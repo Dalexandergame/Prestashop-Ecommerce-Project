@@ -3866,17 +3866,7 @@ class ProductCore extends ObjectModel
         $sqlAttribut = !empty($product_attribute)? ', s.id_product_attribute':'';
         $sqlAttribut .= !empty($product_warehouse)? ', s.id_warehouse':'';
         $sql = (($inner_join) ? ' INNER ' : ' LEFT ')
-            . "JOIN (select s.id_product $sqlAttribut, 1 as out_of_stock, SUM(GREATEST(physical_quantity - ifnull(
-        (SELECT SUM(od.product_quantity) as qty_delivered
-         FROM ps_orders as o
-                  JOIN ps_order_detail as od ON o.id_order = od.id_order
-                  LEFT JOIN ps_product_attribute_combination as pac ON od.product_attribute_id = pac.id_product_attribute
-         WHERE od.product_id = s.id_product
-           AND pac.id_product_attribute = s.id_product_attribute
-           AND o.current_state in (2, 5, 10, 12, 18, 20, 21, 22, 23, 29, 33, 34, 35)
-           AND o.date_add between '$date_activity_start' and '$date_activity_end'
-           AND od.id_warehouse = s.id_warehouse
-        ), 0), 0)) as quantity
+            . "JOIN (select s.id_product $sqlAttribut, 1 as out_of_stock, SUM(usable_quantity) as quantity
         from ps_stock s group by s.id_product $sqlAttribut) AS stock ON (stock.id_product = `" . bqSQL($product_alias) . '`.id_product';
 
         if (!empty($product_attribute)) {
