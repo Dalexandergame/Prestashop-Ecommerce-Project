@@ -67,7 +67,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
                 AND pl.id_shop = ". Context::getContext()->shop->id;
         $result         = array_merge($result, Db::getInstance()->executeS($sqlSapinSuisse));
 
-        $sqlKitsdeco = "SELECT p.id_product,pac.id_product_attribute,CONCAT(pl.name,'/',al.name,' (id:',p.id_product,',',pac.id_product_attribute,')') as sapin
+        $sqlKitsdeco = "SELECT p.id_product,pac.id_product_attribute,CONCAT(pl.name,'/',GROUP_CONCAT(al.name separator '/'),' (id:',p.id_product,',',pac.id_product_attribute,')') as sapin
                 FROM " . _DB_PREFIX_ . "product as p
                 JOIN " . _DB_PREFIX_ . "product_lang as pl ON p.id_product = pl.id_product
                 JOIN " . _DB_PREFIX_ . "product_attribute as pa ON p.id_product = pa.id_product
@@ -76,7 +76,8 @@ class AdminStockGlobalViewController extends ModuleAdminController
                 WHERE p.id_category_default IN (" . 1 /*ID categorie pour les kits deco et pots*/ . ")
                 AND pl.id_lang = $this->id_lang
                 AND al.id_lang = $this->id_lang
-                AND pl.id_shop = ". Context::getContext()->shop->id;
+                AND pl.id_shop = " . Context::getContext()->shop->id . "
+                GROUP BY p.id_product,pac.id_product_attribute";
         $result      = array_merge($result, Db::getInstance()->executeS($sqlKitsdeco));
 
         $sqlLittleEcosapin = "SELECT p.id_product,pa.id_product_attribute,concat(cl.name ,' - ',pl.name,' - ',al.name,' (id:',p.id_product,',',pac.id_product_attribute,')') as sapin
