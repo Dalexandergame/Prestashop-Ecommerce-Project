@@ -115,19 +115,6 @@ class AdminStockSapinsVendusRestantsController extends ModuleAdminController
 
         public function getQtySold($idProduct,$idProductAttribute=NULL)
 	{
-		/*
-            $sql = "SELECT SUM(od.product_quantity) as qty_total_vendue
-                    FROM "._DB_PREFIX_."orders as o
-                    JOIN "._DB_PREFIX_."order_detail as od ON o.id_order = od.id_order
-                    LEFT JOIN "._DB_PREFIX_."product_attribute_combination as pac ON od.product_attribute_id = pac.id_product_attribute
-                    WHERE od.product_id = $idProduct ";
-                    if($idProductAttribute != NULL){
-                        $sql .=" AND pac.id_product_attribute = $idProductAttribute ";
-                    }
-                    $sql .=" AND o.invoice_date between '$this->dateDebut' and '$this->dateFin'
-                    AND od.id_warehouse = $this->warehouse_selected";
-            
-        */
         $sql = "
         	select 
 			sum(od.product_quantity) 'qty_total_vendue'

@@ -153,146 +153,17 @@ class StockAvailableCore extends ObjectModel
                 (SELECT SUM(od.product_quantity) as qty_delivered
                  FROM ps_orders as o
                           JOIN ps_order_detail as od ON o.id_order = od.id_order
-                          LEFT JOIN ps_product_attribute_combination as pac ON od.product_attribute_id = pac.id_product_attribute
+                          LEFT JOIN ps_warehouse_carrier as wc on wc.id_carrier = o.id_carrier
                  WHERE od.product_id = s.id_product
-                   AND pac.id_product_attribute = s.id_product_attribute
+                   AND od.product_attribute_id = s.id_product_attribute
                    AND o.current_state in (2, 5, 10, 12, 18, 20, 21, 22, 23, 29, 33, 34, 35)
                    AND o.date_add between '$date_activity_start' and '$date_activity_end'
-                   AND od.id_warehouse = s.id_warehouse
+                   AND wc.id_warehouse = s.id_warehouse
                 ), 0), 0)
         ";
         Db::getInstance()->execute($sql);
 
         return true;
-
-        if (!Validate::isUnsignedId($id_product)) {
-            return false;
-        }
-
-        //if product is pack sync recursivly product in pack
-        if (Pack::isPack($id_product)) {
-            if (Validate::isLoadedObject($product = new Product((int) $id_product))) {
-                if ($product->pack_stock_type == Pack::STOCK_TYPE_PRODUCTS_ONLY
-                    || $product->pack_stock_type == Pack::STOCK_TYPE_PACK_BOTH
-                    || ($product->pack_stock_type == Pack::STOCK_TYPE_DEFAULT
-                        && Configuration::get('PS_PACK_STOCK_TYPE') > 0)
-                ) {
-                    $products_pack = Pack::getItems($id_product, (int) Configuration::get('PS_LANG_DEFAULT'));
-                    foreach ($products_pack as $product_pack) {
-                        StockAvailable::synchronize($product_pack->id, $order_id_shop);
-                    }
-                }
-            } else {
-                return false;
-            }
-        }
-
-        // gets warehouse ids grouped by shops
-        $ids_warehouse = Warehouse::getWarehousesGroupedByShops();
-        if ($order_id_shop !== null) {
-            $order_warehouses = [];
-            $wh = Warehouse::getWarehouses(false, (int) $order_id_shop);
-            foreach ($wh as $warehouse) {
-                $order_warehouses[] = $warehouse['id_warehouse'];
-            }
-        }
-
-        // gets all product attributes ids
-        $ids_product_attribute = [];
-        foreach (Product::getProductAttributesIds($id_product) as $id_product_attribute) {
-            $ids_product_attribute[] = $id_product_attribute['id_product_attribute'];
-        }
-
-        // Allow to order the product when out of stock?
-        $out_of_stock = StockAvailable::outOfStock($id_product);
-
-        $manager = StockManagerFactory::getManager();
-        // loops on $ids_warehouse to synchronize quantities
-        foreach ($ids_warehouse as $id_shop => $warehouses) {
-            // first, checks if the product depends on stock for the given shop $id_shop
-            if (StockAvailable::dependsOnStock($id_product, $id_shop)) {
-                // init quantity
-                $product_quantity = 0;
-
-                // if it's a simple product
-                if (empty($ids_product_attribute)) {
-                    $allowed_warehouse_for_product = WareHouse::getProductWarehouseList((int) $id_product, 0, (int) $id_shop);
-                    $allowed_warehouse_for_product_clean = [];
-                    foreach ($allowed_warehouse_for_product as $warehouse) {
-                        $allowed_warehouse_for_product_clean[] = (int) $warehouse['id_warehouse'];
-                    }
-                    $allowed_warehouse_for_product_clean = array_intersect($allowed_warehouse_for_product_clean, $warehouses);
-                    if ($order_id_shop != null && !count(array_intersect($allowed_warehouse_for_product_clean, $order_warehouses))) {
-                        continue;
-                    }
-
-                    $product_quantity = $manager->getProductRealQuantities($id_product, null, $allowed_warehouse_for_product_clean);
-
-                    Hook::exec(
-                        'actionUpdateQuantity',
-                                    [
-                                        'id_product' => $id_product,
-                                        'id_product_attribute' => 0,
-                                        'quantity' => $product_quantity,
-                                        'id_shop' => $id_shop,
-                                    ]
-                    );
-                } else {
-                    // else this product has attributes, hence loops on $ids_product_attribute
-                    foreach ($ids_product_attribute as $id_product_attribute) {
-                        $allowed_warehouse_for_combination = WareHouse::getProductWarehouseList((int) $id_product, (int) $id_product_attribute, (int) $id_shop);
-                        $allowed_warehouse_for_combination_clean = [];
-                        foreach ($allowed_warehouse_for_combination as $warehouse) {
-                            $allowed_warehouse_for_combination_clean[] = (int) $warehouse['id_warehouse'];
-                        }
-                        $allowed_warehouse_for_combination_clean = array_intersect($allowed_warehouse_for_combination_clean, $warehouses);
-                        if ($order_id_shop != null && !count(array_intersect($allowed_warehouse_for_combination_clean, $order_warehouses))) {
-                            continue;
-                        }
-
-                        foreach ($allowed_warehouse_for_combination_clean as $warehouse) {
-                            $quantity = $manager->getProductRealQuantities($id_product, $id_product_attribute, $warehouse);
-
-                            $query = [
-                                'table' => 'stock',
-                                'data' => ['usable_quantity' => $quantity],
-                                'where' => 'id_product = ' . (int) $id_product . ' AND id_product_attribute = ' . (int) $id_product_attribute . ' AND id_warehouse = ' . (int) $warehouse
-                            ];
-                            Db::getInstance()->update($query['table'], $query['data'], $query['where']);
-
-                            $product_quantity += $quantity;
-                        }
-
-                        Hook::exec(
-                            'actionUpdateQuantity',
-                                    [
-                                        'id_product' => $id_product,
-                                        'id_product_attribute' => $id_product_attribute,
-                                        'quantity' => $quantity,
-                                        'id_shop' => $id_shop,
-                                    ]
-                        );
-                    }
-                }
-                // updates
-                // if $id_product has attributes, it also updates the sum for all attributes
-                if (($order_id_shop != null && array_intersect($warehouses, $order_warehouses)) || $order_id_shop == null) {
-                    $query = [
-                        'table' => 'stock_available',
-                        'data' => ['quantity' => $product_quantity],
-                        'where' => 'id_product = ' . (int) $id_product . ' AND id_product_attribute = 0' .
-                        StockAvailable::addSqlShopRestriction(null, $id_shop),
-                    ];
-                    Db::getInstance()->update($query['table'], $query['data'], $query['where']);
-                }
-            }
-        }
-        // In case there are no warehouses, removes product from StockAvailable
-        if (count($ids_warehouse) == 0 && StockAvailable::dependsOnStock((int) $id_product)) {
-            Db::getInstance()->update('stock_available', ['quantity' => 0], 'id_product = ' . (int) $id_product);
-        }
-
-        Cache::clean('StockAvailable::getQuantityAvailableByProduct_' . (int) $id_product . '*');
     }
 
     /**

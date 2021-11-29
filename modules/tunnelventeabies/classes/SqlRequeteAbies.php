@@ -133,16 +133,7 @@ class SqlRequeteAbies
                     LEFT JOIN `" . _DB_PREFIX_ . "image_lang` il ON (i.`id_image` = il.`id_image` AND il.`id_lang` = " . (int) ($id_lang) . ")
                     JOIN " . _DB_PREFIX_ . "stock st ON ( st.id_product_attribute = pa.`id_product_attribute` )
                     WHERE pa.id_product = {$id_product_boule} AND attl.`id_lang` = {$id_lang} AND st.id_warehouse IN(" . $sqlEntrepotByNPA . ")
-                    AND 0 < st.physical_quantity - (
-                        SELECT IFNULL(SUM(od2.product_quantity),0) as qty_delivered
-                        FROM " . _DB_PREFIX_ . "orders as o2
-                        JOIN " . _DB_PREFIX_ . "order_detail as od2 ON o2.id_order = od2.id_order
-                        LEFT JOIN " . _DB_PREFIX_ . "product_attribute_combination as pac2 ON od2.product_attribute_id = pac2.id_product_attribute
-                        WHERE od2.product_id = pa.id_product AND pac2.id_product_attribute = pa.`id_product_attribute`
-                        AND od2.id_warehouse = st.id_warehouse
-                        AND o2.current_state in (2,5,10,12,18,20,21)
-                        AND o2.date_add between '$date_activity_start' and '$date_activity_end'
-                    )
+                    AND 0 < st.usable_quantity
                     ORDER BY att.`position`";
         return $sql;
     }
