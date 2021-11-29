@@ -99,7 +99,7 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
                 $dateDispo = PlanningDeliveryByCarrierException::getDateDisponibleByNPA();
 
                 if(!count($dateDispo)){
-                    $this->errors[] = Tools::displayError('Tous nos jours de livraison de ce district sont complets pour cette année. Rendez-vous en 2018!');
+                    $this->errors[] = Tools::displayError($this->trans('Tous nos jours de livraison de ce district sont complets pour cette année. Rendez-vous en 2022!', [], 'Shop.Notifications.Error'));
                      //activer npa
                     $steps->getStepByPosition(1)->setActive(true)
                         ->getStepDetailByPosition(1)->setActive(true);
