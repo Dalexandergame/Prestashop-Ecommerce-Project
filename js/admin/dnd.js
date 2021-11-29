@@ -174,6 +174,9 @@ function initTableDnD(table)
 
 								$(this).attr('id', $(this).attr('id').replace(reg, '_' + new_pos));
 								$(this).find('.positions').text(new_pos + 1);
+								if ($(this).find('.newPosition').length) {
+									$(this).find('.newPosition').text(new_pos + 1);
+								}
 							});
 						}
 
