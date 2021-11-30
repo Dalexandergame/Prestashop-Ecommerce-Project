@@ -160,7 +160,7 @@ class StockAvailableCore extends ObjectModel
                           LEFT JOIN ps_warehouse_carrier as wc on wc.id_carrier = o.id_carrier
                  WHERE od.product_id = s.id_product
                    AND od.product_attribute_id = s.id_product_attribute
-                   AND o.current_state in (2, 5, 10, 12, 18, 20, 21, 22, 23, 29, 33, 34, 35)
+                   AND o.current_state in (2, 5, 10, 12, 18, 20, 21, 22, 23, 24, 29, 33, 34, 35)
                    AND o.date_add between '$date_activity_start' and '$date_activity_end'
                    AND wc.id_warehouse = s.id_warehouse
                 ), 0), 0)
