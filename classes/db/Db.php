@@ -502,7 +502,7 @@ abstract class DbCore
         $sql = 'UPDATE `' . bqSQL($table) . '` SET ';
         foreach ($data as $key => $value) {
             if (!is_array($value)) {
-                $value = ['type' => 'text', 'value' => pSQL($value)];
+                $value = ['type' => 'text', 'value' => $value];
             }
             if ($value['type'] == 'sql') {
                 $sql .= '`' . bqSQL($key) . "` = {$value['value']},";

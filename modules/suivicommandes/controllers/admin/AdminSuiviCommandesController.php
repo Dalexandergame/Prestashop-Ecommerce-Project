@@ -1032,6 +1032,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
         $result = Db::getInstance(_PS_USE_SQL_SLAVE_)->ExecuteS($sql);
         foreach ($result as $item) {
+            array_walk($item, 'pSQL');
             Db::getInstance()->update('suivi_orders', $item, 'id_suivi_orders=' .$item['id_suivi_orders']);
         }
         $this->translateCommandsTo($id_lang);

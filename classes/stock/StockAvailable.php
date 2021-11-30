@@ -138,6 +138,10 @@ class StockAvailableCore extends ObjectModel
      */
     public static function synchronize($id_product, $order_id_shop = null)
     {
+        if (empty($_GET['cron-job'])) {
+            return true;
+        }
+
         // todo hacking stock
         $today = new \DateTime("now");
         $year  = $today->format("Y");
@@ -161,9 +165,8 @@ class StockAvailableCore extends ObjectModel
                    AND wc.id_warehouse = s.id_warehouse
                 ), 0), 0)
         ";
-        Db::getInstance()->execute($sql);
-
-        return true;
+        $result = Db::getInstance()->execute($sql);
+        die("synchronize result: $result");
     }
 
     /**
