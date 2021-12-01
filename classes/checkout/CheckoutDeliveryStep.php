@@ -161,6 +161,11 @@ class CheckoutDeliveryStepCore extends AbstractCheckoutStep
         $this->setTitle($this->getTranslator()->trans('Shipping Method', [], 'Shop.Theme.Checkout'));
 
         Hook::exec('actionCarrierProcess', ['cart' => $this->getCheckoutSession()->getCart()]);
+
+        if (isset($_REQUEST['step_incomplete'])) {
+            $this->setCurrent(true);
+            $this->setComplete(false);
+        }
     }
 
     public function render(array $extraParams = [])

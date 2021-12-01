@@ -512,6 +512,10 @@ class PlanningDeliveryByCarrier extends Module
 
             $planning_delivery = (!$result) ? new PlanningDeliveriesByCarrier() : new PlanningDeliveriesByCarrier((int) ($result['id_planning']));
 
+            if (empty($date_delivery) && !empty($planning_delivery->date_delivery) && (new DateTime($planning_delivery->date_delivery))->diff(new DateTime())->days < 1) {
+                $errors[] = Tools::displayError($this->l('Delivery Date invalid'));
+            }
+
             $planning_delivery->id_cart                           = (int) ($id_cart);
             $planning_delivery->date_delivery                     = '';
             $planning_delivery->date_retour                       = null;
@@ -559,6 +563,11 @@ class PlanningDeliveryByCarrier extends Module
             if (!empty($date_delivery)) $maj = (!$result) ? $planning_delivery->add() : $planning_delivery->update();
             /* TO DO: check this error if (!$maj) */
         }
+
+        if (!empty($errors)) {
+            $_REQUEST['step_incomplete'] = true;
+        }
+
         return $errors;
     }
 
