@@ -188,6 +188,23 @@
     text-transform: uppercase;
 }
 
+.cms-id-22 .slide-multi {
+    width: 50%;
+    margin: 0 25%;
+}
+
+.cms-id-22 .portfolio_slider {
+    margin-top: 0;
+}
+
+.cms-id-22 .size-info, .cms-id-22 .qualite-info, .cms-id-22 .essence-info, .cms-id-22 .pied-info {
+    text-align: center;
+}
+
+.cms-id-22 .title-qualite, .cms-id-22 .title-pied {
+    margin-top: 0;
+}
+
 .block-social {
     text-align: left;
 }
@@ -195,6 +212,14 @@
 .footer-container {
     margin-top: 0;
 }
+
+@media (max-width : 620px) {
+    .cms-id-22 .slide-multi {
+        width: 100%;
+        margin: 0;
+    }
+}
+
 /*
 .font-Montserrat {
     font: normal normal bold 18px/27px Montserrat;
