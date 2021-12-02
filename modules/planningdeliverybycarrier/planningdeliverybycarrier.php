@@ -383,6 +383,10 @@ class PlanningDeliveryByCarrier extends Module
                 WHERE pd.`id_cart` = ' . $order->id_cart . '
                 ORDER BY pd.id_planning_delivery_carrier DESC'
         );
+
+        $slotsAvalaibles = $this->getSlotsAvalaiblesByDateAndCarrier($order->id_carrier, $result['date_delivery'], (int) $this->context->language->id);
+
+        $this->smarty->assign('slotsAvalaibles', $slotsAvalaibles);
         $this->smarty->assign('order', $order);
         $this->smarty->assign('date_delivery', $result['date_delivery']);
         $this->smarty->assign('date_retour', $result['date_retour']);
