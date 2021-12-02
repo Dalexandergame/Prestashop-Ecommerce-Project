@@ -1571,7 +1571,7 @@ order by `name` asc
             }
             if ($item['lat']) {
                 $marker                          = $this->isRetour ? $item['position_retour'] : $item['position'];
-                $result[$item['carrier_name']][] = array('address' => $item['address'], 'lat' => $item['lat'], 'long' => $item['long'], 'marker' => $marker);
+                $result[$item['carrier_name']][] = array('address' => $item['address'], 'lat' => $item['lat'], 'long' => $item['long'], 'marker' => $marker + 1);
             }
         }
         ksort($result, SORT_NUMERIC);

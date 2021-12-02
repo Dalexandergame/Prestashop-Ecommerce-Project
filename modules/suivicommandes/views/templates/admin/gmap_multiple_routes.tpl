@@ -163,7 +163,7 @@ function createMarkers() {
             marker[{$k}] = new google.maps.Marker({
                 position: point,
                 map: map,
-                icon : "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={$data.marker}|F75C54|000000"
+                icon : "//chart.apis.google.com/chart?chst=d_map_pin_letter&chld={$data.marker}|F75C54|000000"
             });
           
         {/foreach} 
