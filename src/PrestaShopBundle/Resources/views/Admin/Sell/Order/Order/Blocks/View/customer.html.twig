@@ -162,9 +162,9 @@
           {% endif %}
           <p class="mb-0">
             {{ orderForViewing.shippingAddress.cityName }},
-            {% if orderForViewing.shippingAddress.stateName is not empty %}
+            {#{% if orderForViewing.shippingAddress.stateName is not empty %}
               {{ orderForViewing.shippingAddress.stateName }}
-            {% endif %}
+            {% endif %}#}
             {{ orderForViewing.shippingAddress.postCode }}
           </p>
           <p class="mb-0">{{ orderForViewing.shippingAddress.countryName }}</p>
@@ -218,9 +218,9 @@
           {% endif %}
           <p class="mb-0">
             {{ orderForViewing.invoiceAddress.cityName }},
-            {% if orderForViewing.invoiceAddress.stateName is not empty %}
+            {#{% if orderForViewing.invoiceAddress.stateName is not empty %}
               {{ orderForViewing.invoiceAddress.stateName }}
-            {% endif %}
+            {% endif %}#}
             {{ orderForViewing.invoiceAddress.postCode }}
           </p>
           <p class="mb-0">{{ orderForViewing.invoiceAddress.countryName }}</p>

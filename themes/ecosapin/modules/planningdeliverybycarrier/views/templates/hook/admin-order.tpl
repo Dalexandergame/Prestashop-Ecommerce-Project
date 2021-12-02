@@ -27,7 +27,7 @@
 </style>
 <div class="panel">
 	<fieldset>
-		<legend><img src="../img/admin/delivery.gif" /> {l s='Date de livraison & Retour ' mod='planningdeliverybycarrier'}</legend>
+		<legend><img src="/img/admin/delivery.gif" /> {l s='Date de livraison & Retour ' mod='planningdeliverybycarrier'}</legend>
 		<div id="refresh_tab_planningdelivery">
 			<table id="tab_planningdelivery" class="table" width="100%" cellspacing="0" cellpadding="0">
 				<thead>
@@ -62,9 +62,17 @@
 		<form action="" id="form_update_planningdelivery" method="post" style="margin-top:10px;">
 			<p id="lab_date_delivery">
 				{l s='New delivery date' mod='planningdeliverybycarrier'} :
-                                <input type="text" name="date_delivery" id="date_delivery" style="width:200px" value="{dateFormat date=$date_delivery}"/>
+                              <br>  <input type="text" name="date_delivery" id="date_delivery" style="width:200px" value="{dateFormat date=$date_delivery}"/>
+				<br>
+				<select  name="id_planning_delivery_slot" id="id_planning_delivery_slot" style="margin:10px 0px;">
+					<option> - </option>
+					{foreach from=$slotsAvalaibles item=row key=key}
+						<option value="{$key|escape:'htmlall'}" {if isset($delivery_slot) && $delivery_slot == $key}selected="selected"{/if}>{$row|escape:'htmlall'}</option>
+					{/foreach}
+				</select>
+				<br>
 				{l s='Nouvelle date de retour' mod='planningdeliverybycarrier'} :
-                                <input type="text" name="date_retour" id="date_retour" style="width:200px" value="{dateFormat date=$date_retour}"/>
+                               <br> <input type="text" name="date_retour" id="date_retour" style="width:200px;" value="{dateFormat date=$date_retour}"/>
 				<div id="day_slots"></div><input type="submit" id="submitDateDelivery" name="submitDateDelivery" value="{l s='Change' mod='planningdeliverybycarrier'}" class="button btn btn-primary" />
 			</p>
 			<input type="hidden" name="id_order" value="{$order->id|escape:'intval'}" />

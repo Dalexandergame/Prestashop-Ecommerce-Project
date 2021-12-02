@@ -42,6 +42,7 @@ class AdminEcosapinNoRetourDateOrdersController extends ModuleAdminController
         $this->_join           = '
 		LEFT JOIN `' . _DB_PREFIX_ . 'planning_delivery_carrier` pdc ON (pdc.`id_order` = a.`id_order`)
 		LEFT JOIN `' . _DB_PREFIX_ . 'customer` c ON (c.`id_customer` = a.`id_customer`)
+		LEFT JOIN `' . _DB_PREFIX_ . 'order_detail` od ON (od.`id_order` = a.`id_order` AND od.product_id IN (37, 66, 67))
 		LEFT JOIN `' . _DB_PREFIX_ . 'address` address ON address.id_address = a.id_address_delivery
 		LEFT JOIN `' . _DB_PREFIX_ . 'country` country ON address.id_country = country.id_country
 		LEFT JOIN `' . _DB_PREFIX_ . 'country_lang` country_lang ON (country.`id_country` = country_lang.`id_country` AND country_lang.`id_lang` = ' . (int) $this->context->language->id . ')
