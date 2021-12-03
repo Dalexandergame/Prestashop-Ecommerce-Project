@@ -261,7 +261,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
         $this->_join  .= ' JOIN ' . _DB_PREFIX_ . 'carrier ca ON (ca.id_carrier = a.id_carrier)'
                          . ' LEFT JOIN ' . _DB_PREFIX_ . 'carrier car ON (car.id_carrier = a.id_carrier_retour)'
-                         . ' LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (a.id_order = o.id_order) '
+                         . ' LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (a.id_order = o.id_order AND o.current_state NOT IN (6)) '
                          . ' LEFT JOIN ' . _DB_PREFIX_ . 'address adr ON (adr.id_address = o.id_address_delivery) ';
         $this->_where = 'AND (datediff(a.date_delivery,"' . $this->dateLivraison . '")=0 OR datediff(a.date_retour,"' . $this->dateLivraison . '")=0) AND ';
         if ($this->warehouse_selected[0] == $this->id_carrier_post . "_p") {

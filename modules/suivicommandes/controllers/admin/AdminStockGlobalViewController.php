@@ -99,7 +99,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
                 AND p.id_product != 50
                 AND pl.id_lang = $this->id_lang
                 AND pl.id_shop = ". Context::getContext()->shop->id;
-//        $result = array_merge($result, Db::getInstance()->executeS($sqlBec));
+        $result = array_merge($result, Db::getInstance()->executeS($sqlBec));
 
         return $result;
     }
