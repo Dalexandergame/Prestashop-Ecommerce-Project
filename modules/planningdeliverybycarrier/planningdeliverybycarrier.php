@@ -414,9 +414,13 @@ class PlanningDeliveryByCarrier extends Module
         }
         if (Validate::isDate($date_retour)) {
             $values['date_retour'] = $date_retour;
+        }else{
+            $values['date_retour'] = "";
         }
         if (Validate::isDate($date_delivery)) {
             $values['date_delivery'] = $date_delivery;
+        }else{
+            $values['date_delivery'] = "";
         }
 
         $values['date_upd'] = date('Y-m-d H:i:s');
