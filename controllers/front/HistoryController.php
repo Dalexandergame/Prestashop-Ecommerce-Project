@@ -72,6 +72,8 @@ class HistoryControllerCore extends FrontController
         $customer_orders = Order::getCustomerOrders($this->context->customer->id);
         foreach ($customer_orders as $customer_order) {
             $order = new Order((int) $customer_order['id_order']);
+            $order->delivery_date = Db::getInstance()->getValue('SELECT `date_delivery` FROM `'._DB_PREFIX_.'planning_delivery_carrier` WHERE `id_order`='.$order->id);
+            $order->date_retour = Db::getInstance()->getValue('SELECT `date_retour` FROM `'._DB_PREFIX_.'planning_delivery_carrier` WHERE `id_order`='.$order->id);
             $orders[$customer_order['id_order']] = $this->order_presenter->present($order);
         }
 

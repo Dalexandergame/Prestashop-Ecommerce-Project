@@ -38,6 +38,8 @@
           <th>{l s='Order reference' d='Shop.Theme.Checkout'}</th>
           <th>{l s='Date' d='Shop.Theme.Checkout'}</th>
           <th>{l s='Total price' d='Shop.Theme.Checkout'}</th>
+          <th>{l s='Delivery date' d='Shop.Theme.Checkout'}</th>
+          <th>{l s='Pickup date' d='Shop.Theme.Checkout'}</th>
           <th class="hidden-md-down">{l s='Payment' d='Shop.Theme.Checkout'}</th>
           <th class="hidden-md-down">{l s='Status' d='Shop.Theme.Checkout'}</th>
           <th>{l s='Invoice' d='Shop.Theme.Checkout'}</th>
@@ -50,6 +52,8 @@
             <th class="history_reference" scope="row">{$order.details.reference}</th>
             <td class="history_date">{$order.details.order_date}</td>
             <td class="history_price">{$order.totals.total.value}</td>
+            <td class="history_date">{$order.details.delivery_date}</td>
+            <td class="history_date">{$order.details.date_retour}</td>
             <td class="history_method">{$order.details.payment}</td>
             <td>
               <span
