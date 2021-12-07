@@ -110,6 +110,30 @@ class OrderDetailLazyArray extends AbstractLazyArray
      * @arrayAccess
      *
      * @return string
+     *
+     * @throws PrestaShopException
+     */
+    public function getDeliveryDate()
+    {
+        return Tools::displayDate($this->order->delivery_date, null, false);
+    }
+
+    /**
+     * @arrayAccess
+     *
+     * @return string
+     *
+     * @throws PrestaShopException
+     */
+    public function getDateRetour()
+    {
+        return Tools::displayDate($this->order->date_retour, null, false);
+    }
+
+    /**
+     * @arrayAccess
+     *
+     * @return string
      */
     public function getDetailsUrl()
     {
