@@ -12,6 +12,51 @@
     background-size: cover;
 }
 
+#contact #content-wrapper {
+    width: 100%;
+}
+
+#contact .title-contact {
+    text-align: center;
+    padding: 0;
+}
+
+#contact .contact-form {
+    font:  inherit;
+    width: 100%;
+    margin: 2em auto 4rem;
+    display: flex;
+    column-gap: 2rem;
+}
+
+#contact .contact-us-myabies {
+    padding : 0.25rem 3rem 2rem;
+    background-color: #f1f1f1;
+}
+
+#contact .form-group {
+    width: 80%;
+    margin: 2.5rem auto;
+}
+
+#contact .form-group>input, #contact .form-group>select, #contact .form-group>textarea{
+    border: none;
+    border-bottom: 2px solid #999999d4;
+}
+
+#contact .form-footer {
+    margin-left: 13%;
+}
+
+#contact .contact-submit {
+    padding: 2rem 3rem;
+    background-color: #5da255!important;
+    color: #c9d8c5!important;
+    font-size: 100%!important;
+    font-weight: 700!important;
+    font-family: -apple-system,sans-serif!important;
+}
+
 .sf-menu > li > a {
     font: normal normal bold 18px/18px Montserrat;
     letter-spacing: 0.93px;
@@ -167,10 +212,6 @@
     background-color: inherit;
 }
 
-.page-contact textarea.form-control {
-    width: 65%;
-}
-
 .page-contact .input-group .input-group-btn>.btn{
     padding: 1.5rem 0.75rem;
     border-radius: 0.125rem;
@@ -186,6 +227,21 @@
     letter-spacing: 0px;
     color: #193128;
     text-transform: uppercase;
+}
+
+.cms-id-22 .footerdot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+}
+
+.cms-id-22 .active, .cms-id-22 .footerdot:hover {
+    background-color: #193128;
 }
 
 .cms-id-22 .slide-multi {
@@ -1150,6 +1206,29 @@ textarea {
     #authentication .btn-primary {
         margin-left: 65%;
     }
+}
+
+@media (max-width: 560px) {
+    #contact .contact-form {
+        margin: 2em auto;
+        display: block;
+    }
+
+    .row.container-contact {
+        width: 100%;
+        margin: 0;
+    }
+
+    #contact .contact-us-myabies {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    #contact .form-footer {
+        margin-left: 0;
+    }
+
 }
 
 @media (max-width: 677px) {
