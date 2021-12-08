@@ -236,88 +236,37 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
      */
     protected function getTailleDisponible($npa, $type)
     {
-        $warehouse   = Db::getInstance()->getValue(SqlRequete::getSqlEntrepotByNPA($npa));
+        $warehouse = Db::getInstance()->getValue(SqlRequete::getSqlEntrepotByNPA($npa));
 
-        if (!$warehouse) $warehouse = 1;
+        if (!$warehouse) {
+            $warehouse = 1;
+        }
 
-        $queryResult = $this->requete($npa);
-        $result      = array();
+        $result = [];
+        $products = $this->getProductsByTypeAndWarehouse($type, $warehouse);
 
-        foreach ($queryResult as $value) {
-            if (!in_array($value['id'], $this->id_attributeRemoved)) {
-                $product  = [];
-
-                if ($warehouse == 32) { // Paris exception
-                    switch ($value['id']) {
-                        case 12:
-                            $product = $this->getProductByProductAttId(123, 12243, $type, $warehouse);
-                            break;
-                        case 14:
-                            $product = $this->getProductByProductAttId(123, 12244, $type, $warehouse);
-                            break;
-                        case 20:
-                            $product = $this->getProductByProductAttId(123, 12245, $type, $warehouse);
-                            break;
-                    }
-                } else {
-                    switch ($value['id']) {
-                        case 12:
-                            $product = $this->getProductByProductAttId(54, 1394, $type, $warehouse);
-                            break;
-                        case 14:
-                            $product = $this->getProductByProductAttId(54, 1396, $type, $warehouse);
-                            break;
-                        case 17:
-                            $product = $this->getProductByProductAttId(65, 1550, $type, $warehouse);
-                            break;
-                        case 20:
-                            $product = $this->getProductByProductAttId(54, 1402, $type, $warehouse);
-                            break;
-                        case 70:
-                            $product = $this->getProductByProductAttId(65, 1551, $type, $warehouse);
-                            break;
-                        case 71:
-                            $product = $this->getProductByProductAttId(65, 1552, $type, $warehouse);
-                            break;
-                        case 880:
-                            $product = $this->getProductByProductAttId(3, 7264, $type, $warehouse);
-                            break;
-                        case 2113:
-                            $product = $this->getProductByProductAttId(65, 9337, $type, $warehouse);
-                            break;
-                        case 2618:
-                            $product = $this->getProductByProductAttId(65, 10573, $type, $warehouse);
-                            break;
-                        case 2619:
-                            $product = $this->getProductByProductAttId(65, 10572, $type, $warehouse);
-                            break;
-                        case 2620:
-                            $product = $this->getProductByProductAttId(65, 10571, $type, $warehouse);
-                            break;
-                    }
-                }
-
-                if (count($product)) {
-                    $product  = $product[0];
-                    $name     = explode("cm", $product["name"]);
-
-                    if ($warehouse == 32) { // Paris exception
-                        $price = number_format(round($product["price"], 2), 2);
-                    } else {
-                        $price = number_format(round(Product::getPriceStatic($product["id_product"], true, $product['id_product_attribute']), 2), 2);
-                    }
-
-                    $result[] = array(
-                        'id'       => $product["id_attribute"],
-                        'price'    => $price,
-                        'name'     => (count($name) == 2? $name[0] . " cm": $value["name"]),
-                        'type'     => (count($name) == 2? $name[1]: ""),
-                        "enpot"    => in_array($value['id'], SqlRequete::$idAttrTailleSapinEnPot),
-                        'image'    => $this->getImageByAttribute($product["id_attribute"]),
-                        'quantity' => $product["quantity"],
-                    );
-                }
+        foreach ($products as $product) {
+            if (in_array($product['id_attribute'], $this->id_attributeRemoved)) {
+                continue;
             }
+
+            $name = explode('cm', $product['name']);
+
+            if ($warehouse == 32) { // Paris exception
+                $price = number_format(round($product['price'], 2), 2);
+            } else {
+                $price = number_format(round(Product::getPriceStatic($product['id_product'], true, $product['id_product_attribute']), 2), 2);
+            }
+
+            $result[] = array(
+                'id' => $product['id_attribute'],
+                'price' => $price,
+                'name' => (count($name) == 2 ? $name[0] . ' cm' : $product['name']),
+                'type' => (count($name) == 2 ? $name[1] : ''),
+                'enpot' => in_array($product['id_attribute'], SqlRequete::$idAttrTailleSapinEnPot),
+                'image' => $this->getImageByAttribute($product['id_attribute']),
+                'quantity' => $product['quantity'],
+            );
         }
 
         return array_unique($result, SORT_REGULAR);
@@ -367,6 +316,25 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
                 AND p.id_category_default = $type 
                 AND id_lang = $this->id_lang 
                 AND p.active = 1";
+
+        return Db::getInstance()->executeS($sql);
+    }
+
+    public function getProductsByTypeAndWarehouse($type, $id_warehouse = 1)
+    {
+        $sql = "SELECT p.id_product,p.id_category_default,pattr.id_product_attribute,attrl.id_attribute,attrl.name,stk.usable_quantity as quantity, pattr.price 
+                FROM ps_product_attribute_combination atc
+                JOIN ps_product_attribute pattr ON pattr.id_product_attribute = atc.id_product_attribute
+                JOIN ps_warehouse_product_location wpl ON pattr.id_product_attribute = wpl.id_product_attribute
+                JOIN ps_stock stk ON wpl.id_warehouse = stk.id_warehouse AND wpl.id_product_attribute = stk.id_product_attribute
+                JOIN ps_product p ON p.id_product = pattr.id_product
+                JOIN ps_attribute attr ON attr.id_attribute = atc.id_attribute
+                JOIN ps_attribute_lang attrl ON attrl.id_attribute = atc.id_attribute
+                AND stk.id_warehouse = $id_warehouse
+                AND p.id_category_default = $type 
+                AND id_lang = $this->id_lang 
+                AND p.active = 1
+                ORDER BY attr.position";
 
         return Db::getInstance()->executeS($sql);
     }
