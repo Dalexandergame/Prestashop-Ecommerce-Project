@@ -279,6 +279,7 @@ FROM " . _DB_PREFIX_ . "product_attribute_combination atc
     public function getImageByAttribute($idAttribute)
     {
         switch ($idAttribute) {
+            case 3555:
             case 12:
                 return 'en-pot2.jpg';
             case 14:

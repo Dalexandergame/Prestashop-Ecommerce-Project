@@ -2,8 +2,8 @@
 
 class SqlRequete
 {
-    public static $idAttrTailleSapin      = array(12, 14, 17, 20, 70, 71, 880, 2113, 2618, 2619, 2620);
-    public static $idAttrTailleSapinEnPot = array(12, 14, 20, 880);
+    public static $idAttrTailleSapin      = array(12, 14, 17, 20, 70, 71, 880, 2113, 2618, 2619, 2620, 3555);
+    public static $idAttrTailleSapinEnPot = array(12, 14, 20, 880, 3555);
 
     /**
      *  get ids & name attribute taille dispo
