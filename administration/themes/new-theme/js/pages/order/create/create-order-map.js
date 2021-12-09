@@ -135,6 +135,12 @@ export default {
   isAGiftSwitchValue: '.js-is-gift-switch:checked',
   giftMessageField: '#cart_gift_message',
 
+  // selectors related to planning delivery block
+  planningDeliveryBlock: '#planning-delivery-block',
+  planningDeliveryForm: '.js-planning-delivery-form',
+  planningDeliveryOption: '#planning-delivery-option',
+
+
   // selectors related to cart block
   cartBlock: '#cart-block',
   cartCurrencySelect: '#js-cart-currency-select',

@@ -26,6 +26,7 @@
 import createOrderMap from './create-order-map';
 import CustomerManager from './customer-manager';
 import ShippingRenderer from './shipping-renderer';
+import PlanningDeliveryRenderer from './planning-delivery-renderer';
 import CartProvider from './cart-provider';
 import AddressesRenderer from './addresses-renderer';
 import CartRulesRenderer from './cart-rules-renderer';
@@ -54,6 +55,7 @@ export default class CreateOrderPage {
     this.cartProvider = new CartProvider();
     this.customerManager = new CustomerManager();
     this.shippingRenderer = new ShippingRenderer();
+    this.planningDeliveryRenderer = new PlanningDeliveryRenderer();
     this.addressesRenderer = new AddressesRenderer();
     this.cartRulesRenderer = new CartRulesRenderer();
     this.router = new Router();
@@ -540,6 +542,7 @@ export default class CreateOrderPage {
     this.addressesRenderer.render(cartInfo.addresses, cartInfo.cartId);
     this.cartRulesRenderer.renderCartRulesBlock(cartInfo.cartRules, cartInfo.products.length === 0);
     this.shippingRenderer.render(cartInfo.shipping, cartInfo.products.length === 0);
+    this.planningDeliveryRenderer.renderPlanningDelivery();
     this.productRenderer.cleanCartBlockAlerts();
     this.productRenderer.renderList(cartInfo.products);
     this.summaryRenderer.render(cartInfo);

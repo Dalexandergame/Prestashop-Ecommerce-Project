@@ -261,9 +261,9 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
         $this->_join  .= ' JOIN ' . _DB_PREFIX_ . 'carrier ca ON (ca.id_carrier = a.id_carrier)'
                          . ' LEFT JOIN ' . _DB_PREFIX_ . 'carrier car ON (car.id_carrier = a.id_carrier_retour)'
-                         . ' LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (a.id_order = o.id_order AND o.current_state NOT IN (6)) '
+                         . ' LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (a.id_order = o.id_order)'
                          . ' LEFT JOIN ' . _DB_PREFIX_ . 'address adr ON (adr.id_address = o.id_address_delivery) ';
-        $this->_where = 'AND (datediff(a.date_delivery,"' . $this->dateLivraison . '")=0 OR datediff(a.date_retour,"' . $this->dateLivraison . '")=0) AND ';
+        $this->_where = 'AND (datediff(a.date_delivery,"' . $this->dateLivraison . '")=0 OR datediff(a.date_retour,"' . $this->dateLivraison . '")=0) AND o.current_state NOT IN (6) AND ';
         if ($this->warehouse_selected[0] == $this->id_carrier_post . "_p") {
             $this->_where .= ' a.id_carrier = ' . $this->id_carrier_post;
         } else {
@@ -945,7 +945,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
     {
         $w = "(" . implode(",", $this->warehouse_selected) . ")";
 
-        $where = "WHERE (datediff(so.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(so.date_retour,'" . $this->dateLivraison . "')=0) "
+        $where = "WHERE (datediff(so.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(so.date_retour,'" . $this->dateLivraison . "')=0) AND o.current_state NOT IN (6) "
                  . "AND so.id_warehouse IN " . $w . " "
                  . "AND so.id_carrier != $this->id_carrier_post ";
 
@@ -957,6 +957,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
                     FROM " . _DB_PREFIX_ . "suivi_orders as so
                     LEFT JOIN " . _DB_PREFIX_ . "suivi_orders_carrier soc ON (soc.id_carrier = so.id_carrier and datediff(soc.date_delivery,'" . $this->dateLivraison . "')=0)
                     LEFT JOIN " . _DB_PREFIX_ . "suivi_orders_carrier socr ON (socr.id_carrier = so.id_carrier_retour and datediff(socr.date_delivery,'" . $this->dateLivraison . "')=0)
+                    LEFT JOIN " . _DB_PREFIX_ . "orders o ON (so.id_order = o.id_order) 
                     JOIN " . _DB_PREFIX_ . "carrier as ca ON (ca.id_carrier = so.id_carrier)
                     JOIN " . _DB_PREFIX_ . "carrier as car ON (car.id_carrier = so.id_carrier_retour) " . $where . "
                     GROUP BY IF( datediff(so.date_delivery,'" . $this->dateLivraison . "')=0, so.id_carrier, so.id_carrier_retour) ";
