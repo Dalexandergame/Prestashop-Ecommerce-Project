@@ -215,6 +215,8 @@ class AdminSuiviCommandesController extends ModuleAdminController
                 } else {
                     $this->importCommandesPoste();
                 }
+                // fix early returns position
+                Db::getInstance()->execute("update ps_suivi_orders set position_retour = position where date_retour between current_date() and '$dateRetourStart'");
             } else if (Tools::isSubmit('submitMaj')) $this->majCommandes();
             else if (Tools::isSubmit('ordonnerOSM')) $this->ordonnerOSM();
         }
