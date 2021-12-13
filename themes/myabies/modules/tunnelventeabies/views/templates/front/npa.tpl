@@ -111,6 +111,13 @@
                                 }
                                 $me.removeClass(classe);
                                 $("body").css("cursor", "default");
+                            },
+                            error: function(res) {
+                                $me.removeClass(classe);
+                                $("body").css("cursor", "default");
+                                $.each(res.responseJSON.errors, function (k, v) {
+                                    showError(v);
+                                });
                             }
                         });
                     } catch (e) {
