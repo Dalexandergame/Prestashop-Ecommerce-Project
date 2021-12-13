@@ -28,6 +28,12 @@
   {$cms.meta_title}
 {/block}
 
+{literal}
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+{/literal}
+
 {block name='page_content_container'}
   <section id="content" class="page-content page-cms page-cms-{$cms.id}">
 
