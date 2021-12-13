@@ -968,7 +968,7 @@ textarea {
     user-focus: none;
 }
 
-#history .row {
+#history #page .row {
     padding: 0 60px;
 }
 
