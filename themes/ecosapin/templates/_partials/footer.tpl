@@ -44,7 +44,8 @@
       </div>
       <div class="logo_paiement">
         {*<img src="{$urls.img_url}icon-carte-bancaire.png" alt="logo paiement" />*}
-        <img src="{$urls.img_url}icon-carte-bancaire.png" alt="logo paiement" />
+        <img class="mr-2" src="{$urls.img_url}icon-carte-bancaire.png" alt="logo paiement" />
+        {if $shop.id !== 2}<img src="{$urls.img_url}icon-carte-twint.png" height="36px" width="135px"  alt="logo paiement" />{/if}
         <p>Webdesign & development by <a href="//pulse.digital/">pulse.digital</a>
         </p>
       </div>
