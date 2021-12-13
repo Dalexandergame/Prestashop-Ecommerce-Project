@@ -271,7 +271,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
         $sql = "SELECT SUM(od.product_quantity) as qty_delivered
                 FROM " . _DB_PREFIX_ . "orders as o
                 JOIN " . _DB_PREFIX_ . "order_detail as od ON o.id_order = od.id_order
-                LEFT JOIN " . _DB_PREFIX_ . "product_attribute_combination as pac ON od.product_attribute_id = pac.id_product_attribute
+                LEFT JOIN " . _DB_PREFIX_ . "warehouse_carrier as wc on wc.id_carrier = o.id_carrier
                 WHERE od.product_id = $idProduct ";
         if ($idProductAttribute != NULL) {
             $sql .= " AND od.product_attribute_id = $idProductAttribute ";
@@ -280,7 +280,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
         $sql .= " AND o.date_add between '$this->date_activity_start' and '$this->date_activity_end'";
 
         if (isset($idWarehouse))
-            $sql .= " AND od.id_warehouse = $idWarehouse";
+            $sql .= " AND wc.id_warehouse = $idWarehouse";
 
         $result = Db::getInstance()->executeS($sql);
         return count($result) ? (int) $result[0]["qty_delivered"] : 0;
