@@ -113,7 +113,7 @@
               </div>
               <div class="titles-header profil-details3" style="display: none">
                   <h2 class="title-header">{l s='Agriculteur'} </h2>
-                  <p class="text-header">{l s='Nicolas Dolder'}
+                  <p class="text-header">{l s='Bernard Frey'}
                   </p>
               </div>
               <div class="titles-header profil-details4" style="display: none">

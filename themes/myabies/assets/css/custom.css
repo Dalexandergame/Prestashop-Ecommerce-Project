@@ -968,6 +968,10 @@ textarea {
     user-focus: none;
 }
 
+#history #page .row {
+    padding: 0 60px;
+}
+
 @media (min-width: 600px) {
     .gallery-responsive-3 {
         display: grid;
