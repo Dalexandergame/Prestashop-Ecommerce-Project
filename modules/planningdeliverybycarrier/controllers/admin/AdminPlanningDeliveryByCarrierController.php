@@ -383,7 +383,7 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
 			WHERE oh.`id_order_history` = (SELECT MAX(`id_order_history`)
 			FROM `'._DB_PREFIX_.'order_history` moh WHERE moh.`id_order` = a.`id_order` GROUP BY moh.`id_order`)
 			AND os.`id_order_state` NOT IN ('.Configuration::get('PLANNING_DELIVERY_UNAV_OSS').')
-			AND '.$date_depart.' = '.($this->dateLivraison? '"'.$this->dateLivraison.'"':'CURDATE()').'
+			AND DATE(pd.date_delivery) = '.($this->dateLivraison? '"'.$this->dateLivraison.'"':'CURDATE()').'
                             '.((!is_null( $this->carrier_selected ) &&  (int) $this->carrier_selected > 0 ) ? ' AND a.`id_carrier` = '.(int)$this->carrier_selected.' ': '' )
             .' 
 			ORDER BY `date_delivery` ASC ');

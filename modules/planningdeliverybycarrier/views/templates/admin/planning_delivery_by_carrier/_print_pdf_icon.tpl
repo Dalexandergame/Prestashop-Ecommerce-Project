@@ -37,7 +37,7 @@ mark & Property of PrestaShop SA
 {* Generate HTML code for printing Delivery Icon with link *}
 <span style="width:20px;">
 {if ($order_state->delivery || $order->delivery_number)}
-	<a target="_blank" href="{$link->getAdminLink('AdminPdf')|escape:'htmlall':'UTF-8'}&submitAction=generateDeliverySlipPDF&id_order={$order->id}"><img src="{$urls.img_ps_url}admin/delivery.gif" alt="delivery" /></a>
+	<a target="_blank" href="{$link->getAdminLink('AdminPdf')|escape:'htmlall':'UTF-8'}&submitAction=generateDeliverySlipPDF&id_order={$order->id}"><img src="/img/admin/delivery.gif" alt="delivery" /></a>
 {/if}
 </span>
 <span style="width:20px;">
