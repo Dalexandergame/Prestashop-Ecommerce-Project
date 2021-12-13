@@ -229,26 +229,6 @@
     text-transform: uppercase;
 }
 
-.cms-id-22 .footerdot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbbbbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.5s ease;
-}
-
-.cms-id-22 .active, .cms-id-22 .footerdot:hover {
-    background-color: #193128;
-}
-
-.cms-id-22 .slide-multi {
-    width: 50%;
-    margin: 0 25%;
-}
-
 .cms-id-22 .portfolio_slider {
     margin-top: 0;
 }
@@ -966,6 +946,33 @@ textarea {
     font-size: 11px;
     text-align: center;
     margin-bottom: 25px;
+}
+
+.slick-dots {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.slick-dots > li > button {
+    border-radius: 50%;
+    background: hsla(0, 0%, 100%, .22);
+    color: hsla(0, 0%, 100%, 0);
+    margin-right: 0.5rem;
+}
+
+.slick-dots > .slick-active > button {
+    border-radius: 50%;
+    background: #193128;
+    color: #193128;
+    user-focus: none;
+}
+
+@media (min-width: 600px) {
+    .gallery-responsive-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 @media (max-width : 449px) {
