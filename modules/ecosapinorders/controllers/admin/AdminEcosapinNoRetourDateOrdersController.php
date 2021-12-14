@@ -29,6 +29,7 @@ class AdminEcosapinNoRetourDateOrdersController extends ModuleAdminController
         $this->_select = '
 		a.id_currency,
 		a.id_order AS id_pdf,
+		(SELECT name FROM ps_carrier WHERE id_carrier = a.id_carrier) AS transporteur,
 		IF(YEAR(pdc.date_retour) = 0 , "aucune" , pdc.date_retour) as "retour_date",
 		CONCAT(LEFT(c.`firstname`, 1), \'. \', c.`lastname`) AS `customer`,
 		osl.`name` AS `osname`,
@@ -67,6 +68,10 @@ class AdminEcosapinNoRetourDateOrdersController extends ModuleAdminController
             ),
             'customer'=> array(
                 'title'        => $this->l('Customer'),
+                'havingFilter' => true,
+            ),
+            'transporteur'=> array(
+                'title'        => $this->l('Transporteur'),
                 'havingFilter' => true,
             ),
             'total_paid_tax_incl' => array(
