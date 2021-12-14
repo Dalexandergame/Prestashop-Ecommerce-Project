@@ -1278,6 +1278,7 @@ class CartRuleCore extends ObjectModel
                             } else {
                                 $max_reduction_amount = (int) $product['cart_quantity'] * (float) $product['price'];
                             }
+                            $reduction_amount *= (int) $product['cart_quantity'];
                             $reduction_amount = min($reduction_amount, $max_reduction_amount);
                             break;
                         }

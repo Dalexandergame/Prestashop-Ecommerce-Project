@@ -194,11 +194,13 @@ class CartRuleCalculator
         //                weight factor got from price with same tax (incl/excl) as voucher
         if ((float) $cartRule->reduction_amount > 0) {
             $concernedRows = new CartRowCollection();
+            $discountQuantity = 1;
             if ($cartRule->reduction_product > 0) {
                 // discount on single product
                 foreach ($this->cartRows as $cartRow) {
                     if ($cartRow->getRowData()['id_product'] == $cartRule->reduction_product) {
                         $concernedRows->addCartRow($cartRow);
+                        $discountQuantity = $cartRow->getRowData()['quantity'];
                     }
                 }
             } elseif ($cartRule->reduction_product == 0) {
@@ -214,7 +216,7 @@ class CartRuleCalculator
 
             // currency conversion
             $discountConverted = $this->convertAmountBetweenCurrencies(
-                $cartRule->reduction_amount,
+                $cartRule->reduction_amount * $discountQuantity,
                 new \Currency($cartRule->reduction_currency),
                 new \Currency($cart->id_currency)
             );
