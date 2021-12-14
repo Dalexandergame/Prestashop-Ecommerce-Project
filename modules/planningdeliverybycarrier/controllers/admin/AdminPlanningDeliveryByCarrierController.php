@@ -79,7 +79,7 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
 
         }
         $this->_where = '
-		AND os.`id_order_state` NOT IN (' . Configuration::get('PLANNING_DELIVERY_UNAV_OSS') . ')
+		AND os.`id_order_state` NOT IN (0, 6, 7, 8, 9)
                 AND ca.`id_carrier` = ' . $id_carrier .' AND DATE(pd.date_delivery) = ' . ($this->dateLivraison ? '"' . $this->dateLivraison . '"' : 'CURDATE()') . '
                 ';
         $this->_where .= ' AND a.reference NOT IN (select o.reference from ps_orders o join ps_order_detail od on od.id_order = o.id_order join ps_pm_advancedpack_products app on app.id_product = od.product_id and app.id_pack = 93)';
@@ -382,7 +382,7 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
 			LEFT JOIN `'._DB_PREFIX_.'carrier` ca ON (a.`id_carrier` = ca.`id_carrier`)
 			WHERE oh.`id_order_history` = (SELECT MAX(`id_order_history`)
 			FROM `'._DB_PREFIX_.'order_history` moh WHERE moh.`id_order` = a.`id_order` GROUP BY moh.`id_order`)
-			AND os.`id_order_state` NOT IN ('.Configuration::get('PLANNING_DELIVERY_UNAV_OSS').')
+			AND os.`id_order_state` NOT IN (0, 6, 7, 8, 9)
 			AND DATE(pd.date_delivery) = '.($this->dateLivraison? '"'.$this->dateLivraison.'"':'CURDATE()').'
                             '.((!is_null( $this->carrier_selected ) &&  (int) $this->carrier_selected > 0 ) ? ' AND a.`id_carrier` = '.(int)$this->carrier_selected.' ': '' )
             .' 
@@ -426,7 +426,7 @@ class AdminPlanningDeliveryByCarrierController extends ModuleAdminController
 			LEFT JOIN `'._DB_PREFIX_.'carrier` ca ON (a.`id_carrier` = ca.`id_carrier`)
 			WHERE oh.`id_order_history` = (SELECT MAX(`id_order_history`)
 			FROM `'._DB_PREFIX_.'order_history` moh WHERE moh.`id_order` = a.`id_order` GROUP BY moh.`id_order`)
-			AND os.`id_order_state` NOT IN ('.Configuration::get('PLANNING_DELIVERY_UNAV_OSS').')
+			AND os.`id_order_state` NOT IN (0, 6, 7, 8, 9)
 			AND '.$date_depart.' = CURDATE()
                         '.((!is_null( $carrier_selected ) &&  $carrier_selected > 0 ) ? ' AND a.`id_carrier` = '.$carrier_selected.' ': '' )
             .' 

@@ -29,8 +29,8 @@ class AdminCustomersFilterController extends ModuleAdminController
         $this->context = Context::getContext();
 
 
-       // $this->_join = "LEFT JOIN ps_address c on a.id_customer = c.id_customer ";
-       // $this->_join .= "LEFT JOIN ps_orders o on o.id_address_delivery = c.id_address"; 
+        $this->_join = "LEFT JOIN ps_address c on a.id_customer = c.id_customer ";
+        $this->_join .= "LEFT JOIN ps_orders o on o.id_address_delivery = c.id_address";
 
       $this->_use_found_rows = true;
 
@@ -43,32 +43,32 @@ class AdminCustomersFilterController extends ModuleAdminController
             ),
             'firstname'   => array(
                 'title'      => $this->l('Firstname'),
-               // 'filter_key' => 'c.firstname'
+                'filter_key' => 'c!firstname'
             ),
             'lastname'    => array(
                 'title'      => $this->l('Lastname'),
-                //'filter_key' => 'c.lastname'
+                'filter_key' => 'c!lastname'
             ),
             'email'       => array(
                 'title'      => $this->l('Email'),
-               // 'filter_key' => 'a.email'
+                'filter_key' => 'a!email'
             ),
-            /*'postcode'    => array(
+            'postcode'    => array(
                 'title'      => $this->l('NPA/CP'),
-              //  'filter_key' => 'c.postcode'
+                'filter_key' => 'c!postcode'
             ),
             'address1'    => array(
                 'title'      => $this->l('Address 1'),
-               // 'filter_key' => 'c.address1'
+                'filter_key' => 'c!address1'
             ),
             'address2'    => array(
                 'title'      => $this->l('Address 2'),
-               // 'filter_key' => 'c.address2'
+                'filter_key' => 'c!address2'
             ),
             'phone'       => array(
                 'title'      => $this->l('Phone'),
-                'filter_key' => 'c.phone'
-            )*/
+                'filter_key' => 'c!phone'
+            )
         );
 
        $this->fields_form = array(
@@ -121,16 +121,16 @@ class AdminCustomersFilterController extends ModuleAdminController
     }
 
     public function displayAfficherLink($token, $id){
-        $order = new Order($id);
+        $customer = new Customer($id);
         $token = Tools::getAdminTokenLite('AdminCustomers');
-        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "administration/index.php?controller=AdminCustomers&id_customer={$order->id_customer}&viewcustomer&token=$token";
+        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "administration/index.php?controller=AdminCustomers&id_customer={$customer->id}&viewcustomer&token=$token";
         return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> ".$this->l("Details")."</a>";
     }
 
-    public function displayOrderLink($token, $id)
+    /*public function displayOrderLink($token, $id)
     {
         $token = Tools::getAdminTokenLite('AdminOrders');
         $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "administration/index.php?controller=AdminOrders&id_order=$id&vieworder&token=$token";
         return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> " . $this->l("Commande") . "</a>";
-    }
+    }*/
 }

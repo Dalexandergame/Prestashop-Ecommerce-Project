@@ -56,6 +56,12 @@
           <div class="row">
             <div class="cart-grid-body col-xs-12 col-lg-12">
 
+              {block name='continue_shopping'}
+                <a class="btn btn-primary" style="margin-bottom: 10px; color: white;" href="{$urls.base_url}panier?action=show">
+                  <i class="material-icons">chevron_left</i>{l s='Delete my products' d='Shop.Theme.Actions'}
+                </a>
+              {/block}
+
               {block name='cart_summary'}
                 {include file='checkout/_partials/cart-summary.tpl' cart = $cart}
               {/block}

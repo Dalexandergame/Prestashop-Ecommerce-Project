@@ -587,8 +587,8 @@ abstract class PaymentModuleCore extends Module
                         $carrier = $order->id_carrier ? new Carrier($order->id_carrier) : false;
 
                         $date_retour =  Db::getInstance()->getRow('SELECT pd.`date_retour` FROM `' . _DB_PREFIX_ . 'planning_delivery_carrier` pd WHERE pd.`id_cart` = ' . (int) ($this->context->cart->id));
-                        $date_retour = new DateTime($date_retour['date_retour']);
-                        $date_delivery = new DateTime($orderData['order']->delivery_date);
+                        $date_retour = Validate::isDate($date_retour['date_retour']) ? $date_retour['date_retour'] : "";
+                        $date_delivery = Validate::isDate($orderData['order']->delivery_date) ? $orderData['order']->delivery_date : "";
                         $return_date = $date_retour->format('d/m/Y');
                         $delivery_date = $date_delivery->format('d/m/Y');
 
@@ -611,8 +611,8 @@ abstract class PaymentModuleCore extends Module
                             '{delivery_lastname}' => $delivery->lastname,
                             '{delivery_address1}' => $delivery->address1,
                             '{delivery_address2}' => $delivery->address2,
-                            '{delivery_date}' => Validate::isDate($delivery_date) ? $delivery_date : "",
-                            '{return_date}' => Validate::isDate($return_date) ? $return_date : "",
+                            '{delivery_date}' => $delivery_date,
+                            '{return_date}' => $return_date,
                             '{delivery_city}' => $delivery->city,
                             '{delivery_postal_code}' => $delivery->postcode,
                             '{delivery_country}' => $delivery->country,
