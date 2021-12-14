@@ -33,7 +33,7 @@ class AdminEcosapinNoWarehouseOrdersController extends ModuleAdminController{
 		country_lang.name as cname,
 		IF(a.valid, 1, 0) badge_success';
 
-        $this->_where  = ' = 0 OR od.id_warehouse = 0';
+        $this->_where  = ' AND od.id_warehouse = 0';
 
         $this->_join = '
 		LEFT JOIN `'._DB_PREFIX_.'customer` c ON (c.`id_customer` = a.`id_customer`)
