@@ -72,6 +72,7 @@ class PlanningDeliveryByCarrier extends Module
             || !$this->registerHook('displayPDFDeliverySlip')
             || !$this->registerHook('backOfficeHeader')
             || !$this->registerHook('displayAdminOrder')
+            || !$this->registerHook('actionValidateOrder')
             || !$this->registerHook('displayAdminHomeStatistics')
             || ($this->checkVersion() > '1.5' && !$this->registerHook('dashboardZoneTwo'))
             || !$this->registerHook('export')
@@ -946,6 +947,38 @@ class PlanningDeliveryByCarrier extends Module
                // $this->context->controller->step = 2;
                 $this->smarty->assign('pderrors', $errors);
             }
+        }
+    }
+
+    public function hookActionValidateOrder($params)
+    {
+        $carriers_ids      = array();
+        $sql               = 'SELECT `id_carrier` FROM `' . _DB_PREFIX_ . 'orders` WHERE `id_order` = ' . $params['order']->id;
+        $result            = Db::getInstance()->getRow($sql);
+        $id_carrier        = $result['id_carrier'];
+        $date_delivery = Tools::getValue('planning-delivery-date');
+        $date_retour = Tools::getValue('planning-return-date');
+        $availableCarriers = explode(', ', Configuration::get('PLANNING_DELIVERY_CARRIERS'));
+        foreach ($availableCarriers as $carrier) {
+            $carriers_ids[] = $carrier;
+        }
+
+        if (in_array($id_carrier, $carriers_ids)) {
+
+            $result = Db::getInstance()->getRow('
+                        SELECT pd.`id_planning_delivery_carrier` as id_planning FROM `' . _DB_PREFIX_ . 'planning_delivery_carrier` pd WHERE pd.`id_cart` = ' . (int) $params['cart']->id
+            )
+            ;
+
+            $planning_delivery = (!$result) ? new PlanningDeliveriesByCarrier() : new PlanningDeliveriesByCarrier((int) ($result['id_planning']));
+
+            $planning_delivery->id_cart  = (int) $params['cart']->id;
+            $planning_delivery->id_order = (int) $params['order']->id;
+            $planning_delivery->id_planning_delivery_carrier_slot = 0;
+            $planning_delivery->date_delivery = $date_delivery;
+            $planning_delivery->date_retour = $date_retour;
+
+            (!$result) ? $planning_delivery->add() : $planning_delivery->update();
         }
     }
 
