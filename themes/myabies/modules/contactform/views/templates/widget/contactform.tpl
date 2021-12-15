@@ -127,10 +127,17 @@
     <h2 class="title-contact">{l s="Find us" d='Modules.ContactForm.Shop'}</h2>
     <div class="col-md-12">
       <div class="bl_right">
-        <p class="font-serif-text text-contact"><span class="text-tel-mail">+41 21 539 13 14</span><br /><span class="text-tel-mail">info@myabies.ch</span></p>
+        <p class="font-serif-text text-contact">
+          <span class="text-tel-mail">{l s="+41 21 539 18 13" mod='ps_contactinfo'}</span><br />
+          <span class="text-tel-mail">{l s="info@myabies.ch" mod='ps_contactinfo'}</span></p>
       </div>
       <div class="mt-3">
-        <p class="font-serif-text text-contact"><span class="text-address">My Abies</span><br /><span class="text-address">Chemin du Vieux Réservoir 7</span><br /><span class="text-address">1116 Cottens</span><br /><span class="text-address">Suisse</span></p>
+        <p class="font-serif-text text-contact">
+          <span class="text-address">{l s="My Abies" mod='ps_contactinfo'}</span><br />
+          <span class="text-address">{l s="Chemin du Vieux Réservoir 7" mod='ps_contactinfo'}</span><br />
+          <span class="text-address">{l s="1116 Cottens" mod='ps_contactinfo'}</span><br />
+          <span class="text-address">{l s="Suisse" mod='ps_contactinfo'}</span>
+        </p>
       </div>
     </div>
   </div>
