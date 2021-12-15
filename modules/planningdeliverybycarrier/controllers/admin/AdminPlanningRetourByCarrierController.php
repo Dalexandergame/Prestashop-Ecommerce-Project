@@ -356,6 +356,7 @@ class AdminPlanningRetourByCarrierController extends ModuleAdminController
 			WHERE oh.`id_order_history` = (SELECT MAX(`id_order_history`)
 			FROM `'._DB_PREFIX_.'order_history` moh WHERE moh.`id_order` = a.`id_order` GROUP BY moh.`id_order`)
 			AND os.`id_order_state` NOT IN ('.Configuration::get('PLANNING_DELIVERY_UNAV_OSS').')
+			AND a.`id_shop` = '.$this->context->shop->id.'
 			AND pd.date_retour = '.($this->dateRetour? '"'.$this->dateRetour.'"':'CURDATE()').'
                             '.((!is_null( $this->carrier_selected ) &&  (int) $this->carrier_selected > 0 ) ? ' AND a.`id_carrier` = '.(int)$this->carrier_selected.' ': '' )
                         .'

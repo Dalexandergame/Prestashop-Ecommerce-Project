@@ -587,10 +587,10 @@ abstract class PaymentModuleCore extends Module
                         $carrier = $order->id_carrier ? new Carrier($order->id_carrier) : false;
 
                         $date_retour =  Db::getInstance()->getRow('SELECT pd.`date_retour` FROM `' . _DB_PREFIX_ . 'planning_delivery_carrier` pd WHERE pd.`id_cart` = ' . (int) ($this->context->cart->id));
-                        $date_retour = Validate::isDate($date_retour['date_retour']) ? $date_retour['date_retour'] : "";
-                        $date_delivery = Validate::isDate($orderData['order']->delivery_date) ? $orderData['order']->delivery_date : "";
-                        $return_date = $date_retour->format('d/m/Y');
-                        $delivery_date = $date_delivery->format('d/m/Y');
+                        $date_delivery =  Db::getInstance()->getRow('SELECT pd.`date_delivery` FROM `' . _DB_PREFIX_ . 'planning_delivery_carrier` pd WHERE pd.`id_cart` = ' . (int) ($this->context->cart->id));
+
+                        $return_date = Validate::isDate($date_retour['date_retour']) ? date_format(date_create($date_retour['date_retour']),'d/m/Y') : "";
+                        $delivery_date = Validate::isDate($date_delivery['date_delivery']) ? date_format(date_create($date_delivery['date_delivery']),'d/m/Y') : "";
 
                         $data = [
                             '{firstname}' => $this->context->customer->firstname,
@@ -1053,10 +1053,8 @@ abstract class PaymentModuleCore extends Module
         $order->round_mode = Configuration::get('PS_PRICE_ROUND_MODE');
         $order->round_type = Configuration::get('PS_ROUND_TYPE');
 
-        $delivery_date =  Db::getInstance()->getRow('SELECT pd.`date_delivery` FROM `' . _DB_PREFIX_ . 'planning_delivery_carrier` pd WHERE pd.`id_cart` = ' . (int) ($cart->id));
-
         $order->invoice_date = '0000-00-00 00:00:00';
-        $order->delivery_date = $delivery_date['date_delivery']/*'0000-00-00 00:00:00'*/;
+        $order->delivery_date = '0000-00-00 00:00:00';
 
         if ($debug) {
             PrestaShopLogger::addLog('PaymentModule::validateOrder - Order is about to be added', 1, null, 'Cart', (int) $cart->id, true);
