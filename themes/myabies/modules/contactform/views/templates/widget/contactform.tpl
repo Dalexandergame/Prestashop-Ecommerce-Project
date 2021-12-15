@@ -129,7 +129,8 @@
       <div class="bl_right">
         <p class="font-serif-text text-contact">
           <span class="text-tel-mail">{l s="+41 21 539 18 13" mod='ps_contactinfo'}</span><br />
-          <span class="text-tel-mail">{l s="info@myabies.ch" mod='ps_contactinfo'}</span></p>
+          <span class="text-tel-mail">{l s="info@myabies.ch" mod='ps_contactinfo'}</span>
+        </p>
       </div>
       <div class="mt-3">
         <p class="font-serif-text text-contact">
