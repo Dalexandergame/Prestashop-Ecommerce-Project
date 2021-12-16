@@ -582,8 +582,16 @@ class AdminPlanningRetourByCarrierController extends ModuleAdminController
                 exit;
             }    
             if (!empty($message) && !empty($subject)) {
-                $headers = 'From: info@ecosapin.ch' . "\r\n" .
-                        'Reply-To: info@ecosapin.ch' . "\r\n";
+                if ($this->context->shop->id == 1) {
+                    $headers = 'From: contact@ecosapin.ch' . "\r\n" .
+                            'Reply-To: contact@ecosapin.ch' . "\r\n";
+                }elseif ($this->context->shop->id == 2) {
+                    $headers = 'From: contact@ecosapin.fr' . "\r\n" .
+                        'Reply-To: contact@ecosapin.fr' . "\r\n";
+                }else{
+                    $headers = 'From: info@myabies.ch' . "\r\n" .
+                        'Reply-To: info@myabies.ch' . "\r\n";
+                }
 
                 $request = "SELECT email FROM ps_orders po "
                         . "JOIN `ps_customer` pc ON po.`id_customer` = pc.`id_customer` "

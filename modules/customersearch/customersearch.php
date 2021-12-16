@@ -16,7 +16,7 @@ class CustomerSearch extends Module {
 
     public function install(){
         parent::install();
-        if (!$this->installTab('AdminCustomers', 'AdminCustomersFilter', $this->l("Filter Customers")))
+        if (!$this->installTab('AdminParentCustomer', 'AdminCustomersFilter', $this->l("Filter Customers")))
             return false;
 
         return true;
@@ -28,10 +28,10 @@ class CustomerSearch extends Module {
         return parent::uninstall();
     }
 
-    public function getContent()
+    /*public function getContent()
 	{
 		return $this->display(__FILE__, 'controllers/admin/AdminCustomersFilterController.php');
-	}
+	}*/
 
     /* Admin tabs*/
     public function installTab($parent, $class_name, $name)
