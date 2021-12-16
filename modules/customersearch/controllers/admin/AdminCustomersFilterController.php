@@ -41,6 +41,12 @@ class AdminCustomersFilterController extends ModuleAdminController
                 'class'      => 'fixed-width-xs',
                // 'filter_key' => 'o.id_order'
             ),
+            'name' => array(
+                'title'      => $this->l('ID Order'),
+                'align'      => 'text-center',
+                'class'      => 'fixed-width-xs',
+                'filter_key' => 'o!id_order'
+            ),
             'firstname'   => array(
                 'title'      => $this->l('Firstname'),
                 'filter_key' => 'c!firstname'
@@ -127,10 +133,11 @@ class AdminCustomersFilterController extends ModuleAdminController
         return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> ".$this->l("Details")."</a>";
     }
 
-    /*public function displayOrderLink($token, $id)
+    public function displayOrderLink($token, $id, $name)
     {
+        $order = new Order($name);
         $token = Tools::getAdminTokenLite('AdminOrders');
-        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "administration/index.php?controller=AdminOrders&id_order=$id&vieworder&token=$token";
+        $link  = _PS_BASE_URL_ . __PS_BASE_URI__ . "administration/index.php?controller=AdminOrders&id_order={$order->id}&vieworder&token=$token";
         return "<a class='btn btn-info' href='$link'><i class='icon-search'></i> " . $this->l("Commande") . "</a>";
-    }*/
+    }
 }
