@@ -129,6 +129,10 @@ class OrderAddressFormDataHandler implements FormDataHandlerInterface
             $editAddressCommand->setOther($data['other']);
         }
 
+        if (isset($data['receive_sms'])) {
+            $editAddressCommand->setReceiveSms($data['receive_sms']);
+        }
+
         $this->commandBus->handle($editAddressCommand);
     }
 }

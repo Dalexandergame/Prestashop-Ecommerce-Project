@@ -182,6 +182,9 @@ class EditOrderAddressHandler implements EditOrderAddressHandlerInterface
         if (null !== $orderCommand->getOther()) {
             $addressCommand->setOther($orderCommand->getOther());
         }
+        if (null !== $orderCommand->getReceiveSms()) {
+            $addressCommand->setReceiveSms($orderCommand->getReceiveSms());
+        }
 
         return $addressCommand;
     }

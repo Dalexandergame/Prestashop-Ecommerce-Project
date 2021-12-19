@@ -164,6 +164,10 @@ final class EditCustomerAddressHandler extends AbstractAddressHandler implements
             $address->other = $command->getOther();
         }
 
+        if (null !== $command->getReceiveSms()) {
+            $address->receive_sms = $command->getReceiveSms();
+        }
+
         return $address;
     }
 }

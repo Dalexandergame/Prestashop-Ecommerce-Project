@@ -35,6 +35,7 @@ use PrestaShop\PrestaShop\Core\Domain\Address\Configuration\AddressConstraint;
 use PrestaShop\PrestaShop\Core\Form\ConfigurableFormChoiceProviderInterface;
 use PrestaShopBundle\Form\Admin\Type\CountryChoiceType;
 use PrestaShopBundle\Form\Admin\Type\EmailType;
+use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -370,6 +371,11 @@ class CustomerAddressType extends AbstractType
                     ),
                 ]),
             ],
+        ])
+        ->add('receive_sms', SwitchType::class, [
+            'label' => $this->translator->trans('Recevoir les SMS', [], 'Admin.Forms.Labels'),
+            'required' => false,
+            'data' => true,
         ])
         ->add('other', TextareaType::class, [
             'required' => false,
