@@ -775,6 +775,10 @@ class OrderDetailCore extends ObjectModel
         $this->id_order = $order->id;
         $this->outOfStock = false;
 
+        if ($id_warehouse == 0 && $order->id_carrier != 0 ) {
+            $id_warehouse = $cart->getWarehouseByNPA();
+        }
+
         foreach ($product_list as $product) {
             $this->create($order, $cart, $product, $id_order_state, $id_order_invoice, $use_taxes, $id_warehouse);
         }
