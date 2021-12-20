@@ -166,6 +166,9 @@ class EditCartAddressHandler implements EditCartAddressHandlerInterface
         if (null !== $cartCommand->getOther()) {
             $addressCommand->setOther($cartCommand->getOther());
         }
+        if (null !== $cartCommand->getReceiveSms()) {
+            $addressCommand->setReceiveSms($cartCommand->getReceiveSms());
+        }
 
         return $addressCommand;
     }

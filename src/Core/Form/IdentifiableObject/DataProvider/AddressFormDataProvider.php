@@ -84,6 +84,7 @@ final class AddressFormDataProvider implements FormDataProviderInterface
             'phone' => $editableAddress->getHomePhone(),
             'phone_mobile' => $editableAddress->getMobilePhone(),
             'other' => $editableAddress->getOther(),
+            'receive_sms' =>$editableAddress->getReceiveSms(),
         ];
 
         return $data;

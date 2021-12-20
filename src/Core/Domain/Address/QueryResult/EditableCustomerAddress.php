@@ -127,6 +127,11 @@ class EditableCustomerAddress
     private $other;
 
     /**
+     * @var bool|null
+     */
+    private $receive_sms;
+
+    /**
      * @var string[]
      */
     private $requiredFields;
@@ -150,6 +155,7 @@ class EditableCustomerAddress
      * @param string $homePhone
      * @param string $mobilePhone
      * @param string $other
+     * @param bool $receive_sms
      * @param string[] $requiredFields
      */
     public function __construct(
@@ -171,6 +177,7 @@ class EditableCustomerAddress
         string $homePhone,
         string $mobilePhone,
         string $other,
+        bool $receive_sms,
         array $requiredFields
     ) {
         $this->addressId = $addressId;
@@ -191,6 +198,7 @@ class EditableCustomerAddress
         $this->homePhone = $homePhone;
         $this->mobilePhone = $mobilePhone;
         $this->other = $other;
+        $this->receive_sms = $receive_sms;
         $this->requiredFields = $requiredFields;
     }
 
@@ -344,5 +352,13 @@ class EditableCustomerAddress
     public function getOther(): ?string
     {
         return $this->other;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getReceiveSms(): ?bool
+    {
+        return $this->receive_sms;
     }
 }

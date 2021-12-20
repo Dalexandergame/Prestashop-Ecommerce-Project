@@ -27,6 +27,7 @@ declare(strict_types=1);
 
 namespace PrestaShop\PrestaShop\Core\Domain\Address\Command;
 
+use phpDocumentor\Reflection\DocBlock\Tags\BaseTag;
 use PrestaShop\PrestaShop\Core\Domain\Country\Exception\CountryConstraintException;
 use PrestaShop\PrestaShop\Core\Domain\Country\ValueObject\CountryId;
 use PrestaShop\PrestaShop\Core\Domain\State\Exception\StateConstraintException;
@@ -108,6 +109,11 @@ class AbstractEditAddressCommand
      * @var string|null
      */
     protected $other;
+
+    /**
+     * @var bool|null
+     */
+    protected $receive_sms;
 
     /**
      * @return string|null
@@ -409,6 +415,26 @@ class AbstractEditAddressCommand
     public function setOther(string $other): self
     {
         $this->other = $other;
+
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getReceiveSms(): ?bool
+    {
+        return $this->receive_sms;
+    }
+
+    /**
+     * @param bool $receive_sms
+     *
+     * @return self
+     */
+    public function setReceiveSms(bool $receive_sms): self
+    {
+        $this->receive_sms = $receive_sms;
 
         return $this;
     }

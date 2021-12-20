@@ -128,6 +128,9 @@ class CartAddressFormDataHandler implements FormDataHandlerInterface
         if (isset($data['other'])) {
             $editAddressCommand->setOther($data['other']);
         }
+        if (isset($data['receive_sms'])) {
+            $editAddressCommand->setReceiveSms($data['receive_sms']);
+        }
 
         $this->commandBus->handle($editAddressCommand);
     }

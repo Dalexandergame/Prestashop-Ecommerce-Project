@@ -92,6 +92,7 @@ final class GetCustomerAddressForEditingHandler extends AbstractCustomerAddressH
             $address->phone,
             $address->phone_mobile,
             $address->other,
+            $address->receive_sms,
             $this->getRequiredFields()
         );
 
