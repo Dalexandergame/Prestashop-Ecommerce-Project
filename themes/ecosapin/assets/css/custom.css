@@ -1113,6 +1113,20 @@ a:hover {
     font-size: 14px;
 }
 
+iframe#launcher-frame {
+    right: -65px!important;
+    transform: rotate(270deg)!important;
+}
+div.launcher-button.elements__Wrapper-sc-4gy1pz-0.blzvQB {
+    border-bottom-left-radius: 6px!important;
+    border-bottom-right-radius: 6px!important;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%), inset 0 -1px 0 rgb(0 0 0 / 8%), inset 0 -2px 0 hsl(0deg 0% 100% / 70%), inset 0 9px 29px rgb(0 0 0 / 10%)!important;
+}
+
+#freshworks-frame-wrapper.frame-right {
+    bottom: 50px!important;
+}
+
 @media (max-width: 767px) {
 
     div#ap5-buy-block-container {
