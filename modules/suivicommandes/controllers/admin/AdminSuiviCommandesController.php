@@ -1472,7 +1472,7 @@ order by `name` asc
 
                 if ($i >= 3) {
                     $i++;
-                    $nbElements = 50;
+                    $nbElements = 380;
                     if (count($listPoints) > $nbElements) {
                         $optimizationList = [];
                         $listPointsArray = array_chunk($listPoints, $nbElements);
