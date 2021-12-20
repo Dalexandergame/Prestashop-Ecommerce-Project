@@ -1439,7 +1439,7 @@ order by `name` asc
 
             $startPoint       = $this->getWarehouseAddressStart((int) $w)[0]["addresswh"];
             $latlngStartPoint = $this->getlatlng($startPoint);
-            $listPoints       = $latlngStartPoint["lat"] . ',' . $latlngStartPoint["long"] . '|';
+            $listPoints       = [$latlngStartPoint["lat"] . ',' . $latlngStartPoint["long"]];
 
             if (!empty($latlngStartPoint["lat"])) {
 
@@ -1461,20 +1461,45 @@ order by `name` asc
                                 'lat'             => $lat,
                                 'long'            => $long
                             );
-                            $listPoints .= $lat . ',' . $long . '|';
+                            $listPoints[] = $lat . ',' . $long;
                         } else {
                             $this->alertmsg .= "L'adresse : '" . $item["address"] . "' est incorrecte. <br>";
                         }
                     }
                 }
                 // tour=open donc on met le point de départ comme arrivée aussi
-                $listPoints .= $latlngStartPoint["lat"] . ',' . $latlngStartPoint["long"];
+                $listPoints[] = $latlngStartPoint["lat"] . ',' . $latlngStartPoint["long"];
 
                 if ($i >= 3) {
                     $i++;
-                    $url = "http://maps.open-street.fr/api/tsp/?pts=" . $listPoints . "&nb=" . $i . "&mode=driving&unit=m&tour=open&key=" . $this->osmkey;
-
-                    $optimizedIndex = json_decode($this->curlExec($url));
+                    $nbElements = 50;
+                    if (count($listPoints) > $nbElements) {
+                        $optimizationList = [];
+                        $listPointsArray = array_chunk($listPoints, $nbElements);
+                        $nbPoints = count($listPointsArray);
+                        if (count($listPointsArray[$nbPoints - 1]) < 10) {
+                            $listPointsArray[$nbPoints - 2] = array_merge($listPointsArray[$nbPoints - 2], $listPointsArray[$nbPoints - 1]);
+                            unset($listPointsArray[$nbPoints - 1]);
+                        }
+                        foreach ($listPointsArray as $key => $list_points) {
+                            $url = "http://maps.open-street.fr/api/tsp/?pts=" . implode('|', $list_points) . "&nb=" . count($list_points) . "&mode=driving&unit=m&tour=open&key=" . $this->osmkey;
+                            $optimizedIndex = json_decode($this->curlExec($url));
+                            if (!empty($optimizedIndex->status) && $optimizedIndex->status == "LOW_CREDIT") {
+                                $this->alertmsg .= "Vous n'avez pas assez de crédit OpenStreetMap pour effectuer cette requête.<br>";
+                                break;
+                            }
+                            $optimizedIndex->OPTIMIZATION = array_map(function ($element) use ($key, $nbElements) {
+                                return $element + ($key * $nbElements);
+                            }, $optimizedIndex->OPTIMIZATION);
+                            $optimizationList = array_merge($optimizationList, $optimizedIndex->OPTIMIZATION);
+                        }
+                        if (isset($optimizedIndex)) {
+                            $optimizedIndex->OPTIMIZATION = $optimizationList;
+                        }
+                    } else {
+                        $url = "http://maps.open-street.fr/api/tsp/?pts=" . implode('|', $listPoints) . "&nb=" . $i . "&mode=driving&unit=m&tour=open&key=" . $this->osmkey;
+                        $optimizedIndex = json_decode($this->curlExec($url));
+                    }
 
                     if (!empty($optimizedIndex->status) && $optimizedIndex->status == "LOW_CREDIT") {
                         $this->alertmsg .= "Vous n'avez pas assez de crédit OpenStreetMap pour effectuer cette requête.<br>";
