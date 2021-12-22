@@ -117,6 +117,7 @@ if (empty($order_ids) || $order_ids == "") {
     $productsToDeliver = array();
     $date_d            = "";
     foreach ($orders as $id_order => $order) {
+        $product_order_detail = Db::getInstance()->getRow('SELECT * FROM `ps_order_detail` WHERE `product_attribute_id`="'.Tools::getValue('product_attribute').'" AND `ps_order_detail`.`id_order`='.$id_order);
         foreach ($order['products'] as $product) {
             $name1 = mb_substr($product['company'], 0, 35);
             $name2 = mb_substr($product['firstname'] . " " . $product['lastname'], 0, 35);
@@ -124,16 +125,19 @@ if (empty($order_ids) || $order_ids == "") {
                 $name1 = $name2;
                 $name2 = '';
             }
+
+            $product_attribute_name = isset($product_order_detail) ? trim(ucfirst($product_order_detail['product_reference'])) : mb_substr($product['name_prod'], 0, 5);
             $productName = ucfirst($product['product_reference']);
-            $productName = trim($productName) . " " . trim($product['name_prod']);
-            $productName = wd_remove_accents($productName) . " " . (isset($order['hasRetour']) ? " R" : "");
+            $productName = mb_substr("Little " . $product['product_name'], 0, 21) . " " . $product_attribute_name;
+            $productName = $productName . " " . (isset($order['hasRetour']) ? " R" : "");
             $productName = trim($productName);
 
             for ($i = 0; $i < $product['product_quantity']; $i++) {
+                $itemId = isset($product_order_detail) ? $product_order_detail['product_attribute_id'] : $i;
                 $item = array(// 1.Item ...
-                              'ItemID'     => $product['id_order_detail'] . $i,
+                              'ItemID'     => $product['id_order_detail'] ."-". $itemId,
                               'Recipient'  => array(
-                                  'Title'   => mb_substr("Little " . $product['product_name'], 0, 35),
+                                  'Title'   => mb_substr($productName, 0, 31),
                                   'Vorname' => mb_substr($product['firstname'], 0, 35),
                                   'Name1'   => $name1,
                                   'Name2'   => $name2,

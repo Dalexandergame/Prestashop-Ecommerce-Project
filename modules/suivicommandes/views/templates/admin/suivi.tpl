@@ -97,6 +97,99 @@
             });
         </script>
     {/if}
+    <tfoot>
+    <tr class="is_not_commande">
+        <td colspan="11" style="padding: 10px; color: #000;">
+
+            <form action="{$link->getAdminLink('AdminSuiviCommandes')|escape:'htmlall':'UTF-8'}&action=sendMailsSuiviCommande" method="POST" id="myFormSendMail" class="result">
+                <fieldset>
+                    <legend>Envoyer des emails aux clients</legend>
+                    <label>Sujet</label>
+                    <div class="margin-form">
+                        <input type="text" name="sujet" required="" class="form-control sujet text-left"  placeholder="Sujet">
+                        <div class="clear"></div>
+                    </div>
+                    <label>Message d'email</label>
+                    <div class="margin-form">
+                        <textarea class="form-control msg_mail" required="" rows="6" cols="60" name="description" placeholder="Message d'email"></textarea>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="margin-form">
+                        <button type="submit" name="envoimail" class="btn btn-primary" style="color: #000;">Envoyer les emails</button>
+                    </div>
+                </fieldset>
+            </form>
+
+            <script type="text/javascript">
+
+                var ids_orders = {$orders_list|json_encode};
+                // console.log(ids_orders);
+                $(function(){
+
+                    /*$('.title_box:last').append($('<input />').attr({ type: 'checkbox', 'checked': 'checked' }).addClass('check_all').css({ 'margi-left' :'4px' }));
+                    $('.title_box:last .check_all').click(function(e){
+                        var $me = $(this), checked = $me.is(':checked');
+                        console.info(checked);
+                        $.each( $('.inp_id_order'),function(){
+                            $(this).prop('checked',checked);
+                        });
+                    });*/
+                    $('form#myFormSendMail').submit(function(e){
+                        e.preventDefault();
+                        var $form = $(this), isSubmit = $form.data("isSubmit"), /*ids_orders = [],$input_checked = $('.inp_id_order'),*/
+                            subject = $.trim($form.find('input.sujet').val()),msg_mail = $.trim($form.find('textarea.msg_mail').val())
+                        ;
+                        if(!isSubmit){
+
+                            if( subject == "" || msg_mail == ""){
+                                showErrorMessage("Erreur : remplir les champs sujet et message d'email");
+                                return false;
+                            }
+
+                            if(ids_orders.length ){
+                                /*$.each( $input_checked,function(k,v){
+                                    if($(this).is(':checked'))
+                                        ids_orders.push(parseInt($(v).val()));
+                                });*/
+                                /**/
+                                $.ajax({
+                                    url : $form.attr('action'),
+                                    data : {
+                                        ajax : true,
+                                        action : "sendMailsSuiviCommande",
+                                        subject: subject,
+                                        message: msg_mail,
+                                        orders_ids : ids_orders,
+                                    },
+                                    type : "POST",
+                                    dataType: "json",
+                                    success : function(data){
+                                        try {
+                                            if(data.success){
+                                                showSuccessMessage(data.msg);
+                                            }else{
+                                                showErrorMessage(data.msg);
+                                            }
+                                        }catch(err) {
+                                            showErrorMessage("Erreur");
+                                        }
+                                    },
+                                    error : function(msg){
+                                        showNoticeMessage("Erreur ");
+                                    }
+                                });
+
+                                /**/
+                            }else{
+                                showErrorMessage("Erreur : Aucune commande dans la liste !");
+                            }
+                        }
+                    });
+                });
+            </script>
+        </td>
+    </tr>
+    </tfoot>
 </form>
 
 <script type="text/javascript">

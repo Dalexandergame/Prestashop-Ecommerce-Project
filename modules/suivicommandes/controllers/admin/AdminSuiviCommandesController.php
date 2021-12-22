@@ -713,12 +713,18 @@ class AdminSuiviCommandesController extends ModuleAdminController
 
                 $list = $helper->generateList($this->_list, $this->fields_list);
 
+                $orders_id_list = [];
+                foreach ($this->_list as $suivi_order_list) {
+                    $orders_id_list[] = $suivi_order_list['id_order'];
+                }
+
                 $assign = array(
                     "warehouses"    => $this->setSelectWarehouses(),
                     "dateLivraison" => $this->dateLivraison,
                     "blocks"        => $this->getBlocks(),
                     "token"         => $this->token,
                     "wh"            => "(" . implode(",", $this->warehouse_selected) . ")",
+                    "orders_list"   => $orders_id_list,
                     "lists"         => $list,
                     "carriers"      => $this->getCarriers($this->context->language->id, $this->id_shop),
                     "alert"         => $this->alertmsg,
@@ -1784,6 +1790,41 @@ order by `name` asc
 
         die(json_encode($response));
 
+    }
+
+    public function ajaxProcessSendMailsSuiviCommande() {
+        $return = array('msg' => "erreur d'enregistrements", 'success' => false);
+        $message = Tools::getValue("message");
+        $subject = Tools::getValue("subject");
+        $orders = Tools::getValue("orders_ids");
+        if(!$orders || !count($orders)){
+            echo json_encode(array('msg' => "Erreur : Vous devez selectionner au moins une commande !", 'success' => false));
+            exit;
+        }
+        if (!empty($message) && !empty($subject)) {
+            if ($this->context->shop->id == 1) {
+                $headers = 'From: contact@ecosapin.ch' . "\r\n" .
+                    'Reply-To: contact@ecosapin.ch' . "\r\n";
+            }elseif ($this->context->shop->id == 2) {
+                $headers = 'From: contact@ecosapin.fr' . "\r\n" .
+                    'Reply-To: contact@ecosapin.fr' . "\r\n";
+            }else{
+                $headers = 'From: info@myabies.ch' . "\r\n" .
+                    'Reply-To: info@myabies.ch' . "\r\n";
+            }
+
+            $request = "SELECT email FROM ps_orders po "
+                . "JOIN `ps_customer` pc ON po.`id_customer` = pc.`id_customer` "
+                . "WHERE po.`id_order` IN(" . implode(",", $orders) . " )";
+            $listeClient = Db::getInstance()->executeS($request);
+            foreach ($listeClient as $mailClient) {
+                mail($mailClient['email'], $subject, $message,$headers);
+            }
+            $return = array('msg' => "l'email à bien été envoyé", 'success' => true);
+        } else {
+            $return = array('msg' => "Erreur : remplir les champs sujet et message d'email", 'success' => false);
+        }
+        echo json_encode($return);
     }
 
 
