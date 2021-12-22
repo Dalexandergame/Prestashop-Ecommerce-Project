@@ -183,12 +183,14 @@ class AdminPlanningDeliveryByCarrierMyLittelController extends ModuleAdminContro
     public function printPDFIcons($id_order, $tr)
     {
         $order       = new Order($id_order);
+        $product_attribute = Db::getInstance()->getRow('SELECT `product_attribute_id` FROM `ps_order_detail` WHERE `product_name`="'.$tr['products'][0]['product_name'].'" AND `ps_order_detail`.`id_order`='.$order->id);
         $order_state = $order->getCurrentOrderState();
         if (!Validate::isLoadedObject($order_state) || !Validate::isLoadedObject($order))
             return '';
 
         $this->context->smarty->assign(array(
                                            'order'           => $order,
+                                           'product_attribute' => $product_attribute['product_attribute_id'],
                                            'order_state'     => $order_state,
                                            'order_etiquette' => true,//$this->id_carrier_post == $order->id_carrier,
                                            'base_dir'        => _PS_BASE_URL_ . __PS_BASE_URI__,
