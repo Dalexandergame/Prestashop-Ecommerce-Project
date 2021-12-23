@@ -25,7 +25,7 @@
 {block name="address_form"}
   <div class="js-address-form">
     {include file='_partials/form-errors.tpl' errors=$errors['']}
-      
+
     {block name="address_form_url"}
     <form
       id = "myabies-address-form"
@@ -79,4 +79,3 @@
     </form>
   </div>
 {/block}
-
