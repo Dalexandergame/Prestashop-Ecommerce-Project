@@ -28,6 +28,7 @@
 
     {block name="address_form_url"}
     <form
+      id = "myabies-address-form"
       method="POST"
       action="{url entity='address' params=['id_address' => $id_address]}"
       data-id-address="{$id_address}"
@@ -44,7 +45,24 @@
               {/block}
             {/foreach}
           {/block}
+          <div class="p-2 phone-required-warning" style="display: none;background: #ffc107;width: 50%;margin:1rem auto;text-align: center;font-size: medium;font-weight: bold">
+              {l s='one of the phone fields is required' d='Shop.Forms.Help'}
+          </div>
         </section>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#myabies-address-form button[type=submit]').click(function () {
+                    let phoneValue = $('input[name=phone]').val();
+                    if (!phoneValue) {
+                      $('input[name=phone_mobile]').prop("required", true);
+                      $('.phone-required-warning').show()
+                    } else {
+                        $('input[name=phone_mobile]').prop("required", false);
+                        $('.phone-required-warning').hide();
+                    }
+                });
+            })
+        </script>
       {/block}
 
       {block name="address_form_footer"}
