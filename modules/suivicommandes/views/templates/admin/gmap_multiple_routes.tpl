@@ -17,7 +17,7 @@ var infowindow = new google.maps.InfoWindow(
     size: new google.maps.Size(150,50)
   });
   
-var color = ['blue','red','green','orange','purple','coral','deeppink','grey','black','navy'];
+//var color = ['blue','red','green','orange','purple','coral','deeppink','grey','black','navy'];
 var pathcolor;
 
 function init() {
@@ -31,15 +31,15 @@ function init() {
     var i = 0;
     {foreach from=$lists key=carrier item=list}
         stops = [];
+
         {foreach from=$list key=k item=data}
             stops.push( ' {$data.lat} , {$data.long}' );
-        {/foreach} 
-            
-        if(typeof color[i] != 'undefined'){ pathcolor=color[i];}
-        else { pathcolor = "blue"; }
-        
+            if('{$data.color}' != ""){ pathcolor= '{$data.color}';}
+            else { pathcolor = "blue"; }
+        {/foreach}
+
         calcRoute(stops,pathcolor);
-        i = i+1;
+        //i = i+1;
     {/foreach} 
         
      createMarkers();   
