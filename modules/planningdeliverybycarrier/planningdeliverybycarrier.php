@@ -1726,11 +1726,15 @@ class PlanningDeliveryByCarrier extends Module
         }
         $onSelect = (Configuration::get('PLANNING_DELIVERY_SLOT_' . $id_carrier)) ? "onSelect: showSlots, \n" : '';
         $dFormat  = (1 == $format) ? 'dd/mm/yy' : 'mm/dd/yy';
+        $monthNames = $this->monthNames();
+
         $return   .= '
 		$(function(){                
 			$("#date_delivery").datepicker({
 				prevText:"",
 				nextText:"",
+				monthNames: '.json_encode($monthNames['full_name']).',
+				dayNamesMin: '.json_encode($monthNames['days_short_name']).',
 				beforeShowDay: enableDays, ' .
             $onSelect . '
 				dateFormat:"' . $dFormat . '"' . ($time ? '+time' : '') . '});
@@ -1738,6 +1742,19 @@ class PlanningDeliveryByCarrier extends Module
 		$("#ui-datepicker-div").css("clip", "auto");';
 //        d($return);
         return $return;
+    }
+
+    public function monthNames() {
+        $monthNames['full_name'] = [
+            $this->trans('January'), $this->trans('February'), $this->trans('March'), $this->trans('April'), $this->trans('May'),
+            $this->trans('June'), $this->trans('July'), $this->trans('August'), $this->trans('September'), $this->trans('October'),
+            $this->trans('November'), $this->trans('December')
+        ];
+
+        $monthNames['days_short_name'] = [
+            $this->trans('Su'), $this->trans('Mo'), $this->trans('Tu'), $this->trans('We'), $this->trans('Th'), $this->trans('Fr'), $this->trans('Sa')
+        ];
+        return $monthNames;
     }
 
     public function includeDatepicker($id, $time = false, $format = 1, $onAdminPlanningDelivery = 0, $id_carrier = false)
@@ -1782,6 +1799,11 @@ class PlanningDeliveryByCarrier extends Module
                 foreach ($product_list as $product) {
                     if ($product["id_product"] == 93) {
                         $post_id = Configuration::get('TUNNELVENTE_ID_CARRIER_POST');
+
+                        $unavalaibleDates = "";
+                        $unavalaibleDates .= PlanningDeliveryByCarrierException::getDatesByCarrier($post_id);
+                        $unavailableDays  = str_replace('7', '0', Configuration::get('PLANNING_DELIVERY_UNAV_DAYS' . $post_id));
+
                         $arr     = [];
                         $arr1    = explode(', ', $unavalaibleDates);
                         $arr2    = explode(', ', PlanningDeliveryByCarrierException::getDatesByCarrier($post_id));
