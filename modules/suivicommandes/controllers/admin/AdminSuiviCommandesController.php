@@ -1414,7 +1414,8 @@ order by `name` asc
                 CONCAT(o.address1,' ',o.postcode,' ',o.city) as address,
                 CONCAT(a.address1,' ',a.postcode,' ',a.city) as addresswh,
                 o.position as position,
-                o.position_retour as position_retour
+                o.position_retour as position_retour,
+                ca.color as color
                 FROM " . _DB_PREFIX_ . "suivi_orders as o
                 JOIN " . _DB_PREFIX_ . "warehouse as w ON o.id_warehouse = w.id_warehouse
                 JOIN " . _DB_PREFIX_ . "address as a ON w.id_address = a.id_address
@@ -1587,6 +1588,7 @@ order by `name` asc
                 $res1[] = array(
                     'id_carrier'      => $item["id_carrier"],
                     'carrier_name'    => $item["carrier_name"],
+                    'carrier_color'   => $item["color"],
                     'position'        => $item["position"],
                     'position_retour' => $item["position_retour"],
                     'addresswh'       => addslashes((string) $item["addresswh"]),
@@ -1601,11 +1603,11 @@ order by `name` asc
 
         foreach ($res1 as $key => $item) {
             if ($item['latwh'] && (!array_key_exists($item['carrier_name'], $result) || ($result[$item['carrier_name']] && !$this->in_array_r($item['addresswh'], $result[$item['carrier_name']])))) {
-                $result[$item['carrier_name']][] = array('address' => $item['addresswh'], 'lat' => $item['latwh'], 'long' => $item['longwh'], 'marker' => 'S');
+                $result[$item['carrier_name']][] = array('address' => $item['addresswh'], 'lat' => $item['latwh'], 'long' => $item['longwh'], 'marker' => 'S', 'color' => $item['carrier_color']);
             }
             if ($item['lat']) {
                 $marker                          = $this->isRetour ? $item['position_retour'] : $item['position'];
-                $result[$item['carrier_name']][] = array('address' => $item['address'], 'lat' => $item['lat'], 'long' => $item['long'], 'marker' => $marker + 1);
+                $result[$item['carrier_name']][] = array('address' => $item['address'], 'lat' => $item['lat'], 'long' => $item['long'], 'marker' => $marker + 1, 'color' => $item['carrier_color']);
             }
         }
         ksort($result, SORT_NUMERIC);

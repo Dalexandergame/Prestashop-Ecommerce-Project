@@ -208,6 +208,14 @@ class AdminCarrierWizardControllerCore extends AdminController
                         'hint' => $this->trans('Enter "0" for a longest shipping delay, or "9" for the shortest shipping delay.', [], 'Admin.Shipping.Help'),
                     ],
                     [
+                        'type' => 'color',
+                        'label' => $this->trans('Color', [], 'Admin.Global'),
+                        'name' => 'color',
+                        'required' => false,
+                        'size' => 30,
+                        'hint' => $this->trans('Enter a color name or code valid for CSS.', [], 'Admin.Shipping.Help')
+                    ],
+                    [
                         'type' => 'logo',
                         'label' => $this->trans('Logo', [], 'Admin.Global'),
                         'name' => 'logo',
@@ -561,6 +569,7 @@ class AdminCarrierWizardControllerCore extends AdminController
             'name' => $this->getFieldValue($carrier, 'name'),
             'delay' => $this->getFieldValue($carrier, 'delay'),
             'grade' => $this->getFieldValue($carrier, 'grade'),
+            'color' => $this->getFieldValue($carrier, 'color'),
             'url' => $this->getFieldValue($carrier, 'url'),
         ];
     }
@@ -769,18 +778,19 @@ class AdminCarrierWizardControllerCore extends AdminController
                 $new_carrier = $current_carrier->duplicateObject();
 
                 if (Validate::isLoadedObject($new_carrier)) {
-                    // Set flag deteled to true for historization
-                    $current_carrier->deleted = true;
-                    $current_carrier->update();
-
-                    // Fill the new carrier object
-                    $this->copyFromPost($new_carrier, $this->table);
-                    $new_carrier->position = $current_carrier->position;
+                    // Set flag deleted to true in the new carrier for historization
+                    $new_carrier->deleted = true;
                     $new_carrier->update();
 
-                    $this->updateAssoShop((int) $new_carrier->id);
-                    $this->duplicateLogo((int) $new_carrier->id, (int) $current_carrier->id);
-                    $this->changeGroups((int) $new_carrier->id);
+                    // Update the old carrier object
+                    $this->copyFromPost($current_carrier, $this->table);
+                    $current_carrier->color = Tools::getValue('color');
+                    //$new_carrier->position = $current_carrier->position;
+                    $current_carrier->update();
+
+                    $this->updateAssoShop((int) $current_carrier->id);
+                    $this->duplicateLogo((int) $current_carrier->id, (int) $current_carrier->id);
+                    $this->changeGroups((int) $current_carrier->id);
 
                     //Copy default carrier
                     if (Configuration::get('PS_CARRIER_DEFAULT') == $current_carrier->id) {
@@ -900,7 +910,7 @@ class AdminCarrierWizardControllerCore extends AdminController
         }
 
         $step_fields = [
-            1 => ['name', 'delay', 'grade', 'url'],
+            1 => ['name', 'delay', 'grade', 'color', 'url'],
             2 => ['is_free', 'id_tax_rules_group', 'shipping_handling', 'shipping_method', 'range_behavior'],
             3 => ['range_behavior', 'max_height', 'max_width', 'max_depth', 'max_weight'],
             4 => [],
