@@ -207,10 +207,6 @@ class AdminCarrierWizardControllerCore extends AdminController
                         'size' => 1,
                         'hint' => $this->trans('Enter "0" for a longest shipping delay, or "9" for the shortest shipping delay.', [], 'Admin.Shipping.Help'),
                     ],
-                    /**
-                     * Pulse
-                     * By: Abdelhafid El kadiri
-                     */
                     [
                         'type' => 'color',
                         'label' => $this->trans('Color', [], 'Admin.Global'),
