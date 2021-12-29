@@ -256,7 +256,7 @@ class AdminStockGlobalViewController extends ModuleAdminController
         if ($idProductAttribute != NULL) {
             $sql .= " AND od.product_attribute_id = $idProductAttribute ";
         }
-        $sql .= " AND o.current_state in (2, 10, 12, 18, 20, 21, 22, 23, 24, 29, 33, 34, 35)";
+        $sql .= " AND o.current_state in (2, 5, 10, 12, 18, 20, 21, 22, 23, 24, 29, 33, 34, 35)";
         $sql .= " AND o.date_add between '$this->date_activity_start' and '$this->date_activity_end'";
 
         if (isset($idWarehouse))
