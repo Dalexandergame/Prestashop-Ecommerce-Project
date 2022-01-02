@@ -265,7 +265,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
                          . ' LEFT JOIN ' . _DB_PREFIX_ . 'carrier car ON (car.id_carrier = a.id_carrier_retour)'
                          . ' LEFT JOIN ' . _DB_PREFIX_ . 'orders o ON (a.id_order = o.id_order) '
                          . ' LEFT JOIN ' . _DB_PREFIX_ . 'address adr ON (adr.id_address = o.id_address_delivery) ';
-        $this->_where = 'AND (datediff(a.date_delivery,"' . $this->dateLivraison . '")=0 OR datediff(a.date_retour,"' . $this->dateLivraison . '")=0) AND o.id_shop = '.$this->id_shop.' AND (o.current_state NOT IN (6) OR o.current_state IS NULL) AND ';
+        $this->_where = 'AND (datediff(a.date_delivery,"' . $this->dateLivraison . '")=0 OR datediff(a.date_retour,"' . $this->dateLivraison . '")=0) AND (o.current_state NOT IN (6) OR o.current_state IS NULL) AND ';
         if ($this->warehouse_selected[0] == $this->id_carrier_post . "_p") {
             $this->_where .= ' a.id_carrier = ' . $this->id_carrier_post;
         } else {
@@ -953,7 +953,7 @@ class AdminSuiviCommandesController extends ModuleAdminController
     {
         $w = "(" . implode(",", $this->warehouse_selected) . ")";
 
-        $where = "WHERE (datediff(so.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(so.date_retour,'" . $this->dateLivraison . "')=0) AND o.id_shop = ".$this->id_shop." AND (o.current_state NOT IN (6) OR o.current_state IS NULL) "
+        $where = "WHERE (datediff(so.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(so.date_retour,'" . $this->dateLivraison . "')=0) AND (o.current_state NOT IN (6) OR o.current_state IS NULL) "
                  . "AND so.id_warehouse IN " . $w . " "
                  . "AND so.id_carrier != $this->id_carrier_post ";
 
@@ -1818,7 +1818,7 @@ order by `name` asc
 
             $request = "SELECT email FROM ps_orders po "
                 . "JOIN `ps_customer` pc ON po.`id_customer` = pc.`id_customer` "
-                . "WHERE po.`id_order` IN(" . implode(",", $orders) . " )";
+                . "WHERE po.`id_order` IN(" . implode(",", $orders) . " ) AND po.id_shop = ".$this->id_shop;
             $listeClient = Db::getInstance()->executeS($request);
             foreach ($listeClient as $mailClient) {
                 mail($mailClient['email'], $subject, $message,$headers);
