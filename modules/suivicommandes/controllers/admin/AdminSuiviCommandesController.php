@@ -1402,11 +1402,11 @@ order by `name` asc
         $sql = "SELECT o.id_suivi_orders,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, o.id_carrier, o.id_carrier_retour) as id_carrier,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, ca.name, car.name) AS carrier_name,
+                IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, ca.color, car.color) AS color,
                 CONCAT(o.address1,' ',o.postcode,' ',o.city) as address,
                 CONCAT(a.address1,' ',a.postcode,' ',a.city) as addresswh,
                 o.position as position,
-                o.position_retour as position_retour,
-                ca.color as color
+                o.position_retour as position_retour
                 FROM " . _DB_PREFIX_ . "suivi_orders as o
                 JOIN " . _DB_PREFIX_ . "warehouse as w ON o.id_warehouse = w.id_warehouse
                 JOIN " . _DB_PREFIX_ . "address as a ON w.id_address = a.id_address
