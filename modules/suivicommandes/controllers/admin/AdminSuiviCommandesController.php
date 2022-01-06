@@ -1381,7 +1381,7 @@ order by `name` asc
         while ($wait <= 2) {
 
             $address = str_replace(' ', '+', $adr);
-            $url     = "https://maps.open-street.com/api/geocoding/?address=$address&sensor=false&key=" . $this->osmkey;
+            $url     = "https://maps.googleapis.com/maps/api/geocode/json?address=$address&sensor=false&key=" . $this->gkey;
 
             $response_a = json_decode($this->curlExec($url));
             if ($response_a->status == 'OK') {
