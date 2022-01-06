@@ -1381,7 +1381,7 @@ order by `name` asc
         while ($wait <= 2) {
 
             $address = str_replace(' ', '+', $adr);
-            $url     = "https://maps.googleapis.com/maps/api/geocode/json?address=$address&sensor=false&key=" . $this->gkey;
+            $url     = "https://maps.open-street.com/api/geocoding/?address=$address&sensor=false&key=" . $this->osmkey;
 
             $response_a = json_decode($this->curlExec($url));
             if ($response_a->status == 'OK') {
@@ -1412,8 +1412,8 @@ order by `name` asc
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, o.id_carrier, o.id_carrier_retour) as id_carrier,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, ca.name, car.name) AS carrier_name,
                 IF( datediff(o.date_delivery,'" . $this->dateLivraison . "')=0, ca.color, car.color) AS color,
-                CONCAT(o.address1,' ',o.postcode,' ',o.city) as address,
-                CONCAT(a.address1,' ',a.postcode,' ',a.city) as addresswh,
+                CONCAT(o.address1,', ',o.postcode,', ',o.city) as address,
+                CONCAT(a.address1,', ',a.postcode,', ',a.city) as addresswh,
                 o.position as position,
                 o.position_retour as position_retour
                 FROM " . _DB_PREFIX_ . "suivi_orders as o
@@ -1431,7 +1431,7 @@ order by `name` asc
     public function getWarehouseAddressStart($idw)
     {
 
-        $sql = "SELECT CONCAT(a.address1,' ',a.postcode,' ',a.city) as addresswh
+        $sql = "SELECT CONCAT(a.address1,', ',a.postcode,', ',a.city) as addresswh
                 FROM " . _DB_PREFIX_ . "warehouse as w
                 JOIN " . _DB_PREFIX_ . "address as a ON w.id_address = a.id_address
                 WHERE w.id_warehouse = " . $idw;
@@ -1475,39 +1475,10 @@ order by `name` asc
                         }
                     }
                 }
-                // tour=open donc on met le point de départ comme arrivée aussi
-                $listPoints[] = $latlngStartPoint["lat"] . ',' . $latlngStartPoint["long"];
 
                 if ($i >= 3) {
-                    $i++;
-                    $nbElements = 380;
-                    if (count($listPoints) > $nbElements) {
-                        $optimizationList = [];
-                        $listPointsArray = array_chunk($listPoints, $nbElements);
-                        $nbPoints = count($listPointsArray);
-                        if (count($listPointsArray[$nbPoints - 1]) < 10) {
-                            $listPointsArray[$nbPoints - 2] = array_merge($listPointsArray[$nbPoints - 2], $listPointsArray[$nbPoints - 1]);
-                            unset($listPointsArray[$nbPoints - 1]);
-                        }
-                        foreach ($listPointsArray as $key => $list_points) {
-                            $url = "http://maps.open-street.fr/api/tsp/?pts=" . implode('|', $list_points) . "&nb=" . count($list_points) . "&mode=driving&unit=m&tour=open&key=" . $this->osmkey;
-                            $optimizedIndex = json_decode($this->curlExec($url));
-                            if (!empty($optimizedIndex->status) && $optimizedIndex->status == "LOW_CREDIT") {
-                                $this->alertmsg .= "Vous n'avez pas assez de crédit OpenStreetMap pour effectuer cette requête.<br>";
-                                break;
-                            }
-                            $optimizedIndex->OPTIMIZATION = array_map(function ($element) use ($key, $nbElements) {
-                                return $element + ($key * $nbElements);
-                            }, $optimizedIndex->OPTIMIZATION);
-                            $optimizationList = array_merge($optimizationList, $optimizedIndex->OPTIMIZATION);
-                        }
-                        if (isset($optimizedIndex)) {
-                            $optimizedIndex->OPTIMIZATION = $optimizationList;
-                        }
-                    } else {
-                        $url = "http://maps.open-street.fr/api/tsp/?pts=" . implode('|', $listPoints) . "&nb=" . $i . "&mode=driving&unit=m&tour=open&key=" . $this->osmkey;
-                        $optimizedIndex = json_decode($this->curlExec($url));
-                    }
+                    $url = "http://maps.open-street.com/api/tsp/?pts=" . implode('|', $listPoints) . "&nb=" . $i . "&mode=driving&unit=m&tour=closed&key=" . $this->osmkey;
+                    $optimizedIndex = json_decode($this->curlExec($url));
 
                     if (!empty($optimizedIndex->status) && $optimizedIndex->status == "LOW_CREDIT") {
                         $this->alertmsg .= "Vous n'avez pas assez de crédit OpenStreetMap pour effectuer cette requête.<br>";
@@ -1547,7 +1518,7 @@ order by `name` asc
                         }
                     }
                 } else {
-                    $this->alertmsg .= "Il faut au moins trois points à ordonner pour les commandes de l'entrepôt n " . $w . "<br>";
+                    $this->alertmsg .= "Il faut trois ou moins mille points à ordonner pour les commandes de l'entrepôt n " . $w . "<br>";
                 }
             } else {
                 $this->alertmsg .= "L'adresse de l'entrepôt : '" . $startPoint . "' est incorrecte. <br>";
