@@ -34,7 +34,7 @@ function init() {
 
         {foreach from=$list key=k item=data}
             stops.push( ' {$data.lat} , {$data.long}' );
-            if('{$data.color}' != ""){ pathcolor= '{$data.color}';}
+            if(typeof '{$data.color}' != 'undefined'){ pathcolor= '{$data.color}';}
             else { pathcolor = "blue"; }
         {/foreach}
 
