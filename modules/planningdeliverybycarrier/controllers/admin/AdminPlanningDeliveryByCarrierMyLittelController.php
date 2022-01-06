@@ -458,7 +458,7 @@ class AdminPlanningDeliveryByCarrierMyLittelController extends ModuleAdminContro
         $finalList = [];
         foreach ($results as $orderId => $order) {
             foreach ($order as $product) {
-                $product['id_order'] = $orderId;
+                $product['id_order'] = str_replace('-0','',$orderId);
                 $finalList[]         = $product;
             }
         }
@@ -509,6 +509,15 @@ class AdminPlanningDeliveryByCarrierMyLittelController extends ModuleAdminContro
                 );
             }
         }
+
+        $product_attribute_list = [];
+
+        foreach ($liste as $list_item) {
+            $product_attribute = Db::getInstance()->getRow('SELECT `product_attribute_id` FROM `ps_order_detail` WHERE `product_name`="'.$list_item['products'][0]['product_name'].'" AND `ps_order_detail`.`id_order`='.str_replace(['-0','-1'],'',$list_item['id_order']));
+            $product_attribute_list[] = $product_attribute['product_attribute_id'];
+        }
+        $this->tpl_list_vars['product_attribute_list'] = $product_attribute_list;
+
 //                var_dump($liste);
         $this->_list      = $liste;
         $this->_listTotal = count($this->_list);
