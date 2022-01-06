@@ -1,0 +1,127 @@
+{#{*
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*}
+{*
+            Pulse: import addresses panel
+            Created By Abdelhafid El Kadiri
+
+            BEGIN
+            *}#}
+<div class="card customer-private-note-card">
+    <h3 class="card-header">
+        <i class="material-icons">visibility_off</i> Choisir un fichier CSV contient les addresses à importé
+    </h3>
+    <div class="card-body clearfix">
+        <div class="alert alert-info">
+            <p class="alert-text">
+                Le fichier à charger doit avoir les colonnes suivant:<br/>
+                nom; prenom; adresse; adresse2; npa; pays; etat; ville; telephone; mobile; autre
+            </p>
+        </div>
+
+{#    {*<form id="uploadcsvform" class="form-horizontal" action="ajax.php" method="post" onsubmit="uploadCSVaddress({$customer->id|intval});return false;" enctype="multipart/form-data">*}#}
+        <form id="uploadcsvform" class="form-horizontal" action="index.php" method="post"
+              enctype="multipart/form-data">
+            <input type="hidden" name="token" value="{{ token }}">
+            <input type="hidden" name="tab" value="AdminCustomersFilter">
+            <input type="hidden" name="ajax" value="1">
+            <input type="hidden" name="action" value="uploadCsvAddress">
+            <input type="hidden" name="id_customer" value="{{ customerInformation.customerId.value }}">
+            <div class="form-group">
+                <label for="csv-upload" >
+                    <span id="uplbl" class="btn btn-primary">
+                        <i class="material-icons">folder_open</i>
+                        {{ 'Choisissez un fichier'|trans({}, 'Admin.Actions') }}
+                    </span>
+                </label>
+                <input id="csv-upload" type="file" name="csv-upload" class="d-none"
+                       onchange="$('#submitUploadCsv').removeAttr('disabled');
+                                   $('#uplbl').text('Fichier charger');
+                                   showNoticeMessage('Appuyer sur enregistrer pour l\'importer');"/>
+
+                <div class="form-group">
+                    <label for="separator" class="form-control-label">{{ 'Field separator'|trans({}, 'Admin.Actions') }}</label>
+                    <input id="separator" name="separator" class="fixed-width-xs form-control" type="text" value=";"/>
+                </div>
+            </div>
+
+            <div class="">
+                <button type="submit" id="submitUploadCsv" class="btn btn-primary float-right mt-3" disabled="disabled">
+                    <i class="material-icons" id="csvSaveBtn">save</i>
+                    {{'Save'|trans({}, 'Admin.Actions')}}
+                </button>
+            </div>
+
+        </form>
+        <br>
+        <div class="" id="csvError">
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //
+    $(function ($) {
+        $("form#uploadcsvform").submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $("#csvSaveBtn").addClass('process-icon-loading');
+
+            $.ajax({
+                type: "POST",
+                url: "{{  getAdminLink('AdminCustomersFilters') }}&action=uploadCsvAddress",
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "html",
+                success: function(data)
+                {
+                    var values = $.parseJSON(data);
+                    console.log(values);
+                    console.log(values.success);
+
+                    if(values.success == 1 && values.count > 0){
+                        $("#csvError").removeClass("alert-danger");
+                        $("#csvError").addClass("alert-info");
+                        $("#csvError").html("operation terminer: element traité " + values.count + ", actualiser la page!" + (values.inserted != ""? "<br>- element non traité:<br>": "") + values.inserted);
+                    }else{
+                        $("#csvError").removeClass("alert-info");
+                        $("#csvError").addClass("alert-danger");
+                        $("#csvError").html("Error: element traité " + values.count + (values.error != ""? "<br>": "") + values.error + (values.inserted != ""? "<br>- element non traité:<br>": "") + values.inserted);
+                    }
+                    $("#csvSaveBtn").removeClass('process-icon-loading');
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+{#
+{*
+Pulse: import addresses panel
+Created By Abdelhafid El Kadiri
+
+END
+*}#}

@@ -71,6 +71,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Tools;
 
 /**
  * Class CustomerController manages "Sell > Customers" page.
@@ -275,9 +276,12 @@ class CustomerController extends AbstractAdminController
             $this->manageLegacyFlashes($request->query->get('conf'));
         }
 
+        $token = Tools::getAdminTokenLite('AdminCustomersFilter');
+
         return $this->render('@PrestaShop/Admin/Sell/Customer/view.html.twig', [
             'enableSidebar' => true,
             'help_link' => $this->generateSidebarLink($request->attributes->get('_legacy_controller')),
+            'token' => $token,
             'customerInformation' => $customerInformation,
             'isMultistoreEnabled' => $this->get('prestashop.adapter.feature.multistore')->isActive(),
             'transferGuestAccountForm' => $transferGuestAccountForm,

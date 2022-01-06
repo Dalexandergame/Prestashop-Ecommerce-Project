@@ -31,7 +31,7 @@ class TunnelVenteAbiesTypeModuleFrontController extends FrontAbies {
                 $dateDispoR = PlanningRetourByCarrierException::getDateDisponibleByNPA();
 
                 if(!count($dateDispo) || !count($dateDispoR)){
-                    $this->errors[] = Tools::displayError($this->module->l('Malheureusement notre service de livraison n\'est pas disponible dans votre région. Nous espérons pouvoir trouver un partenaire dans votre région pour les prochaines années'));
+                    $this->errors[] = Tools::displayError($this->module->l('Malheureusement notre service de livraison n\'est pas disponible dans votre région. Nous espérons pouvoir trouver un partenaire dans votre région pour les prochaines années','Type'));
                 }
 
                 $return = array(

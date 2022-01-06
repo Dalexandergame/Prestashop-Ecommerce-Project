@@ -146,6 +146,8 @@
                href="{$urls.base_url}barcode/wsbc-generate-littel.php"
                class="generer_etiquette button"><i class="icon-barcode"></i> Générer les étiquettes</a>
             <script type="text/javascript">
+				var product_attribute_list = {$product_attribute_list|json_encode};
+				// console.log(product_attribute_list);
                 $(function(){
                     $('a.generer_etiquette').click(function(e){
                         e.preventDefault();
@@ -156,6 +158,7 @@
                                     ids_orders.push("order_ids[]=" + parseInt($(v).val()));
                             });
                             url += "?"+ids_orders.join('&');
+							url += "&product_attribute[]="+product_attribute_list.join('&product_attribute[]=');
                             window.open(url,'_blank');
                         }else{
                             alert("Erreur Vous devez selectionner au moins une commande !");

@@ -116,63 +116,66 @@ if (empty($order_ids) || $order_ids == "") {
 
     $productsToDeliver = array();
     $date_d            = "";
+    $product_attribute_list = Tools::getValue('product_attribute');
     foreach ($orders as $id_order => $order) {
-        $product_order_detail = Db::getInstance()->getRow('SELECT * FROM `ps_order_detail` WHERE `product_attribute_id`="'.Tools::getValue('product_attribute').'" AND `ps_order_detail`.`id_order`='.$id_order);
-        foreach ($order['products'] as $product) {
-            $name1 = mb_substr($product['company'], 0, 35);
-            $name2 = mb_substr($product['firstname'] . " " . $product['lastname'], 0, 35);
-            if (strlen($name1) == 0) {
-                $name1 = $name2;
-                $name2 = '';
-            }
-
-            $product_attribute_name = isset($product_order_detail) ? trim(ucfirst($product_order_detail['product_reference'])) : mb_substr($product['name_prod'], 0, 5);
-            $productName = ucfirst($product['product_reference']);
-            $productName = mb_substr("Little " . $product['product_name'], 0, 21) . " " . $product_attribute_name;
-            $productName = $productName . " " . (isset($order['hasRetour']) ? " R" : "");
-            $productName = trim($productName);
-
-            for ($i = 0; $i < $product['product_quantity']; $i++) {
-                $itemId = isset($product_order_detail) ? $product_order_detail['product_attribute_id'] : $i;
-                $item = array(// 1.Item ...
-                              'ItemID'     => $product['id_order_detail'] ."-". $itemId,
-                              'Recipient'  => array(
-                                  'Title'   => mb_substr($productName, 0, 31),
-                                  'Vorname' => mb_substr($product['firstname'], 0, 35),
-                                  'Name1'   => $name1,
-                                  'Name2'   => $name2,
-                                  'Street'  => mb_substr($product['address1'], 0, 35),
-                                  'POBox'   => mb_substr($product['address2'], 0, 35),
-                                  'ZIP'     => $product['postcode'],
-                                  'City'    => mb_substr($product['city'], 0, 35),
-                                  'EMail'   => $product['email'],
-                              ),
-                              'Attributes' => array(
-                                  'PRZL'     => array("ECO"),
-                                  //                        'DeliveryDate' => $product['date_depart'],
-                                  'ProClima' => true
-                              )
-                );
-                if (($key = array_search('ZAW3217', $item['Attributes']['PRZL'])) !== false) {
-                    unset($item['Attributes']['PRZL'][$key]);
+        foreach ($product_attribute_list as $product_attribute) {
+            $product_order_detail = Db::getInstance()->getRow('SELECT * FROM `ps_order_detail` WHERE `product_attribute_id`="'.$product_attribute.'" AND `ps_order_detail`.`id_order`='.$id_order);
+            foreach ($order['products'] as $product) {
+                $name1 = mb_substr($product['company'], 0, 35);
+                $name2 = mb_substr($product['firstname'] . " " . $product['lastname'], 0, 35);
+                if (strlen($name1) == 0) {
+                    $name1 = $name2;
+                    $name2 = '';
                 }
-                if (!in_array($product['product_id'], $id_products_sapin)) {
-                    if (($key = array_search('SP', $item['Attributes']['PRZL'])) !== false) {
+
+                $product_attribute_name = isset($product_order_detail) ? trim(ucfirst($product_order_detail['product_reference'])) : mb_substr($product['name_prod'], 0, 5);
+                $productName = ucfirst($product['product_reference']);
+                $productName = mb_substr("Little " . $product['product_name'], 0, 21) . " " . $product_attribute_name;
+                $productName = $productName . " " . (isset($order['hasRetour']) ? " R" : "");
+                $productName = trim($productName);
+
+                for ($i = 0; $i < $product['product_quantity']; $i++) {
+                    $itemId = isset($product_order_detail) ? $product_order_detail['product_attribute_id'] : $i;
+                    $item = array(// 1.Item ...
+                                  'ItemID'     => $product['id_order_detail'] ."-". $itemId,
+                                  'Recipient'  => array(
+                                      'Title'   => mb_substr($productName, 0, 31),
+                                      'Vorname' => mb_substr($product['firstname'], 0, 35),
+                                      'Name1'   => $name1,
+                                      'Name2'   => $name2,
+                                      'Street'  => mb_substr($product['address1'], 0, 35),
+                                      'POBox'   => mb_substr($product['address2'], 0, 35),
+                                      'ZIP'     => $product['postcode'],
+                                      'City'    => mb_substr($product['city'], 0, 35),
+                                      'EMail'   => $product['email'],
+                                  ),
+                                  'Attributes' => array(
+                                      'PRZL'     => array("ECO"),
+                                      //                        'DeliveryDate' => $product['date_depart'],
+                                      'ProClima' => true
+                                  )
+                    );
+                    if (($key = array_search('ZAW3217', $item['Attributes']['PRZL'])) !== false) {
                         unset($item['Attributes']['PRZL'][$key]);
                     }
-                } else {
-                    if (strpos($product['name_prod'], "avec pied")) {
-                        $item['Attributes']['FreeText'] = "coupé";
+                    if (!in_array($product['product_id'], $id_products_sapin)) {
+                        if (($key = array_search('SP', $item['Attributes']['PRZL'])) !== false) {
+                            unset($item['Attributes']['PRZL'][$key]);
+                        }
+                    } else {
+                        if (strpos($product['name_prod'], "avec pied")) {
+                            $item['Attributes']['FreeText'] = "coupé";
+                        }
                     }
+                    $przl = array();
+                    foreach ($item['Attributes']['PRZL'] as $_val) {
+                        $przl[] = $_val;
+                    }
+                    $item['Attributes']['PRZL'] = $przl;
+                    $productsToDeliver[]        = $item;
+                    if ($date_d == "")
+                        $date_d = $product['date_depart'];
                 }
-                $przl = array();
-                foreach ($item['Attributes']['PRZL'] as $_val) {
-                    $przl[] = $_val;
-                }
-                $item['Attributes']['PRZL'] = $przl;
-                $productsToDeliver[]        = $item;
-                if ($date_d == "")
-                    $date_d = $product['date_depart'];
             }
         }
     }
