@@ -1475,9 +1475,12 @@ order by `name` asc
                         }
                     }
                 }
+                // tour=open donc on met le point de départ comme arrivée aussi
+                $listPoints[] = $latlngStartPoint["lat"] . ',' . $latlngStartPoint["long"];
 
                 if ($i >= 3) {
-                    $url = "http://maps.open-street.com/api/tsp/?pts=" . implode('|', $listPoints) . "&nb=" . $i . "&mode=driving&unit=m&tour=closed&key=" . $this->osmkey;
+                    $i++;
+                    $url = "http://maps.open-street.com/api/tsp/?pts=" . implode('|', $listPoints) . "&nb=" . $i . "&mode=driving&unit=m&tour=open&key=" . $this->osmkey;
                     $optimizedIndex = json_decode($this->curlExec($url));
 
                     if (!empty($optimizedIndex->status) && $optimizedIndex->status == "LOW_CREDIT") {
