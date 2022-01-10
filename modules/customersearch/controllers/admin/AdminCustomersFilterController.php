@@ -242,10 +242,15 @@ class AdminCustomersFilterController extends ModuleAdminController
                     $address->phone = $this->prepareValue($row,$header,"telephone") != "" ? $this->prepareValue($row,$header,"telephone") : $this->prepareValue($row,$header,"mobile");
                     $address->phone_mobile = $this->prepareValue($row,$header,"mobile");
                     $address->other = $this->prepareValue($row,$header,"autre");
-                    $address->company = $this->prepareValue($row,$header,"company");
+                    $address->company = $this->prepareValue($row,$header,"societe");
+                    $address->receive_sms = $this->prepareValue($row,$header,"receivesms");
                     $address->date_add = pSQL(date('Y-m-d H:i:s'));
                     $address->date_upd = pSQL(date('Y-m-d H:i:s'));
                     $address->alias = $address->postcode . "-" . substr(str_replace(" ", "", ucwords($address->firstname)), 0, 8) . substr(str_replace(" ", "", ucwords($address->lastname)), 0, 8) . "-" . $address->id_customer;
+                    $address->vat_number = "";
+                    $address->dni = "";
+
+
                     if (!Address::aliasExist($address->alias, null, (int)$id_customer) && $address->postcode != "") {
                         Db::getInstance()->insert('address', $address);
                         $count++;
