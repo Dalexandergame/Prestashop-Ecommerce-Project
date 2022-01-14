@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>cherrycheckout</name>
+	<displayName><![CDATA[Cherry Checkout]]></displayName>
+	<version><![CDATA[2.0.0]]></version>
+	<description><![CDATA[module_description]]></description>
+	<author><![CDATA[Cherry Checkout SA]]></author>
+	<tab><![CDATA[checkout]]></tab>
+	<confirmUninstall><![CDATA[module_confirm_uninstall]]></confirmUninstall>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>

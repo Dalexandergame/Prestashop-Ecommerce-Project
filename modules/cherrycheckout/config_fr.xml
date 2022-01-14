@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>cherrycheckout</name>
+	<displayName><![CDATA[Cherry Checkout]]></displayName>
+	<version><![CDATA[2.0.0]]></version>
+	<description><![CDATA[Offrez &agrave; vos clients la possibilit&eacute; d&#039;ajouter la cerise sur le gateau !]]></description>
+	<author><![CDATA[Cherry Checkout SA]]></author>
+	<tab><![CDATA[checkout]]></tab>
+	<confirmUninstall><![CDATA[Si vous désactivez le module, merci de nous prévenir à : contact@cherrycheckout.com]]></confirmUninstall>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>
