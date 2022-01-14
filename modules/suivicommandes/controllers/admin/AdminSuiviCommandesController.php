@@ -1026,10 +1026,10 @@ class AdminSuiviCommandesController extends ModuleAdminController
                a.phone,
                pd.date_delivery,
                pd.date_retour,
-               (SELECT GROUP_CONCAT(distinct (d.product_name), ' X', d.product_quantity)
+               CAST( (SELECT GROUP_CONCAT(distinct (d.product_name), ' X', d.product_quantity)
                 FROM ps_order_detail as d
                 WHERE d.id_order = so.id_order
-                GROUP BY d.id_order)    as commande,
+                GROUP BY d.id_order)  as NCHAR(1000) ) as commande,
                IF(o.id_lang != 2, 1, 0) as to_translate,
                a.phone_mobile
         FROM ps_suivi_orders so
