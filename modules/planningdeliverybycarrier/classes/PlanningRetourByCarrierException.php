@@ -46,21 +46,14 @@ class PlanningRetourByCarrierException
             ppde.`id_carrier`,
             carrier.`name`,
             (SELECT 
-                    COUNT(*) AS real_nb_commande
-                FROM
-                    `ps_planning_retour_carrier_exception` pde,
-                    `ps_planning_delivery_carrier` pd,
-                    `ps_orders` o,
-                    `ps_carrier` pc
+                COUNT(*) AS real_nb_commande
+                    FROM `ps_suivi_orders` as so
+                    JOIN `ps_carrier` as car ON (car.id_carrier = so.id_carrier_retour)
+                    JOIN `ps_planning_retour_carrier_exception` pde ON car.id_carrier = pde.id_carrier
+                    
                 WHERE
                     1 = 1
-                        AND pd.`date_retour` BETWEEN pde.`date_from` AND pde.`date_to`
-                        AND pd.`id_order` = o.`id_order`
-                        AND pc.`id_carrier` = o.`id_carrier`
-                        AND o.`id_carrier` = pde.`id_carrier`
-                        AND pc.`deleted` = 0
-                        AND pc.`active` = 1
-                        AND o.`current_state` NOT IN (6)
+                        AND so.`date_retour` BETWEEN pde.`date_from` AND pde.`date_to`
                         AND pde.`id_planning_retour_carrier_exception` = ppde.`id_planning_retour_carrier_exception`) nb_commandes
         FROM
             `ps_planning_retour_carrier_exception` ppde
