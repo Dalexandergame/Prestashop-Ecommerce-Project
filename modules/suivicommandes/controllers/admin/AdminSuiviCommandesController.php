@@ -951,7 +951,34 @@ class AdminSuiviCommandesController extends ModuleAdminController
      */
     public function getBlocks()
     {
+        $result = [];
+        $noOrderIdList = [];
+        foreach ($this->_list as $suivi_order_list) {
+            if ($suivi_order_list['id_order'] == null) {
+                $noOrderIdList[] = $suivi_order_list['id_suivi_orders'];
+            }
+        }
+
         $w = "(" . implode(",", $this->warehouse_selected) . ")";
+
+        if ($noOrderIdList) {
+            $where2 = "WHERE (datediff(so.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(so.date_retour,'" . $this->dateLivraison . "')=0) AND so.id_suivi_orders IN (". implode(",",$noOrderIdList) .")"
+                . " AND so.id_warehouse IN " . $w . " "
+                . "AND so.id_carrier != $this->id_carrier_post ";
+
+            $sql2 = "SELECT count(*) as ncmd,
+                        IF( datediff(so.date_delivery,'" . $this->dateLivraison . "')=0, so.id_carrier, so.id_carrier_retour) as id_carrier,
+                        IF( datediff(so.date_delivery,'" . $this->dateLivraison . "')=0, ca.name, car.name) AS carrier_name,
+                        IF( datediff(so.date_delivery,'" . $this->dateLivraison . "')=0, ca.color, car.color) AS color,
+                        IF( datediff(so.date_delivery,'" . $this->dateLivraison . "')=0, soc.text, socr.text) AS text
+                        FROM " . _DB_PREFIX_ . "suivi_orders as so
+                        LEFT JOIN " . _DB_PREFIX_ . "suivi_orders_carrier soc ON (soc.id_carrier = so.id_carrier and datediff(soc.date_delivery,'" . $this->dateLivraison . "')=0)
+                        LEFT JOIN " . _DB_PREFIX_ . "suivi_orders_carrier socr ON (socr.id_carrier = so.id_carrier_retour and datediff(socr.date_delivery,'" . $this->dateLivraison . "')=0)
+                        JOIN " . _DB_PREFIX_ . "carrier as ca ON (ca.id_carrier = so.id_carrier)
+                        JOIN " . _DB_PREFIX_ . "carrier as car ON (car.id_carrier = so.id_carrier_retour) " . $where2 . "
+                        GROUP BY IF( datediff(so.date_delivery,'" . $this->dateLivraison . "')=0, so.id_carrier, so.id_carrier_retour) ";
+            $result = Db::getInstance()->ExecuteS($sql2);
+        }
 
         $where = "WHERE (datediff(so.date_delivery,'" . $this->dateLivraison . "')=0 OR datediff(so.date_retour,'" . $this->dateLivraison . "')=0) AND (o.current_state NOT IN (6) OR o.current_state IS NULL) "
                  . "AND so.id_warehouse IN " . $w . " "
@@ -969,7 +996,10 @@ class AdminSuiviCommandesController extends ModuleAdminController
                     JOIN " . _DB_PREFIX_ . "orders as o ON (so.id_order = o.id_order)
                     JOIN " . _DB_PREFIX_ . "carrier as car ON (car.id_carrier = so.id_carrier_retour) " . $where . "
                     GROUP BY IF( datediff(so.date_delivery,'" . $this->dateLivraison . "')=0, so.id_carrier, so.id_carrier_retour) ";
-        return Db::getInstance()->ExecuteS($sql1);
+
+        $result  = array_merge($result, Db::getInstance()->executeS($sql1)) ;
+
+        return $result;
 
     }
 
