@@ -622,8 +622,11 @@ class CherryCheckout extends Module
 
     private function _createCherryProduct()
     {
+        $defaultLang = (int) Configuration::get('PS_LANG_DEFAULT');
+
         // 1.1 Create Tax for cherry checkout
         $tax                                     = new Tax();
+        $tax->name[$defaultLang]                 = 'TVA Cherrycheckout 0%';
         $tax->name[$this->context->language->id] = 'TVA Cherrycheckout 0%';
         $tax->rate                               = 0;
         $tax->active                             = 1;
@@ -645,17 +648,21 @@ class CherryCheckout extends Module
 
         // 2. Create a hidden Category
         $cat                                             = new Category();
+        $cat->name[$defaultLang]                         = 'Cherry Checkout';
         $cat->name[$this->context->language->id]         = 'Cherry Checkout';
         $cat->id_parent                                  = 2;
         $cat->is_root_category                           = false;
         $cat->active                                     = 0;
+        $cat->link_rewrite[$defaultLang]                 = 'cherry-checkout';
         $cat->link_rewrite[$this->context->language->id] = "cherry-checkout";
         $cat->add();
 
         // 3. Create the Product, in the category, attached to the tax
         $product                                             = new Product();
         $product->active                                     = 1;
+        $product->link_rewrite[$defaultLang]                 = 'cherry-checkout-product';
         $product->link_rewrite[$this->context->language->id] = 'cherry-checkout-product';
+        $product->name[$defaultLang]                         = 'Cherry Checkout';
         $product->name[$this->context->language->id]         = 'Cherry Checkout'; // TODO : Add donation/contest attributes
         $product->id_category_default                        = $cat->id;
         $product->visibility                                 = 'none';
@@ -677,8 +684,8 @@ class CherryCheckout extends Module
         // Add quantity for all shops
         $shops = Shop::getShops();
         foreach ($shops as $s) {
-            StockAvailable::setQuantity($product->id, 0, 9999999, $s['id_shop']);
-            StockAvailable::setProductOutOfStock($product->id, 1, $s['id_shop']); // Enable the purchase, even if quantity is 0
+            StockAvailable::setQuantity($product->id, 0, 9999999, (int) $s['id_shop'], false);
+            StockAvailable::setProductOutOfStock($product->id, 1, (int) $s['id_shop']); // Enable the purchase, even if quantity is 0
         }
 
         // Create specific prices for each currencies, to prevent devise conversion
