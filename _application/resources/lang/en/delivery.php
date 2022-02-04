@@ -47,9 +47,19 @@ return [
     "ref" => "Ref:",
 
     //sms messages
-    "sms1" => "Hello,\nYour Christmas tree will be delivered tomorrow, between 7.30 and 19.00. You’ll receive a confirmation text 30 to 90 minutes before the delivery.",
-    "sms2" => "Hello,\nI have 3 Christmas trees to deliver before yours, I’m on my way ! If you’re not home, I’ll drop it in front of your door. \nYour Christmas tree delivery man",
-    "sms3" => "We will pick up your Christmas tree tomorrow between 7.30 and 19.00. Please let your tree in front of your door, where our deliveryman can access easily.",
+        //Ecosapin CH
+        "sms1_1" => "Hello,\nYour Christmas tree will be delivered tomorrow, between 7.30 and 19.00. You’ll receive a confirmation text 30 to 90 minutes before the delivery.",
+        "sms2_1" => "Hello,\nI have 3 Christmas trees to deliver before yours, I’m on my way ! If you’re not home, I’ll drop it in front of your door. \nYour Christmas tree delivery man",
+        "sms3_1" => "We will pick up your Christmas tree tomorrow between 7.30 and 19.00. Please let your tree in front of your door, where our deliveryman can access easily.",
+        //Ecosapin FR
+        "sms1_2" => "\nYour Christmas tree will be delivered tomorrow, between 7.30 and 19.00. You’ll receive a confirmation text 30 to 90 minutes before the delivery.",
+        "sms2_2" => "\nI have 3 Christmas trees to deliver before yours, I’m on my way ! If you’re not home, I’ll drop it in front of your door. \nYour Christmas tree delivery man",
+        "sms3_2" => "l pick up your Christmas tree tomorrow between 7.30 and 19.00. Please let your tree in front of your door, where our deliveryman can access easily.",
+        //My Abies
+        "sms1_3" => "delivered tomorrow, between 7.30 and 19.00. You’ll receive a confirmation text 30 to 90 minutes before the delivery.",
+        "sms2_3" => "deliver before yours, I’m on my way ! If you’re not home, I’ll drop it in front of your door. \nYour Christmas tree delivery man",
+        "sms3_3" => "tomorrow between 7.30 and 19.00. Please let your tree in front of your door, where our deliveryman can access easily.",
+
     "sendFirstSMS" => "Send first three SMS",
     "sendTomorrowSMS" => "Send tomorrow's SMS",
     "sendSMS1" => "tomorrow's delivery SMS",

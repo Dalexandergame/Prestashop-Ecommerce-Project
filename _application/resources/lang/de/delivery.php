@@ -47,9 +47,19 @@ return [
     "ref" => "Ref:",
 
     //sms messages
-    "sms1" => "Guten Tag,\nIhr Baum wird Ihnen morgen zwischen 7.30 Uhr und 19 Uhr geliefert. 30 bis 90 Minuten vor der Auslieferung wird Ihnen eine SMS zugesandt.",
-    "sms2" => "Ich bin auf dem Weg. Es sind noch 3 Bäume bevor ich Ihrem liefere. Wenn Sie nicht zu Hause sind, werde ich den Baum vor Ihrer Tür abstellen.",
-    "sms3" => "Unser Lieferant wird Ihren Baum morgen (7:30 - 19 Uhr) abholen. Wir danken Ihnen herzlich, dass Sie Ihren Baum an einen zugänglichen Ort stellen.",
+        //Ecosapin CH
+        "sms1_1" => "Guten Tag,\nIhr Baum wird Ihnen morgen zwischen 7.30 Uhr und 19 Uhr geliefert. 30 bis 90 Minuten vor der Auslieferung wird Ihnen eine SMS zugesandt.",
+        "sms2_1" => "Ich bin auf dem Weg. Es sind noch 3 Bäume bevor ich Ihrem liefere. Wenn Sie nicht zu Hause sind, werde ich den Baum vor Ihrer Tür abstellen.",
+        "sms3_1" => "Unser Lieferant wird Ihren Baum morgen (7:30 - 19 Uhr) abholen. Wir danken Ihnen herzlich, dass Sie Ihren Baum an einen zugänglichen Ort stellen.",
+        //Ecosapin FR
+        "sms1_2" => "\nIhr Baum wird Ihnen morgen zwischen 7.30 Uhr und 19 Uhr geliefert. 30 bis 90 Minuten vor der Auslieferung wird Ihnen eine SMS zugesandt.",
+        "sms2_2" => "Es sind noch 3 Bäume bevor ich Ihrem liefere. Wenn Sie nicht zu Hause sind, werde ich den Baum vor Ihrer Tür abstellen.",
+        "sms3_2" => "(7:30 - 19 Uhr) abholen. Wir danken Ihnen herzlich, dass Sie Ihren Baum an einen zugänglichen Ort stellen.",
+        //My Abies
+        "sms1_3" => "30 bis 90 Minuten vor der Auslieferung wird Ihnen eine SMS zugesandt.",
+        "sms2_3" => "Wenn Sie nicht zu Hause sind, werde ich den Baum vor Ihrer Tür abstellen.",
+        "sms3_3" => "Wir danken Ihnen herzlich, dass Sie Ihren Baum an einen zugänglichen Ort stellen.",
+
     "sendFirstSMS" => "Senden Sie die ersten drei SMS",
     "sendTomorrowSMS" => "Senden Sie die SMS von morgen",
     "sendSMS1" => "die SMS von morgen",

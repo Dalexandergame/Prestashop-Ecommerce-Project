@@ -257,7 +257,7 @@ class HomeController extends Controller
 
                 if ($nextDelivery->order->address->receive_sms == '1') {
                     if (strlen($phone) && substr_count($phone, "0") != strlen($phone) && $nextDelivery->sms2_received == 0 && $nextDelivery->id_carrier != 7) {
-                        $result = json_decode(SmsFactor::send(trans("delivery.sms2"), [$phone]));
+                        $result = json_decode(SmsFactor::send(trans("delivery.sms2_".$nextDelivery->order->id_shop), [$phone],$nextDelivery->order->id_shop));
                         $response[] = $result;
                         if($result->sent == 1) {
                             $nextDelivery->sms2_received = 1;
@@ -326,7 +326,7 @@ class HomeController extends Controller
                     $sms   = $delivery->date_delivery === $date? "sms1": "sms3";
                     $phone = trim(str_replace([" ", ".", "(0)"], "", $delivery->phone_mobile));
                     if ($delivery->order->address->receive_sms == '1' && strlen($phone) && substr_count($phone, "0") != strlen($phone) && $delivery->{$sms."_received"} == 0 && $delivery->id_carrier != 7) {
-                        $result = json_decode(SmsFactor::send(trans("delivery.$sms"), [$phone]));
+                        $result = json_decode(SmsFactor::send(trans("delivery.$sms"."_".$delivery->order->id_shop), [$phone], $delivery->order->id_shop));
                         $response[] = $result;
                         if($result->sent == 1) {
                             $delivery->{$sms."_received"} = 1;
@@ -361,8 +361,8 @@ class HomeController extends Controller
                         $count     = 0;
                     }
                     if ($delivery->order->address->receive_sms == '1' && $count < 3) {
-                        if (strlen($phone) && substr_count($phone, "0") != strlen($phone) && $delivery->sms2_received == 0 && $delivery->id_carrier != 7) {
-                            $result = json_decode(SmsFactor::send(trans("delivery.sms2"), [$phone]));
+                        if (strlen($phone) && substr_count($phone, "0") != strlen($phone) /*&& $delivery->sms2_received == 0*/ && $delivery->id_carrier != 7) {
+                            $result = json_decode(SmsFactor::send(trans("delivery.sms2_".$delivery->order->id_shop), [$phone], $delivery->order->id_shop));
                             $response[] = $result;
                             if($result->sent == 1) {
                                 $delivery->sms2_received = 1;
@@ -386,7 +386,7 @@ class HomeController extends Controller
 
                     if ($delivery->order->address->receive_sms == '1') {
                         if (strlen($phone) && substr_count($phone, "0") != strlen($phone) && $delivery->{$sms."_received"} == 0 && $delivery->id_carrier != 7) {
-                            $result = json_decode(SmsFactor::send(trans("delivery.$sms"), [$phone]));
+                            $result = json_decode(SmsFactor::send(trans("delivery.$sms"."_".$delivery->order->id_shop), [$phone], $delivery->order->id_shop));
                             $response[] = $result;
                             if($result->sent == 1) {
                                 $delivery->{$sms . "_received"} = 1;
@@ -427,7 +427,7 @@ class HomeController extends Controller
                 strlen($phone) && substr_count($phone, "0") !=
                 strlen($phone) && $delivery->{$sms . "_received"} == 0 &&
                 $delivery->id_carrier != 7) {
-                $result     = json_decode(SmsFactor::send(trans("delivery.$sms"), [$phone]));
+                $result     = json_decode(SmsFactor::send(trans("delivery.$sms"."_".$delivery->order->id_shop), [$phone], $delivery->order->id_shop));
                 $response[] = $result;
 
                 if($result->sent == 1) {

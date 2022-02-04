@@ -12,18 +12,20 @@ namespace App\Http\Services;
 class SmsFactor
 {
 
-    public static function send($message, $numbers)
+    public static function send($message, $numbers, $id_shop)
     {
         $recipients = array();
         foreach ($numbers as $number) {
             $recipients[] = array('value' => $number);
         }
-
+        if ($id_shop == 3) $shop_name = "My Abies";
+        elseif ($id_shop == 2) $shop_name = "Ecosapin FR";
+        else $shop_name = "Ecosapin CH";
         $postdata = array(
             'sms' => array(
                 'message' => array(
                     'text' => $message,
-                    'sender' => "Ecosapin",
+                    'sender' => $shop_name,
                 ),
                 'recipients' => array(
                     'gsm' => $recipients
