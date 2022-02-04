@@ -47,9 +47,19 @@ return [
     "ref" => "Réf:",
     
     //sms messages
-    "sms1" => "Bonjour,\nVotre sapin vous sera livré demain, entre 7h30 et 19h. Un SMS de confirmation vous parviendra entre 30 et 90 minutes avant la livraison.\nVotre sapiniste",
-    "sms2" => "Bonjour,\nIl reste 3 sapins à livrer avant le votre, je suis en route. En cas d'absence, je le déposerai devant votre porte.\nVotre sapiniste",
-    "sms3" => "Notre livreur viendra récupérer votre sapin demain (7h30 - 19h). Nous vous invitons à laisser votre sapin à un endroit accessible pour notre livreur.\nVotre sapiniste",
+        //Ecosapin CH
+        "sms1_1" => "Bonjour",
+        "sms2_1" => "Bonjour",
+        "sms3_1" => "Notre livreur viendra",
+        //Ecosapin FR
+        "sms1_2" => "Bonjour,\nVotre sapin vous sera livré demain, entre 7h30 et 19h. Un SMS de confirmation vous parviendra entre 30 et 90 minutes avant la livraison.\nVotre sapiniste",
+        "sms2_2" => "Bonjour,\nIl reste 3 sapins à livrer avant le votre, je suis en route. En cas d'absence, je le déposerai devant votre porte.\nVotre sapiniste",
+        "sms3_2" => "Notre livreur viendra récupérer votre sapin demain (7h30 - 19h). Nous vous invitons à laisser votre sapin à un endroit accessible pour notre livreur.\nVotre sapiniste",
+        //My Abies
+        "sms1_3" => "Votre sapin vous sera livré demain, entre 7h30 et 19h. Un SMS de confirmation vous parviendra entre 30 et 90 minutes avant la livraison.\nVotre sapiniste",
+        "sms2_3" => "Il reste 3 sapins à livrer avant le votre, je suis en route. En cas d'absence, je le déposerai devant votre porte.\nVotre sapiniste",
+        "sms3_3" => "Nous vous invitons à laisser votre sapin à un endroit accessible pour notre livreur.\nVotre sapiniste",
+
     "sendFirstSMS" => "Envoyer les trois premiers SMS",
     "sendTomorrowSMS" => "Envoyer les SMS de demain",
     "sendSMS1" => "SMS de livraison de demain",

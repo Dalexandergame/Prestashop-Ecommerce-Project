@@ -143,7 +143,7 @@ function drawRouteMap(locations,pathcolor) {
                 document.getElementById('info').innerHTML += "instance=" + instance + " doesn't exist<br>";
             }
         } else {
-            document.getElementsById('info').innerHTML += "instance=" + instance + " status=" + status + "<br>";
+            document.getElementById('info').innerHTML += "instance=" + instance + " status=" + status + "<br>";
         }
     });
     // alert(instance);
