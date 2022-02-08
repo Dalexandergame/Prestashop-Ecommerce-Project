@@ -48,17 +48,17 @@ return [
 
     //sms messages
         //Ecosapin CH
-        "sms1_1" => "Guten Tag,\nIhr Baum wird Ihnen morgen zwischen 7.30 Uhr und 19 Uhr geliefert. 30 bis 90 Minuten vor der Auslieferung wird Ihnen eine SMS zugesandt.",
-        "sms2_1" => "Ich bin auf dem Weg. Es sind noch 3 Bäume bevor ich Ihrem liefere. Wenn Sie nicht zu Hause sind, werde ich den Baum vor Ihrer Tür abstellen.",
-        "sms3_1" => "Unser Lieferant wird Ihren Baum morgen (7:30 - 19 Uhr) abholen. Wir danken Ihnen herzlich, dass Sie Ihren Baum an einen zugänglichen Ort stellen.",
+        "sms1_1" => "Guten Tag,\nIhr Baum wird Ihnen morgen zwischen 7.30 Uhr und 19 Uhr geliefert. 30 bis 90 Minuten vor der Auslieferung wird Ihnen eine SMS zugesandt.\nEcosapin",
+        "sms2_1" => "Ich bin auf dem Weg. Es sind noch 3 Bäume bevor ich Ihrem liefere. Wenn Sie nicht zu Hause sind, werde ich den Baum vor Ihrer Tür abstellen.\nEcosapin",
+        "sms3_1" => "Unser Lieferant wird Ihren Baum morgen (7:30 - 19 Uhr) abholen. Wir danken Ihnen herzlich, dass Sie Ihren Baum an einen zugänglichen Ort stellen.\nEcosapin",
         //Ecosapin FR
-        "sms1_2" => "\nIhr Baum wird Ihnen morgen zwischen 7.30 Uhr und 19 Uhr geliefert. 30 bis 90 Minuten vor der Auslieferung wird Ihnen eine SMS zugesandt.",
-        "sms2_2" => "Es sind noch 3 Bäume bevor ich Ihrem liefere. Wenn Sie nicht zu Hause sind, werde ich den Baum vor Ihrer Tür abstellen.",
-        "sms3_2" => "(7:30 - 19 Uhr) abholen. Wir danken Ihnen herzlich, dass Sie Ihren Baum an einen zugänglichen Ort stellen.",
+        "sms1_2" => "Bonjour,\nVotre sapin vous sera livré demain, entre 7h30 et 19h. Un SMS de confirmation vous parviendra entre 30 et 90 minutes avant la livraison.\nVotre sapiniste",
+        "sms2_2" => "Bonjour,\nIl reste 3 sapins à livrer avant le votre, je suis en route. En cas d'absence, je le déposerai devant votre porte.\nVotre sapiniste",
+        "sms3_2" => "Notre livreur viendra récupérer votre sapin demain (7h30 - 19h). Nous vous invitons à laisser votre sapin à un endroit accessible.\nVotre sapiniste",
         //My Abies
-        "sms1_3" => "30 bis 90 Minuten vor der Auslieferung wird Ihnen eine SMS zugesandt.",
-        "sms2_3" => "Wenn Sie nicht zu Hause sind, werde ich den Baum vor Ihrer Tür abstellen.",
-        "sms3_3" => "Wir danken Ihnen herzlich, dass Sie Ihren Baum an einen zugänglichen Ort stellen.",
+        "sms1_3" => "Guten Tag,\nIhr Baum wird Ihnen morgen zwischen 7.30 Uhr und 19 Uhr geliefert. 30 bis 90 Minuten vor der Auslieferung wird Ihnen eine SMS zugesandt.\nMyAbies",
+        "sms2_3" => "Ich bin auf dem Weg. Es sind noch 3 Bäume bevor ich Ihrem liefere. Wenn Sie nicht zu Hause sind, werde ich den Baum vor Ihrer Tür abstellen.\nMyAbies",
+        "sms3_3" => "Unser Lieferant wird Ihren Baum morgen (7:30 - 19 Uhr) abholen. Wir danken Ihnen herzlich, dass Sie Ihren Baum an einen zugänglichen Ort stellen.\nMyAbies",
 
     "sendFirstSMS" => "Senden Sie die ersten drei SMS",
     "sendTomorrowSMS" => "Senden Sie die SMS von morgen",
