@@ -231,6 +231,14 @@ class CustomerAddressType extends AbstractType
                 ]),
             ],
         ])
+        ->add('open_houre', TextType::class, [
+            'label' => $this->translator->trans('Opening Hour', [], 'Admin.Forms.Labels'),
+            'required' => false,
+            'empty_data' => '00:00',
+            'constraints' => [
+                new CleanHtml(),
+            ],
+        ])
         ->add('vat_number', TextType::class, [
             'required' => false,
             'empty_data' => '',

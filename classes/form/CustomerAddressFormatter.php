@@ -229,6 +229,8 @@ class CustomerAddressFormatterCore implements FormFormatterInterface
                 return $this->translator->trans('Mobile phone', [], 'Shop.Forms.Labels');
             case 'company':
                 return $this->translator->trans('Company', [], 'Shop.Forms.Labels');
+            case 'open_houre':
+                return $this->translator->trans('Opening hour ', [], 'Shop.Forms.Labels');
             case 'vat_number':
                 return $this->translator->trans('VAT number', [], 'Shop.Forms.Labels');
             case 'receive_sms':
