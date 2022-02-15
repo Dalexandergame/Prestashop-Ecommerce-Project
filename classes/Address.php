@@ -105,6 +105,9 @@ class AddressCore extends ObjectModel
     /** @var bool Default True to receive sms */
     public $receive_sms ;
 
+    /** @var string Company Opening Hours   */
+    public $open_houre ;
+
     /** @var array Zone IDs cache */
     protected static $_idZones = [];
     /** @var array Country IDs cache */
@@ -143,6 +146,7 @@ class AddressCore extends ObjectModel
             'date_add' => ['type' => self::TYPE_DATE, 'validate' => 'isDate', 'copy_post' => false],
             'date_upd' => ['type' => self::TYPE_DATE, 'validate' => 'isDate', 'copy_post' => false],
             'receive_sms' => ['type' => self::TYPE_BOOL, 'validate' => 'isBool', 'copy_post' => false],
+            'open_houre' => ['type' => self::TYPE_STRING, 'copy_post' => false],
         ],
     ];
 
