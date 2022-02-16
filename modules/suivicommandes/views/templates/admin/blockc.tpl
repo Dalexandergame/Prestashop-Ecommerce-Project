@@ -6,7 +6,7 @@
         {** By: Abdelhafid El kadiri*}
         {**/*}
         <h3 style="background-color: {$data.color}">{$data.carrier_name}
-            <a href="index.php?controller=AdminSuiviCommandes&pdf&date={$dateLivraison}&idc={$data.id_carrier}&wh={$wh}&token={$token}" class="btn btn-default _blank pull-right" style="margin-top: 5px;">
+            <a href="index.php?controller=AdminSuiviCommandes&pdf&date={$dateLivraison}&idc={$data.id_carrier}&wh={$wh}&token={$token}" class="btn btn-default _blank pull-right" style="margin: 4px;padding: 2px 4px;">
                 <i class="icon-file-text"></i>
             </a>
         </h3>
