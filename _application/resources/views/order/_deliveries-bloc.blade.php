@@ -36,7 +36,10 @@
                         <div class="collapse" id="collapse{{md5($name['name'])}}">
                             <div class="card card-body" style="margin: 0;padding: 10px;box-shadow: unset">
                                 @foreach($name['total'] as $key => $item)
-                                    {{$key}}: {{$item}}<br/>
+                                    <div class="d-flex justify-content-between mx-5">
+                                        <div>{{$key}}</div>
+                                        <div>{{$item}}</div>
+                                    </div> <br/>
                                 @endforeach
                             </div>
                         </div>
