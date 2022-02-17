@@ -112,6 +112,7 @@ modules/
 !modules/tunnelventeabies
 !modules/suivicommandes
 !modules/customersearch
+!modules/crmpayment
 !modules/gszonevente
 !modules/ecosapinorders
 !modules/ecosapinpartners
