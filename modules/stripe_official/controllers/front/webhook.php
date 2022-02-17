@@ -129,6 +129,10 @@ class stripe_officialWebhookModuleFrontController extends ModuleFrontController
                 $paymentIntent = $event->data->object->payment_intent;
             }
 
+            if ($event->type == 'charge.refunded' && !$event->data->object->refunded) {
+                $events_states['charge.refunded'] = Configuration::get('PS_OS_PAYMENT');
+            }
+
             // Create the handler
             $handler = new ActionsHandler();
             $handler->setConveyor(array(
